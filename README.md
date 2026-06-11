@@ -22,26 +22,26 @@ analysis and SPARQL-based querying of constrained writing practices across
 heterogeneous corpora, and is aligned by reference with CIDOC CRM, LRMoo, PROV-O,
 SKOS, INTRO and Dublin Core Terms.
 
-> **[IT]** DeSMòS (Descriptive Semantic Model for Structured Texts) è un'ontologia
-> OWL 2 per la descrizione formale delle costrizioni letterarie intese come dispositivi
-> generativi: procedure regolate che orientano il processo di scrittura e determinano
-> la genesi di forme testualmente identificabili. Muovendo dall'eredità teorica delle
-> tradizioni oulipiana e oplepiana, l'ontologia operativizza la costrizione non come
-> descrittore stilistico applicato a posteriori ma come principio produttivo
-> ricostruibile a partire da evidenze testuali. Tre piani di modellazione articolano
-> questo approccio: (i) un piano procedurale, in cui le costrizioni sono reificate come
-> istanze di `crm:E29_Design_or_Procedure` impiegate in un evento di
-> `lrmoo:F28_Expression_Creation`; (ii) un piano tipologico, in cui la natura,
-> l'origine (tradizione vs. invenzione autoriale), le operazioni costitutive e le unità
-> formali o semantiche su cui ciascuna costrizione opera sono qualificate attraverso
-> vocabolari controllati SKOS; e (iii) un piano evidenziale, in cui l'identificabilità
-> della costrizione si fonda su due ordini di evidenze complementari, caratteristiche
-> intratestuali e dichiarazioni paratestuali genettiane (epitestuali o peritestuali),
-> modellati rispettivamente come `desmos:TextualFeature` e `crm:E33_Linguistic_Object`.
-> DeSMòS è progettata per supportare la documentazione, l'analisi comparativa e
-> l'interrogazione SPARQL delle pratiche di scrittura vincolata su corpora eterogenei,
-> ed è allineata per riferimento a CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO e Dublin
-> Core Terms.
+**[IT]** DeSMòS (Descriptive Semantic Model for Structured Texts) è un'ontologia
+OWL 2 per la descrizione formale delle costrizioni letterarie intese come dispositivi
+generativi: procedure regolate che orientano il processo di scrittura e determinano
+la genesi di forme testualmente identificabili. Muovendo dall'eredità teorica delle
+tradizioni oulipiana e oplepiana, l'ontologia operativizza la costrizione non come
+descrittore stilistico applicato a posteriori ma come principio produttivo
+ricostruibile a partire da evidenze testuali. Tre piani di modellazione articolano
+questo approccio: (i) un piano procedurale, in cui le costrizioni sono reificate come
+istanze di `crm:E29_Design_or_Procedure` impiegate in un evento di
+`lrmoo:F28_Expression_Creation`; (ii) un piano tipologico, in cui la natura,
+l'origine (tradizione vs. invenzione autoriale), le operazioni costitutive e le unità
+formali o semantiche su cui ciascuna costrizione opera sono qualificate attraverso
+vocabolari controllati SKOS; e (iii) un piano evidenziale, in cui l'identificabilità
+della costrizione si fonda su due ordini di evidenze complementari, caratteristiche
+intratestuali e dichiarazioni paratestuali genettiane (epitestuali o peritestuali),
+modellati rispettivamente come `desmos:TextualFeature` e `crm:E33_Linguistic_Object`.
+DeSMòS è progettata per supportare la documentazione, l'analisi comparativa e
+l'interrogazione SPARQL delle pratiche di scrittura vincolata su corpora eterogenei,
+ed è allineata per riferimento a CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO e Dublin
+Core Terms.
 
 ---
 
