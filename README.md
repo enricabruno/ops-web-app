@@ -1,4 +1,4 @@
-# ops-web-app — Opificio Potenziale Semantico
+# ops-web-app - Opificio Potenziale Semantico
 
 ## Abstract
 
