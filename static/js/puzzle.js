@@ -1,4 +1,4 @@
-/* puzzle.js — Genera la fila "OPS!" di 6 tessere SVG con incastri a forma di puzzle.*/
+/* puzzle.js — Genera la fila di tessere SVG con incastri a forma di puzzle.*/
 
 (function () {
   var cfgEl = document.getElementById('puzzle-config');
@@ -11,14 +11,13 @@
   var SVGNS = 'http://www.w3.org/2000/svg';
 
   /* Pattern dei lati. Invariante: tiles[N].right e tiles[N+1].left
-     sono sempre opposti (bump↔concave) → le tessere combaciano. */
+     sono sempre opposti (bump↔concave) → le tessere combaciano.
+     Prima tessera: left=flat. Ultima tessera: right=flat. */
   var tilePatterns = [
-    { top: 'bump',    right: 'bump', bottom: 'concave', left: 'flat'    }, // O
-    { top: 'concave', right: 'bump', bottom: 'bump',    left: 'concave' }, // P
-    { top: 'bump',    right: 'bump', bottom: 'concave', left: 'concave' }, // L
-    { top: 'concave', right: 'bump', bottom: 'bump',    left: 'concave' }, // E
-    { top: 'bump',    right: 'bump', bottom: 'concave', left: 'concave' }, // P
-    { top: 'concave', right: 'flat', bottom: 'bump',    left: 'concave' }  // O
+    { top: 'bump',    right: 'bump',    bottom: 'concave', left: 'flat'    }, // O
+    { top: 'concave', right: 'concave', bottom: 'bump',    left: 'concave' }, // P
+    { top: 'bump',    right: 'bump',    bottom: 'concave', left: 'bump'    }, // S
+    { top: 'concave', right: 'flat',    bottom: 'bump',    left: 'concave' }  // !
   ];
 
   /* Curva canonica del lato TOP (0,0)→(100,0).
@@ -72,7 +71,7 @@
     return d + ' Z';
   }
 
-  for (var n = 0; n < 6; n++) {
+  for (var n = 0; n < letters.length; n++) {
     var wrapper = document.createElement('div');
     wrapper.className = 'puzzle-piece-wrapper';
     wrapper.style.setProperty('--piece-index', String(n));
