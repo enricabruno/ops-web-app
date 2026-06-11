@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 px-5">
+    <div class="row">
+        <aside class="col-md-3 border-end">
+            <h4 class="fw-bold mb-4">Esplora</h4>
+
+            <button type="button" class="btn btn-sm btn-outline-custom" onclick="resetFilters()">
+                Pulisci Filtri
+            </button>
+
+            <div class="mb-3 mt-4">
+                <label class="fw-bold small text-uppercase text-muted">Autore:</label>
+                <select id="filterAuthor" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutti gli autori</option>
+                    {% for author in facets.authors %}
+                        <option value="{{ author }}">{{ author }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="fw-bold small text-uppercase text-muted">Forma testuale:</label>
+                <select id="filterGenre" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutte le forme testuali</option>
+                    {% for work_type in facets.work_types %}
+                        <option value="{{ work_type }}">{{ work_type|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold small text-uppercase text-muted">Tipo di costrizione:</label>
+                <select id="filterConstraintType" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutti i tipi</option>
+                    {% for ct in facets.constraint_types %}
+                        <option value="{{ ct }}">{{ 'Formale' if ct == 'FormalConstraint' else 'Semantico' if ct == 'SemanticConstraint' else ct }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold small text-uppercase text-muted">Origine della costrizione:</label>
+                <select id="filterOrigin" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutte le origini</option>
+                    {% for origin in facets.origins %}
+                        <option value="{{ origin }}">{{ origin|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold small text-uppercase text-muted">Operazione procedurale:</label>
+                <select id="filterOperation" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutte le operazioni</option>
+                    {% for op in facets.operations %}
+                        <option value="{{ op }}">{{ op }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="fw-bold small text-uppercase text-muted">Unità linguistica:</label>
+                <select id="filterUnit" class="form-select mt-1" onchange="applyFilters()">
+                    <option value="">Tutte le unità</option>
+                    {% for unit in facets.units %}
+                        <option value="{{ unit }}">{{ unit }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </aside>
+
+        <main class="col-md-9 ps-4">
+            {% if error %}
+            <div class="alert alert-danger">
+                <strong>Errore di connessione:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            <div class="accordion" id="corpusAccordion">
+                {% for expr in expressions %}
+                <div class="expression-item mb-1"
+                     data-author="{{ expr.author }}"
+                     data-type="{{ expr.type }}"
+                     data-constraint-type="{{ expr.constraint_types | join(',') }}"
+                     data-origins="{{ expr.origins | join(',') }}"
+                     data-operations="{{ expr.operations | join(',') }}"
+                     data-units="{{ expr.units | join(',') }}">
+
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="heading-{{ loop.index }}">
+                            <button class="accordion-button collapsed px-0 py-3 bg-transparent shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-{{ loop.index }}"
+                            aria-expanded="false"
+                            aria-controls="collapse-{{ loop.index }}">
+                            <span class="fw-semibold text"><i>{{ expr.title }}</i></span>
+                        </button>
+                        </h2>
+                        <div id="collapse-{{ loop.index }}"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="heading-{{ loop.index }}"
+                             data-bs-parent="">
+                            <div class="accordion-body pt-1 pb-3 ps-0">
+                                <p class="text-muted x-small mb-2">
+                                    <span class="fw-bold text-uppercase">Autore:</span>
+                                    {{ expr.author }}
+                                </p>
+                                {% set labeled = expr.constraints | selectattr('label') | list %}
+                                {% if labeled %}
+                                <p class="text-muted x-small mb-3">
+                                    <span class="fw-bold text-uppercase">Costrizioni usate:</span>
+                                    {% for c in labeled %}
+                                    <a href="/explain/{{ c.label }}"
+                                    class="constraint-badge"
+                                    title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
+                                    {{ c.label }}
+                                </a>{% if not loop.last %};{% endif %}
+                                {% endfor %}
+                            </p>
+                            {% elif expr.constraints %}
+                            <p class="text-muted small mb-3">
+                                <span class="fw-bold text-uppercase label-xs">Costrizioni:</span>
+                                Etichette non disponibili — verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
+                            {% else %}
+                            <p class="text-muted small mb-3">
+                                <span class="fw-bold text-uppercase label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
+                                {% endif %}
+
+                                <a href="/expression?uri={{ expr.uri | urlencode }}"
+                                   class="btn-approfondisci">
+                                    Approfondisci &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/corpus-filters.js') }}"></script>
+{% endblock %}

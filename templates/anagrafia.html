@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}{% if data %}Anagrafia — {{ data.expr_title }}{% else %}Anagrafia{% endif %} — DeSMòS{% endblock %}
+
+{% block content %}
+<div class="container mt-5 px-5 content-container">
+
+  {% if error %}
+  <div class="alert alert-danger">
+    <strong>Errore:</strong> {{ error }}
+    <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
+  </div>
+
+  {% elif data %}
+
+  <div class="mb-4">
+    <h1 class="fw-bold expression-title mb-1 anag-page-title">
+      Riscrittura de <em>{{ data.source_title }}</em> di Umberto Eco 
+    </h1>
+  </div>
+
+  <div class="row border-top pt-4 g-4 mb-5">
+    <div class="col-md-6">
+      <p class="text-muted mb-2 anag-section-header">
+    Ipotesto — {{ data.source_title }} (<a href="{{ data.src_author_link }}" target="_blank" class="text-decoration-none link-inherit">
+    {{ data.src_author }} <i class="bi bi-box-arrow-up-right icon-tiny"></i></a>)
+</p>
+      <div class="anag-text-block">
+        {% for tok in data.source_tokens %}
+        <span class="src-tok" data-idx="{{ loop.index0 }}">{{ tok }}</span>{% if not loop.last %} {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="text-muted mb-2 anag-section-header">
+        Ipertesto — {{ data.expr_title }}(<a href="{{ data.author_link }}" target="_blank" class="text-decoration-none link-inherit">
+      {{ data.author }} <i class="bi bi-box-arrow-up-right icon-tiny"></i></a>)
+      </p>
+      <div class="anag-text-block">
+        {% for tok in data.target_tokens %}
+        <span class="tgt-tok" data-idx="{{ loop.index0 }}">{{ tok }}</span>{% if not loop.last %} {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="anag-wrapper mb-3" id="anag-wrapper">
+    <svg id="anag-svg"></svg>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 mb-5">
+    <span class="text-muted legend-label">Basso spostamento</span>
+    <div class="anag-legend-gradient"></div>
+    <span class="text-muted legend-label">Alto spostamento</span>
+    <span class="text-muted ms-3 legend-hint">
+      Passa il cursore su una linea per evidenziare la corrispondenza.
+    </span>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-auto">
+      <div class="anag-stat-box">
+        <span class="anag-stat-label">Token ipotesto</span>
+        <span class="anag-stat-value">{{ data.stats.src_count }}</span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="anag-stat-box">
+        <span class="anag-stat-label">Token ipertesto</span>
+        <span class="anag-stat-value">{{ data.stats.tgt_count }}</span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="anag-stat-box">
+        <span class="anag-stat-label">Corrispondenze</span>
+        <span class="anag-stat-value">{{ data.stats.matched }}</span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="anag-stat-box">
+        <span class="anag-stat-label">Token spostati</span>
+        <span class="anag-stat-value">{{ data.stats.moved }}</span>
+      </div>
+    </div>
+    {% if data.stats.unmatched_tgt > 0 %}
+    <div class="col-auto">
+      <div class="anag-stat-box">
+        <span class="anag-stat-label">Non mappati</span>
+        <span class="anag-stat-value anag-stat-value--muted">{{ data.stats.unmatched_tgt }}</span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data %}
+  <script id="anag-data" type="application/json">
+  {
+    "sourceTokens": {{ data.source_tokens | tojson }},
+    "targetTokens": {{ data.target_tokens | tojson }},
+    "edges":        {{ data.edges | tojson }}
+  }
+  </script>
+  <script src="{{ url_for('static', filename='js/anagrafia.js') }}"></script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}SPARQL Endpoint{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neo.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+  <div class="row g-4">
+
+    <!-- Editor Panel -->
+    <div class="col-lg-12">
+      <section class="card shadow-sm">
+        <div class="card-body">
+
+          <!-- Toolbar -->
+          <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+            <!-- Template Queries Dropdown -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline-neutral dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-file-code me-1"></i>Query di esempio
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end query-template-menu">
+                <li>
+                  <button class="dropdown-item small" onclick="loadTemplate('expressions')">
+                    <i class="fa fa-list me-2 text-muted"></i>Tutte le espressioni per autore
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item small" onclick="loadTemplate('constraints')">
+                    <i class="fa fa-tag me-2 text-muted"></i>Costrizioni per ambito
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item small" onclick="loadTemplate('derivatives')">
+                    <i class="fa fa-code-branch me-2 text-muted"></i>Opere derivate e fonti intertestuali
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CodeMirror Editor -->
+          <div id="sparql-editor-host"></div>
+
+          <!-- Action Row -->
+          <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+            <button type="button" class="btn btn-sm btn-outline-neutral" onclick="clearEditor()">
+              <i class="fa fa-eraser me-1"></i>Pulisci
+            </button>
+            <button type="button" class="btn btn-primary px-3" id="execute-btn" onclick="executeQuery()" title="Esegui Query">
+              <span id="btn-text">
+                <i class="fa fa-play"></i>
+              </span>
+              <span id="btn-spinner" class="d-none">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </div><!-- /row -->
+
+  <!-- Results Section -->
+  <section id="results-section" class="mt-4 d-none">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+        <span class="fw-semibold small">Risultati della Query</span>
+        <span id="results-count-badge" class="badge bg-secondary"></span>
+      </div>
+      <div id="query-results" class="card-body p-3"></div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sparql/sparql.min.js"></script>
+<script src="{{ url_for('static', filename='js/sparql-engine.js') }}"></script>
+{% endblock %}

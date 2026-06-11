@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 px-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="fw-bold constraint-title">{{ info.label }}</h1>
+            <div class="mb-5 definition-container">
+                <p class="text_explain">{{ info.definition }}</p>
+            </div>
+            <div class="metadata-grid mb-5">
+                <div class="metadata-row">
+                    <div class="metadata-label">Categoria</div>
+                    <div class="metadata-value">{{ info.display_type }}</div>
+                </div>
+
+                <div class="metadata-row">
+                    <div class="metadata-label">Origine</div>
+                    <div class="metadata-value">{{ info.origin }}</div>
+                </div>
+
+                {% if info.operations %}
+                <div class="metadata-row">
+                    <div class="metadata-label">Operazione</div>
+                    <div class="metadata-value">
+                        {% for item in info.operations %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %}</sup><span>&nearr;</span></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if info.formal_units %}
+                <div class="metadata-row">
+                    <div class="metadata-label">Unità formale</div>
+                    <div class="metadata-value">
+                        {% for item in info.formal_units %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %}</sup><span>&nearr;</span></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if info.semantic_units %}
+                <div class="metadata-row">
+                    <div class="metadata-label">Unità semantica</div>
+                    <div class="metadata-value">
+                        {% for item in info.semantic_units %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %}</sup><span>&nearr;</span></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

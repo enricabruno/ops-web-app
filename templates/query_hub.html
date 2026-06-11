@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="query-hub-section py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-4">Interrogazione del Knowledge Graph</h1>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Natural Language Card -->
+      <div class="col-md-5 d-flex">
+        <a href="/visual_query" class="query-hub-link query-hub-nl card w-100 text-decoration-none">
+          <div class="query-hub-content">
+            <h3 class="fw-bold mb-3 query-hub-title">Visual Query</h3>
+            <p class="mb-0 query-hub-desc">Poni le tue domande in modo guidato.</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- SPARQL Card -->
+      <div class="col-md-5 d-flex">
+        <a href="/sparql" class="query-hub-link query-hub-sparql card w-100 text-decoration-none">
+          <div class="query-hub-content">
+            <h3 class="fw-bold mb-3 query-hub-title">SPARQL Endpoint</h3>
+            <p class="mb-0 query-hub-desc">Accedi direttamente all'endpoint.</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
