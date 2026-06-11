@@ -3,21 +3,6 @@
 {% block content %}
 <section class="hero-puzzle position-relative d-flex flex-column justify-content-center align-items-center min-vh-100 overflow-hidden">
     
-    <div class="home-top-bar position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center p-4 z-3">
-        <h0 class="h3 fw-bolder m-0 text-dark home-brand-heading">OPS!</h0>
-        
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ☰ 
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-lg">
-                <li><a class="dropdown-item" href="/project">Progetto</a></li>
-                <li><a class="dropdown-item" href="/corpus">Esplora il Corpus</a></li>
-                <li><a class="dropdown-item" href="/query_hub">Interrogazione Dati</a></li>
-            </ul>
-        </div>
-    </div>
-
     <div class="puzzle-container" id="puzzleContainer"></div>
     <script id="puzzle-config" type="application/json">{"word": "OPS!"}</script>
     <script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
