@@ -1,4 +1,4 @@
-# ops-web-app — DeSMòS Knowledge Graph Interface
+# ops-web-app — Opificio Potenziale Semantico
 
 ## Abstract
 
@@ -167,7 +167,7 @@ python app.py
 
 | Prefix | Namespace | Standard |
 |---|---|---|
-| `desmos:` | `https://w3id.org/desmos/` | DeSMòS ontology (this project) |
+| `desmos:` | `https://w3id.org/desmos/` | DeSMòS ontology |
 | `crm:` | `http://www.cidoc-crm.org/cidoc-crm/` | CIDOC CRM |
 | `lrmoo:` | `http://iflastandards.info/ns/lrm/lrmoo/` | LRMoo (IFLA LRM) |
 | `prov:` | `http://www.w3.org/ns/prov#` | PROV-O |
