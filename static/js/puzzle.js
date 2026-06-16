@@ -71,6 +71,8 @@
     return d + ' Z';
   }
 
+  var wrappers = [];
+
   for (var n = 0; n < letters.length; n++) {
     var wrapper = document.createElement('div');
     wrapper.className = 'puzzle-piece-wrapper';
@@ -96,9 +98,34 @@
     svg.appendChild(text);
     wrapper.appendChild(svg);
     container.appendChild(wrapper);
+    wrappers.push(wrapper);
   }
+
+  var lastPiece = wrappers[wrappers.length - 1];
+  var introText = document.getElementById('heroIntroText');
 
   setTimeout(function () {
     container.classList.add('converged');
   }, 1500);
+
+  /* Dopo l'incastro completo, l'ultima tessera ("!") cade dalla fila
+     e subito dopo compare il testo introduttivo. La tessera viene
+     sfilata dal flusso flex (posizionata in absolute al suo posto
+     attuale) cosi le tessere restanti ("OPS") si ricentrano rispetto
+     al testo che comparirà sotto. */
+  setTimeout(function () {
+    if (lastPiece) {
+      var pieceRect = lastPiece.getBoundingClientRect();
+      var containerRect = container.getBoundingClientRect();
+      lastPiece.style.position = 'absolute';
+      lastPiece.style.left = (pieceRect.left - containerRect.left) + 'px';
+      lastPiece.style.top = (pieceRect.top - containerRect.top) + 'px';
+      lastPiece.style.margin = '0';
+      lastPiece.classList.add('piece-drop');
+    }
+  }, 3800);
+
+  setTimeout(function () {
+    if (introText) introText.classList.add('visible');
+  }, 4500);
 })();

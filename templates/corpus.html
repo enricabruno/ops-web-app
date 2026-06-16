@@ -1,73 +1,77 @@
 {% extends "base.html" %}
 
+{% block title %}Corpus{% endblock %}
+
 {% block content %}
 <div class="container mt-5 px-5">
     <div class="row">
-        <aside class="col-md-3 border-end">
-            <h4 class="fw-bold mb-4">Esplora</h4>
+        <aside class="col-md-3">
+            <div class="filter-card">
+                <h4 class="fw-bold mb-4">Esplora</h4>
 
-            <button type="button" class="btn btn-sm btn-outline-custom" onclick="resetFilters()">
-                Pulisci Filtri
-            </button>
+                <div class="mb-3">
+                    <label class="filter-label">Autore:</label>
+                    <select id="filterAuthor" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutti gli autori</option>
+                        {% for author in facets.authors %}
+                            <option value="{{ author }}">{{ author }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-3 mt-4">
-                <label class="fw-bold small text-uppercase text-muted">Autore:</label>
-                <select id="filterAuthor" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutti gli autori</option>
-                    {% for author in facets.authors %}
-                        <option value="{{ author }}">{{ author }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-4">
+                    <label class="filter-label">Forma testuale:</label>
+                    <select id="filterGenre" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutte le forme testuali</option>
+                        {% for work_type in facets.work_types %}
+                            <option value="{{ work_type }}">{{ work_type|capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-4">
-                <label class="fw-bold small text-uppercase text-muted">Forma testuale:</label>
-                <select id="filterGenre" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutte le forme testuali</option>
-                    {% for work_type in facets.work_types %}
-                        <option value="{{ work_type }}">{{ work_type|capitalize }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="filter-label">Tipo di costrizione:</label>
+                    <select id="filterConstraintType" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutti i tipi</option>
+                        {% for ct in facets.constraint_types %}
+                            <option value="{{ ct }}">{{ 'Formale' if ct == 'FormalConstraint' else 'Semantico' if ct == 'SemanticConstraint' else ct }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label class="fw-bold small text-uppercase text-muted">Tipo di costrizione:</label>
-                <select id="filterConstraintType" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutti i tipi</option>
-                    {% for ct in facets.constraint_types %}
-                        <option value="{{ ct }}">{{ 'Formale' if ct == 'FormalConstraint' else 'Semantico' if ct == 'SemanticConstraint' else ct }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="filter-label">Origine della costrizione:</label>
+                    <select id="filterOrigin" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutte le origini</option>
+                        {% for origin in facets.origins %}
+                            <option value="{{ origin }}">{{ origin|capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label class="fw-bold small text-uppercase text-muted">Origine della costrizione:</label>
-                <select id="filterOrigin" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutte le origini</option>
-                    {% for origin in facets.origins %}
-                        <option value="{{ origin }}">{{ origin|capitalize }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="filter-label">Operazione procedurale:</label>
+                    <select id="filterOperation" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutte le operazioni</option>
+                        {% for op in facets.operations %}
+                            <option value="{{ op }}">{{ op }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label class="fw-bold small text-uppercase text-muted">Operazione procedurale:</label>
-                <select id="filterOperation" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutte le operazioni</option>
-                    {% for op in facets.operations %}
-                        <option value="{{ op }}">{{ op }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-4">
+                    <label class="filter-label">Unità linguistica:</label>
+                    <select id="filterUnit" class="form-select mt-1" onchange="applyFilters()">
+                        <option value="">Tutte le unità</option>
+                        {% for unit in facets.units %}
+                            <option value="{{ unit }}">{{ unit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-4">
-                <label class="fw-bold small text-uppercase text-muted">Unità linguistica:</label>
-                <select id="filterUnit" class="form-select mt-1" onchange="applyFilters()">
-                    <option value="">Tutte le unità</option>
-                    {% for unit in facets.units %}
-                        <option value="{{ unit }}">{{ unit }}</option>
-                    {% endfor %}
-                </select>
+                <button type="button" class="btn btn-sm btn-outline-custom w-100" onclick="resetFilters()">
+                    Reset
+                </button>
             </div>
         </aside>
 
@@ -78,8 +82,11 @@
             </div>
             {% endif %}
 
-            <div class="accordion" id="corpusAccordion">
-                {% for expr in expressions %}
+            {% for volume in volumes %}
+            {% set vol_loop = loop %}
+            <h4 class="volume-heading">{{ volume.title }}</h4>
+            <div class="accordion mb-4" id="corpusAccordion-{{ vol_loop.index }}">
+                {% for expr in volume.expressions %}
                 <div class="expression-item mb-1"
                      data-author="{{ expr.author }}"
                      data-type="{{ expr.type }}"
@@ -89,29 +96,29 @@
                      data-units="{{ expr.units | join(',') }}">
 
                     <div class="accordion-item border-0 border-bottom">
-                        <h2 class="accordion-header" id="heading-{{ loop.index }}">
+                        <h2 class="accordion-header" id="heading-{{ vol_loop.index }}-{{ loop.index }}">
                             <button class="accordion-button collapsed px-0 py-3 bg-transparent shadow-none"
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#collapse-{{ loop.index }}"
+                            data-bs-target="#collapse-{{ vol_loop.index }}-{{ loop.index }}"
                             aria-expanded="false"
-                            aria-controls="collapse-{{ loop.index }}">
+                            aria-controls="collapse-{{ vol_loop.index }}-{{ loop.index }}">
                             <span class="fw-semibold text"><i>{{ expr.title }}</i></span>
                         </button>
                         </h2>
-                        <div id="collapse-{{ loop.index }}"
+                        <div id="collapse-{{ vol_loop.index }}-{{ loop.index }}"
                              class="accordion-collapse collapse"
-                             aria-labelledby="heading-{{ loop.index }}"
+                             aria-labelledby="heading-{{ vol_loop.index }}-{{ loop.index }}"
                              data-bs-parent="">
                             <div class="accordion-body pt-1 pb-3 ps-0">
-                                <p class="text-muted x-small mb-2">
-                                    <span class="fw-bold text-uppercase">Autore:</span>
+                                <p class="expr-detail-text x-small mb-2">
+                                    <span class="fw-bold">Autore:</span>
                                     {{ expr.author }}
                                 </p>
                                 {% set labeled = expr.constraints | selectattr('label') | list %}
                                 {% if labeled %}
-                                <p class="text-muted x-small mb-3">
-                                    <span class="fw-bold text-uppercase">Costrizioni usate:</span>
+                                <p class="expr-detail-text x-small mb-3">
+                                    <span class="fw-bold">Costrizioni usate:</span>
                                     {% for c in labeled %}
                                     <a href="/explain/{{ c.label }}"
                                     class="constraint-badge"
@@ -121,12 +128,12 @@
                                 {% endfor %}
                             </p>
                             {% elif expr.constraints %}
-                            <p class="text-muted small mb-3">
-                                <span class="fw-bold text-uppercase label-xs">Costrizioni:</span>
+                            <p class="expr-detail-text small mb-3">
+                                <span class="fw-bold label-xs">Costrizioni:</span>
                                 Etichette non disponibili — verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
                             {% else %}
-                            <p class="text-muted small mb-3">
-                                <span class="fw-bold text-uppercase label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
+                            <p class="expr-detail-text small mb-3">
+                                <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
                                 {% endif %}
 
                                 <a href="/expression?uri={{ expr.uri | urlencode }}"
@@ -137,10 +144,11 @@
                         </div>
                     </div>
                 </div>
-                {% else %}
-                <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
                 {% endfor %}
             </div>
+            {% else %}
+            <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
+            {% endfor %}
         </main>
     </div>
 </div>
