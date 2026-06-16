@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Placeholder{% endblock %}</title>
+    <title>OPS - {% block title %}Opificio Potenziale Semantico{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +16,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/traviz.css') }}" type="text/css"/>
     
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     {% block extra_head %}{% endblock %}
@@ -38,7 +40,7 @@
                         <a class="nav-link {% if request.path == '/project' %}active{% endif %}" href="/project">Progetto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="/corpus">Esplora il Corpus</a>
+                        <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="/corpus">Corpus</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path in ['/query_hub', '/sparql', '/visual_query'] %}active{% endif %}" href="/query_hub">Interrogazione Dati
@@ -56,35 +58,33 @@
 
     <footer class="py-5 mt-auto">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+            <div class="footer-columns">
+                <div class="footer-col-left">
                     <h5 class="text-uppercase fw-bold mb-3">Opificio Potenziale Semantico</h5>
-                    <p class="small mb-0">
-                        &copy; 2026 | <a href="https://www.unibo.it/sitoweb/enrica.bruno2" target="_blank">Enrica Bruno</a> |
-                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
-                    </p>
+                    <div class="footer-copyright-wrapper">
+                        <p class="small mb-0">
+                            &copy; 2026 | <a href="https://www.unibo.it/sitoweb/enrica.bruno2" target="_blank" rel="noopener noreferrer">Enrica Bruno</a> |
+                            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
+                        </p>
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OPS logo" class="footer-logo mt-3">
+                    </div>
                 </div>
 
-                <div class="col-md-6 text-center text-md-end">
+                <div class="footer-col-right">
+                    <h5 class="text-uppercase fw-bold mb-3">Tecnologie</h5>
                     <p class="small mb-1">
-                        Powered by:
+                        Realizzato con:
                         <a href="https://graphdb.ontotext.com/" target="_blank">GraphDB</a>,
                         <a href="https://flask.palletsprojects.com/" target="_blank">Flask</a> &
                         <a href="https://d3js.org/" target="_blank">D3.js</a>
                     </p>
                     <p class="small mb-0 footer-version">
-                        Version 1.0.0 - Aprile 2026
+                        <a href="https://github.com/enricabruno/ops-web-app" target="_blank">
+                            <i class="fa-brands fa-github"></i> GitHub
+                        </a>
+                        | Versione 1.0
                     </p>
                 </div>
-            </div>
-
-            <hr class="my-4">
-
-            <div class="text-center">
-                <p class="x-small">
-                    Il progetto è stato sviluppato rispettando i
-                    <a href="https://www.go-fair.org/fair-principles/" target="_blank">principi FAIR</a>.
-                </p>
             </div>
         </div>
     </footer>

@@ -30,6 +30,16 @@ function applyFilters() {
 
         item.style.display = (matchesAuthor && matchesGenre && matchesConstraintType && matchesOrigin && matchesOperation && matchesUnit) ? '' : 'none';
     });
+
+    document.querySelectorAll('.accordion').forEach(accordion => {
+        const hasVisibleItem = Array.from(accordion.querySelectorAll('.expression-item'))
+            .some(item => item.style.display !== 'none');
+        const heading = accordion.previousElementSibling;
+        accordion.style.display = hasVisibleItem ? '' : 'none';
+        if (heading && heading.classList.contains('volume-heading')) {
+            heading.style.display = hasVisibleItem ? '' : 'none';
+        }
+    });
 }
 
 function resetFilters() {

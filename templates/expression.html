@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ expr.title if expr else "Espressione" }} - DeSMòS{% endblock %}
+{% block title %}{{ expr.title if expr else "Espressione" }}{% endblock %}
 
 {% block content %}
 <div class="container mt-5 px-5 content-container">
@@ -32,8 +32,8 @@
                     <dt class="col-sm-5 metadata-section-label text-end pe-3">Autore</dt>
                     <dd class="col-sm-7 small text-muted">
                         {% if expr.author_link %}
-                        <a href="{{ expr.author_link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">
-                            {{ expr.author }}<sup class="lod-indicator">{% if 'viaf.org' in expr.author_link %}VIAF{% elif 'id.sbn.it' in expr.author_link %}SBN{% else %}LOD{% endif %}</sup><span>&nearr;</span>
+                        <a href="{{ expr.author_link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                            {{ expr.author }}<sup class="lod-indicator">{% if 'viaf.org' in expr.author_link %}VIAF{% elif 'id.sbn.it' in expr.author_link %}SBN{% else %}LOD{% endif %}</sup><sup class="external-arrow">&#8599;</sup>
                         </a>
                         {% else %}
                         {{ expr.author }}
@@ -54,9 +54,8 @@
                             
                             {% if all_links %}
                                 {% for link in all_links %}
-                                <a href="{{ link }}" target="_blank" class="text-decoration-none text-muted link-external-xs">
-                                    {% if 'viaf.org' in link %}VIAF{% elif 'id.sbn.it' in link %}SBN{% else %}LOD{% endif %} 
-                                    <span>&nearr;</span>
+                                <a href="{{ link }}" target="_blank" class="text-decoration-none link-external-xs">
+                                    {% if 'viaf.org' in link %}VIAF{% elif 'id.sbn.it' in link %}SBN{% else %}LOD{% endif %}<sup class="external-arrow">&#8599;</sup>
                                 </a>
                                 {% endfor %}
                             {% else %}
@@ -113,15 +112,14 @@
                         {% for source in expr.sources %}
                         <div class="d-flex align-items-center gap-2 mb-2">
                             <i class="fa-solid fa-arrow-right-long text-muted"></i>
-                            <a href="/expression?uri={{ source.uri | urlencode }}" class="text-dark fw-bold text-decoration-none link-source-sm">
+                            <a href="/expression?uri={{ source.uri | urlencode }}" class="text-dark text-decoration-none link-source-sm">
                                 {{ source.title }}
                             </a>
                         </div>
                         {% endfor %}
                         {% if expr.has_alignment %}
                         <div class="mt-3 d-flex align-items-center gap-2">
-                            <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="btn btn-confronto">Vedi testi a confronto</a>
-                            <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="text-decoration-none" style="color:#0097B2;">&#8594;</a>
+                            <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="btn btn-confronto btn-confronto-sm">Vedi testi a confronto</a>
                         </div>
                         {% endif %}
                     {% else %}
