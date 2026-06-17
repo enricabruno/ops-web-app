@@ -87,7 +87,7 @@ desmos:visual_poetry a skos:Concept ;
 desmos:music a skos:Concept ;
     skos:inScheme desmos:ArtisticFormScheme ;
     skos:prefLabel "Music"@en , "Musica"@it ;
-    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores) referenced as intermedial constraints."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni sorgente non linguistiche (es. partiture musicali) richiamate come costrizioni intermediali."@it .
+    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores) referenced as intermedial constraints."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni non linguistiche (es. partiture musicali) richiamate come costrizioni intermediali."@it .
 
 ### Formal Unit
 desmos:letter a skos:Concept ;
@@ -161,6 +161,11 @@ desmos:theme a skos:Concept ;
     skos:prefLabel "Theme"@en , "Tema"@it ;
     skos:definition "A semantic unit representing a recurring topic or a conceptual core that organizes a literary text's content."@en , "Unità semantica che rappresenta un argomento ricorrente o un nucleo concettuale che organizza il contenuto di un testo letterario."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q1053916> ;
+    skos:inScheme desmos:SemanticUnitScheme .
+
+desmos:addressee a skos:Concept ;
+    skos:prefLabel "Addressee"@en , "Destinatario"@it ;
+    skos:definition "A semantic unit concerning the person to whom a text is addressed or dedicated."@en ,"Unità semantica che rappresenta la persona cui il testo è rivolto o dedicato."@it ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 ### Procedural Operation
@@ -239,8 +244,8 @@ desmos:alliteration a skos:Concept ;
 
 desmos:alphabetic_set_constraint a skos:Concept ;
     skos:prefLabel "Alphabetic-set constraint"@en , "Vincolo sul set alfabetico"@it ;
-    skos:scopeNote "Family of formal constraints regulating the subset of letters admissible in the text, independently of the specific generative mechanism (exclusion, inclusion, structural property)."@en ;
-    skos:definition "Costrizione formale che regola il sottoinsieme delle lettere ammesse nel testo, indipendentemente dallo specifico meccanismo generativo."@it ;
+    skos:scopeNote "Family of formal constraints regulating the subset of letters admissible in the text."@en ;
+    skos:definition "Costrizione formale che regola il sottoinsieme delle lettere ammesse nel testo."@it ;
     skos:inScheme desmos:FormalConstraintScheme ;
     skos:narrower desmos:lipogram , 
         desmos:beau_present , 
@@ -249,7 +254,7 @@ desmos:alphabetic_set_constraint a skos:Concept ;
 desmos:alphabetical_acrostic a skos:Concept ;
     skos:prefLabel "Alphabetical acrostic"@en , "Acrostico alfabetico"@it ;
     skos:broader desmos:acrostic ;
-    skos:definition "Formal constraint in which the initial letters of successive lines follow alphabetical order, forming a complete or partial sequence of the alphabet when read vertically."@en , "Costrizione formale in cui le lettere iniziali di versi successivi  seguono l'ordine alfabetico, formando una sequenza completa o parziale dell'alfabeto letta verticalmente."@it ;
+    skos:definition "Formal constraint in which the initial letters of successive lines follow alphabetical order, forming a complete or partial sequence of the alphabet when read vertically."@en , "Costrizione formale in cui le lettere iniziali di versi successivi seguono l'ordine alfabetico, formando una sequenza completa o parziale dell'alfabeto letta verticalmente."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -277,6 +282,7 @@ desmos:anagram a skos:Concept ;
 desmos:anagraphy a skos:Concept ;
     skos:prefLabel "Anagraphy"@en , "Anagrafia"@it ;
     skos:definition "Formal constraint consisting in reconstructing a given text by reusing the exact same words and punctuation marks, but rearranged in a different order to create a new meaning."@en , "Costrizione che consiste nel ricomporre un testo preesistente riutilizzandone integralmente le parole e i segni di interpunzione, ma disponendoli in un ordine differente per generare un nuovo significato."@it ;
+    skos:historyNote """The term "anagraphy" was coined by Salvatore Chierchia in "L'isola teletrasportata" (1995), "La Biblioteca Oplepiana" n. 10."""@en , """Il termine "anagrafia" è stato coniato da Salvatore Chierchia in "L'isola teletrasportata" (1995), "La Biblioteca Oplepiana" n. 10."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -285,6 +291,8 @@ desmos:beau_present a skos:Concept ;
     skos:broader desmos:alphabetic_set_constraint;
     skos:definition "Oulipian formal constraint where each line of a poem dedicated to a person is written using only the letters found in the recipient's name."@en ,"Costrizione formale oulipiana in cui ogni verso di un componimento dedicato a una persona è scritto utilizzando esclusivamente le lettere che compongono il nome del destinatario."@it ;
     skos:scopeNote "Inclusion-based constraint: the letter set is positively defined by the dedicatee's name. The resulting text is incidentally a lipogram in the complement, but the generative mechanism is inverse to a true lipogram."@en , "Costrizione basata sull'inclusione: il set di lettere è definito positivamente dal nome del destinatario. Il testo risultante è incidentalmente un lipogramma nel complemento, ma il meccanismo generativo è inverso a quello di un vero lipogramma."@it ;
+    skos:historyNote "The constraint was invented by the Oulipo."@en , "La costrizione è stata inventata inventata dall'Oulipo."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/beau-present> ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -350,6 +358,7 @@ desmos:heterogram a skos:Concept ;
 desmos:homographic_translation a skos:Concept ;
     skos:prefLabel "Homographic translation"@en , "Traduzione omografica"@it ;
     skos:definition "Formal constraint that produces two texts, each in a different language, from the same written sequence: the same letter string is segmented differently, yielding two autonomous linguistic readings."@en , "Costrizione bilingue che produce due testi, ciascuno in una lingua diversa, a partire da una medesima sequenza grafica: la stessa stringa di lettere viene segmentata in modi differenti, generando due letture linguistiche autonome."@it ;
+    skos:historyNote """The constraint was invented by Elena Addòmine in "Forme For Me" (1994), "La Biblioteca Oplepiana" n. 7."""@en , """La costrizione è stata inventata da Elena Addòmine in "Forme For Me" (1994), "La Biblioteca Oplepiana" n. 7."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -362,6 +371,7 @@ desmos:homonymy a skos:Concept ;
 desmos:lexical_gap a skos:Concept ;
     skos:prefLabel "Lexical gap"@en , "Lacuna lessicale"@it ;
     skos:definition "Formal constraint where letters are removed from within words, creating visible gaps; these extracted letters, when reassembled in sequence, constitute a hidden latent word."@en , "Una tecnica di scrittura in cui alcune lettere vengono rimosse dall'interno delle parole lasciando uno spazio vuoto; queste lettere, se lette in sequenza, formano a loro volta una nuova parola nascosta."@it ;
+    skos:historyNote """The constraint was invented by Paolo Albani in "Fantasmagorie" (2001), "La Biblioteca Oplepiana" n. 19."""@en , """La costrizione è stata inventata da Paolo Albani in "Fantasmagorie" (2001), "La Biblioteca Oplepiana" n. 19."""@it ;
     skos:example "se•la•poesia•assume", "mos ra"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -416,6 +426,12 @@ desmos:lipogram_S a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:mandatory_dedication a skos:Concept ;
+    skos:prefLabel "Mandatory dedication"@en , "Dedica obbligata"@it ;
+    skos:definition "Semantic constraint requiring the text to constitute a dedicatory homage to a prescribed addressee."@en , "Costrizione semantica che impone al testo di costituire un omaggio dedicatorio a un destinatario prestabilito."@it ;
+    skos:related desmos:mandatory_theme ;
+    skos:inScheme desmos:SemanticConstraintScheme .
+
 desmos:mandatory_genre a skos:Concept ;
     skos:prefLabel "Mandatory genre constraint"@en , "Costrizione del genere letterario"@it ;
     skos:definition "Semantic constraint requiring adherence to a specified literary genre and its pragmatic and structural conventions."@en , "Costrizione che impone l’adesione a un genere letterario determinato e alle sue convenzioni pragmatiche e strutturali."@it ;
@@ -464,6 +480,7 @@ desmos:monovocalism a skos:Concept ;
 desmos:mythographic_units a skos:Concept ;
     skos:prefLabel "Mythographic units"@en , "Mitografemi"@it ;
     skos:definition "Formal constraint that turns a sequence of mythological names into a poem through caesuras and punctuation: the names function as graphic units (graphemes)."@en , "Costrizione che trasforma una sequenza di nomi mitologici in componimento attraverso cesure e punteggiatura: i nomi funzionano come unità grafiche."@it ;
+    skos:historyNote """The constraint was invented by Giuseppe Varaldo in "Canto tenero" (1992), "La Biblioteca Oplepiana" n. 3."""@en , """La costrizione è stata inventata da Giuseppe Varaldo in "Canto tenero" (1992), "La Biblioteca Oplepiana" n. 3."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -498,17 +515,20 @@ desmos:poliacrostic a skos:Concept ;
     skos:broader desmos:acrostic ;
     skos:inScheme desmos:FormalConstraintScheme .
 
-desmos:prisoner_contrainte a skos:Concept ;
+desmos:prisoner_constraint a skos:Concept ;
     skos:prefLabel "Contrainte du prisonnier"@fr , "Prisoner's constraint"@en , "Costrizione del prigioniero"@it ;
     skos:broader desmos:alphabetic_set_constraint ;
     skos:scopeNote "Exclusion-based constraint motivated by a typographic property (absence of ascenders/descenders): the admissible set is defined by x-height glyph features, not by individual letter selection."@en ;
     skos:definition "Formal constraint consisting of writing a text using only letters without ascenders or descenders (avoiding 'hampes' and 'jambages'), thus restricting the character set to those contained within the x-height (a, c, e, i, m, n, o, r, s, u, v, w, x, z)."@en , "Costrizione formale che consiste nello scrivere un testo utilizzando esclusivamente lettere che non presentano tratti ascendenti o discendenti (ovvero lettere prive di 'hampes' e 'jambages'), limitando il set di caratteri a quelli che rientrano nell'altezza dell'occhio medio (a, c, e, i, m, n, o, r, s, u, v, w, x, z)."@it ; 
+    skos:historyNote "The constraint was invented by the Oulipo."@en , "La costrizione è stata inventata dall'Oulipo."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/contrainte-du-prisonnier> ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:proverbial_shift a skos:Concept ;
     skos:prefLabel "Proverbial shift"@en , "Slittamento proverbiale"@it ;
     skos:definition "Formal constraint where each lexical unit (noun, adjective, verb, adverb) of a source text is replaced by the final word of a proverb that begins with that same unit. The resulting terms are then syntactically integrated to form a new coherent text."@en , "Costrizione formale che prevede la sostituzione di ogni unità lessicale (nome, aggettivo, verbo, avverbio) di un testo di partenza con la parola finale di un proverbio che inizi con quella stessa unità. I termini ottenuti vengono poi integrati sintatticamente per generare un nuovo testo."@it ;
+    skos:historyNote """The constraint was invented by Ermanno Cavazzoni (2001), "La Biblioteca Oplepiana" n. 21."""@en , """La costrizione è stata inventata da Ermanno Cavazzoni (2001), "La Biblioteca Oplepiana" n. 21."""@it ;
     skos:example "Placeholder example."@en , "Placeholder example"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -521,6 +541,7 @@ desmos:quatrain a skos:Concept ;
 desmos:regraphing a skos:Concept ;
     skos:prefLabel "Regraphing"@en , "Rigrafia"@it ;
     skos:definition "Formal constraint consisting in composing a derived text by reordering typographic lines taken from a source text."@en , "Costrizione che consiste nel comporre un testo derivato riordinando righe tipografiche tratte da un testo base."@it ;
+    skos:historyNote """The constraint was invented by Aldo Spinelli in "L'uso delle istruzioni" (1991), "La Biblioteca Oplepiana" n. 2."""@en , """La costrizione è stata inventata da Aldo Spinelli in "L'uso delle istruzioni" (1991), "La Biblioteca Oplepiana" n. 2."""@it ;
     skos:example "Example of regraphing: 'Sì, tutto potrebbe iniziare così, qui, in questo modo, una maniera' → '...'."@en , "Esempio di rigrafia: 'Sì, tutto potrebbe iniziare così, qui, in questo modo, una maniera' → '...'."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -538,6 +559,7 @@ desmos:sdrucciola_rhyme a skos:Concept ;
 desmos:semi_automatic_locutionary_text a skos:Concept ;
     skos:prefLabel "Semi-automatic locutionary text"@en , "Testo locuzionale semiautomatico"@it ;
     skos:definition "Formal constraint generating a text through an algorithm applied to a dictionary of idiomatic expressions (locutions): the first locution under a headword is transcribed, the first noun in its definition determines the next headword, and the procedure is iterated until a fixed number of lines is reached."@en , "Costrizione formale che genera un testo mediante un algoritmoapplicato a un dizionario di modi di dire: si trascrive il primo modo di dire sotto un lemma, il primo sostantivo della relativa definizione individua il lemma successivo e la procedura si itera fino al raggiungimento di un numero fisso di versi."@it ;
+    skos:historyNote """The constraint was invented by Ruggero Campagnoli in "Sestine per modo di dire" (1994), "La Biblioteca Oplepiana" n. 10."""@en , """La costrizione è stata inventata da Ruggero Campagnoli in "Sestine per modo di dire" (1994), "La Biblioteca Oplepiana" n. 10."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -565,6 +587,7 @@ desmos:sestina a skos:Concept ;
 desmos:solfeix a skos:Concept ;
     skos:prefLabel "Solfeix"@en , "Solfeix"@it ;
     skos:definition "Formal constraint based on the syllabic transliteration of a melody. The text must contain the names of the notes in sequence; the distance between a note name and the next is determined by the musical value of the note itself, which imposes a fixed number of syllables of separation (from 1 for the semibreve up to 64 for the semibiscroma)."@en , "Costrizione formale basata sulla traslitterazione sillabica di una melodia. Il testo deve contenere i nomi delle note in sequenza; la distanza tra un nome di nota e il successivo è determinata dal valore musicale della nota stessa, che impone un numero fisso di sillabe di separazione (da 1 per la semibreve fino a 64 per la semibiscroma)."@it ;
+    skos:historyNote """The constraint was invented by Màrius Serra in "Turandot Espuri" (1998), "La Biblioteca Oplepiana" n. 14."""@en , """La costrizione è stata inventata da Màrius Serra in "Turandot Espuri" (1998), "La Biblioteca Oplepiana" n. 14."""@it ;
     skos:example "Placeholder example."@en , "Placeholder example"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -573,6 +596,7 @@ desmos:statistical_bound a skos:Concept ;
     skos:narrower desmos:statistical_bound_in_E ;
     skos:definition "Formal constraint requiring a target letter to appear in the text at a fixed interval mirroring its statistically attested frequency within a reference language or corpus."@en , "Costrizione formale che impone ad una lettera di comparire nel testo a intervalli fissi corrispondenti alla sua frequenza statistica attestata nella lingua di riferimento."@it ;
     skos:historyNote "Constraint introduced by Aldo Spinelli in 'Le ripartite' (1995), Biblioteca Oplepiana n. 9."@en , "Costrizione introdotta da Aldo Spinelli ne 'Le ripartite' (1995), Biblioteca Oplepiana n. 9."@it ;
+    skos:historyNote """The constraint was invented by Aldo Spinelli in "Le ripartite" (1995), "La Biblioteca Oplepiana" n. 9."""@en , """La costrizione è stata inventata da Aldo Spinelli in "Le ripartite" (1995), "La Biblioteca Oplepiana" n. 9."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -588,6 +612,7 @@ desmos:stolen_letters a skos:Concept ;
     skos:prefLabel "Stolen letters"@en , "Lettere rubate"@it ;
     skos:related desmos:lipogram ;
     skos:definition "Formal constraint that generates a derived text from a source text by systematically subtracting one or more letters from every lexical word, while leaving articles, conjunctions, prepositions and syntactic structure unchanged: the procedure produces a pair of texts (source and derivation) whose words must all differ in meaning. The derived text can be regarded as a lipogram in the subtracted letter, but the constraint operates on the relation between the two texts, not on a single text."@en , "Costrizione formale che genera un testo derivato a partire da un testo sorgente mediante la sottrazione sistematica di una o più lettere da ogni parola lessicale, lasciando inalterati articoli, congiunzioni, preposizioni e struttura sintattica: la procedura produce una coppia di testi (sorgente e derivato) le cui parole devono differire per significato. Il testo derivato può essere considerato un lipogramma nella lettera sottratta, ma la costrizione opera sulla relazione tra i due testi, non su un testo isolato."@it ;
+    skos:historyNote """The constraint was invented by Paolo Albani in "Rose osé" (1998), "La Biblioteca Oplepiana" n. 13."""@en , """La costrizione è stata inventata da Paolo Albani in "Rose osé" (1998), "La Biblioteca Oplepiana" n. 13."""@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -615,7 +640,7 @@ desmos:temporal_constraint a skos:Concept ;
     skos:related desmos:fixed_text_length ;
     skos:definition "Formal constraint requiring the text to be calibrated so that its declamation or reading duration matches the execution time of a predefined external reference (typically a musical piece): the text length is implicitly determined by the temporal envelope of the reference performance."@en , "Costrizione formale che impone al testo di essere calibrato in modo che la sua declamazione o lettura abbia una durata pari al tempo di esecuzione di un riferimento esterno prestabilito (tipicamente un brano musicale): la lunghezza del testo è implicitamente determinata dall'inviluppo temporale dell'esecuzione di riferimento."@it ;
     skos:example "Placeholder example"@en , "Placeholder example"@it ;
-    skos:inScheme desmos:SemanticConstraintScheme .
+    skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:terzine a skos:Concept ;
     skos:prefLabel "Terzine"@en , "Terzina"@it ;

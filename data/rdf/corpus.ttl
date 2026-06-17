@@ -312,6 +312,11 @@ desmos:fictional_setting a desmos:SemanticConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_space .
 
+desmos:mandatory_dedication a desmos:SemanticConstraint ;
+    rdfs:label "Dedica obbligata"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsSemanticUnit desmos:addressee .
+
 desmos:mandatory_theme a desmos:SemanticConstraint ;
 	rdfs:label "Tema obbligato"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -430,7 +435,7 @@ desmos:enclosed_rhyme a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
-desmos:prisoner_contrainte a desmos:FormalConstraint ;
+desmos:prisoner_constraint a desmos:FormalConstraint ;
 	rdfs:label "Contrainte du prisonnier"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
@@ -724,7 +729,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_aragona> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La 'traduzione' condotta in versi martelliani, utilizza una particolare struttura lipogrammatica: la contrainte du prisonnier."@it ;
 	crm:P129_is_about desmos:martellian_verse ,
-		desmos:prisoner_contrainte ;
+		desmos:prisoner_constraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -955,11 +960,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_16> ;
 	crm:P148_has_component
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_addomine> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p22> ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
@@ -969,28 +970,8 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> a lrmoo:F2_Expression ;
-    dcterms:title "La disparizión"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> a lrmoo:F2_Expression ;
     dcterms:title "Alloro per loro"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> a lrmoo:F2_Expression ;
-    dcterms:title "Una parola d’oro"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> a lrmoo:F2_Expression ;
-    dcterms:title "Numero tredici"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> a lrmoo:F2_Expression ;
-    dcterms:title "Un caffè per tre"^^xsd:string ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
 
@@ -1001,38 +982,17 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_chiti> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> ;
 	crm:P148_has_component
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_chiti> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p23-1> ;
 	crm:P2_has_type desmos:prose ,
 		desmos:poetry ,
 		desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Opera poetica limitante entropiche profondità ombelicali"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Oscurità poetica laureata esibendo parole oblique"^^xsd:string ;
-    crm:P2_has_type desmos:visual_poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> a lrmoo:F2_Expression ;
     dcterms:title "Elogio di Ogni poema lipogrammatico esprimente potenzialità oscurate"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Ospedale per lemmi esausti, provati, obesi"^^xsd:string ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
@@ -1041,24 +1001,9 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
     crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Ostinazione: premere lemmi endecasillabici produce olio"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Ostracismo politico, legge emarginata, punto O"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> a lrmoo:F2_Expression ;
     dcterms:title "Elogio dell'Osar poetare liberamente, evitando penalizzanti ortodossie"^^xsd:string ;
     crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> a lrmoo:F2_Expression ;
-    dcterms:title "Elogio dell'Ombra, proiezione labile eppure pressoché onnipresente"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_18> a lrmoo:F2_Expression ;
@@ -1087,50 +1032,17 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	dcterms:title "Il doppio"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_22> ;
 	crm:P148_has_component
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p27> ;
-	crm:P2_has_type desmos:prose ,
-		desmos:poetry ,
-		desmos:visual_poetry ,
-		desmos:visual_art ;
+	crm:P2_has_type desmos:poetry ,
+		desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> a lrmoo:F2_Expression ;
-    dcterms:title "Doppio segno"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> a lrmoo:F2_Expression ;
-    dcterms:title "Piccolo dizionario double-face"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> a lrmoo:F2_Expression ;
-    dcterms:title "Il doppio imperfetto con rimbalzo"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> a lrmoo:F2_Expression ;
-    dcterms:title "La scoperta dell'America"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> a lrmoo:F2_Expression ;
     dcterms:title "Duplex"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
+    crm:P2_has_type desmos:visual_poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> a lrmoo:F2_Expression ;
@@ -1138,44 +1050,9 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
     crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> a lrmoo:F2_Expression ;
-    dcterms:title "Il romanzo equivoco"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> a lrmoo:F2_Expression ;
     dcterms:title "Specchio"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> a lrmoo:F2_Expression ;
-    dcterms:title "Senso doppio/Doppio senso"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> a lrmoo:F2_Expression ;
-    dcterms:title "Kamasutre"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> a lrmoo:F2_Expression ;
-    dcterms:title "Il punto di vista, anche"^^xsd:string ;
     crm:P2_has_type desmos:visual_poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> a lrmoo:F2_Expression ;
-    dcterms:title "Teoremi e assiomi"^^xsd:string ;
-    crm:P2_has_type desmos:prose ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> a lrmoo:F2_Expression ;
-    dcterms:title "Raddoppi"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
-    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> a lrmoo:F2_Expression ;
-    dcterms:title "Doppio doppio"^^xsd:string ;
-    crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_23> a lrmoo:F2_Expression ;
@@ -1886,57 +1763,9 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
         desmos:fixed_title_length ;
     dcterms:created "1999"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_aragona> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
-    desmos:usedConstraint desmos:fixed_text_length ,
-        desmos:typographic_constraints ,
-        desmos:fictional_characters ,
-        desmos:fictional_setting ,
-        desmos:mandatory_theme ,
-        desmos:mandatory_genre ,
-        desmos:fixed_title_length ;
-    dcterms:created "1999"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_eruli> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
-    desmos:usedConstraint desmos:fixed_text_length ,
-        desmos:typographic_constraints ,
-        desmos:fictional_characters ,
-        desmos:fictional_setting ,
-        desmos:mandatory_theme ,
-        desmos:mandatory_genre ,
-        desmos:fixed_title_length ;
-    dcterms:created "1999"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_falchetta> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/falchetta> ;
-    desmos:usedConstraint desmos:fixed_text_length ,
-        desmos:typographic_constraints ,
-        desmos:fictional_characters ,
-        desmos:fictional_setting ,
-        desmos:mandatory_theme ,
-        desmos:mandatory_genre ,
-        desmos:fixed_title_length ;
-    dcterms:created "1999"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_kierkia> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
-    desmos:usedConstraint desmos:fixed_text_length ,
-        desmos:typographic_constraints ,
-        desmos:fictional_characters ,
-        desmos:fictional_setting ,
-        desmos:mandatory_theme ,
-        desmos:mandatory_genre ,
-        desmos:fixed_title_length ;
-    dcterms:created "1999"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_varaldo> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
     desmos:usedConstraint desmos:fixed_text_length ,
         desmos:typographic_constraints ,
         desmos:fictional_characters ,
@@ -1953,33 +1782,12 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
         desmos:acronym ;
     dcterms:created "2000"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_addomine> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
-    dcterms:created "2000"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_albani> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
-    dcterms:created "2000"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_aragona> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
     desmos:usedConstraint desmos:acronym ,
         desmos:mandatory_genre ,
 		desmos:progressive_alphabetical_lipogram ;
-    dcterms:created "2000"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_berardi> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/berardi> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
     dcterms:created "2000"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_chiti> a lrmoo:F28_Expression_Creation ;
@@ -1993,33 +1801,12 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 		desmos:truncated_rhyme ;
     dcterms:created "2000"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_eruli> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
-    dcterms:created "2000"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_kierkia> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
-    dcterms:created "2000"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_sebregondi> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
     desmos:usedConstraint desmos:acronym ,
         desmos:mandatory_genre ,
 		desmos:alliteration ;
-    dcterms:created "2000"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_varaldo> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
-    desmos:usedConstraint desmos:acronym ,
-        desmos:mandatory_genre ;
     dcterms:created "2000"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_18> a lrmoo:F28_Expression_Creation ;
@@ -2046,30 +1833,6 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     desmos:usedConstraint desmos:mandatory_theme ;
     dcterms:created "2004"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_berardi> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/berardi> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_vicari> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/vicari> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_eruli> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_doria> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_sanguineti> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
@@ -2079,54 +1842,13 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_addomine> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_cavazzoni> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/cavazzoni> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
+    desmos:usedConstraint desmos:mandatory_theme ,
+		desmos:homographic_translation ;
     dcterms:created "2004"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_bizzarri> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/bizzarri> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_varaldo> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_sebregondi> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_albani> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_odifreddi> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/odifreddi> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_aragona> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
-    desmos:usedConstraint desmos:mandatory_theme ;
-    dcterms:created "2004"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_kierkia> a lrmoo:F28_Expression_Creation ;
-    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> ;
-    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
     desmos:usedConstraint desmos:mandatory_theme ;
     dcterms:created "2004"^^xsd:gYear .
 
@@ -2144,6 +1866,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2005"^^xsd:gYear .
 
@@ -2178,14 +1901,14 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_aragona> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
 	desmos:usedConstraint desmos:martellian_verse ,
-		desmos:prisoner_contrainte ;
+		desmos:prisoner_constraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
 	dcterms:created "2008"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_weiss> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_weiss> ;
 	desmos:usedConstraint desmos:martellian_verse ,
-		desmos:prisoner_contrainte ;
+		desmos:prisoner_constraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/weiss> ;
 	dcterms:created "2008"^^xsd:gYear .
 
@@ -2203,6 +1926,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2010"^^xsd:gYear .
 
@@ -2331,7 +2055,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_07> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_07> ;
 	crm:P3_has_note "Il testo distingue graficamente le due letture della stessa base omografica tramite una marcatura tipografica differenziale (corsivo del blocco in inglese)."^^xsd:string ;
-	desmos:revealsConstraint desmos:lipogram_A .
+	desmos:revealsConstraint desmos:homographic_translation .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_09> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_09> ;
@@ -2362,6 +2086,11 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> ;
 	crm:P3_has_note "Il testo presenta una marcatura tipografica (sottolineatura) e numerazione progressiva per identificare le unità del testo sorgente, mentre un'altra marcatura tipografica (grassetto) per identificare le unità derivate nel testo di arrivo. La corrispondenza numerica collega l'unità sorgente al proverbio sorgente e alla sua parola finale."^^xsd:string ;
  	desmos:revealsConstraint desmos:proverbial_shift .
+
+oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ;
+    crm:P3_has_note "Una medesima sequenza grafica, risegmentata con aggiustamenti di punteggiatura, genera due letture autonome, una in italiano e una in inglese."@it ;
+    desmos:revealsConstraint desmos:homographic_translation .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_14> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_14> ;
