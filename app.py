@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from SPARQLWrapper import SPARQLWrapper, JSON
 from dotenv import load_dotenv
 from urllib.parse import quote, unquote
@@ -75,6 +75,12 @@ def execute_sparql_query(query):
 def index():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    # I browser richiedono /favicon.ico automaticamente al primo
+    # caricamento, prima ancora di leggere il <link rel="icon"> in <head>.
+    return send_from_directory(os.path.join(app.root_path, 'static', 'img'), 'logo.png')
+
 @app.route('/project')
 def project():
     return render_template('project.html')
@@ -116,6 +122,7 @@ def corpus():
            (SAMPLE(?_parentTitle) AS ?parentTitle)
            (SAMPLE(?_parentPlaquetteTitle) AS ?parentPlaquetteTitle)
            (SAMPLE(?_directMfTitle) AS ?directMfTitle)
+           (SAMPLE(?_volTitle) AS ?volTitle)
            (GROUP_CONCAT(DISTINCT ?authorName; separator=", ") AS ?authors)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?constraint), "##", COALESCE(?constraintLabel, ""), "##", COALESCE(?constraintTypeLocal, ""), "##", COALESCE(?originLabel, "")); separator="||") AS ?constraintData)
            (GROUP_CONCAT(DISTINCT ?operationLabel; separator="||") AS ?operationLabels)
@@ -181,14 +188,20 @@ def corpus():
         ?_parentExpr crm:P148_has_component ?expression ;
                      dct:title ?_parentTitle .
         OPTIONAL {
-          ?_parentExpr lrmoo:R4_is_embodied_in ?_parentF3 .
+          ?_parentExpr lrmoo:R4i_is_embodied_in ?_parentF3 .
           ?_parentF3 dct:title ?_parentPlaquetteTitle .
         }
       }
       OPTIONAL {
         # Stop at the immediate F3_Manifestation — do NOT traverse crm:P148i_is_component_of.
-        ?expression lrmoo:R4_is_embodied_in ?_directMf .
+        ?expression lrmoo:R4i_is_embodied_in ?_directMf .
         ?_directMf dct:title ?_directMfTitle .
+
+        # Risalita al volume principale (es. "La Biblioteca Oplepiana, I volume")
+        OPTIONAL {
+          ?_directMf crm:P148i_is_component_of ?_mainVolume .
+          ?_mainVolume dct:title ?_volTitle .
+        }
       }
     }
     GROUP BY ?expression ?title
@@ -276,6 +289,8 @@ def corpus():
             else:
                 plaquette_rel = None
 
+            volume_title = b.get('volTitle', {}).get('value', '').strip() or 'Biblioteca Oplepiana'
+
             exp_data = {
                 'uri': b['expression']['value'],
                 'title': b['title']['value'],
@@ -287,6 +302,7 @@ def corpus():
                 'operations': operations,
                 'units': sorted(set(formal_units + semantic_units)),
                 'plaquette_rel': plaquette_rel,
+                'volume': volume_title,
             }
             expressions.append(exp_data)
             facets['authors'].add(b['authors']['value'])
@@ -297,12 +313,19 @@ def corpus():
     facets['units'] = sorted(list(facets.pop('formal_units') | facets.pop('semantic_units')))
     facets = {k: sorted(list(v)) if isinstance(v, set) else v for k, v in facets.items()}
 
+    # Raggruppa le espressioni per volume (es. "Biblioteca Oplepiana, Volume I")
+    volumes_map = {}
+    for exp_data in expressions:
+        volumes_map.setdefault(exp_data['volume'], []).append(exp_data)
+    volumes = [{'title': vol_title, 'expressions': vol_expressions}
+               for vol_title, vol_expressions in sorted(volumes_map.items())]
+
     print(f"Total expressions processed: {len(expressions)}")
     print(f"Facets: {facets}\n")
 
     error_message = None if result['success'] else result.get('error', 'Unknown error connecting to GraphDB')
 
-    return render_template('corpus.html', expressions=expressions, facets=facets, error=error_message)
+    return render_template('corpus.html', expressions=expressions, volumes=volumes, facets=facets, error=error_message)
 
 @app.route('/test-connection')
 def test_connection():
