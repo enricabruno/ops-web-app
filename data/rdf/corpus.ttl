@@ -203,6 +203,12 @@ desmos:hendecasyllable a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
+desmos:isovocalism a desmos:FormalConstraint ;
+	rdfs:label "Isovocalismo"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ,
+		desmos:word .
+
 desmos:terzine a desmos:FormalConstraint ;
 	rdfs:label "Terzina"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -212,6 +218,14 @@ desmos:palindrome a desmos:FormalConstraint ;
 	rdfs:label "Palindromo"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:displacement .
+
+desmos:permutation a desmos:FormalConstraint ;
+	rdfs:label "Permutazione"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ,
+		desmos:word ,
+		desmos:line ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:cento a desmos:FormalConstraint ;
@@ -638,7 +652,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_aragona> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note """Un elogio di lipogramma non può che essere lipogrammatico: ognuno dei suoi "capitoli" fa a meno della lettera con la quale inizia, esaurendo, nell'ordine, tutte le lettere dell'alfabeto."""@it ;
+	crm:P3_has_note "Un elogio di lipogramma non può che essere lipogrammatico: ognuno dei suoi 'capitoli' fa a meno della lettera con la quale inizia, esaurendo, nell'ordine, tutte le lettere dell'alfabeto."@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 	desmos:progressive_alphabetical_lipogram ;
@@ -646,7 +660,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_chiti> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note """4 terzine di settenari doppi AAB. A è sempre rima sdrucciola, B è tronco. Ogni verso contiene tutte le lettere dell'acronimo OPLEPO."""@it ;
+	crm:P3_has_note "4 terzine di settenari doppi AAB. A è sempre rima sdrucciola, B è tronco. Ogni verso contiene tutte le lettere dell'acronimo OPLEPO."@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 	desmos:septenary_double ,
@@ -656,7 +670,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note """L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."""@it ;
+	crm:P3_has_note "L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 		desmos:alliteration ;
@@ -704,9 +718,22 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/kierkia> .
 
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "La contrainte è quella de 'les beaux présents': le tre ottave scritte utilizzando soltanto le otto diverse lettere del nome 'Italo Calvino'."@it ;
+	crm:P129_is_about desmos:beau_present,
+		desmos:octave ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "l principio della chimera, animale mitologico frutto di un mostruoso assemblaggio al pari dell'ircocervo e di altre creature immaginarie, 'sembra potersi trasporre, in più modi diversi, nelle strutture letterarie', sosteneva François Le Lionnais nella sezione de La littérature potentielle (1973) dedicata alle manipolazioni lessicografiche, sintattiche o prosodiche.» Sensibili allo spunto dell'ingegnere e scacchista oulipiano, gli Oplepiani hanno raccolto la sfida e prodotto le loro 'chimeriche trasposizioni', riferendosi alla parentela semantica tra chimerico, illusorio e fantastico (Borges)."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_doria> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Tutti i sostantivi del testo, nomi propri compresi, contengono una successione ordinata di tre vocali secondo lo schema x y x"@it ;
+	crm:P129_is_about desmos:isovocalism ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> a crm:E33_Linguistic_Object ;
@@ -719,6 +746,12 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 		desmos:tautogram ,
 		desmos:enclosed_rhyme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_vicari> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Il testo è costruito da innesti di vaneggiamenti di Albani (il leone), Odifreddi (la capra) e Cavazzoni (il serpente), su versi fiammanto (le vampe alitate dal mostro) di Sanguineti"@it ;
+	crm:P129_is_about desmos:cento ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28> a crm:E33_Linguistic_Object ;
@@ -772,7 +805,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l’aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L’ “epistolina”, infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
+	crm:P3_has_note “La forma è quella del sonetto, molto cara a Sanguineti, con l’aggiunta di un settenario e un distico di endecasillabi [...]. L’acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L’ ‘epistolina’, infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale.”@it ;
 	crm:P129_is_about desmos:hendecasyllable ,
 		desmos:terzine ,
 		desmos:acrostic ,
@@ -835,7 +868,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_43> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Ogni sonetto è costruito eliminando le “sillabe metriche” che compongono il nome e cognome del poeta preso di mira."@it ;
+	crm:P3_has_note “Ogni sonetto è costruito eliminando le 'sillabe metriche' che compongono il nome e cognome del poeta preso di mira.”@it ;
 	crm:P129_is_about desmos:terzine ,
 		desmos:quatrain ,
 		desmos:metric_liposyllabism ;
@@ -1073,10 +1106,18 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> a lrmoo:F2_Expression ;
 	dcterms:title "A Italo Calvino"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> ;
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p7-2> ;
-	crm:P2_has_type desmos:poetry ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
+	crm:P2_has_type desmos:poetry , desmos:prose ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> a lrmoo:F2_Expression ;
+	dcterms:title "Permutazioni bibliografiche"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> a lrmoo:F2_Expression ;
@@ -1084,18 +1125,37 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> a lrmoo:F2_Expression ;
+	dcterms:title "Italo Calvino in ottava"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> a lrmoo:F2_Expression ;
 	dcterms:title "Chimere"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> ;
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_doria> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_vicari> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p31> ;
-	crm:P2_has_type desmos:poetry ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
+	crm:P2_has_type desmos:poetry , desmos:prose ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> a lrmoo:F2_Expression ;
+	dcterms:title "Kimerik polito-logico"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> a lrmoo:F2_Expression ;
 	dcterms:title "Sonetto della chimera"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> a lrmoo:F2_Expression ;
+	dcterms:title "La Chimera Incapricciata"^^xsd:string ;
+	crm:P2_has_type desmos:prose , desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> a lrmoo:F2_Expression ;
@@ -1870,16 +1930,35 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2005"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_doria> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ;
+	desmos:usedConstraint desmos:permutation ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
+	dcterms:created "2005"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_kierkia> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
 	desmos:usedConstraint desmos:panvocalism ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
 	dcterms:created "2005"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_varaldo> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
+	desmos:usedConstraint desmos:beau_present ,
+		desmos:octave ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+	dcterms:created "2005"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2006"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_doria> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ;
+	desmos:usedConstraint desmos:isovocalism ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
+	dcterms:created "2006"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
@@ -1891,6 +1970,12 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 		desmos:tautogram ,
 		desmos:enclosed_rhyme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
+	dcterms:created "2006"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_vicari> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
+	desmos:usedConstraint desmos:cento ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/vicari> ;
 	dcterms:created "2006"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28> a lrmoo:F28_Expression_Creation ;
@@ -2102,11 +2187,21 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 	crm:P3_has_note "Ogni lirica è preceduta dall'indicazione del tempo musicale e della tonalità del Preludio corrispondente (es. '1) Agitato in do maggiore', '6) Lento assai in si minore'); inoltre il Preludio n. 7 è accompagnato dalla riproduzione dello spartito chopiniano, segnalando esplicitamente la natura intermediale del vincolo e rendendo verificabile la calibrazione temporale del testo sulla durata musicale."^^xsd:string ;
 	desmos:revealsConstraint desmos:temporal_constraint .
 
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26> a desmos:TextualFeature ;
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_25_doria> a desmos:TextualFeature ;
+	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ;
+	crm:P3_has_note "Il testo si dispone su pagine affrontate: su una pagina figura l'elenco dei titoli delle opere di Italo Calvino con le rispettive date di pubblicazione, nella pagina a fronte gli stessi titoli sono ripresi sostituendone le parole. L'allineamento speculare delle due liste rende visibile la trasformazione lessicale operata sulla bibliografia calviniana."^^xsd:string ;
+	desmos:revealsConstraint desmos:permutation .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_sanguineti> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
 	crm:P3_has_note "Il testo presenta un allineamento spaziale rigoroso dove la lettera iniziale di ogni vocabolo si ripete identica lungo l'intero verso (asse orizzontale) e segue una sequenza alfabetica predefinita lungo le colonne (asse verticale), rendendo leggibile il 'poliacrostico' basato sulla parola 'chimera', a cui è dedicata l'intera plaquette."^^xsd:string ;
  	desmos:revealsConstraint desmos:acrostic ,
 		desmos:tautogram .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_vicari> a desmos:TextualFeature ;
+	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
+	crm:P3_has_note "Il testo presenta una doppia marcatura che ne rende visibile la struttura a innesto: i versi di Sanguineti, su cui sono innestati i frammenti, sono distinti tipograficamente in corsivo, mentre accanto a ciascuna parte testuale un richiamo numerico rinvia all'apparato finale dei riferimenti, che attribuisce ogni frammento alla rispettiva fonte (Albani, Cavazzoni, Odifreddi, Sanguineti). Il corsivo segnala la matrice sanguinetiana, la numerazione la provenienza dei frammenti."^^xsd:string ;
+ 	desmos:revealsConstraint desmos:cento .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_43> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
