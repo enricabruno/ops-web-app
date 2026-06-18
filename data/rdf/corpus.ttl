@@ -805,7 +805,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note “La forma è quella del sonetto, molto cara a Sanguineti, con l’aggiunta di un settenario e un distico di endecasillabi [...]. L’acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L’ ‘epistolina’, infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale.”@it ;
+	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l'aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L' 'epistolina', infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
 	crm:P129_is_about desmos:hendecasyllable ,
 		desmos:terzine ,
 		desmos:acrostic ,
@@ -868,7 +868,7 @@ desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_43> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note “Ogni sonetto è costruito eliminando le 'sillabe metriche' che compongono il nome e cognome del poeta preso di mira.”@it ;
+	crm:P3_has_note "Ogni sonetto è costruito eliminando le 'sillabe metriche' che compongono il nome e cognome del poeta preso di mira."@it ;
 	crm:P129_is_about desmos:terzine ,
 		desmos:quatrain ,
 		desmos:metric_liposyllabism ;
