@@ -187,6 +187,26 @@
         <rdfs:label xml:lang="en">Preferred label</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
     </owl:AnnotationProperty>
+
+    <!-- http://www.w3.org/2004/02/skos/core#historyNote -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#historyNote">
+        <rdfs:comment xml:lang="en">A note about the past use of the concept.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Una nota sull'uso passato del concetto.</rdfs:comment>
+        <rdfs:label xml:lang="en">History note</rdfs:label>
+        <rdfs:label xml:lang="it">Nota storica</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
+    </owl:AnnotationProperty>
+
+    <!-- http://www.w3.org/2004/02/skos/core#scopeNote -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#scopeNote">
+        <rdfs:comment xml:lang="en">A note that clarifies the intended meaning of the concept.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Una nota che chiarisce il significato inteso del concetto.</rdfs:comment>
+        <rdfs:label xml:lang="en">Scope note</rdfs:label>
+        <rdfs:label xml:lang="it">Nota di ambito</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
+    </owl:AnnotationProperty>
     
 
 
