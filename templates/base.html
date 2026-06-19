@@ -26,7 +26,7 @@
             {% if request.path == '/' %}
             <a class="navbar-brand home-brand-heading" href="/"><span class="text-danger">O</span>pificio <span class="text-danger">P</span>otenziale <span class="text-danger">S</span>emantico</a>
             {% else %}
-            <a class="navbar-brand ops-brand" href="/">OPS<span class="ops-excl">!</span></a>
+            <a class="navbar-brand ops-brand" href="/">OPS</a>
             {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -63,26 +63,19 @@
                     <h5 class="text-uppercase fw-bold mb-3">Opificio Potenziale Semantico</h5>
                     <div class="footer-copyright-wrapper">
                         <p class="small mb-0">
-                            &copy; 2026 | <a href="https://www.unibo.it/sitoweb/enrica.bruno2" target="_blank" rel="noopener noreferrer">Enrica Bruno</a> |
-                            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
+                            <a href="https://github.com/enricabruno/ops-web-app" target="_blank">
+                                <i class="fa-brands fa-github"></i> GitHub |
+                            </a>
+                            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a> | Versione 1.0
                         </p>
                         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OPS logo" class="footer-logo mt-3">
                     </div>
                 </div>
 
                 <div class="footer-col-right">
-                    <h5 class="text-uppercase fw-bold mb-3">Tecnologie</h5>
-                    <p class="small mb-1">
-                        Realizzato con:
-                        <a href="https://graphdb.ontotext.com/" target="_blank">GraphDB</a>,
-                        <a href="https://flask.palletsprojects.com/" target="_blank">Flask</a> &
-                        <a href="https://d3js.org/" target="_blank">D3.js</a>
-                    </p>
-                    <p class="small mb-0 footer-version">
-                        <a href="https://github.com/enricabruno/ops-web-app" target="_blank">
-                            <i class="fa-brands fa-github"></i> GitHub
-                        </a>
-                        | Versione 1.0
+                    <h5 class="text-uppercase fw-bold mb-3">Contatti</h5>
+                    <p class="small mb-0">
+                        <a href="https://www.unibo.it/sitoweb/enrica.bruno2" target="_blank" rel="noopener noreferrer">Enrica Bruno</a>, enrica.bruno2@unibo.it
                     </p>
                 </div>
             </div>
