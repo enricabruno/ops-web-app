@@ -131,137 +131,23 @@
 	owl:sameAs <http://viaf.org/viaf/71319254> .
 
 <https://w3id.org/desmos/oplepiana/author/vicari> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Anna Regina Busetto Vicari"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/24821209> .
+    rdfs:label "Anna Regina Busetto Vicari"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/author/doria> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Domenico D'Oria"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/164902329> .
+    rdfs:label "Domenico D'Oria"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/author/berardi> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Alessandra Berardi"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/160882946> .
+    rdfs:label "Alessandra Berardi"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/author/bizzarri> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Giulio Bizzarri"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/53225477> .
-
-<https://w3id.org/desmos/oplepiana/author/fabrizi> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Daniela Fabrizi"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/TO0V155453> .
-
-<https://w3id.org/desmos/oplepiana/author/enriques> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Lorenzo Enriques"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/DDSV314960> .
+    rdfs:label "Giulio Bizzarri"^^xsd:string .
 
 ### Constraint ###
-desmos:acronym a desmos:FormalConstraint ;
-	rdfs:label "Acronimo"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:extraction .
-
-desmos:acrostic a desmos:FormalConstraint ;
-	rdfs:label "Acrostico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:extraction .
-
 desmos:alliteration a desmos:FormalConstraint ;
 	rdfs:label "Allitterazione"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ,
 	desmos:syllable .
-
-desmos:alphabetic_set_constraint a desmos:FormalConstraint ;
-	rdfs:label "Costrizione di un insieme alfabetico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:extraction .
-
-desmos:alphabetical_acrostic a desmos:FormalConstraint ;
-	rdfs:label "Acrostico alfabetico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:extraction .
-
-desmos:alternating_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima alternata"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:anagram a desmos:FormalConstraint ;
-	rdfs:label "Anagramma"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:anagraphy a desmos:FormalConstraint ;
-	rdfs:label "Anagrafia"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:word ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:beau_present a desmos:FormalConstraint ;
-	rdfs:label "Beau présent"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:cento a desmos:FormalConstraint ;
-	rdfs:label "Centone"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:line ;
-	desmos:involvesOperation desmos:extraction .
-
-desmos:crown_of_sonnets a desmos:FormalConstraint ;
-	rdfs:label "Corona di sonetti"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:stanza .
-
-desmos:distich a desmos:FormalConstraint ;
-	rdfs:label "Distico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:stanza .
-
-desmos:enclosed_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima incrociata"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:fictional_characters a desmos:SemanticConstraint ;
-	rdfs:label "Costrizione sui personaggi finzionali"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsSemanticUnit desmos:character .
-
-desmos:fictional_setting a desmos:SemanticConstraint ;
-	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsSemanticUnit desmos:fictional_space .
-
-desmos:figured_alphabet a desmos:FormalConstraint ;
-	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:fixed_text_length a desmos:FormalConstraint;
-	rdfs:label "Lunghezza del testo fissa"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:page .
-
-desmos:fixed_title_length a desmos:FormalConstraint ;
-	rdfs:label "Lunghezza del titolo fissa"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:line .
-
-desmos:hendecasyllable a desmos:FormalConstraint ;
-	rdfs:label "Endecasillabo"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
 
 desmos:heterogram a desmos:FormalConstraint ;
 	rdfs:label "Eterogramma"^^xsd:string ;
@@ -269,33 +155,81 @@ desmos:heterogram a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
-desmos:homographic_translation a desmos:FormalConstraint ;
-	rdfs:label "Traduzione omografica"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:division .
-
-desmos:homonymy a desmos:FormalConstraint ;
-	rdfs:label "Omonimia"^^xsd:string ;
+desmos:anagram a desmos:FormalConstraint ;
+	rdfs:label "Anagramma"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:word ;
-	desmos:involvesOperation desmos:substitution .
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:displacement .
 
-desmos:iambic a desmos:FormalConstraint ;
-	rdfs:label "Iambico"^^xsd:string ;
+desmos:septenary_double a desmos:FormalConstraint ;
+	rdfs:label "Settenario doppio"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
-desmos:isovocalism a desmos:FormalConstraint ;
-	rdfs:label "Isovocalismo"^^xsd:string ;
+desmos:regraphing a desmos:FormalConstraint ;
+	rdfs:label "Rigrafia"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ,
-		desmos:word .
+	desmos:constrainsFormalUnit desmos:line ;
+	desmos:involvesOperation desmos:displacement .
 
-desmos:lexical_gap a desmos:FormalConstraint ;
-	rdfs:label "Lacuna lessicale"^^xsd:string ;
+desmos:statistical_bound a desmos:FormalConstraint ;
+    rdfs:label "Vincolo statistico"^^xsd:string ;
+    desmos:constraintOrigin desmos:original ;
+    desmos:constrainsFormalUnit desmos:letter ;
+    desmos:involvesOperation desmos:multiplication ,
+        desmos:displacement .
+
+desmos:quatrain a desmos:FormalConstraint ;
+	rdfs:label "Quartina"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:alternating_rhyme a desmos:FormalConstraint ;
+	rdfs:label "Rima alternata"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
+
+desmos:mythographic_units a desmos:FormalConstraint ;
+	rdfs:label "Mitografemi"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:division .
+
+desmos:hendecasyllable a desmos:FormalConstraint ;
+	rdfs:label "Endecasillabo"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
+
+desmos:terzine a desmos:FormalConstraint ;
+	rdfs:label "Terzina"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:palindrome a desmos:FormalConstraint ;
+	rdfs:label "Palindromo"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:displacement .
+
+desmos:cento a desmos:FormalConstraint ;
+	rdfs:label "Centone"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:line ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:monorhyme a desmos:FormalConstraint ;
+	rdfs:label "Monorima"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line ;
+	desmos:involvesOperation desmos:multiplication .
+
+desmos:monovocalism a desmos:FormalConstraint ;
+	rdfs:label "Monovocalismo"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
@@ -311,14 +245,14 @@ desmos:lipogram_A a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
-desmos:lipogram_B a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in B"^^xsd:string ;
+desmos:lipogram_E a desmos:FormalConstraint ;
+	rdfs:label "Lipogramma in E"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
-desmos:lipogram_E a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in E"^^xsd:string ;
+desmos:lipogram_S a desmos:FormalConstraint ;
+	rdfs:label "Lipogramma in S"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
@@ -335,32 +269,58 @@ desmos:lipogram_O a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
-desmos:lipogram_S a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in S"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:mandatory_dedication a desmos:SemanticConstraint ;
-    rdfs:label "Dedica obbligata"^^xsd:string ;
-    desmos:constraintOrigin desmos:historical ;
-    desmos:constrainsSemanticUnit desmos:addressee .
-
-desmos:mandatory_genre a desmos:SemanticConstraint ;
-	rdfs:label "Costrizione del genere letterario"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsSemanticUnit desmos:literary_genre .
-
-desmos:mandatory_sentence a desmos:FormalConstraint ;
-	rdfs:label "Frase obbligatoria"^^xsd:string ;
+desmos:homographic_translation a desmos:FormalConstraint ;
+	rdfs:label "Traduzione omografica"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:line ;
-	desmos:involvesOperation desmos:addition .
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:division .
+
+desmos:temporal_constraint a desmos:FormalConstraint ;
+	rdfs:label "Tempo obbligato"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:line .
+
+desmos:anagraphy a desmos:FormalConstraint ;
+	rdfs:label "Anagrafia"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:displacement .
+
+desmos:figured_alphabet a desmos:FormalConstraint ;
+	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:displacement .
+
+desmos:fixed_text_length a desmos:FormalConstraint;
+	rdfs:label "Lunghezza del testo fissa"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:page .
+
+desmos:typographic_constraints a desmos:FormalConstraint ;
+	rdfs:label "Norme tipografiche"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:typography .
+
+desmos:fictional_characters a desmos:SemanticConstraint ;
+	rdfs:label "Costrizione sui personaggi finzionali"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsSemanticUnit desmos:character .
+
+desmos:fictional_setting a desmos:SemanticConstraint ;
+	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsSemanticUnit desmos:fictional_space .
 
 desmos:mandatory_theme a desmos:SemanticConstraint ;
 	rdfs:label "Tema obbligato"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:theme .
+
+desmos:mandatory_genre a desmos:SemanticConstraint ;
+	rdfs:label "Costrizione del genere letterario"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsSemanticUnit desmos:literary_genre .
 
 desmos:martellian_verse a desmos:FormalConstraint ;
 	rdfs:label "Verso martelliano"^^xsd:string ;
@@ -368,165 +328,21 @@ desmos:martellian_verse a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:multiplication .
 
-desmos:metric_liposyllabism a desmos:FormalConstraint ;
-	rdfs:label "Liposillabismo metrico"^^xsd:string ;
-    desmos:constraintOrigin desmos:historical ;
-    desmos:constrainsFormalUnit desmos:syllable ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:monorhyme a desmos:FormalConstraint ;
-	rdfs:label "Monorima"^^xsd:string ;
+desmos:fixed_title_length a desmos:FormalConstraint ;
+	rdfs:label "Lunghezza del titolo fissa"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line ;
-	desmos:involvesOperation desmos:multiplication .
-
-desmos:monovocalism a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:mythographic_units a desmos:FormalConstraint ;
-	rdfs:label "Mitografemi"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:division .
-
-desmos:non_repeating_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima non ripetuta"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:octave a desmos:FormalConstraint ;
-	rdfs:label "Ottava"^^xsd:string ;
-    desmos:constraintOrigin desmos:historical ;
-    desmos:constrainsFormalUnit desmos:stanza .
+	desmos:constrainsFormalUnit desmos:line .
 
 desmos:page_format a desmos:FormalConstraint ;
 	rdfs:label "Vincolo quantitativo di supporto"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:page .
 
-desmos:palindrome a desmos:FormalConstraint ;
-	rdfs:label "Palindromo"^^xsd:string ;
+desmos:homonymy a desmos:FormalConstraint ;
+	rdfs:label "Omonimia"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:panvocalism a desmos:FormalConstraint ;
-	rdfs:label "Panvocalismo"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:addition .
-
-desmos:permutation a desmos:FormalConstraint ;
-	rdfs:label "Permutazione"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ,
-		desmos:word ,
-		desmos:line ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:poliacrostic a desmos:FormalConstraint ;
-	rdfs:label "Poliacrostico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:extraction .
-
-desmos:prisoner_constraint a desmos:FormalConstraint ;
-	rdfs:label "Contrainte du prisonnier"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:progressive_alphabetical_lipogram a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma alfabetico"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:subtraction .
-
-desmos:proverbial_shift a desmos:FormalConstraint ;
-	rdfs:label "Slittamento proverbiale"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
-
-desmos:quatrain a desmos:FormalConstraint ;
-	rdfs:label "Quartina"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:stanza .
-
-desmos:regraphing a desmos:FormalConstraint ;
-	rdfs:label "Rigrafia"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:line ;
-	desmos:involvesOperation desmos:displacement .
-
-desmos:rhyme_name_echo a desmos:FormalConstraint ;
-	rdfs:label "Eco di rima"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line ;
-	desmos:involvesOperation desmos:multiplication .
-
-desmos:sdrucciola_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima sdrucciola"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
-	rdfs:label "Testo locuzionale semiautomatico"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:word ;
-	desmos:involvesOperation desmos:extraction ,
-		desmos:substitution .
-
-desmos:septenary a desmos:FormalConstraint ;
-	rdfs:label "Settenario"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:septenary_double a desmos:FormalConstraint ;
-	rdfs:label "Settenario doppio"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
-
-desmos:sestina a desmos:FormalConstraint ;
-	rdfs:label "Sestina"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:stanza .
-
-desmos:solfeix a desmos:FormalConstraint ;
-	rdfs:label "Solfeix"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:syllable ;
-	desmos:involvesOperation desmos:addition .
-
-desmos:statistical_bound a desmos:FormalConstraint ;
-    rdfs:label "Vincolo statistico"^^xsd:string ;
-    desmos:constraintOrigin desmos:original ;
-    desmos:constrainsFormalUnit desmos:letter ;
-    desmos:involvesOperation desmos:multiplication ,
-        desmos:displacement .
-
-desmos:statistical_bound_in_E a desmos:FormalConstraint ;
-	rdfs:label "Rimbalzo statistico"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:multiplication ,
-		desmos:displacement .
-
-desmos:stolen_letters a desmos:FormalConstraint ;
-	rdfs:label "Lettere rubate"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:letter ,
-		desmos:word ;
-	desmos:involvesOperation desmos:subtraction .
 
 desmos:syllable_expansion a desmos:FormalConstraint ;
 	rdfs:label "Espansioni sillabiche"^^xsd:string ;
@@ -535,27 +351,30 @@ desmos:syllable_expansion a desmos:FormalConstraint ;
 		desmos:line ;
 	desmos:involvesOperation desmos:addition .
 
-desmos:tanka a desmos:FormalConstraint ;
-	rdfs:label "Tanka"^^xsd:string ;
-    desmos:constraintOrigin desmos:historical ;
-    desmos:constrainsFormalUnit desmos:syllable ,
-	desmos:line .
-
-desmos:tautogram a desmos:FormalConstraint ;
-	rdfs:label "Tautogramma"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:letter ;
-	desmos:involvesOperation desmos:multiplication .
-
-desmos:temporal_constraint a desmos:FormalConstraint ;
-	rdfs:label "Tempo obbligato"^^xsd:string ;
+desmos:stolen_letters a desmos:FormalConstraint ;
+	rdfs:label "Lettere rubate"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:line .
+	desmos:constrainsFormalUnit desmos:letter ,
+		desmos:word ;
+	desmos:involvesOperation desmos:subtraction .
 
-desmos:terzine a desmos:FormalConstraint ;
-	rdfs:label "Terzina"^^xsd:string ;
+desmos:lexical_gap a desmos:FormalConstraint ;
+	rdfs:label "Lacuna lessicale"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:subtraction .
+
+desmos:mandatory_sentence a desmos:FormalConstraint ;
+	rdfs:label "Frase obbligatoria"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:line ;
+	desmos:involvesOperation desmos:addition .
+
+desmos:sdrucciola_rhyme a desmos:FormalConstraint ;
+	rdfs:label "Rima sdrucciola"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:stanza .
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
 
 desmos:truncated_rhyme a desmos:FormalConstraint ;
 	rdfs:label "Rima tronca"^^xsd:string ;
@@ -563,10 +382,94 @@ desmos:truncated_rhyme a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
-desmos:typographic_constraints a desmos:FormalConstraint ;
-	rdfs:label "Norme tipografiche"^^xsd:string ;
+desmos:proverbial_shift a desmos:FormalConstraint ;
+	rdfs:label "Slittamento proverbiale"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:substitution .
+
+desmos:solfeix a desmos:FormalConstraint ;
+	rdfs:label "Solfeix"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:syllable ;
+	desmos:involvesOperation desmos:addition .
+
+desmos:panvocalism a desmos:FormalConstraint ;
+	rdfs:label "Panvocalismo"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:typography .
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:addition .
+
+desmos:acrostic a desmos:FormalConstraint ;
+	rdfs:label "Acrostico"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:poliacrostic a desmos:FormalConstraint ;
+	rdfs:label "Poliacrostico"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:acronym a desmos:FormalConstraint ;
+	rdfs:label "Acronimo"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:tautogram a desmos:FormalConstraint ;
+	rdfs:label "Tautogramma"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:multiplication .
+
+desmos:enclosed_rhyme a desmos:FormalConstraint ;
+	rdfs:label "Rima incrociata"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
+
+desmos:prisoner_contrainte a desmos:FormalConstraint ;
+	rdfs:label "Contrainte du prisonnier"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:subtraction .
+
+desmos:distich a desmos:FormalConstraint ;
+	rdfs:label "Distico"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:alphabetical_acrostic a desmos:FormalConstraint ;
+	rdfs:label "Acrostico alfabetico"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:alphabetic_set_constraint a desmos:FormalConstraint ;
+	rdfs:label "Costrizione di un insieme alfabetico"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:extraction .
+
+desmos:progressive_alphabetical_lipogram a desmos:FormalConstraint ;
+	rdfs:label "Lipogramma alfabetico"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:subtraction .
+
+desmos:beau_present a desmos:FormalConstraint ;
+	rdfs:label "Beau présent"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:subtraction .
+
+desmos:septenary a desmos:FormalConstraint ;
+	rdfs:label "Settenario"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
 
 desmos:word_length_oscillation a desmos:FormalConstraint ;
 	rdfs:label "Oscillazione di lunghezza (N±1)"^^xsd:string ;
@@ -575,6 +478,42 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
     desmos:word ;   
     desmos:involvesOperation desmos:addition , 
 		desmos:subtraction .
+
+desmos:tanka a desmos:FormalConstraint ;
+	rdfs:label "Tanka"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:syllable ,
+	desmos:line .
+
+desmos:octave a desmos:FormalConstraint ;
+	rdfs:label "Ottava"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:metric_liposyllabism a desmos:FormalConstraint ;
+	rdfs:label "Liposillabismo metrico"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:syllable ;
+	desmos:involvesOperation desmos:subtraction .
+
+desmos:sestina a desmos:FormalConstraint ;
+	rdfs:label "Sestina"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:statistical_bound_in_E a desmos:FormalConstraint ;
+	rdfs:label "Rimbalzo statistico"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:multiplication ,
+		desmos:displacement .
+
+desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
+	rdfs:label "Testo locuzionale semiautomatico"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:extraction ,
+		desmos:substitution .
 	
 ### Linguistic Object ###
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_01> a crm:E33_Linguistic_Object ;
@@ -596,7 +535,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_03> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_04> a crm:E33_Linguistic_Object ;
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_04_campagnoli> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "È parso interessante all’Autore «innestare il palindromo su una struttura: il sonetto»."@it ;
 	crm:P129_is_about desmos:quatrain ,
 		desmos:terzine ,
@@ -694,7 +633,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_aragona> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Un elogio di lipogramma non può che essere lipogrammatico: ognuno dei suoi 'capitoli' fa a meno della lettera con la quale inizia, esaurendo, nell'ordine, tutte le lettere dell'alfabeto."@it ;
+	crm:P3_has_note """Un elogio di lipogramma non può che essere lipogrammatico: ognuno dei suoi "capitoli" fa a meno della lettera con la quale inizia, esaurendo, nell'ordine, tutte le lettere dell'alfabeto."""@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 	desmos:progressive_alphabetical_lipogram ;
@@ -702,7 +641,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_chiti> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "4 terzine di settenari doppi AAB. A è sempre rima sdrucciola, B è tronco. Ogni verso contiene tutte le lettere dell'acronimo OPLEPO."@it ;
+	crm:P3_has_note """4 terzine di settenari doppi AAB. A è sempre rima sdrucciola, B è tronco. Ogni verso contiene tutte le lettere dell'acronimo OPLEPO."""@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 	desmos:septenary_double ,
@@ -712,7 +651,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."@it ;
+	crm:P3_has_note """L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."""@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 		desmos:alliteration ;
@@ -751,35 +690,18 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Plaquette in forma collettanea dedicata a Italo Calvino nel ventennale della sua morte (2005). La consegna non impone una contrainte formale comune: ciascun autore sviluppa una propria contrainte in dialogo con l'opera e la figura di Calvino."@it ;
-	crm:P129_is_about desmos:mandatory_dedication ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "I 'telegrammi' dedicati a Italo Calvino, autore delle 'Aiuole per Queneau', sono 'panvocalici'; ciascuno di essi, cioè è costituito da parole nelle quali le cinque vocali compaiono tutte ed una volta sola."@it ;
-	crm:P129_is_about desmos:panvocalism ,
-		desmos:madatory_dedication ;
+	crm:P129_is_about desmos:panvocalism ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/kierkia> .
 
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La contrainte è quella de 'les beaux présents': le tre ottave scritte utilizzando soltanto le otto diverse lettere del nome 'Italo Calvino'."@it ;
-	crm:P129_is_about desmos:beau_present,
-		desmos:octave ,
-		desmos:madatory_dedication ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "l principio della chimera, animale mitologico frutto di un mostruoso assemblaggio al pari dell'ircocervo e di altre creature immaginarie, 'sembra potersi trasporre, in più modi diversi, nelle strutture letterarie', sosteneva François Le Lionnais nella sezione de La littérature potentielle (1973) dedicata alle manipolazioni lessicografiche, sintattiche o prosodiche.» Sensibili allo spunto dell'ingegnere e scacchista oulipiano, gli Oplepiani hanno raccolto la sfida e prodotto le loro 'chimeriche trasposizioni', riferendosi alla parentela semantica tra chimerico, illusorio e fantastico (Borges)."@it ;
-	crm:P129_is_about desmos:mandatory_theme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_doria> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Tutti i sostantivi del testo, nomi propri compresi, contengono una successione ordinata di tre vocali secondo lo schema x y x"@it ;
-	crm:P129_is_about desmos:isovocalism ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> a crm:E33_Linguistic_Object ;
@@ -790,27 +712,19 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 		desmos:terzine ,
 		desmos:poliacrostic ,
 		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
-		desmos:mandatory_theme ;
+		desmos:enclosed_rhyme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_vicari> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Il testo è costruito da innesti di vaneggiamenti di Albani (il leone), Odifreddi (la capra) e Cavazzoni (il serpente), su versi fiammanto (le vampe alitate dal mostro) di Sanguineti"@it ;
-	crm:P129_is_about desmos:cento ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in forma collettanea sul tema delle Sirene, intese come 'fascinazioni' letterarie: il mito partenopeo e le figure sirenesche del Golfo di Napoli sono il pretesto compositivo per tredici testi à contrainte. Ciascun autore sviluppa una propria contrainte in dialogo con il tema."@it ;
-	crm:isAbout desmos:mandatory_theme ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_aragona> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La 'traduzione' condotta in versi martelliani, utilizza una particolare struttura lipogrammatica: la contrainte du prisonnier."@it ;
 	crm:P129_is_about desmos:martellian_verse ,
-		desmos:prisoner_constraint ;
+		desmos:prisoner_contrainte ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -821,64 +735,16 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_weiss> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_fabrizi> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "In ogni riga del testo, la prima parola contiene una sola 'i'; la seconda una sola 'o'; la terza una sola 's', a formare il nome 'Ios'. Inoltre, la lettera sempre assente, la 'b', posta davanti al nome 'Ios', dà luogo alla parola 'bios'."@it ;
-	crm:P129_is_about desmos:lipogram_B ,
-		desmos:poliacrostic ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in forma collettanea sul tema della gastronomia e della convivialità: le 'leggi della tavola' sono pretesto compositivo per tredici testi à contrainte che intrecciano i registri della cucina, del galateo conviviale e della tradizione letteraria gastronomica (con riferimenti, fra gli altri, a Artusi e a Perec). Ciascun autore sviluppa una propria contrainte in dialogo con il tema."@it ;
-	crm:P129_is_about desmos:mandatory_theme ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_a> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "In generale, la 'corona di sonetti' è un componimento formato dall'unione di più sonetti su uno stesso argomento. Questa 'Corona di sonetti gastronomici' [...] è composta da 15 sonetti; in essi l'ultimo verso del primo sonetto costituisce il primo verso di quello successivo, e così via. Il quindicesimo sonetto è formato da tutti gli ultimi versi dei 14 sonetti precedenti."@it ;
-	crm:P129_is_about desmos:crown_of_sonnets ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_b> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La struttura metrica selezionata segue lo schema classico di due quartine e due terzine di versi endecasillabi giambici a rima ABBA -ABBA | CDE - EDC. Le rime dei versi che non appaiono nel quindicesimo sonetto non sono mai ripetute."@it ;
-	crm:P129_is_about desmos:quatrain ,
-		desmos:terzine ,
-		desmos:hendecasyllable ,
-		desmos:enclosed_rhyme ,
-		desmos:iambic_rhythm ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_c> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Le rime dei versi che non appaiono nel quindicesimo sonetto non sono mai ripetute."@it ;
-	crm:P129_is_about desmos:non_repeating_rhyme ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_enriques> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La 'magica' articolazione delle pietanze dei tre menu comprende due parti, l'una l'anagramma dell'altra."@it ;
-	crm:P129_is_about desmos:placeholder ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_enriques> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_sanguineti> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "I 21 distici offrono, inoltre, un acrostico alfabetico doppio"@it ;
 	crm:P129_is_about desmos:distich ,
 		desmos:alphabetical_acrostic;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_a> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Si tratta di un 'acrobistico', definizione che richiama immediatamente la struttura utilizzata: nome e cognome del poeta francese contano esattamente 14 lettere e le rime ABAB ABAB AAB ABB foneticamente li richiamano."@it ;
-	crm:P129_is_about desmos:placeholder ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_b> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Il cognome del poeta [...] è ripetuto due volte in forma di acrostico"@it ;
-	crm:P129_is_about desmos:placeholder ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31> a crm:E33_Linguistic_Object ;
@@ -901,7 +767,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l'aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L' 'epistolina', infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
+	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l’aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L’ “epistolina”, infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
 	crm:P129_is_about desmos:hendecasyllable ,
 		desmos:terzine ,
 		desmos:acrostic ,
@@ -964,7 +830,7 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_43> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Ogni sonetto è costruito eliminando le 'sillabe metriche' che compongono il nome e cognome del poeta preso di mira."@it ;
+	crm:P3_has_note "Ogni sonetto è costruito eliminando le “sillabe metriche” che compongono il nome e cognome del poeta preso di mira."@it ;
 	crm:P129_is_about desmos:terzine ,
 		desmos:quatrain ,
 		desmos:metric_liposyllabism ;
@@ -1089,7 +955,11 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_16> ;
 	crm:P148_has_component
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_addomine> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p22> ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
@@ -1099,8 +969,28 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> a lrmoo:F2_Expression ;
+    dcterms:title "La disparizión"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> a lrmoo:F2_Expression ;
     dcterms:title "Alloro per loro"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> a lrmoo:F2_Expression ;
+    dcterms:title "Una parola d’oro"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> a lrmoo:F2_Expression ;
+    dcterms:title "Numero tredici"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> a lrmoo:F2_Expression ;
+    dcterms:title "Un caffè per tre"^^xsd:string ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_16> .
 
@@ -1111,17 +1001,38 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_chiti> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> ;
 	crm:P148_has_component
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_chiti> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p23-1> ;
 	crm:P2_has_type desmos:prose ,
 		desmos:poetry ,
 		desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Opera poetica limitante entropiche profondità ombelicali"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Oscurità poetica laureata esibendo parole oblique"^^xsd:string ;
+    crm:P2_has_type desmos:visual_poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> a lrmoo:F2_Expression ;
     dcterms:title "Elogio di Ogni poema lipogrammatico esprimente potenzialità oscurate"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Ospedale per lemmi esausti, provati, obesi"^^xsd:string ;
     crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
@@ -1130,9 +1041,24 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
     crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Ostinazione: premere lemmi endecasillabici produce olio"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Ostracismo politico, legge emarginata, punto O"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> a lrmoo:F2_Expression ;
     dcterms:title "Elogio dell'Osar poetare liberamente, evitando penalizzanti ortodossie"^^xsd:string ;
     crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> a lrmoo:F2_Expression ;
+    dcterms:title "Elogio dell'Ombra, proiezione labile eppure pressoché onnipresente"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_17> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_18> a lrmoo:F2_Expression ;
@@ -1161,17 +1087,49 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	dcterms:title "Il doppio"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_22> ;
 	crm:P148_has_component
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> ,
         <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ,
-        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ;
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> ,
+        <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p27> ;
-	crm:P2_has_type desmos:poetry ,
+	crm:P2_has_type desmos:prose ,
+		desmos:poetry ,
 		desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> a lrmoo:F2_Expression ;
+    dcterms:title "Doppio segno"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> a lrmoo:F2_Expression ;
+    dcterms:title "Piccolo dizionario double-face"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> a lrmoo:F2_Expression ;
+    dcterms:title "Il doppio imperfetto con rimbalzo"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> a lrmoo:F2_Expression ;
+    dcterms:title "La scoperta dell'America"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> a lrmoo:F2_Expression ;
     dcterms:title "Duplex"^^xsd:string ;
-    crm:P2_has_type desmos:visual_poetry ;
+    crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> a lrmoo:F2_Expression ;
@@ -1179,9 +1137,44 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
     crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> a lrmoo:F2_Expression ;
+    dcterms:title "Il romanzo equivoco"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> a lrmoo:F2_Expression ;
     dcterms:title "Specchio"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> a lrmoo:F2_Expression ;
+    dcterms:title "Senso doppio/Doppio senso"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> a lrmoo:F2_Expression ;
+    dcterms:title "Kamasutre"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> a lrmoo:F2_Expression ;
+    dcterms:title "Il punto di vista, anche"^^xsd:string ;
     crm:P2_has_type desmos:visual_poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> a lrmoo:F2_Expression ;
+    dcterms:title "Teoremi e assiomi"^^xsd:string ;
+    crm:P2_has_type desmos:prose ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> a lrmoo:F2_Expression ;
+    dcterms:title "Raddoppi"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
+    lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> a lrmoo:F2_Expression ;
+    dcterms:title "Doppio doppio"^^xsd:string ;
+    crm:P2_has_type desmos:poetry ;
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_23> a lrmoo:F2_Expression ;
@@ -1202,18 +1195,10 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> a lrmoo:F2_Expression ;
 	dcterms:title "A Italo Calvino"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> ;
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p7-2> ;
-	crm:P2_has_type desmos:poetry , desmos:prose ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> a lrmoo:F2_Expression ;
-	dcterms:title "Permutazioni bibliografiche"^^xsd:string ;
-	crm:P2_has_type desmos:prose ;
+	crm:P2_has_type desmos:poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> a lrmoo:F2_Expression ;
@@ -1221,27 +1206,13 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> a lrmoo:F2_Expression ;
-	dcterms:title "Italo Calvino in ottava"^^xsd:string ;
-	crm:P2_has_type desmos:poetry ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> a lrmoo:F2_Expression ;
 	dcterms:title "Chimere"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_doria> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_vicari> ;
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p31> ;
-	crm:P2_has_type desmos:poetry , desmos:prose ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> a lrmoo:F2_Expression ;
-	dcterms:title "Kimerik polito-logico"^^xsd:string ;
-	crm:P2_has_type desmos:prose ;
+	crm:P2_has_type desmos:poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> a lrmoo:F2_Expression ;
@@ -1249,22 +1220,14 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> a lrmoo:F2_Expression ;
-	dcterms:title "La Chimera Incapricciata"^^xsd:string ;
-	crm:P2_has_type desmos:prose , desmos:poetry ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> a lrmoo:F2_Expression ;
 	dcterms:title "Sirene. Fascinazioni"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_text_aragona> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_fabrizi> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28_text_weiss> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p7-3> ;
-	crm:P2_has_type desmos:poetry ,
-		desmos:prose ;
+	crm:P2_has_type desmos:poetry ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_weiss> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> .
 
@@ -1279,35 +1242,14 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> a lrmoo:F2_Expression ;
-	dcterms:title "Io sono"^^xsd:string ;
-	crm:P2_has_type desmos:prose ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> a lrmoo:F2_Expression ;
 	dcterms:title "Le leggi della tavola. Regole per tutti i gusti"^^xsd:string ;
 	lrmoo:R15_has_fragment
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_a> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_b> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_enriques> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_text_sanguineti> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p31-1> ;
-	crm:P2_has_type desmos:poetry ,
-		desmos:prose ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_enriques> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> a lrmoo:F2_Expression ;
-	dcterms:title "Corona di sonetti gastronomici"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_enriques> a lrmoo:F2_Expression ;
-	dcterms:title "Il chilometro libero"^^xsd:string ;
-	crm:P2_has_type desmos:prose ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> a lrmoo:F2_Expression ;
@@ -1316,23 +1258,8 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> a lrmoo:F2_Expression ;
-	dcterms:title "Capriccio oplepian. Pretesti"^^xsd:string ;
-	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_a> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_b> ;
-	rdfs:seeAlso <https://www.oplepo.com/copia-di-p34-1> ;
-	crm:P2_has_type desmos:poetry ,
-		desmos:prose ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_30> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> a lrmoo:F2_Expression ;
-	dcterms:title "a Jacques Roubaud"^^xsd:string ;
-	crm:P2_has_type desmos:poetry ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_30> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31> a lrmoo:F2_Expression ;
-	dcterms:title "A Edoardo Sanguineti"^^xsd:string ;
+	dcterms:title "Capriccio oplepiano. Pretesti"^^xsd:string ;
 	lrmoo:R15_has_fragment
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_text_aragona> ,
@@ -1498,7 +1425,6 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> ,
 		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> ,
 		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> ,
-		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_30> ,
 		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> ,
 		<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_33> . 
 
@@ -1670,12 +1596,6 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_2> ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> ;
 	schema:pagination "155-224"^^xsd:string .
-
-<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_30> a lrmoo:F3_Manifestation ;
-	dcterms:title "Plaquette N. 30"@it ;
-	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_2> ;
-	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> ;
-	schema:pagination "223-243"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 31"@it ;
@@ -1965,9 +1885,57 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
         desmos:fixed_title_length ;
     dcterms:created "1999"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_aragona> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_aragona> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
+    desmos:usedConstraint desmos:fixed_text_length ,
+        desmos:typographic_constraints ,
+        desmos:fictional_characters ,
+        desmos:fictional_setting ,
+        desmos:mandatory_theme ,
+        desmos:mandatory_genre ,
+        desmos:fixed_title_length ;
+    dcterms:created "1999"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_eruli> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_eruli> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
+    desmos:usedConstraint desmos:fixed_text_length ,
+        desmos:typographic_constraints ,
+        desmos:fictional_characters ,
+        desmos:fictional_setting ,
+        desmos:mandatory_theme ,
+        desmos:mandatory_genre ,
+        desmos:fixed_title_length ;
+    dcterms:created "1999"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_falchetta> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_falchetta> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/falchetta> ;
+    desmos:usedConstraint desmos:fixed_text_length ,
+        desmos:typographic_constraints ,
+        desmos:fictional_characters ,
+        desmos:fictional_setting ,
+        desmos:mandatory_theme ,
+        desmos:mandatory_genre ,
+        desmos:fixed_title_length ;
+    dcterms:created "1999"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_kierkia> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_kierkia> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+    desmos:usedConstraint desmos:fixed_text_length ,
+        desmos:typographic_constraints ,
+        desmos:fictional_characters ,
+        desmos:fictional_setting ,
+        desmos:mandatory_theme ,
+        desmos:mandatory_genre ,
+        desmos:fixed_title_length ;
+    dcterms:created "1999"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_16_text_varaldo> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_16_text_varaldo> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
     desmos:usedConstraint desmos:fixed_text_length ,
         desmos:typographic_constraints ,
         desmos:fictional_characters ,
@@ -1984,12 +1952,33 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
         desmos:acronym ;
     dcterms:created "2000"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_addomine> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
+    dcterms:created "2000"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_albani> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_albani> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
+    dcterms:created "2000"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_aragona> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_aragona> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
     desmos:usedConstraint desmos:acronym ,
         desmos:mandatory_genre ,
 		desmos:progressive_alphabetical_lipogram ;
+    dcterms:created "2000"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_berardi> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_berardi> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/berardi> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
     dcterms:created "2000"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_chiti> a lrmoo:F28_Expression_Creation ;
@@ -2003,12 +1992,33 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 		desmos:truncated_rhyme ;
     dcterms:created "2000"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_eruli> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_eruli> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
+    dcterms:created "2000"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_kierkia> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_kierkia> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
+    dcterms:created "2000"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_sebregondi> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_sebregondi> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
     desmos:usedConstraint desmos:acronym ,
         desmos:mandatory_genre ,
 		desmos:alliteration ;
+    dcterms:created "2000"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_17_text_varaldo> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+    desmos:usedConstraint desmos:acronym ,
+        desmos:mandatory_genre ;
     dcterms:created "2000"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_18> a lrmoo:F28_Expression_Creation ;
@@ -2035,6 +2045,30 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     desmos:usedConstraint desmos:mandatory_theme ;
     dcterms:created "2004"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_berardi> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_berardi> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/berardi> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_vicari> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_vicari> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/vicari> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_eruli> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_eruli> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_doria> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_doria> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_sanguineti> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sanguineti> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
@@ -2044,13 +2078,54 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_addomine> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
-    desmos:usedConstraint desmos:mandatory_theme ,
-		desmos:homographic_translation ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_cavazzoni> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_cavazzoni> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/cavazzoni> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
     dcterms:created "2004"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_bizzarri> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_bizzarri> ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/bizzarri> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_varaldo> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_varaldo> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_sebregondi> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_sebregondi> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_albani> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_albani> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_odifreddi> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_odifreddi> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/odifreddi> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_aragona> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_aragona> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
+    desmos:usedConstraint desmos:mandatory_theme ;
+    dcterms:created "2004"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_22_text_kierkia> a lrmoo:F28_Expression_Creation ;
+    lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_kierkia> ;
+    crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
     desmos:usedConstraint desmos:mandatory_theme ;
     dcterms:created "2004"^^xsd:gYear .
 
@@ -2068,44 +2143,19 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> ;
-	desmos:usedConstraint desmos:mandatory_dedication ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2005"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_doria> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ;
-	desmos:usedConstraint desmos:permutation ,
-		desmos:mandatory_dedication ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
-	dcterms:created "2005"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_kierkia> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
-	desmos:usedConstraint desmos:panvocalism ,
-		desmos:mandatory_dedication ;
+	desmos:usedConstraint desmos:panvocalism ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
-	dcterms:created "2005"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_varaldo> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
-	desmos:usedConstraint desmos:beau_present ,
-		desmos:octave ,
-		desmos:mandatory_dedication ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
 	dcterms:created "2005"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> ;
-	desmos:usedConstraint desmos:mandatory_theme ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2006"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_doria> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_doria> ;
-	desmos:usedConstraint desmos:isovocalism ,
-		desmos:mandatory_theme ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
-	dcterms:created "2006"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
@@ -2115,91 +2165,43 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 		desmos:terzine ,
 		desmos:acrostic ,
 		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
-		desmos:mandatory_theme ;
+		desmos:enclosed_rhyme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
-	dcterms:created "2006"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_vicari> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
-	desmos:usedConstraint desmos:cento ,
-		desmos:mandatory_theme ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/vicari> ;
 	dcterms:created "2006"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> ;
-	desmos:usedConstraint desmos:mandatory_theme ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2008"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_aragona> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
 	desmos:usedConstraint desmos:martellian_verse ,
-		desmos:prisoner_constraint ,
-		desmos:mandatory_theme ;
+		desmos:prisoner_contrainte ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
 	dcterms:created "2008"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_weiss> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_weiss> ;
 	desmos:usedConstraint desmos:martellian_verse ,
-		desmos:prisoner_constraint ,
-		desmos:mandatory_theme ;
+		desmos:prisoner_contrainte ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/weiss> ;
-	dcterms:created "2008"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_fabrizi> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ;
-	desmos:usedConstraint desmos:lipogram_B , 
-		desmos:poliacrostic ,
-		desmos:mandatory_theme ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/fabrizi> ;
 	dcterms:created "2008"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_29> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> ;
-	desmos:usedConstraint desmos:mandatory_theme ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2009"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_29_text_addomine> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
-	desmos:usedConstraint desmos:crown_of_sonnets ,
-		desmos:non_repeating_rhyme ,
-		desmos:iambic_rhythm ,
-		desmos:mandatory_theme ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
-	dcterms:created "2009"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_29_text_enriques> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_enriques> ;
-	desmos:usedConstraint desmos:placeholder ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/enriques> ;
-	dcterms:created "2009"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_29_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
 	desmos:usedConstraint desmos:distich ,
-		desmos:alphabetical_acrostic ,
-		desmos:mandatory_theme ;
+		desmos:alphabetical_acrostic ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
 	dcterms:created "2009"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_30> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
-	dcterms:created "2010"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_30_text_sanguineti> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
-	desmos:usedConstraint desmos:placeholder ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
-	dcterms:created "2010"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31> ;
-	desmos:usedConstraint desmos:mandatory_dedication ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2010"^^xsd:gYear .
 
@@ -2328,7 +2330,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_07> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_07> ;
 	crm:P3_has_note "Il testo distingue graficamente le due letture della stessa base omografica tramite una marcatura tipografica differenziale (corsivo del blocco in inglese)."^^xsd:string ;
-	desmos:revealsConstraint desmos:homographic_translation .
+	desmos:revealsConstraint desmos:lipogram_A .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_09> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_09> ;
@@ -2360,11 +2362,6 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P3_has_note "Il testo presenta una marcatura tipografica (sottolineatura) e numerazione progressiva per identificare le unità del testo sorgente, mentre un'altra marcatura tipografica (grassetto) per identificare le unità derivate nel testo di arrivo. La corrispondenza numerica collega l'unità sorgente al proverbio sorgente e alla sua parola finale."^^xsd:string ;
  	desmos:revealsConstraint desmos:proverbial_shift .
 
-oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
-    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ;
-    crm:P3_has_note "Una medesima sequenza grafica, risegmentata con aggiustamenti di punteggiatura, genera due letture autonome, una in italiano e una in inglese."@it ;
-    desmos:revealsConstraint desmos:homographic_translation .
-
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_14> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_14> ;
 	crm:P3_has_note "Il testo presenta l'incorporazione sistematica dei nomi delle note musicali (monosillabi o bisillabi) posizionati a intervalli calcolati di sillabe 'libere'. La visibilità è data dalla ricorrenza di tali 'ancore' (es: DOmani, REcapito, MInistro) che scandiscono il ritmo matematico della lettura"^^xsd:string ;
@@ -2375,26 +2372,11 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 	crm:P3_has_note "Ogni lirica è preceduta dall'indicazione del tempo musicale e della tonalità del Preludio corrispondente (es. '1) Agitato in do maggiore', '6) Lento assai in si minore'); inoltre il Preludio n. 7 è accompagnato dalla riproduzione dello spartito chopiniano, segnalando esplicitamente la natura intermediale del vincolo e rendendo verificabile la calibrazione temporale del testo sulla durata musicale."^^xsd:string ;
 	desmos:revealsConstraint desmos:temporal_constraint .
 
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_25_doria> a desmos:TextualFeature ;
-	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ;
-	crm:P3_has_note "Il testo si dispone su pagine affrontate: su una pagina figura l'elenco dei titoli delle opere di Italo Calvino con le rispettive date di pubblicazione, nella pagina a fronte gli stessi titoli sono ripresi sostituendone le parole. L'allineamento speculare delle due liste rende visibile la trasformazione lessicale operata sulla bibliografia calviniana."^^xsd:string ;
-	desmos:revealsConstraint desmos:permutation .
-
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_sanguineti> a desmos:TextualFeature ;
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
 	crm:P3_has_note "Il testo presenta un allineamento spaziale rigoroso dove la lettera iniziale di ogni vocabolo si ripete identica lungo l'intero verso (asse orizzontale) e segue una sequenza alfabetica predefinita lungo le colonne (asse verticale), rendendo leggibile il 'poliacrostico' basato sulla parola 'chimera', a cui è dedicata l'intera plaquette."^^xsd:string ;
  	desmos:revealsConstraint desmos:acrostic ,
 		desmos:tautogram .
-
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_vicari> a desmos:TextualFeature ;
-	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_vicari> ;
-	crm:P3_has_note "Il testo presenta una doppia marcatura che ne rende visibile la struttura a innesto: i versi di Sanguineti, su cui sono innestati i frammenti, sono distinti tipograficamente in corsivo, mentre accanto a ciascuna parte testuale un richiamo numerico rinvia all'apparato finale dei riferimenti, che attribuisce ogni frammento alla rispettiva fonte (Albani, Cavazzoni, Odifreddi, Sanguineti). Il corsivo segnala la matrice sanguinetiana, la numerazione la provenienza dei frammenti."^^xsd:string ;
- 	desmos:revealsConstraint desmos:cento .
-
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_28_fabrizi> a desmos:TextualFeature ;
-	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ;
-    crm:P3_has_note "In ciascuna riga le lettere che compongono il nome 'Ios' sono evidenziate in grassetto — una sola 'i' nella prima parola, una sola 'o' nella seconda, una sola 's' nella terza: la marcatura tipografica rende visibile la lettura poliacrostica trasversale, che ricorre identica in ogni verso."^^xsd:string ;
-    desmos:revealsConstraint desmos:poliacrostic .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_43> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
@@ -2509,10 +2491,6 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_29> a lrmoo:F1_Work ;
 	dcterms:title "Le leggi della tavola. Regole per tutti i gusti"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> .
-
-<https://w3id.org/desmos/oplepiana/work/w_plaquette_30> a lrmoo:F1_Work ;
-	dcterms:title "Capriccio oplepian. Pretesti"^^xsd:string ;
-	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_31> a lrmoo:F1_Work ;
 	dcterms:title "Capriccio oplepiano. Pretesti"^^xsd:string ;

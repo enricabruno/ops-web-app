@@ -204,7 +204,6 @@ footer .x-small,
 footer p.x-small { color: var(--color-muted); font-size: 0.75rem; }
 
 footer hr { border-color: var(--color-border); opacity: 1; }
-.footer-version { opacity: 0.7; }
 
 .footer-columns {
     display: flex;
@@ -229,7 +228,7 @@ footer hr { border-color: var(--color-border); opacity: 1; }
     align-items: center;
 }
 
-.footer-logo { height: auto; width: 180px; padding-top: 10%; }
+.footer-logo { height: auto; width: 200px; padding-top: 10%; }
 
 @media (max-width: 768px) {
     .footer-columns { flex-direction: column; align-items: center; }
