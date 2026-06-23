@@ -261,7 +261,7 @@ desmos:alphabetic_set_constraint a skos:Concept ;
         desmos:beau_present , 
         desmos:prisoner_constraint ;
     skos:definition "Costrizione formale che regola il sottoinsieme delle lettere ammesse nel testo."@it , "Formal constraint that regulates the subset of letters allowed in the text."@en ;
-    skos:inScheme desmos:FormalConstraintScheme ;
+    skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alphabetical_acrostic a skos:Concept ;
     skos:prefLabel "Alphabetical acrostic"@en , "Acrostico alfabetico"@it ;
@@ -905,7 +905,7 @@ desmos:post_1989_lexicon a skos:Concept ;
 desmos:prescribed_line_frame a skos:Concept ;
     skos:prefLabel "Prescribed line frame"@en , "Verso condizionato"@it ;
     skos:related desmos:mandatory_sentence ;
-    skos:definition "Formal constraint in which the opening and closing letter sequences of each line are predetermined, so that every line is framed by a fixed incipit and a fixed explicit."@en , "Costrizione formale in cui le sequenze di lettere iniziale e finale di ciascun verso sono predeterminate, sicché ogni verso è incorniciato da un incipit e un explicit fissi."@it .
+    skos:definition "Formal constraint in which the opening and closing letter sequences of each line are predetermined, so that every line is framed by a fixed incipit and a fixed explicit."@en , "Costrizione formale in cui le sequenze di lettere iniziale e finale di ciascun verso sono predeterminate, sicché ogni verso è incorniciato da un incipit e un explicit fissi."@it ;
     skos:example "Varaldo: versi dispari RE...NZO, versi pari LU...CIA, ultimi due SP...OSI."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 

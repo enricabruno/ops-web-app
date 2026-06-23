@@ -34,10 +34,23 @@ function applyFilters() {
     document.querySelectorAll('.accordion').forEach(accordion => {
         const hasVisibleItem = Array.from(accordion.querySelectorAll('.expression-item'))
             .some(item => item.style.display !== 'none');
-        const heading = accordion.previousElementSibling;
+        const collapseDiv = accordion.closest('.collapse');
+        const heading = collapseDiv ? collapseDiv.previousElementSibling : accordion.previousElementSibling;
+
         accordion.style.display = hasVisibleItem ? '' : 'none';
+
         if (heading && heading.classList.contains('volume-heading')) {
             heading.style.display = hasVisibleItem ? '' : 'none';
+        }
+
+        if (collapseDiv) {
+            if (hasVisibleItem) {
+                collapseDiv.classList.add('show');
+                if (heading) heading.setAttribute('aria-expanded', 'true');
+            } else {
+                collapseDiv.classList.remove('show');
+                if (heading) heading.setAttribute('aria-expanded', 'false');
+            }
         }
     });
 }
@@ -49,5 +62,15 @@ function resetFilters() {
     document.getElementById('filterOrigin').value         = '';
     document.getElementById('filterOperation').value      = '';
     document.getElementById('filterUnit').value           = '';
-    applyFilters();
+
+    document.querySelectorAll('.expression-item').forEach(item => { item.style.display = ''; });
+    document.querySelectorAll('.accordion').forEach(accordion => { accordion.style.display = ''; });
+    document.querySelectorAll('.collapse[id^="volume-"]').forEach(col => {
+        col.classList.remove('show');
+        const heading = col.previousElementSibling;
+        if (heading) {
+            heading.style.display = '';
+            heading.setAttribute('aria-expanded', 'false');
+        }
+    });
 }

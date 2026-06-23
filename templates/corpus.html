@@ -84,7 +84,14 @@
 
             {% for volume in volumes %}
             {% set vol_loop = loop %}
-            <h4 class="volume-heading">{{ volume.title }}</h4>
+            <h4 class="volume-heading volume-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#volume-{{ vol_loop.index }}"
+                aria-expanded="false"
+                aria-controls="volume-{{ vol_loop.index }}">
+                {{ volume.title }}<span class="volume-chevron">&#x25BE;</span>
+            </h4>
+            <div id="volume-{{ vol_loop.index }}" class="collapse">
             <div class="accordion mb-4" id="corpusAccordion-{{ vol_loop.index }}">
                 {% for expr in volume.expressions %}
                 <div class="expression-item mb-1"
@@ -145,6 +152,7 @@
                     </div>
                 </div>
                 {% endfor %}
+            </div>
             </div>
             {% else %}
             <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
