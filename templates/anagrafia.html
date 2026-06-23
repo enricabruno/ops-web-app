@@ -53,40 +53,6 @@
     </span>
   </div>
 
-  <div class="row g-3 mb-4">
-    <div class="col-auto">
-      <div class="anag-stat-box">
-        <span class="anag-stat-label">Token ipotesto</span>
-        <span class="anag-stat-value">{{ data.stats.src_count }}</span>
-      </div>
-    </div>
-    <div class="col-auto">
-      <div class="anag-stat-box">
-        <span class="anag-stat-label">Token ipertesto</span>
-        <span class="anag-stat-value">{{ data.stats.tgt_count }}</span>
-      </div>
-    </div>
-    <div class="col-auto">
-      <div class="anag-stat-box">
-        <span class="anag-stat-label">Corrispondenze</span>
-        <span class="anag-stat-value">{{ data.stats.matched }}</span>
-      </div>
-    </div>
-    <div class="col-auto">
-      <div class="anag-stat-box">
-        <span class="anag-stat-label">Token spostati</span>
-        <span class="anag-stat-value">{{ data.stats.moved }}</span>
-      </div>
-    </div>
-    {% if data.stats.unmatched_tgt > 0 %}
-    <div class="col-auto">
-      <div class="anag-stat-box">
-        <span class="anag-stat-label">Non mappati</span>
-        <span class="anag-stat-value anag-stat-value--muted">{{ data.stats.unmatched_tgt }}</span>
-      </div>
-    </div>
-    {% endif %}
-  </div>
 
   <div class="mb-4">
     <h2 class="fw-bold expression-title mb-1 anag-page-title anag-entry-title">

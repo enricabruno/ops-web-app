@@ -784,6 +784,29 @@ tbody tr:last-child td { border-bottom: none; }
     border-bottom: 1px solid var(--color-accent);
 }
 
+.volume-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.volume-toggle:hover {
+    opacity: 0.75;
+}
+
+.volume-chevron {
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+
+.volume-toggle[aria-expanded="true"] .volume-chevron {
+    transform: rotate(180deg);
+}
+
 .expression-card { transition: opacity 0.3s ease; }
 .expression-card[style*="display: none"] { opacity: 0; }
 
@@ -839,10 +862,31 @@ tbody tr:last-child td { border-bottom: none; }
 
 .metadata-section-label {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.80rem;
+    font-size: 0.95rem;
     text-transform: none;
     color: var(--color-text);
     letter-spacing: 0.05em;
+}
+
+.expr-meta-dl dd {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 1rem;
+    color: var(--color-text) !important;
+    font-style: normal;
+}
+
+.expr-meta-dl dd a {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 1rem;
+    color: var(--color-text) !important;
+    font-style: normal;
+}
+
+.expr-plain-text {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 1rem;
+    color: var(--color-text);
+    font-style: normal;
 }
 
 .sidebar-section-title {
@@ -1006,7 +1050,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .anag-text-block {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-style: normal;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.8;
     color: var(--color-text);
     background: transparent;
@@ -1054,7 +1098,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     vertical-align: middle;
 }
 
-.src-tok, .tgt-tok { cursor: default; transition: all 0.2s ease; border-radius: 2px; font-size: 0.85rem; }
+.src-tok, .tgt-tok { cursor: default; transition: all 0.2s ease; border-radius: 2px; font-size: 0.95rem; }
 .src-tok { padding: 0 1px; }
 .tgt-tok { padding: 0 4px; }
 
@@ -1082,14 +1126,15 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     padding: 1.2rem 1.5rem;
     background-color: var(--color-surface);
     color: var(--color-text);
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    text-transform: none;
+    letter-spacing: 0.02em;
     border-right: 1px solid var(--color-border);
 }
 
-.metadata-grid .metadata-value { flex: 1; padding: 1.2rem 1.5rem; font-size: 1rem; color: var(--color-muted); }
+.metadata-grid .metadata-value { flex: 1; padding: 1.2rem 1.5rem; font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 1rem; color: var(--color-text); }
 
 .metadata-label  { color: var(--color-muted); font-weight: 400; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
 .metadata-value  { color: var(--color-muted); font-size: 1rem; margin-bottom: 0.5rem; }
