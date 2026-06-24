@@ -240,11 +240,21 @@ desmos:acronym a skos:Concept ;
 
 desmos:acrostic a skos:Concept ;
     skos:prefLabel "Acrostic"@en , "Acrostico"@it ;
-    skos:narrower desmos:alphabetical_acrostic ;
+    skos:narrower desmos:alphabetical_acrostic ,
+        desmos:brivadois_acrostiche ;
     skos:related desmos:acronym ,
         desmos:rhyme_name_echo ;
     skos:definition "Formal constraint in which the initial letters of each line, read vertically, form a word or phrase."@en , "Costrizione formale in cui le lettere iniziali di ogni verso, lette verticalmente, formano una parola o una frase."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:brivadois_acrostiche a skos:Concept ;
+    skos:prefLabel "Acrostic brivadois"@en , "Brivadois acrostiche"@fr , "Acrostico brivadois"@it ;
+    skos:broader desmos:acrostic ;
+    skos:definition "Formal constraint superimposing two acrostic mechanisms: a vertical initial acrostic (the initial letters of successive verses/paragraphs spell a word) and, within each verse/paragraph, a horizontal acrostic in which the initial letters of successive words follow the alphabetical sequence."@en , "Costrizione formale che sovrappone due meccanismi acrostici: un acrostico verticale iniziale (le lettere iniziali dei versi/paragrafi successivi compongono una parola) e, all'interno di ciascun verso/paragrafo, un acrostico orizzontale in cui le iniziali delle parole successive seguono la sequenza alfabetica."@it ;
+    skos:historyNote "The constraint was invented by the 6e C class of the Collège La Fayette in Brioude (Haute-Loire), under the guidance of their teacher Ouardia Touahri, and was subsequently communicated to Jacques Jouet, who introduced it into Oulipian practice. The qualifier 'brivadois' is the demonym of Brioude."@en , "La costrizione è stata ideata dalla classe 6e C del Collège La Fayette di Brioude (Alta Loira), sotto la guida dell'insegnante Ouardia Touahri, e successivamente comunicata a Jacques Jouet, che l'ha introdotta nella pratica oulipiana. L'aggettivo 'brivadois' è l'etnico di Brioude."@it ,
+    skos:example "E C O (titre vertical…) by Jacques Jouet: vertical acrostic E-C-O, with each paragraph cycling through the alphabet by word initials (Elan, furieux, généralisé, hautement…)."@en , "E C O (titre vertical…) di Jacques Jouet: acrostico verticale E-C-O, con ogni paragrafo che cicla l'alfabeto sulle iniziali delle parole (Elan, furieux, généralisé, hautement…)."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/acrostiche-brivadois> ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alliteration a skos:Concept ;
@@ -330,6 +340,13 @@ desmos:colloquial_register_lexicon a skos:Concept ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:combinatorial_lottery a skos:Concept ;
+    skos:prefLabel "Lottomatica combinatoria"@it , "Combinatorial lottery procedure"@en ;
+    skos:definition "Generative formal constraint that uses a Lotto encyclopedia (a repertoire mapping each number 1–90 to a group of words) in reverse: starting from a fixed numerical series, the numbers of a real lottery draw, the words of the corresponding lexical groups are selected and combined into a text."@en , "Costrizione formale generativa che impiega un'enciclopedia del Lotto (repertorio che associa a ciascun numero da 1 a 90 un gruppo di parole) in senso inverso: a partire da una serie numerica prefissata, i numeri di un'estrazione reale del Lotto, si selezionano e combinano le parole dei gruppi lessicali corrispondenti per comporre un testo."@it ;
+    skos:historyNote "The constraint was invented by Jacopo Narros in 'Il barbiere notturno. Lottomatica combinatoria' (2018), 'La Biblioteca Oplepiana' n. 42."@en , "La costrizione è stata inventata da Jacopo Narros in 'Il barbiere notturno. Lottomatica combinatoria' (2018), 'La Biblioteca Oplepiana' n. 42."@it ;
+    skos:example "Prologo 'Lo studente affamato', from the Ruota Nazionale quintet 78-60-35-30-10."@en , "Prologo 'Lo studente affamato', dalla cinquina della Ruota Nazionale 78-60-35-30-10."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:compound_noun_lexicon a skos:Concept ;
     skos:prefLabel "Compound-noun lexicon"@en , "Lessico di nomi composti"@it ;
     skos:broader desmos:grammatical_category_lexicon ;
@@ -400,6 +417,15 @@ desmos:distich a skos:Concept ;
     skos:prefLabel "Distich"@en , "Distico"@it ;
     skos:definition "Formal constraint requiring the text to be organized into two-line stanzas, typically with a rhyming pattern, forming a complete metrical and thematic unit."@en , "Costrizione formale che impone l’organizzazione del testo in strofe di due versi, solitamente a rima baciata o alternata, che costituiscono un'unità metrica e di senso compiuta."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:embedded_numeral_calculus a skos:Concept ;
+    skos:prefLabel "Embedded numeral calculus"@en , "Calcolo dei numeri incorporati"@it ;
+    skos:definition "Formal constraint requiring the insertion of lexemes selected because they embed a cardinal numeral at their initial or final boundary (e.g. NOVE-llino, OTTO-mana, mu-SEI); word-initial numerals are added and word-final numerals are subtracted in a running computation bound to reach a predefined target value."@en , "Costrizione formale che impone l'inserimento di lessemi scelti perché contengono un numerale cardinale incorporato in posizione iniziale o finale di parola (es. NOVE-llino, OTTO-mana, mu-SEI); i numerali in posizione iniziale vengono addizionati e quelli in posizione finale sottratti, secondo un computo progressivo vincolato a raggiungere un valore prefissato."@it ;
+    skos:historyNote "The constraint was invented by Laura Brignoli in 'Che magìa l'anniversario' (2015), 'La Biblioteca Oplepiana', n. 40 "@en ,
+        "La costrizione è stata inventata da Laura Brignoli in 'Che magìa l'anniversario' (2015), 'La Biblioteca Oplepiana', n. 40"@it ;  
+    skos:example "novellino → +9 (NOVE), seitan → +6 (SEI); musei → −6 (SEI), ginestre → −3 (TRE)."@en ,
+        "novellino → +9 (NOVE), seitan → +6 (SEI); musei → −6 (SEI), ginestre → −3 (TRE)."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:embedded_proverb a skos:Concept ;
@@ -527,6 +553,14 @@ desmos:heterogram a skos:Concept ;
     skos:prefLabel "Heterogram"@en , "Eterogramma"@it ;
     skos:definition "Formal constraint requiring a word in which no letter is repeated."@en , "Costrizione formale che impone la scrittura di una parola in cui nessuna lettera si ripete."@it ;
     skos:example "Example of a 9-letter heterogram: 'Ulcerations' (U, L, C, E, R, A, T, I, O)."@en , "Esempio di eterogramma di 9 lettere: 'Ulcerations' (U, L, C, E, R, A, T, I, O)."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:heterolexical_writing a skos:Concept ;
+    skos:prefLabel "Heterolexical writing"@en , "Scrittura eterolessicale"@it ;
+    skos:prefLabel "Scrittura eterolessicale"@it , "Heterolexical writing"@en ;
+    skos:related desmos:heterogram ;
+    skos:definition "Costrizione formale che vieta la ripetizione di una stessa parola (inclusi articoli, congiunzioni e preposizioni) all'interno del medesimo testo o segmento testuale."@it , "Formal constraint requiring the non-repetition of any word (including articles, conjunctions, and prepositions) throughout the entire text or text segment, ensuring that each word token is unique."@en ;
+    skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:hyperbolic_register_lexicon a skos:Concept ;
@@ -767,7 +801,7 @@ desmos:mnemonic_encoding a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:mnemonic_fragment a skos:Concept ;
-    skos:prefLabel "Mnemonic fragment reconstruction"@en , "Mnemottava per frammenti"@it ;
+    skos:prefLabel "Mnemonic fragment reconstruction"@en , "Ricostruzione di frammenti mnemonici"@it ;
     skos:broader desmos:mnemonic_encoding ;
     skos:related desmos:buried_word ;
     skos:definition "Formal constraint in which a fixed external source string is recovered, in order, from successive fragments buried across the words of a new self-standing text."@en , "Costrizione formale in cui una stringa-sorgente esterna fissa è recuperata, in ordine, da frammenti successivi sepolti a cavallo delle parole di un nuovo testo autonomo."@it ;
@@ -822,6 +856,13 @@ desmos:monovocalism_O a skos:Concept ;
     skos:prefLabel "Monovocalism in O"@en , "Monovocalismo in O"@it ;
     skos:broader desmos:monovocalism ;
     skos:definition "Formal constraint consisting in composing a text using only the vowel O throughout its entire length, systematically excluding the other four vowels."@en , "Costrizione che consiste nel comporre un testo utilizzando esclusivamente la vocale O per tutta la sua estensione, escludendo sistematicamente le altre quattro vocali."@it ;
+    skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:morale_elementaire a skos:Concept ;
+    skos:prefLabel "Morale élémentaire"@fr , "Morale elementare"@it , "Elementary morality"@en ;
+    skos:definition "Fixed-form formal constraint devised by Raymond Queneau, articulated in three parts: an opening built on groups of bimots (noun + adjective/participle), with repetitions, rhymes, alliterations and echoes ad libitum; a short intermezzo of seven lines of one to five syllables; and a closing section of bimots that reprises some of the words used in the opening."@en , "Costrizione formale a forma fissa ideata da Raymond Queneau, articolata in tre parti: un'apertura costruita su gruppi di bimots (sostantivo + aggettivo/participio), con ripetizioni, rime, allitterazioni ed echi ad libitum; un breve intermezzo di sette versi da una a cinque sillabe; una conclusione di bimots che riprende alcune delle parole impiegate nell'apertura."@it ;
+    skos:historyNote "The fixed form was devised by Raymond Queneau in the 1970s and later taken up by the Oulipo (and Oplepo)."@en , "La forma fissa fu messa a punto da Raymond Queneau negli anni Settanta e in seguito ripresa dall'Oulipo (e dall'Oplepo)."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -907,6 +948,12 @@ desmos:prescribed_line_frame a skos:Concept ;
     skos:related desmos:mandatory_sentence ;
     skos:definition "Formal constraint in which the opening and closing letter sequences of each line are predetermined, so that every line is framed by a fixed incipit and a fixed explicit."@en , "Costrizione formale in cui le sequenze di lettere iniziale e finale di ciascun verso sono predeterminate, sicché ogni verso è incorniciato da un incipit e un explicit fissi."@it ;
     skos:example "Varaldo: versi dispari RE...NZO, versi pari LU...CIA, ultimi due SP...OSI."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:preventive_review  a skos:Concept ;
+    skos:prefLabel "Recensione preventiva"@it , "Preventive review"@en ;
+	skos:definition "Costrizione formale e procedurale che inverte la sequenza temporale della critica letteraria: un testo critico o recensione viene redatto ex ante per un componimento inesistente, imponendo vincoli tematici, lessicali o strutturali che orientano la successiva genesi della poesia ad opera di un secondo attore."@it ;
+	skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:prisoner_constraint a skos:Concept ;
