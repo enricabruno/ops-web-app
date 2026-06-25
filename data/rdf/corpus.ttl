@@ -190,6 +190,14 @@
 	rdfs:label "Marcel Bénabou"^^xsd:string ;
 	owl:sameAs <http://viaf.org/viaf/27060829> .
 
+<https://w3id.org/desmos/oplepiana/author/baudelaire> a crm:E39_Actor , prov:Agent ;
+	rdfs:label "Charles Baudelaire"^^xsd:string ;
+	owl:sameAs <http://viaf.org/viaf/17218730> .
+
+<https://w3id.org/desmos/oplepiana/author/pelliti> a crm:E39_Actor , prov:Agent ;
+	rdfs:label "Matteo Pelliti"^^xsd:string ;
+	owl:sameAs <http://viaf.org/viaf/315181683> .
+
 ### Constraint ###
 desmos:acronym a desmos:FormalConstraint ;
 	rdfs:label "Acronimo"^^xsd:string ;
@@ -1149,7 +1157,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "4 terzine di settenari doppi AAB. A è sempre rima sdrucciola, B è tronco. Ogni verso contiene tutte le lettere dell'acronimo OPLEPO."@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
-	desmos:septenary_double ,
+		desmos:septenary_double ,
+		desmos:terzine ,
 		desmos:sdrucciola_rhyme ,
 		desmos:truncated_rhyme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_chiti> ;
@@ -1459,7 +1468,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_36> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Come si evince da titolo e sottotitolo, la 'plaquette' si articola in cinquanta ottave tutte liberamente ispirate al capolavoro manzoniano, ma composte usando ogni volta una regola, ovvero una 'contrainte', differente."@it ;
+	crm:P3_has_note "Come si evince da titolo e sottotitolo, la 'plaquette' si articola in cinquanta ottave tutte liberamente ispirate al capolavoro manzoniano, ma composte usando ogni volta una regola, ovvero una 'contrainte', differente. [...] Una eventuale sfida per il lettore, da intendeersi come gioco nel gioco, sarà quella di cercare d'indovinare, prima di scoprirla nelle GLOSSE, la regola che caratterizza ogni singola ottava: in alcuni casi l'individuazione è facilissima, in altri abbastanza difficile, in alcuni ancora praticamente impossibile."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
@@ -1474,6 +1483,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P129_is_about desmos:heterolexical_writing ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pergola> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_39> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Quella di un testo a più mani non è certo idea nuova. Questo racconto pseudo poliziesco nasce con l'intento di rendere un omaggio all'Oplepo in occasione del compimento dei suoi venticinque anni di vita. In questa performance le 'mani' sono state 22 per essere undici gli oplepiani che vi hanno partecipato realizzando ciascuno un brano di lunghezza prefissata (825 battute, compresi gli spazi) e in linea con quello precedente; ciò secondo una successione prefissata in rispetto dell'ordine di adesione al progetto e con una seconda tornata che ha seguìto l'ordine inverso (salvo un intervenuto scambio dettato da esigenze vacanziere di uno degli autori). Perché 825? È presto detto: semplicemente perché 825 è il prodotto di 25 x 33, essendo 25 il numero di anni che si festeggiano e 33 quello degli oplepiani a oggi, 25 settembre 2015."@it ;
+	crm:P129_is_about desmos:fixed_text_length ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_40> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in forma collettanea per celebrare i 25 anni dell'Oplepo (Capri, 3 novembre 1990 - 2015). Dalla prefazione di Raffaele Aragona: «I 25 anni trascorsi dalle prime manifestazioni di Oplepo (Capri, 3 novembre 1990) sono adesso celebrati in modo elogiativo perché queste poche pagine di 25 autori sono composte da testi diversamente regolati (questo stesso compreso): una regola primaria comune, quella dei loro titoli di sole 25 battute (spazi inclusi), senza pur escludere altre (una o più) contraintes, dure o morbide, che ciascuno di essi cela o manifesta.»"@it ;
@@ -1573,7 +1588,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_45_addomine> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il testo centrale è un 'beau présent': esso utilizza soltanto le lettere del nome e cognome della persona cui è dedicato. Un ulteriore particolare 'contrainte' è nel testo sottostante, il quale riporta tutti gli anagrammi parziali del nome e del cognome, separatamente [...]. Oltre a ciò, il 'sottotesto' presenta un acrostico verticale di parole evidenziate dal corsivo."@it ;
-	crm:P129_is_about desmos:placeholder ;
+	crm:P129_is_about desmos:beau_present ,
+		desmos:anagram ,
+		desmos:acrostic ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -2099,6 +2116,13 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_38> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> a lrmoo:F2_Expression ;
+	dcterms:title "Doppio epilogo per Andrea"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_39> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p43> ;
+	crm:P2_has_type desmos:prose ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_39> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40> a lrmoo:F2_Expression ;
 	dcterms:title "Venticinque anni d’Oplepo"^^xsd:string ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40_text_berti> ,
@@ -2211,7 +2235,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> a lrmoo:F2_Expression ;
-	dcterms:title "Ecco, Francesco c'è!"^^xsd:string ;
+	dcterms:title "Ora non c'è Francesco"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
@@ -2264,6 +2288,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:creator <https://w3id.org/desmos/oplepiana/author/chopin> ;
 	crm:P2_has_type desmos:music ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_chopin_preludi> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> a lrmoo:F2_Expression ;
+	dcterms:title "Correspondances"^^xsd:string ;
+	dcterms:creator <https://w3id.org/desmos/oplepiana/author/baudelaire> ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_baudelaire_correspondances> .
 
 ### Manifestation ###
 <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_1> a lrmoo:F3_Manifestation ;
@@ -2538,6 +2568,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> ;
 	schema:pagination "43-58"^^xsd:string .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_39> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 39"@it ;
+	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_3> ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> ;
+	schema:pagination "59-81"^^xsd:string .
+
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_40> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 40"@it ;
 	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_3> ;
@@ -2705,6 +2741,11 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chopin> ;
 	dcterms:created "1839"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_correspondances> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/baudelaire> ;
+	dcterms:created "1857"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_01> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> ;
@@ -3287,6 +3328,23 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pergola> ;
 	dcterms:created "2015"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_39> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> ;
+	desmos:usedConstraint desmos:fixed_text_length ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ,
+		<https://w3id.org/desmos/oplepiana/author/fabrizi> ,
+		<https://w3id.org/desmos/oplepiana/author/brignoli> ,
+		<https://w3id.org/desmos/oplepiana/author/eliana-vicari> ,
+		<https://w3id.org/desmos/oplepiana/author/odifreddi> ,
+		<https://w3id.org/desmos/oplepiana/author/falchetta> ,
+		<https://w3id.org/desmos/oplepiana/author/aragona> ,
+		<https://w3id.org/desmos/oplepiana/author/enriques> ,
+		<https://w3id.org/desmos/oplepiana/author/addomine> ,
+		<https://w3id.org/desmos/oplepiana/author/pergola> ,
+		<https://w3id.org/desmos/oplepiana/author/sebregondi> ,
+		<https://w3id.org/desmos/oplepiana/author/varaldo> ;
+	dcterms:created "2015"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_40> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40> ;
 	desmos:usedConstraint desmos:mandatory_theme ,
@@ -3315,7 +3373,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_40_text_sebregondi> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40_text_sebregondi> ;
 	desmos:usedConstraint desmos:tanka ,
-		desmos:acrostic ,
+		desmos:acronym ,
 		desmos:mandatory_theme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
 	dcterms:created "2015"^^xsd:gYear .
@@ -3392,7 +3450,9 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_45_text_addomine> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> ;
-	desmos:usedConstraint desmos:placeholder ;
+	desmos:usedConstraint desmos:beau_present ,
+		desmos:anagram ,
+		desmos:acrostic ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
 	dcterms:created "2020"^^xsd:gYear .
 
@@ -3520,23 +3580,35 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
     crm:P3_has_note "La plaquette include un apparato grafico che riporta, per ogni parola e nell'ordine della sequenza, il numero di lettere che la compongono. Il grafico è costruito sul testo della plaquette (figura A), dove il profilo procede a scalini di una sola lettera salendo o scendendo a ogni passo, e sulle prime 250 parole de 'I Promessi Sposi' di Alessandro Manzoni (figura B), usate come campione di controllo non vincolato, dove il profilo è irregolare e discontinuo. Il confronto rende visibile la regolarità della successione nel testo vincolato."^^xsd:string ;
     desmos:revealsConstraint desmos:word_length_oscillation .
 
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_a>
-    a desmos:TextualFeature ;
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_a> a desmos:TextualFeature ;
     desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_albani> ;
     crm:P3_has_note "Lungo l'opera ricorre ripetutamente la fotografia di Perec, ritratto di fronte o di profilo e sempre visibile. Una sola immagine si sottrae alla ripetizione: raggiunta da un filo nero, ritrae Perec di schiena e oscurato, così che la figura non è più riconoscibile; l'immagine è racchiusa nel disegno di una tessera di puzzle."^^xsd:string ;
-"^^xsd:string ;
     desmos:revealsConstraint desmos:visual_anaphora .
 
-<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_b>
-    a desmos:TextualFeature ;
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_b> a desmos:TextualFeature ;
     desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_albani> ;
     crm:P3_has_note "Le fotografie non compaiono mai per intero, ma sempre come frammenti ritagliati."^^xsd:string ;
     desmos:revealsConstraint desmos:fragmentation .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_38> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> ;
+    crm:P3_has_note "La plaquette include un apparato grafico che rappresenta la frequenza d'uso delle parole. Per il testo della plaquette (figura A) la distribuzione è piatta e uniforme, perché ogni parola compare una sola volta. Per confronto, sulle prime 360 parole de 'I promessi sposi' di Alessandro Manzoni, usate come campione di controllo non vincolato (figura B), la distribuzione è fortemente irregolare, con poche parole molto frequenti e molte rare. Il contrasto rende visibile l'uso singolo di ogni parola nel testo vincolato."^^xsd:string ;
+    desmos:revealsConstraint desmos:heterolexical_writing .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_40_sebregondi> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40_text_sebregondi> ;
+    crm:P3_has_note "Ciascuno dei sei Tanka si chiude con un'esclamazione bisillabica (per il primo, 'Oibò!'); le lettere iniziali delle sei esclamazioni, lette in successione lungo la serie dei componimenti, compongono la parola OPLEPO."^^xsd:string ;
+    desmos:revealsConstraint desmos:acronym .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_43> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
 	crm:P3_has_note "Il testo presenta alla fine delle glosse in cui è riportato l'elenco delle sillabe escluse per ogni singolo sonetto."^^xsd:string ;
  	desmos:revealsConstraint desmos:metric_liposyllabism .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_45_addomine> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> ;
+    crm:P3_has_note "Nel sottotesto la prima parola di ciascuna riga è in corsivo; lette in colonna lungo il margine, queste parole compongono un testo verticale autonomo e di senso compiuto (acrostico di parole)."^^xsd:string ;
+    desmos:revealsConstraint desmos:acrostic .
 
 ### Work ###
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_01> a lrmoo:F1_Work ;
@@ -3679,6 +3751,10 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 	dcterms:title "Aurelio lo scrivano, Tentativo di esaurimento."^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> .
 
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_39> a lrmoo:F1_Work ;
+	dcterms:title "Doppio epilogo per Andrea"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> .
+
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_40> a lrmoo:F1_Work ;
 	dcterms:title "Venticinque anni d’Oplepo"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40> .
@@ -3749,7 +3825,12 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_diz_modi> ;
 	rdfs:seeAlso <http://id.sbn.it/bid/BVE0034328> .
 
-<https://w3id.org/desmos/oplepiana/work/w_text_preludix> a lrmoo:F1_Work ;
+<https://w3id.org/desmos/oplepiana/work/w_text_preludi> a lrmoo:F1_Work ;
 	dcterms:title "24 Préludes op. 28"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
 	rdfs:seeAlso <http://id.sbn.it/bid/DDS0181550>.
+
+<https://w3id.org/desmos/oplepiana/work/w_text_correspondances> a lrmoo:F1_Work ;
+	dcterms:title "Correspondances"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
+	rdfs:seeAlso <http://id.sbn.it/bid/MO10011696>.
