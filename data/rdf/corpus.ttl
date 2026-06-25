@@ -1387,6 +1387,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_varaldo> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_benabou> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "La struttura è quella della 'morale élémentaire' che Raymond Queneau, suo 'inventore', così definì: 'All'inizio tre volte tre più un gruppo di sostantivi più aggettivo (o participio) con ripetizioni, rime, allitterazioni, echi 'ad libidum'; dopo, una sorta di intermezzo di sette versi da una a cinque sillabe: infine, una conclusione di tre più un gruppo di sostantivi più aggettivo che riprende più o meno alcune delle ventiquattro parole utilizzate nella prima parte'."@it ;
+	crm:P129_is_about desmos:morale_elementaire ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
  <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_32> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Chi più chi meno, ciascuno ha sempre qualcosa da confessare, e anche gli oplepiani non sfuggono a 	uesta regola di vta."@it ;
 	crm:P129_is_about desmos:mandatory_theme ;
@@ -1453,7 +1459,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_36> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Come si evince da titolo e sottotitolo, la 'plaquette' si articola in cinauanta ottave tutte liberamente ispirate al capolavoro manzoniano, ma composte usando ogni volta una regola, ovvero una 'contrainte', differente."@it ;
+	crm:P3_has_note "Come si evince da titolo e sottotitolo, la 'plaquette' si articola in cinquanta ottave tutte liberamente ispirate al capolavoro manzoniano, ma composte usando ogni volta una regola, ovvero una 'contrainte', differente."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
@@ -1505,12 +1511,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
     crm:P3_has_note "Plaquette in memoriam Umberto Eco (1932-2016), pubblicata nell'anno della sua scomparsa. Dalla prefazione: «È parso significativo intitolare questo librino con il primo dei tre versi con i quali Umberto Eco trasformò lipogrammaticamente (in 'o') quelli di Salvatore Quasimodo, con una trascrizione che 'pure capovolge la lettera della poesia ‒ egli scrive ‒ e non ne tradisce, spero, la nota del dolore metafisico. Semplicemente un solare poeta siculo diventa un opalescente iperboreo, e l'amarezza per la morte che incombe si trasforma nell'orrore per la vita che continua'.» Il riferimento è a Umberto Eco, Vocali, Alfredo Guida Editore, Napoli, 1991, p. 28; rielaborazione di Salvatore Quasimodo, Ed è subito sera (1942)."@it ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
-
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_benabou> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La struttura è quella della 'morale élémentaire' che Raymond Queneau, suo 'inventore', così definì: 'All'inizio tre volte tre più un gruppo di sostantivi più aggettivo (o participio) con ripetizioni, rime, allitterazioni, echi 'ad libidum'; dopo, una sorta di intermezzo di sette versi da una a cinque sillabe: infine, una conclusione di tre più un gruppo di sostantivi più aggettivo che riprende più o meno alcune delle ventiquattro parole utilizzate nella prima parte'."@it ;
-	crm:P129_is_about desmos:morale_elementaire ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_jouet> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "È un 'acrostiche brivadois' completo; esso può considerarsi una 'oulipizzazione' del semplice acrostico. Ogni paragrafo inizia con una lettera volta a formare un semplice acrostico ma, oltre a ciò, le lettere iniziali delle parole di ciascun paragrafo seguono l'ordinata e ciclicamente completa progressione alfabetica."@it ;
@@ -1942,6 +1942,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R15_has_fragment
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_text_aragona> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_benabou> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_text_eruli> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_text_kierkia> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_text_varaldo> ;
@@ -1949,6 +1950,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ,
 		desmos:prose ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_aragona> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_eruli> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_varaldo> ;
@@ -1956,6 +1958,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_aragona> a lrmoo:F2_Expression ;
 	dcterms:title "Beau présent per E.S."^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> a lrmoo:F2_Expression ;
+	dcterms:title "Tombeau présent"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> .
 
@@ -2127,23 +2134,16 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Passar la lunga sera sulla terra"^^xsd:string ;
 	lrmoo:R15_has_fragment
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_benabou> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_jouet> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_narros> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_varaldo_a> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_varaldo_b> ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_jouet> ,
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_jouet> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_narros> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p45> ;
 	crm:P2_has_type desmos:poetry ,
 		desmos:prose ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_41> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> a lrmoo:F2_Expression ;
-	dcterms:title "Tombeau présent"^^xsd:string ;
-	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_41> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_jouet> a lrmoo:F2_Expression ;
@@ -3079,6 +3079,13 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
 	dcterms:created "2010"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_benabou> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> ;
+	desmos:usedConstraint desmos:morale_elementaire ,
+		desmos:mandatory_dedication ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/benabou> ;
+	dcterms:created "2010"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_eruli> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_eruli> ;
 	desmos:usedConstraint desmos:lipogram_E ,
@@ -3319,13 +3326,6 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     dcterms:created "2016"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_41_text_benabou> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> ;
-	desmos:usedConstraint desmos:morale_elementaire ,
-		desmos:mandatory_dedication ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/benabou> ;
-	dcterms:created "2016"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_41_text_jouet> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_jouet> ;
 	desmos:usedConstraint desmos:brivadois_acrostiche ,
@@ -3509,6 +3509,29 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ;
     crm:P3_has_note "In ciascuna riga le lettere che compongono il nome 'Ios' sono evidenziate in grassetto — una sola 'i' nella prima parola, una sola 'o' nella seconda, una sola 's' nella terza: la marcatura tipografica rende visibile la lettura poliacrostica trasversale, che ricorre identica in ogni verso."^^xsd:string ;
     desmos:revealsConstraint desmos:poliacrostic .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_31_benabou> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> ;
+    crm:P3_has_note "Il testo è disposto in colonna. La maggior parte delle righe è formata da due sole parole, un nome seguito da un aggettivo, che si susseguono una per riga; alcune di queste parole ritornano più volte nel componimento. Verso la metà, le righe a due parole sono interrotte da un blocco più breve, graficamente distinto, di versi di una o poche parole ciascuno. Dopo questo blocco riprendono le righe a due parole, alcune delle quali richiamano quelle iniziali."^^xsd:string ;
+    desmos:revealsConstraint desmos:morale_elementaire .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_33> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_33> ;
+    crm:P3_has_note "La plaquette include un apparato grafico che riporta, per ogni parola e nell'ordine della sequenza, il numero di lettere che la compongono. Il grafico è costruito sul testo della plaquette (figura A), dove il profilo procede a scalini di una sola lettera salendo o scendendo a ogni passo, e sulle prime 250 parole de 'I Promessi Sposi' di Alessandro Manzoni (figura B), usate come campione di controllo non vincolato, dove il profilo è irregolare e discontinuo. Il confronto rende visibile la regolarità della successione nel testo vincolato."^^xsd:string ;
+    desmos:revealsConstraint desmos:word_length_oscillation .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_a>
+    a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_albani> ;
+    crm:P3_has_note "Lungo l'opera ricorre ripetutamente la fotografia di Perec, ritratto di fronte o di profilo e sempre visibile. Una sola immagine si sottrae alla ripetizione: raggiunta da un filo nero, ritrae Perec di schiena e oscurato, così che la figura non è più riconoscibile; l'immagine è racchiusa nel disegno di una tessera di puzzle."^^xsd:string ;
+"^^xsd:string ;
+    desmos:revealsConstraint desmos:visual_anaphora .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_34_albani_b>
+    a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_albani> ;
+    crm:P3_has_note "Le fotografie non compaiono mai per intero, ma sempre come frammenti ritagliati."^^xsd:string ;
+    desmos:revealsConstraint desmos:fragmentation .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_43> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
