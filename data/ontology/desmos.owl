@@ -1155,6 +1155,15 @@
         <rdfs:label xml:lang="en">Formal constraint</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:Class>
+
+    <owl:Class rdf:about="https://w3id.org/desmos/VisualConstraint">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/desmos/FormalConstraint"/>
+        <rdfs:comment xml:lang="en">Formal Constraint intervening on the visual or typographic arrangement of the text, where the spatial layout of letters/words on the page is itself part of the rule.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Costrizione formale che interviene sulla disposizione visiva o tipografica del testo, in cui l'impaginazione spaziale di lettere/parole sulla pagina è essa stessa parte della regola.</rdfs:comment>
+        <rdfs:label xml:lang="it">Costrizione visiva</rdfs:label>
+        <rdfs:label xml:lang="en">Visual constraint</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:Class>
     
     <!-- https://w3id.org/desmos/LiteraryConstraint -->
 
