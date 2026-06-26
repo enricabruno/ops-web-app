@@ -247,6 +247,12 @@ desmos:anagraphy a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:displacement .
 
+desmos:antonymic_rewriting a desmos:FormalConstraint ;
+	rdfs:label "Riscrittura antonimica"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:substitution .
+
 desmos:beau_present a desmos:FormalConstraint ;
 	rdfs:label "Beau présent"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -275,6 +281,16 @@ desmos:cento a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:extraction .
+
+desmos:classical_sonnet a desmos:FormalConstraint ;
+    rdfs:label "Sonetto classico"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:stanza ,
+        desmos:line ,
+        desmos:syllable ;
+    crm:P148_has_component desmos:quatrain ,
+        desmos:terzine ,
+        desmos:hendecasyllable .
 
 desmos:colloquial_register_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico colloquiale"^^xsd:string ;
@@ -1050,8 +1066,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_04> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "È parso interessante all’Autore «innestare il palindromo su una struttura: il sonetto»."@it ;
-	crm:P129_is_about desmos:quatrain ,
-		desmos:terzine ,
+	crm:P129_is_about desmos:classical_sonnet ,
 		desmos:palindrome ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_04> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/campagnoli> .
@@ -1065,7 +1080,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_06> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Si tratta di una serie di sonetti lipogrammatici in x [...] trasformabili in altrettanti sonetti monovocalici in x."@it ;
-	crm:P129_is_about desmos:monovocalism ,
+	crm:P129_is_about desmos:classical_sonnet , 
+		desmos:monovocalism ,
 		desmos:lipogram_A ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_06> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/campagnoli> .
@@ -1237,13 +1253,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_sanguineti> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Endecasillabi sdruccioli, con due sole rime ricorrenti, per un sonetto sulla chimera: ciascun verso è costituito da vocaboli aventi la stessa lettera iniziale tanto da formare un 'poliacrostico' su 'chimera'."@it ;
-	crm:P129_is_about desmos:quatrain ,
-		desmos:alternating_rhyme ,
-		desmos:hendecasyllable ,
-		desmos:terzine ,
+	crm:P129_is_about desmos:classical_sonnet ,
+		desmos:sdrucciola_hendecasyllable ,
 		desmos:poliacrostic ,
 		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
 		desmos:mandatory_theme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
@@ -1295,11 +1308,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_b> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La struttura metrica selezionata segue lo schema classico di due quartine e due terzine di versi endecasillabi giambici a rima ABBA -ABBA | CDE - EDC. Le rime dei versi che non appaiono nel quindicesimo sonetto non sono mai ripetute."@it ;
-	crm:P129_is_about desmos:quatrain ,
-		desmos:terzine ,
-		desmos:hendecasyllable ,
-		desmos:enclosed_rhyme ,
-		desmos:iambic_rhythm ;
+	crm:P129_is_about desmos:classical_sonnet ,
+		desmos:iambic_hendecasyllable ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1374,25 +1384,19 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l'aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L' 'epistolina', infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
-	crm:P129_is_about desmos:hendecasyllable ,
-		desmos:terzine ,
-		desmos:acrostic ,
+	crm:P129_is_about desmos:acrostic ,
 		desmos:septenary ,
 		desmos:distich ,
-		desmos:quatrain ,
+		desmos:classical_sonnet ,
 		desmos:lipogram ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_varaldo> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Si tratta di un sonetto acrostico (la frase risultante è SANGUINETI AMAT) e, nei singoli versi, sostanzialmente tautogrammatico. [...] lo schema rimico è volutamente non ABBA BAAB CDC DCD, bensì ABBA ABBA CDC DCD, ossia quello pressoché sempre utilizzato dall'Autore."@it ;
-	crm:P129_is_about desmos:hendecasyllable ,
-		desmos:terzine ,
+	crm:P129_is_about desmos:classical_sonnet ,
 		desmos:acrostic ,
-		desmos:quatrain ,
-		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
-		desmos:alternating_rhyme ;
+		desmos:tautogram ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_varaldo> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1452,10 +1456,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_34_varaldo> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "'Identikit lessicali' è il titolo complessivo dato a un gruppo di cinque sonetti, nei quali manca a turno una delle cinque vocali."@it ;
-	crm:P129_is_about desmos:quatrain ,
-		desmos:terzine ,
-		desmos:alternating_rhyme ,
-		desmos:enclosed_rhyme ,
+	crm:P129_is_about desmos:classical_sonnet ,
 		desmos:progressive_vocalic_lipogram ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_varaldo> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
@@ -1523,7 +1524,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41> a crm:E33_Linguistic_Object ;
-    crm:P3_has_note "Plaquette in memoriam Umberto Eco (1932-2016), pubblicata nell'anno della sua scomparsa. Dalla prefazione: «È parso significativo intitolare questo librino con il primo dei tre versi con i quali Umberto Eco trasformò lipogrammaticamente (in 'o') quelli di Salvatore Quasimodo, con una trascrizione che 'pure capovolge la lettera della poesia ‒ egli scrive ‒ e non ne tradisce, spero, la nota del dolore metafisico. Semplicemente un solare poeta siculo diventa un opalescente iperboreo, e l'amarezza per la morte che incombe si trasforma nell'orrore per la vita che continua'.» Il riferimento è a Umberto Eco, Vocali, Alfredo Guida Editore, Napoli, 1991, p. 28; rielaborazione di Salvatore Quasimodo, Ed è subito sera (1942)."@it ;
+    crm:P3_has_note "Plaquette in memoriam Umberto Eco (1932-2016), pubblicata nell'anno della sua scomparsa. Dalla prefazione: «È parso significativo intitolare questo librino con il primo dei tre versi con i quali Umberto Eco trasformò lipogrammaticamente (in 'o') quelli di Salvatore Quasimodo.» Il riferimento è a Umberto Eco, Vocali, Alfredo Guida Editore, Napoli, 1991, p. 28; rielaborazione di Salvatore Quasimodo, Ed è subito sera (1942)."@it ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1562,8 +1563,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_43> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Ogni sonetto è costruito eliminando le 'sillabe metriche' che compongono il nome e cognome del poeta preso di mira."@it ;
-	crm:P129_is_about desmos:terzine ,
-		desmos:quatrain ,
+	crm:P129_is_about desmos:classical_sonnet ,
 		desmos:metric_liposyllabism ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/tonietto> .
@@ -1593,6 +1593,20 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:acrostic ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_pelliti> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Acrostico anagrammatico biografico per Charles Baudelaire."@it ;
+	crm:P129_is_about desmos:acronym ,
+		desmos:anagram ,
+		desmos:mandatory_dedication ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_pelliti> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pelliti> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_sebregondi> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Dissonanze è un goffo tentativo di poesia antonimica esercitato senza il dovuto rigore oplepiano sul medesimo ben noto baudelairiano Corresponces. Del sonetto originario si conserva qui la struttura rimica ABBA CDDC EFE FGG."@it ;
+	crm:P129_is_about desmos:antonymic_rewriting ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/sebregondi> .
 
 ### Expression ###
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> a lrmoo:F2_Expression ;
@@ -2239,6 +2253,29 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> a lrmoo:F2_Expression ;
+	dcterms:title "Ciarle per Charles"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_pelliti> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_sebregondi> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p54> ;
+	crm:P2_has_type desmos:poetry ,
+		desmos:prose ,
+		desmos:visual_poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_pelliti> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_pelliti> a lrmoo:F2_Expression ;
+	dcterms:title "Ad aerei blu"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> a lrmoo:F2_Expression ;
+	dcterms:title "Dissonanze"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> a lrmoo:F2_Expression ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> .
@@ -2610,6 +2647,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45> ;
 	schema:pagination "413-479"^^xsd:string .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 50"@it ;
+	dcterms:issued "2021"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> .
+
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> a lrmoo:F3_Manifestation ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
@@ -2771,9 +2814,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_04> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_04> ;
-	desmos:usedConstraint desmos:quatrain ,
-		desmos:hendecasyllable ,
-		desmos:terzine ,
+	desmos:usedConstraint desmos:classical_sonnet ,
 		desmos:palindrome ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/campagnoli> ;
 	dcterms:created "1992"^^xsd:gYear .
@@ -2787,8 +2828,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_06> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_06> ;
-	desmos:usedConstraint desmos:quatrain ,
-		desmos:terzine ,
+	desmos:usedConstraint desmos:classical_sonnet ,
 		desmos:monovocalism ,
 		desmos:lipogram_A ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/campagnoli> ;
@@ -3017,13 +3057,10 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
-	desmos:usedConstraint desmos:quatrain ,
-		desmos:alternating_rhyme ,
-		desmos:hendecasyllable ,
-		desmos:terzine ,
-		desmos:acrostic ,
+	desmos:usedConstraint desmos:desmos:classical_sonnet ,
+		desmos:sdrucciola_hendecasyllable ,
+		desmos:poliacrostic ,
 		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
 		desmos:mandatory_theme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
 	dcterms:created "2006"^^xsd:gYear .
@@ -3073,9 +3110,10 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_29_text_addomine> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
-	desmos:usedConstraint desmos:crown_of_sonnets ,
+	desmos:usedConstraint desmos:classical_sonnet ,
+	desmos:crown_of_sonnets ,
 		desmos:non_repeating_rhyme ,
-		desmos:iambic_rhythm ,
+		desmos:iambic_hendecasyllable ,
 		desmos:mandatory_theme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
 	dcterms:created "2009"^^xsd:gYear .
@@ -3137,12 +3175,10 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_kierkia> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ;
-	desmos:usedConstraint desmos:hendecasyllable ,
-		desmos:terzine ,
-		desmos:acrostic ,
+	desmos:usedConstraint desmos:acrostic ,
 		desmos:septenary ,
 		desmos:distich ,
-		desmos:quatrain ,
+		desmos:classical_sonnet ,
 		desmos:lipogram ,
 		desmos:mandatory_dedication ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
@@ -3150,13 +3186,9 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_varaldo> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_varaldo> ;
-	desmos:usedConstraint desmos:hendecasyllable ,
-		desmos:terzine ,
+	desmos:usedConstraint desmos:classical_sonnet ,
 		desmos:acrostic ,
-		desmos:quatrain ,
 		desmos:tautogram ,
-		desmos:enclosed_rhyme ,
-		desmos:alternating_rhyme ,
 		desmos:mandatory_dedication ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
 	dcterms:created "2010"^^xsd:gYear .
@@ -3224,10 +3256,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_34_text_varaldo> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34_text_varaldo> ;
-	desmos:usedConstraint desmos:quatrain ,
-		desmos:terzine ,
-		desmos:alternating_rhyme ,
-		desmos:enclosed_rhyme ,
+	desmos:usedConstraint desmos:classical_sonnet ,
 		desmos:progressive_vocalic_lipogram ,
 		desmos:mandatory_dedication ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
@@ -3416,8 +3445,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_43> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> ;
 	desmos:usedConstraint desmos:metric_liposyllabism ,
-		desmos:terzine ,
-		desmos:quatrain ;
+		desmos:classical_sonnet ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/tonietto> ;
 	dcterms:created "2019"^^xsd:gYear .
 
@@ -3455,6 +3483,25 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 		desmos:acrostic ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
 	dcterms:created "2020"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
+	dcterms:created "2021"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50_text_pelliti> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_pelliti> ;
+	desmos:usedConstraint desmos:acronym ,
+		desmos:anagram ,
+		desmos:mandatory_dedication ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pelliti> ;
+	dcterms:created "2021"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50_text_sebregondi> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
+	desmos:usedConstraint desmos: ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
+	dcterms:created "2021"^^xsd:gYear .
 
 ### Textual Feature ###
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_01> a desmos:TextualFeature ;
@@ -3776,6 +3823,10 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_45> a lrmoo:F1_Work ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_50> a lrmoo:F1_Work ;
+	dcterms:title "Ciarle per Charles"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_istruzioni> a lrmoo:F1_Work ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
