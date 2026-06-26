@@ -198,6 +198,10 @@
 	rdfs:label "Matteo Pelliti"^^xsd:string ;
 	owl:sameAs <http://viaf.org/viaf/315181683> .
 
+<https://w3id.org/desmos/oplepiana/author/bloomfield> a crm:E39_Actor , prov:Agent ;
+	rdfs:label "Camille Bloomfield"^^xsd:string ;
+	owl:sameAs <http://viaf.org/viaf/264955822> .
+
 ### Constraint ###
 desmos:acronym a desmos:FormalConstraint ;
 	rdfs:label "Acronimo"^^xsd:string ;
@@ -264,6 +268,13 @@ desmos:bisyllabic_text a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable .
 
+desmos:boule_de_neige a desmos:VisualConstraint ;
+    rdfs:label "Boule de neige"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:letter ,
+        desmos:word ,
+        desmos:line .
+
 desmos:brivadois_acrostiche a desmos:FormalConstraint ;
 	rdfs:label "Acrostico brivadois"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
@@ -276,6 +287,12 @@ desmos:buried_word a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
+desmos:calligram a desmos:VisualConstraint ;
+    rdfs:label "Calligramma"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:typography ,
+        desmos:image .
+
 desmos:cento a desmos:FormalConstraint ;
 	rdfs:label "Centone"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -287,11 +304,8 @@ desmos:classical_sonnet a desmos:FormalConstraint ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:stanza ,
         desmos:line ,
-        desmos:syllable ;
-    crm:P148_has_component desmos:quatrain ,
-        desmos:terzine ,
-        desmos:hendecasyllable .
-
+        desmos:syllable .
+    
 desmos:colloquial_register_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico colloquiale"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
@@ -412,7 +426,7 @@ desmos:fixed_fictional_setting a desmos:SemanticConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_setting .
 
-desmos:figured_alphabet a desmos:FormalConstraint ;
+desmos:figured_alphabet a desmos:VisualConstraint ;
 	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
@@ -503,11 +517,11 @@ desmos:homonymy a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
-desmos:iambic a desmos:FormalConstraint ;
-	rdfs:label "Iambico"^^xsd:string ;
-	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
+desmos:iambic_hendecasyllable a desmos:FormalConstraint ;
+	rdfs:label "Endecasillabo giambico"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:line ,
+        desmos:syllable .
 
 desmos:ironic_register_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico ironico"^^xsd:string ;
@@ -854,6 +868,12 @@ desmos:rhyme_name_echo a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ;
 	desmos:involvesOperation desmos:multiplication .
+
+desmos:sdrucciola_hendecasyllable a desmos:FormalConstraint ;
+    rdfs:label "Endecasillabo sdrucciolo"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:line ,
+        desmos:syllable .
 
 desmos:sdrucciola_rhyme a desmos:FormalConstraint ;
 	rdfs:label "Rima sdrucciola"^^xsd:string ;
@@ -1608,6 +1628,19 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/sebregondi> .
 
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Il 10 febbraio 2023, presso l'Artoteca Alliance in Strada de' Gironda 22 a Bari, si è inaugurata la mostra 'Gustave Eiffel (1832-1923), l' 'homme de fer', organizzata dall'Alliance Française Bari. [...] La mostra documentaria ha ricostruito il percorso del famoso ingegnere attraverso pannelli informativi contenenti documenti d'epoca, quadri, poesie, fotografie, locandine cinematografiche e fumetti. [...] La mostra è stata completata da un pannello realizzato dall'Oplepo, che include cinque composizioni grafico-letterarie che circondano una caricatura dell'ingegnere e della sua torre."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51_bloomfield> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "omofonia rovesciata nel titolo: Eiffel -> «F:Elle» -> «Elle:F» e anche un po' nel testo «Effet elle»; 'contrainte' visiva (calligramma), anagrammatica (lato sinistro), sonora (un po' dappertutto) e semantica (rovesciamento di valori e di forme)."@it ;
+	crm:P129_is_about desmos:calligram ,
+		desmos:homophony ,
+		desmos:anagram ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pelliti> .
+
 ### Expression ###
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> a lrmoo:F2_Expression ;
 	dcterms:title "Edulcoranti"^^xsd:string ;
@@ -2276,6 +2309,29 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> a lrmoo:F2_Expression ;
+	dcterms:title "Gustave Alexandre Eiffel. L'homme de fer"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51_bloomfield> ;
+	rdfs:seeAlso <https://www.oplepo.com/p56> ;
+	crm:P2_has_type desmos:poetry ,
+		desmos:prose ,
+		desmos:visual_art ,
+		desmos:visual_poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> a lrmoo:F2_Expression ;
+	dcterms:title "Une boule de neige pour Gustave Alexandre Eiffel"^^xsd:string ;
+	crm:P2_has_type desmos:visual_poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> a lrmoo:F2_Expression ;
+	dcterms:title "«Elle : F»: Eiffel retourné par les femmes"^^xsd:string ;
+	crm:P2_has_type desmos:visual_poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> a lrmoo:F2_Expression ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> .
@@ -2652,6 +2708,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 51"@it ;
+	dcterms:issued "2023"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> a lrmoo:F3_Manifestation ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
@@ -3057,7 +3119,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_26_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
-	desmos:usedConstraint desmos:desmos:classical_sonnet ,
+	desmos:usedConstraint desmos:classical_sonnet ,
 		desmos:sdrucciola_hendecasyllable ,
 		desmos:poliacrostic ,
 		desmos:tautogram ,
@@ -3503,6 +3565,25 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
 	dcterms:created "2021"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
+	dcterms:created "2023"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51_text_aragona> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> ;
+	desmos:usedConstraint desmos:boule_de_neige ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
+	dcterms:created "2023"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51_text_bloomfield> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
+	desmos:usedConstraint desmos:calligram ,
+		desmos:homophony ,
+		desmos:anagram ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/bloomfield> ;
+	dcterms:created "2023"^^xsd:gYear .
+
 ### Textual Feature ###
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_01> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> ;
@@ -3827,6 +3908,10 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_50> a lrmoo:F1_Work ;
 	dcterms:title "Ciarle per Charles"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_51> a lrmoo:F1_Work ;
+	dcterms:title "Gustave Alexandre Eiffel. L'homme de fer"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_istruzioni> a lrmoo:F1_Work ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;

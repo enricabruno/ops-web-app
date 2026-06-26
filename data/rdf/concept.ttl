@@ -252,7 +252,7 @@ desmos:brivadois_acrostiche a skos:Concept ;
     skos:prefLabel "Acrostic brivadois"@en , "Brivadois acrostiche"@fr , "Acrostico brivadois"@it ;
     skos:broader desmos:acrostic ;
     skos:definition "Formal constraint superimposing two acrostic mechanisms: a vertical initial acrostic (the initial letters of successive verses/paragraphs spell a word) and, within each verse/paragraph, a horizontal acrostic in which the initial letters of successive words follow the alphabetical sequence."@en , "Costrizione formale che sovrappone due meccanismi acrostici: un acrostico verticale iniziale (le lettere iniziali dei versi/paragrafi successivi compongono una parola) e, all'interno di ciascun verso/paragrafo, un acrostico orizzontale in cui le iniziali delle parole successive seguono la sequenza alfabetica."@it ;
-    skos:historyNote "The constraint was invented by the 6e C class of the Collège La Fayette in Brioude (Haute-Loire), under the guidance of their teacher Ouardia Touahri, and was subsequently communicated to Jacques Jouet, who introduced it into Oulipian practice. The qualifier 'brivadois' is the demonym of Brioude."@en , "La costrizione è stata ideata dalla classe 6e C del Collège La Fayette di Brioude (Alta Loira), sotto la guida dell'insegnante Ouardia Touahri, e successivamente comunicata a Jacques Jouet, che l'ha introdotta nella pratica oulipiana. L'aggettivo 'brivadois' è l'etnico di Brioude."@it ,
+    skos:historyNote "The constraint was invented by the 6e C class of the Collège La Fayette in Brioude (Haute-Loire), under the guidance of their teacher Ouardia Touahri, and was subsequently communicated to Jacques Jouet, who introduced it into Oulipian practice. The qualifier 'brivadois' is the demonym of Brioude."@en , "La costrizione è stata ideata dalla classe 6e C del Collège La Fayette di Brioude (Alta Loira), sotto la guida dell'insegnante Ouardia Touahri, e successivamente comunicata a Jacques Jouet, che l'ha introdotta nella pratica oulipiana. L'aggettivo 'brivadois' è l'etnico di Brioude."@it ;
     skos:example "E C O (titre vertical…) by Jacques Jouet: vertical acrostic E-C-O, with each paragraph cycling through the alphabet by word initials (Elan, furieux, généralisé, hautement…)."@en , "E C O (titre vertical…) di Jacques Jouet: acrostico verticale E-C-O, con ogni paragrafo che cicla l'alfabeto sulle iniziali delle parole (Elan, furieux, généralisé, hautement…)."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/acrostiche-brivadois> ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -325,6 +325,13 @@ desmos:bisyllabic_text a skos:Concept ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:boule_de_neige a skos:Concept ;
+    skos:prefLabel "Snowball"@en , "Boule de neige"@fr , "Boule de neige"@it ;
+    skos:definition "Formal constraint in which each successive line consists of a single word one letter longer than the word in the previous line: the first line has a one-letter word, the second a two-letter word, and so on, so that the nth line has n letters."@en , "Costrizione formale in cui ogni verso successivo è formato da una sola parola di una lettera in più rispetto al verso precedente: il primo verso ha una parola di una lettera, il secondo di due, e così via, sicché l'n-esimo verso ha n lettere."@it ;
+    skos:historyNote "Constraint invented by the Oulipians."@en , "Costrizione inventata dagli oulipiani."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/boule-de-neige> ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:buried_word a skos:Concept ;
     skos:prefLabel "Buried word"@en , "Parola contenuta"@it ;
     skos:related desmos:hypogram , desmos:anagram ;
@@ -334,6 +341,14 @@ desmos:buried_word a skos:Concept ;
                    "Distinto dall'ipogramma (lettere DISPERSE, non contigue) e dall'anagramma (lettere riordinate): qui le lettere sono CONTIGUE e solo celate a cavallo dei confini di parola."@it ;
     skos:example "Varaldo: Anche ogGI, ALLOrquando ci ripenso."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:calligram a skos:Concept ;
+    skos:prefLabel "Calligram"@en , "Calligramme"@fr , "Calligramma"@it ;
+    skos:definition "Formal constraint in which the typographic arrangement of the text on the page forms a visual figure (an image) representing or evoking the subject of the text, so that layout and meaning coincide."@en , "Costrizione formale in cui la disposizione tipografica del testo sulla pagina forma una figura visiva (un'immagine) che rappresenta o evoca il soggetto del testo, facendo coincidere impaginazione e significato."@it ;
+    skos:historyNote "The term was coined by Guillaume Apollinaire (Calligrammes, 1918); the practice descends from the ancient figured poems (technopaegnia)."@en , "Il termine è stato coniato da Guillaume Apollinaire (Calligrammes, 1918); la pratica discende dai carmi figurati antichi (technopaegnia)."@it ;
+    skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 
 desmos:cento a skos:Concept ;
     skos:prefLabel "Cento"@en , "Centone"@it ;
@@ -349,7 +364,9 @@ desmos:classical_sonnet a skos:Concept ;
     skos:definition "Formal constraint imposing the fixed form of the classical (Italian/Petrarchan) sonnet: fourteen hendecasyllabic lines arranged in two quatrains followed by two tercets, according to a fixed rhyme scheme (typically ABBA ABBA for the quatrains and CDC DCD or CDE CDE for the tercets). It therefore combines three subordinate metrical constraints: the quatrain, the tercet and the hendecasyllable."@en , "Costrizione formale che impone la forma fissa del sonetto classico (italiano/petrarchesco): quattordici versi endecasillabi disposti in due quartine seguite da due terzine, secondo uno schema rimico fisso (tipicamente ABBA ABBA per le quartine e CDC DCD oppure CDE CDE per le terzine). Combina pertanto tre costrizioni metriche subordinate: la quartina, la terzina e l'endecasillabo."@it ;
     skos:related desmos:quatrain ,
         desmos:terzine ,
-        desmos:hendecasyllable ;
+        desmos:hendecasyllable ,
+        desmos:enclosed_rhyme ,
+        desmos:alternating_rhyme ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -613,10 +630,12 @@ desmos:homonymy a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
-desmos:iambic a skos:Concept ;
-    skos:prefLabel "Iambic meter"@en , "Metro giambico"@it ;
-    skos:definition "Formal constraint requiring iambic rhythm, i.e. the regular alternation of unstressed and stressed syllables (iambic feet) along the line."@en , "Costrizione formale che impone un ritmo giambico, ossia la regolare alternanza di sillabe atone e toniche (piedi giambici) lungo il verso."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+desmos:iambic_hendecasyllable a skos:Concept ;
+    skos:prefLabel "Iambic hendecasyllable"@en , "Endecasillabo giambico"@it ;
+    skos:definition "Hendecasyllable realised with a regular iambic rhythm: the metrical stresses (ictus) fall on the even syllables (2nd, 4th, 6th, 8th, 10th), producing a steady rising cadence. It is a rhythmic specialisation of the hendecasyllable."@en ,
+        "Endecasillabo realizzato con ritmo giambico regolare: gli accenti metrici (ictus) cadono sulle posizioni pari (2ª, 4ª, 6ª, 8ª, 10ª sillaba), con andamento ascendente costante. È una specializzazione ritmica dell'endecasillabo."@it ;
+    skos:related desmos:hendecasyllable ;
+    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:ironic_register_lexicon a skos:Concept ;
@@ -1055,6 +1074,12 @@ desmos:rhyme_name_echo a skos:Concept ;
         desmos:beau_present ,
         desmos:allitteration ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:sdrucciola_hendecasyllable a skos:Concept ;
+    skos:prefLabel "Sdrucciolo hendecasyllable"@en , "Endecasillabo sdrucciolo"@it ;
+    skos:definition "Hendecasyllable with a proparoxytone (sdrucciolo) ending: twelve syllables with stress on the antepenultimate."@en , "Endecasillabo con uscita sdrucciola (proparossitona): dodici sillabe con accento sulla terzultima."@it ;
+    skos:related desmos:hendecasyllable ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:sdrucciola_rhyme a skos:Concept ;
