@@ -299,6 +299,14 @@ desmos:anagraphy a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:antonymic_rewriting a skos:Concept ;
+    skos:prefLabel "Antonymic rewriting"@en , "Riscrittura antonimica"@it ;
+    skos:altLabel "Antonymic poetry"@en , "Poesia antonimica"@it ;
+    skos:definition "Formal constraint that rewrites a source text by replacing its lexical units with their antonyms (or with semantically opposite terms), so that the new text systematically inverts the meaning of the original while preserving its structure."@en , "Costrizione formale che riscrive un testo di partenza sostituendo le sue unità lessicali con i rispettivi antonimi (o con termini di senso opposto), così che il nuovo testo ne inverte sistematicamente il significato conservandone la struttura."@it ;
+    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/traduction-antonymique> ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:beau_present a skos:Concept ;
     skos:prefLabel "Beau présent"@fr , "Beautiful present"@en , "Bel presente"@it ;
     skos:broader desmos:alphabetic_set_constraint;
@@ -330,6 +338,18 @@ desmos:buried_word a skos:Concept ;
 desmos:cento a skos:Concept ;
     skos:prefLabel "Cento"@en , "Centone"@it ;
     skos:definition "Formal constraint consisting in composing a text by stitching together pre-existing lines or fragments from one or more sources/authors, with minimal alteration."@en , "Costrizione formale che consiste nel comporre un testo assemblando versi o frammenti preesistenti tratti da uno o più testi/autori, con interventi minimi."@it ;
+    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+# prefissi già dichiarati nel file: desmos:, skos:
+# inserire nello stesso scheme di crown_of_sonnets (desmos:FormalConstraintScheme)
+
+desmos:classical_sonnet a skos:Concept ;
+    skos:prefLabel "Classical sonnet"@en , "Sonetto classico"@it ;
+    skos:definition "Formal constraint imposing the fixed form of the classical (Italian/Petrarchan) sonnet: fourteen hendecasyllabic lines arranged in two quatrains followed by two tercets, according to a fixed rhyme scheme (typically ABBA ABBA for the quatrains and CDC DCD or CDE CDE for the tercets). It therefore combines three subordinate metrical constraints: the quatrain, the tercet and the hendecasyllable."@en , "Costrizione formale che impone la forma fissa del sonetto classico (italiano/petrarchesco): quattordici versi endecasillabi disposti in due quartine seguite da due terzine, secondo uno schema rimico fisso (tipicamente ABBA ABBA per le quartine e CDC DCD oppure CDE CDE per le terzine). Combina pertanto tre costrizioni metriche subordinate: la quartina, la terzina e l'endecasillabo."@it ;
+    skos:related desmos:quatrain ,
+        desmos:terzine ,
+        desmos:hendecasyllable ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
