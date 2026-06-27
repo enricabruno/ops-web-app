@@ -4,7 +4,6 @@
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: 	 <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: 	 <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf:  	 <http://xmlns.com/foaf/0.1/> .
 @prefix prov:	 <http://www.w3.org/ns/prov#> .
 @prefix rdfs:  	 <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos:  	 <http://www.w3.org/2004/02/skos/core#> .
@@ -356,9 +355,6 @@ desmos:cento a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
-# prefissi già dichiarati nel file: desmos:, skos:
-# inserire nello stesso scheme di crown_of_sonnets (desmos:FormalConstraintScheme)
-
 desmos:classical_sonnet a skos:Concept ;
     skos:prefLabel "Classical sonnet"@en , "Sonetto classico"@it ;
     skos:definition "Formal constraint imposing the fixed form of the classical (Italian/Petrarchan) sonnet: fourteen hendecasyllabic lines arranged in two quatrains followed by two tercets, according to a fixed rhyme scheme (typically ABBA ABBA for the quatrains and CDC DCD or CDE CDE for the tercets). It therefore combines three subordinate metrical constraints: the quatrain, the tercet and the hendecasyllable."@en , "Costrizione formale che impone la forma fissa del sonetto classico (italiano/petrarchesco): quattordici versi endecasillabi disposti in due quartine seguite da due terzine, secondo uno schema rimico fisso (tipicamente ABBA ABBA per le quartine e CDC DCD oppure CDE CDE per le terzine). Combina pertanto tre costrizioni metriche subordinate: la quartina, la terzina e l'endecasillabo."@it ;
@@ -396,6 +392,16 @@ desmos:crown_of_sonnets a skos:Concept ;
     skos:definition "Formal constraint requiring a fixed cycle of fifteen sonnets on a single subject, in which the last line of each sonnet is repeated as the first line of the following one, and the fifteenth sonnet (the master sonnet) is composed, in order, of the final lines of the preceding fourteen."@en , "Costrizione formale che impone un ciclo fisso di quindici sonetti su un unico argomento, in cui l'ultimo verso di ciascun sonetto è ripreso come primo verso del successivo, e il quindicesimo sonetto (sonetto magistrale) è formato, nell'ordine, dagli ultimi versi dei quattordici precedenti."@it ;
     skos:historyNote "La Corona di sonetti è stata inventata da Elena Addòmine in 'Corona di sonetti gastronomici (2009), 'La Biblioteca Oplepiana', n. 29."@it , "The crown of sonnets was invented by Elena Addòmine in 'Corona di sonetti gastronomici (2009), 'La Biblioteca Oplepiana', n. 29."@en ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+@prefix desmos: <https://w3id.org/desmos/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+
+desmos:date_indexed_word_length a skos:Concept ;
+    skos:prefLabel "Date-indexed word length"@en , "Lunghezza di parola indicizzata alla data"@it ; 
+    skos:definition "Formal constraint requiring each content word to have a number of letters equal to a numeric value derived from a calendar date (the day and/or the month of a reference event); when the day exceeds a threshold its digits are summed to yield admissible lengths."@en , "Costrizione formale che impone a ogni parola piena un numero di lettere pari a un valore numerico ricavato da una data di calendario (il giorno e/o il mese di un evento di riferimento); quando il giorno supera una soglia le sue cifre vengono sommate per generare le lunghezze ammesse."@it ;
+    skos:scopeNote "Per i giorni compresi fra 14 e 31 le due cifre sono sommate; sono ammesse quindi sia la lunghezza pari alla somma sia, in alcuni casi, le lunghezze pari alle singole cifre."@it ;
+    skos:example "Varaldo, plaquette 53, ottava 'Suicidio di Emilio Salgari' (25.04.1911): lunghezze ammesse 4 (mese) e 7 = 2+5 (giorno)."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:datation_lexicon a skos:Concept ;
@@ -455,6 +461,13 @@ desmos:distich a skos:Concept ;
     skos:definition "Formal constraint requiring the text to be organized into two-line stanzas, typically with a rhyming pattern, forming a complete metrical and thematic unit."@en , "Costrizione formale che impone l’organizzazione del testo in strofe di due versi, solitamente a rima baciata o alternata, che costituiscono un'unità metrica e di senso compiuta."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:divergent_captions a skos:Concept ;
+    skos:prefLabel "Divergent captions"@en , "Didascalie divergenti"@it ;
+    skos:related desmos:figure_derived_count ;
+    skos:definition "Semantic constraint in which one and the same image, repeated throughout the work, is paired each time with a different caption: the figure stays constant while each caption gives it a distinct interpretation."@en , "Costrizione semantica in cui una stessa immagine, ripetuta lungo l'opera, è accompagnata ogni volta da una didascalia diversa: la figura resta costante mentre ciascuna didascalia le attribuisce un'interpretazione distinta."@it ;
+    skos:related desmos:figure_derived_count ;
+    skos:inScheme desmos:SemanticConstraintScheme .
 
 desmos:embedded_numeral_calculus a skos:Concept ;
     skos:prefLabel "Embedded numeral calculus"@en , "Calcolo dei numeri incorporati"@it ;
@@ -539,6 +552,12 @@ desmos:figured_alphabet a skos:Concept ;
     skos:prefLabel "Figured Alphabet"@en , "Alfabeto raffigurato"@it ;
     skos:definition "Formalconstraint consisting of the composition of a text within a literary grid, understood as a defined geometric space, where the arrangement of letters is designed to visually reproduce the shape of the letter itself, effectively turning the script into a figurative geometry."@en , "Costrizione formale che consiste nel comporre un testo all'interno di una griglia letteraria intesa come spazio geometrico delimitato, dove la disposizione delle lettere è finalizzata a riprodurre visivamente il disegno della lettera stessa."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:figure_derived_count a skos:Concept ;
+    skos:prefLabel "Figure-derived count"@en , "Numero ricavato dalla figura"@it ;
+    skos:related desmos:divergent_captions ;
+    skos:definition "Formal constraint in which the number of captions is not chosen freely but computed from the depicted figure itself, as the product of two of its structural features."@en ,"Costrizione formale in cui il numero di didascalie non è scelto liberamente ma calcolato dalla figura raffigurata stessa, come prodotto di due sue caratteristiche strutturali."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:fixed_text_length a skos:Concept ;
@@ -628,6 +647,12 @@ desmos:homonymy a skos:Concept ;
     skos:prefLabel "Homonymy"@en , "Omonimia"@it ;
     skos:definition "Formal constraint based on the use of words that share the same spelling or pronunciation but have different meanings, used as a generative pivot to shift between divergent semantic planes."@en , "Costrizione formale che si basa sull'impiego di parole aventi la medesima grafia o pronuncia ma significato diverso, utilizzate come perno generativo per scivolamenti tra piani semantici divergenti."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:homophony a skos:Concept ;
+    skos:prefLabel "Homophony"@en , "Omofonia"@it ;
+    skos:definition "Formal constraint based on phonic identity: a word or sequence is made to coincide in sound with a different word or sequence having a different meaning or spelling."@en , "Costrizione formale fondata sull'identità fonica: una parola o sequenza è fatta coincidere nel suono con un'altra di significato o grafia diversi."@it ;
+    skos:example "Eiffel ≈ «F-elle» ≈ «Effet elle»."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:iambic_hendecasyllable a skos:Concept ;
@@ -1244,6 +1269,12 @@ desmos:typographic_constraints a skos:Concept ;
     skos:definition "Formal constraint requiring adherence to typographic and editorial conventions defined by a reference model."@en , "Costrizione formale che impone l’adozione di convenzioni tipografiche e redazionali definite da un modello di riferimento."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:value_inversion a skos:Concept ;
+    skos:prefLabel "Value inversion"@en , "Rovesciamento di valori"@it ;
+    skos:definition "Semantic constraint that systematically inverts the values or thematic oppositions of the text, turning the represented content into its opposite."@en , "Costrizione semantica che inverte sistematicamente i valori o le opposizioni tematiche del testo, ribaltandone il contenuto nel suo opposto."@it ;
+    skos:related desmos:antonymic_rewriting ;
+    skos:inScheme desmos:FormalConstraintScheme . 
 
 desmos:visual_anaphora a skos:Concept ;
     skos:prefLabel "Visual anaphora"@en , "Anafora visiva"@it ;

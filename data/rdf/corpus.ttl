@@ -4,7 +4,6 @@
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: 	 <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: 	 <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf:  	 <http://xmlns.com/foaf/0.1/> .
 @prefix prov:	 <http://www.w3.org/ns/prov#> .
 @prefix rdfs:  	 <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos:  	 <http://www.w3.org/2004/02/skos/core#> .
@@ -202,6 +201,10 @@
 	rdfs:label "Camille Bloomfield"^^xsd:string ;
 	owl:sameAs <http://viaf.org/viaf/264955822> .
 
+<https://w3id.org/desmos/oplepiana/author/babic> a crm:E39_Actor , prov:Agent ;
+	rdfs:label "Joshua Babic"^^xsd:string ;
+	rdfs:seeAlso <https://www.joshuababic.ch/about> .
+
 ### Constraint ###
 desmos:acronym a desmos:FormalConstraint ;
 	rdfs:label "Acronimo"^^xsd:string ;
@@ -336,6 +339,12 @@ desmos:datation_lexicon a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
+desmos:date_indexed_word_length a desmos:FormalConstraint ;
+	rdfs:label "Lunghezza di parola indicizzata alla data"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;          
+	desmos:constrainsFormalUnit desmos:word ;  
+	desmos:involvesOperation desmos:extraction .
+
 desmos:datation_1621_1640_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico datato 1621-1640"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
@@ -373,6 +382,11 @@ desmos:distich a desmos:FormalConstraint ;
 	rdfs:label "Distico"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
+
+desmos:divergent_captions a desmos:SemanticConstraint ;
+    rdfs:label "Didascalie divergenti"^^xsd:string ;
+    desmos:constraintOrigin desmos:original ;
+    desmos:constrainsSemanticUnit desmos:theme .
 
 desmos:embedded_proverb a desmos:FormalConstraint ;
 	rdfs:label "Proverbio incastonato"^^xsd:string ;
@@ -415,6 +429,12 @@ desmos:familiar_register_lexicn a desmos:FormalConstraint ;
 	rdfs:label "Lessico familiare"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
+
+desmos:figure_derived_count a desmos:FormalConstraint ;
+    rdfs:label "Numero di didascalie ricavato dalla figura"^^xsd:string ;
+    desmos:constraintOrigin desmos:original ;
+    desmos:constrainsFormalUnit desmos:paragraph ;
+    desmos:involvesOperation desmos:multiplication .
 
 desmos:fixed_fictional_characters a desmos:SemanticConstraint ;
 	rdfs:label "Costrizione sui personaggi finzionali"^^xsd:string ;
@@ -510,6 +530,13 @@ desmos:homographic_translation a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:division .
+
+desmos:homophony a desmos:FormalConstraint ;
+    rdfs:label "Omofonia"^^xsd:string ;
+    desmos:constraintOrigin desmos:historical ;
+    desmos:constrainsFormalUnit desmos:syllable ,
+        desmos:word ;
+    desmos:involvesOperation desmos:substitution .
 
 desmos:homonymy a desmos:FormalConstraint ;
 	rdfs:label "Omonimia"^^xsd:string ;
@@ -1011,6 +1038,12 @@ desmos:typographic_constraints a desmos:FormalConstraint ;
 	rdfs:label "Norme tipografiche"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:typography .
+
+desmos:value_inversion a desmos:SemanticConstraint ;
+    rdfs:label "Rovesciamento di valori"^^xsd:string ;
+    desmos:constraintOrigin desmos:original ;
+    desmos:constrainsSemanticUnit desmos:theme ;
+    desmos:involvesOperation desmos:substitution .
 
 desmos:visual_anaphora a desmos:FormalConstraint ;
 	rdfs:label "Anafora visiva"^^xsd:string ;
@@ -1637,9 +1670,25 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "omofonia rovesciata nel titolo: Eiffel -> «F:Elle» -> «Elle:F» e anche un po' nel testo «Effet elle»; 'contrainte' visiva (calligramma), anagrammatica (lato sinistro), sonora (un po' dappertutto) e semantica (rovesciamento di valori e di forme)."@it ;
 	crm:P129_is_about desmos:calligram ,
 		desmos:homophony ,
-		desmos:anagram ;
+		desmos:anagram ,
+		desmos:value_inversion ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pelliti> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_52> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Questa plaquette nasce da un falso ricordo. Mi sembrava di aver letto da qualche parte nelle 'Ricerche Filosofiche' di Wittgenstein qualcosa come «si potrebbe immaginare un libro nel quale la stessa immagine sia presente ovunque, accompagnata da un testo in cui si parla ogni volta di qualcosa di diverso». Poi sono andato a rileggere e ho verificato che in verità Wittgenstein dice qualcosa di vagamente simile, ma non esattamente la stessa cosa. Un libro fatto di didascalie per la stessa immagine me l'ero immaginato io e alla fine l'ho anche scritto. [...] Così ho optato per la versione del cubo di Necker che appare nelle 'Ricerche Filosofiche'. [...] Il risultato finale è quindi un racconto in novantasei didascalie. Perché novantasei? Mi sembrava doveroso che il numero di didascalie avesse qualcosa a che fare con la geometria di un cuboide. Alla fine ho optato per il numero 96 che è il prodotto del numero dei vertici (8) per il numero degli spigoli (12) di un cubo."@it ;
+	crm:P129_is_about desmos:divergent_captions ,
+		desmos:figure_derived_count ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/babic> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_53> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Queste trenta ottave s'ispirano tutte a un evento pregresso, sia esso storico o scientifico o culturale o sportivo o letterario, nonché caratterizzato da una data precisa, e sono state composte in modo tale che tutte le parole 'pregnanti' – vale a dire ogni sostantivo, ogni aggettivo e ogni verbo – rispondessero all'uno o all'altro di questi due requisiti: o essere state introdotte nella lingua italiana nel periodo storico contrassegnato da quella data, o avere lo stesso numero di lettere indicato dal giorno e dal mese. Per quanto riguarda l'anno, ai fini delle datazioni ho preso in considerazione […] anche i due anni immediatamente precedenti e i due anni immediatamente successivi. Per quanto riguarda il giorno, ho invece deciso di sommare le due cifre in caso di numeri compresi fra il 14 e il 31 […]. Per ciascuna delle tre opzioni richieste (vale a dire il riferimento all'anno, al mese e al giorno) in ogni ottava dovrà essere presente almeno un vocabolo. […] il vocabolario di riferimento è stato il Grande Dizionario Italiano dell'Uso (GRADIT) di Tullio De Mauro edizione 2007. Due casi particolari. Qualora l'anno riportato dal dizionario sia preceduto dall'abbreviazione 'av.' (= avanti) oppure dall'altra abbreviazione 'ca.' (= circa) […] ho ritenuto di poter impiegare solo quei vocaboli in cui l'anno indicato non fosse il primo dei cinque possibili […]. Inoltre, nel caso che un verbo non correlato alla datazione venga spezzato in due o più parti, come succede per qualsiasi tempo composto […] e succede quasi sempre per i verbi procomplementari […], tutte le parti dovranno ottemperare alla contrainte […]."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> ;
+	crm:P129_is_about desmos:octave ,
+		desmos:datation_lexicon ,
+		desmos:date_indexed_word_length ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
 ### Expression ###
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> a lrmoo:F2_Expression ;
@@ -2332,6 +2381,19 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> a lrmoo:F2_Expression ;
+	dcterms:title "Il cuboide. Racconto in novantasei didascalie"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_52> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p56> ;
+	crm:P2_has_type desmos:prose .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> a lrmoo:F2_Expression ;
+	dcterms:title "In diebus illis. Poesie datate"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_53> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p57> ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_53> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> a lrmoo:F2_Expression ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> .
@@ -2714,6 +2776,18 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:issued "2023"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_52> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 52"@it ;
+	dcterms:issued "2023"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_53> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 53"@it ;
+	dcterms:issued "2024"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> a lrmoo:F3_Manifestation ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
@@ -3580,9 +3654,25 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
 	desmos:usedConstraint desmos:calligram ,
 		desmos:homophony ,
-		desmos:anagram ;
+		desmos:anagram ,
+		desmos:value_inversion ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/bloomfield> ;
 	dcterms:created "2023"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_52> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> ;
+	desmos:usedConstraint desmos:divergent_captions ,
+		desmos:figure_derived_count ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/babic> ;
+	dcterms:created "2023"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_53> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> ;
+	desmos:usedConstraint desmos:octave ,
+		desmos:datation_lexicon ,
+		desmos:date_indexed_word_length ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+	dcterms:created "2024"^^xsd:gYear .
 
 ### Textual Feature ###
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_01> a desmos:TextualFeature ;
@@ -3912,6 +4002,14 @@ oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_51> a lrmoo:F1_Work ;
 	dcterms:title "Gustave Alexandre Eiffel. L'homme de fer"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_52> a lrmoo:F1_Work ;
+	dcterms:title "Il cuboide. Racconto in novantasei didascalie"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_53> a lrmoo:F1_Work ;
+	dcterms:title "In diebus illis. Poesie datate"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_istruzioni> a lrmoo:F1_Work ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
