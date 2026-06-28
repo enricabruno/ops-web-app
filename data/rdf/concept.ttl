@@ -128,6 +128,7 @@ desmos:syllable a skos:Concept ;
 desmos:typography a skos:Concept ;
     skos:prefLabel "Typography"@en , "Tipografia"@it ;
     skos:definition "A formal unit consisting of a set of processes and techniques for the design and visual arrangement of characters."@en , "Unità formale costituita da un insieme di processi e tecniche per la progettazione e disposizione visiva dei caratteri."@it ;
+     skos:scopeNote "Adopted in the broad (contemporary) sense, which subsumes handwriting and calligraphy."@en , "Adottato nel senso ampio (contemporaneo), che include la scrittura a mano e la calligrafia."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q159964> ;
     skos:inScheme desmos:FormalUnitScheme .
 
@@ -247,15 +248,6 @@ desmos:acrostic a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
-desmos:brivadois_acrostiche a skos:Concept ;
-    skos:prefLabel "Acrostic brivadois"@en , "Brivadois acrostiche"@fr , "Acrostico brivadois"@it ;
-    skos:broader desmos:acrostic ;
-    skos:definition "Formal constraint superimposing two acrostic mechanisms: a vertical initial acrostic (the initial letters of successive verses/paragraphs spell a word) and, within each verse/paragraph, a horizontal acrostic in which the initial letters of successive words follow the alphabetical sequence."@en , "Costrizione formale che sovrappone due meccanismi acrostici: un acrostico verticale iniziale (le lettere iniziali dei versi/paragrafi successivi compongono una parola) e, all'interno di ciascun verso/paragrafo, un acrostico orizzontale in cui le iniziali delle parole successive seguono la sequenza alfabetica."@it ;
-    skos:historyNote "The constraint was invented by the 6e C class of the Collège La Fayette in Brioude (Haute-Loire), under the guidance of their teacher Ouardia Touahri, and was subsequently communicated to Jacques Jouet, who introduced it into Oulipian practice. The qualifier 'brivadois' is the demonym of Brioude."@en , "La costrizione è stata ideata dalla classe 6e C del Collège La Fayette di Brioude (Alta Loira), sotto la guida dell'insegnante Ouardia Touahri, e successivamente comunicata a Jacques Jouet, che l'ha introdotta nella pratica oulipiana. L'aggettivo 'brivadois' è l'etnico di Brioude."@it ;
-    skos:example "E C O (titre vertical…) by Jacques Jouet: vertical acrostic E-C-O, with each paragraph cycling through the alphabet by word initials (Elan, furieux, généralisé, hautement…)."@en , "E C O (titre vertical…) di Jacques Jouet: acrostico verticale E-C-O, con ogni paragrafo che cicla l'alfabeto sulle iniziali delle parole (Elan, furieux, généralisé, hautement…)."@it ;
-    skos:closeMatch <https://oulipo.net/contraintes/acrostiche-brivadois> ;
-    skos:inScheme desmos:FormalConstraintScheme .
-
 desmos:alliteration a skos:Concept ;
     skos:prefLabel "Alliteration"@en , "Allitterazione"@it ;
     skos:related desmos:tautogram ,
@@ -306,6 +298,14 @@ desmos:antonymic_rewriting a skos:Concept ;
     skos:closeMatch <https://oulipo.net/contraintes/traduction-antonymique> ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:apocryphal_pentimento a skos:Concept ;
+    skos:prefLabel "Pentimento apocrifo"@it , "Apocryphal pentimento"@en ;
+    skos:altLabel  "Stato anteriore fittizio"@it , "Fictional anterior state"@en ;
+    skos:definition "Costrizione semantica che finge, all'interno di opere famose, l'esistenza di un elemento oggi assente (o l'assenza di un elemento oggi presente); questo stato perduto, 'rivelato' da un apparato erudito apocrifo, costituisce l'opera invisibile che il testo descrive ed esibisce affiancata all'opera canonica reale."@it , "Semantic constraint that feigns, within famous works, the existence of an element absent today (or the absence of an element present today); this lost state, 'revealed' through an apocryphal scholarly apparatus, constitutes the invisible work, which the text describes and displays alongside the real canonical work."@en ;
+    skos:scopeNote "L'opera invisibile è presentata in diade comparativa con l'originale attestato: opera canonica (fig.) vs. ricostruzione dello stato perduto, con il 'documento' radiografico a mediare."@it , "The invisible work is presented in a comparative dyad with the certified original: canonical work (fig.) vs. reconstruction of the lost state, with the radiographic 'document' acting as mediator."@en ;
+    skos:related   desmos:preventive_review ;
+    skos:inScheme  desmos:SemanticConstraintScheme. .
+
 desmos:beau_present a skos:Concept ;
     skos:prefLabel "Beau présent"@fr , "Beautiful present"@en , "Bel presente"@it ;
     skos:broader desmos:alphabetic_set_constraint;
@@ -331,13 +331,20 @@ desmos:boule_de_neige a skos:Concept ;
     skos:closeMatch <https://oulipo.net/contraintes/boule-de-neige> ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:brivadois_acrostiche a skos:Concept ;
+    skos:prefLabel "Acrostic brivadois"@en , "Brivadois acrostiche"@fr , "Acrostico brivadois"@it ;
+    skos:broader desmos:acrostic ;
+    skos:definition "Formal constraint superimposing two acrostic mechanisms: a vertical initial acrostic (the initial letters of successive verses/paragraphs spell a word) and, within each verse/paragraph, a horizontal acrostic in which the initial letters of successive words follow the alphabetical sequence."@en , "Costrizione formale che sovrappone due meccanismi acrostici: un acrostico verticale iniziale (le lettere iniziali dei versi/paragrafi successivi compongono una parola) e, all'interno di ciascun verso/paragrafo, un acrostico orizzontale in cui le iniziali delle parole successive seguono la sequenza alfabetica."@it ;
+    skos:historyNote "The constraint was invented by the 6e C class of the Collège La Fayette in Brioude (Haute-Loire), under the guidance of their teacher Ouardia Touahri, and was subsequently communicated to Jacques Jouet, who introduced it into Oulipian practice. The qualifier 'brivadois' is the demonym of Brioude."@en , "La costrizione è stata ideata dalla classe 6e C del Collège La Fayette di Brioude (Alta Loira), sotto la guida dell'insegnante Ouardia Touahri, e successivamente comunicata a Jacques Jouet, che l'ha introdotta nella pratica oulipiana. L'aggettivo 'brivadois' è l'etnico di Brioude."@it ;
+    skos:example "E C O (titre vertical…) by Jacques Jouet: vertical acrostic E-C-O, with each paragraph cycling through the alphabet by word initials (Elan, furieux, généralisé, hautement…)."@en , "E C O (titre vertical…) di Jacques Jouet: acrostico verticale E-C-O, con ogni paragrafo che cicla l'alfabeto sulle iniziali delle parole (Elan, furieux, généralisé, hautement…)."@it ;
+    skos:closeMatch <https://oulipo.net/contraintes/acrostiche-brivadois> ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:buried_word a skos:Concept ;
     skos:prefLabel "Buried word"@en , "Parola contenuta"@it ;
     skos:related desmos:hypogram , desmos:anagram ;
-    skos:definition "Formal constraint in which a target word is concealed as a contiguous substring straddling the boundaries between two or more words of the surface text, recoverable by ignoring spacing and punctuation."@en ,
-                    "Costrizione formale in cui una parola-bersaglio e' celata come sottostringa contigua a cavallo del confine fra due o piu' parole del testo di superficie, recuperabile ignorando spazi e punteggiatura."@it ;
-    skos:scopeNote "Distinct from the hypogram (letters DISPERSED, non-contiguous) and from the anagram (letters rearranged): here the letters are CONTIGUOUS and merely hidden across word junctures."@en ,
-                   "Distinto dall'ipogramma (lettere DISPERSE, non contigue) e dall'anagramma (lettere riordinate): qui le lettere sono CONTIGUE e solo celate a cavallo dei confini di parola."@it ;
+    skos:definition "Formal constraint in which a target word is concealed as a contiguous substring straddling the boundaries between two or more words of the surface text, recoverable by ignoring spacing and punctuation."@en , "Costrizione formale in cui una parola-bersaglio e' celata come sottostringa contigua a cavallo del confine fra due o piu' parole del testo di superficie, recuperabile ignorando spazi e punteggiatura."@it ;
+    skos:scopeNote "Distinct from the hypogram (letters DISPERSED, non-contiguous) and from the anagram (letters rearranged): here the letters are CONTIGUOUS and merely hidden across word junctures."@en , "Distinto dall'ipogramma (lettere DISPERSE, non contigue) e dall'anagramma (lettere riordinate): qui le lettere sono CONTIGUE e solo celate a cavallo dei confini di parola."@it ;
     skos:example "Varaldo: Anche ogGI, ALLOrquando ci ripenso."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -347,7 +354,6 @@ desmos:calligram a skos:Concept ;
     skos:historyNote "The term was coined by Guillaume Apollinaire (Calligrammes, 1918); the practice descends from the ancient figured poems (technopaegnia)."@en , "Il termine è stato coniato da Guillaume Apollinaire (Calligrammes, 1918); la pratica discende dai carmi figurati antichi (technopaegnia)."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
-
 
 desmos:cento a skos:Concept ;
     skos:prefLabel "Cento"@en , "Centone"@it ;
@@ -393,9 +399,6 @@ desmos:crown_of_sonnets a skos:Concept ;
     skos:historyNote "La Corona di sonetti è stata inventata da Elena Addòmine in 'Corona di sonetti gastronomici (2009), 'La Biblioteca Oplepiana', n. 29."@it , "The crown of sonnets was invented by Elena Addòmine in 'Corona di sonetti gastronomici (2009), 'La Biblioteca Oplepiana', n. 29."@en ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
-
-@prefix desmos: <https://w3id.org/desmos/> .
-@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
 
 desmos:date_indexed_word_length a skos:Concept ;
     skos:prefLabel "Date-indexed word length"@en , "Lunghezza di parola indicizzata alla data"@it ; 
@@ -554,6 +557,12 @@ desmos:figured_alphabet a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:figure_bounded_text a skos:Concept ;
+    skos:prefLabel "Figure-bounded text"@en , "Testo perimetrato in figura"@it ;
+    skos:definition "Formal constraint in which the written text must be wholly contained within the outline of a pre-existing drawn figure: the figure is autonomous from the text, so that the layout is bounded by, but does not itself constitute, the depicted image."@en , "Costrizione formale in cui il testo deve essere interamente contenuto entro il profilo di una figura disegnata preesistente e autonoma rispetto al testo: l'impaginazione è delimitata dall'immagine ma non la costituisce."@it ;
+    skos:related desmos:calligram ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:figure_derived_count a skos:Concept ;
     skos:prefLabel "Figure-derived count"@en , "Numero ricavato dalla figura"@it ;
     skos:related desmos:divergent_captions ;
@@ -590,6 +599,11 @@ desmos:grammatical_exception_lexicon a skos:Concept ;
     skos:broader desmos:grammatical_category_lexicon ;
     skos:definition "Formal constraint requiring every noun of the text to constitute an orthographic or grammatical exception that contradicts, to some degree, a general rule of the language (e.g. anomalous spellings, overabundant or defective nouns, irregular plurals/feminines)."@en , "Costrizione formale che impone a ogni sostantivo del testo di costituire un'eccezione ortografica o grammaticale che contraddice, in qualche misura, una regola generale della lingua (grafie anomale, nomi sovrabbondanti o difettivi, plurali/femminili irregolari)."@it ;
     skos:example "Varaldo: 'soqquadro [...] forestiere [...] familiare [...] mani [...] cuoia [...] Cielò."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:handwritten_realization a skos:Concept ;
+    skos:prefLabel "Handwritten realization constraint"@en , "Realizzazione autografa"@it ;
+    skos:definition "Formal constraint requiring the text to be realized as an autograph handwritten inscription rather than typeset, so that the graphic execution of the characters is itself bound."@en , "Costrizione formale che impone la realizzazione del testo come iscrizione autografa manuale anziché composta a stampa, vincolando l'esecuzione grafica dei caratteri."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:hendecasyllable a skos:Concept ;
