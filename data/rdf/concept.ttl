@@ -304,7 +304,7 @@ desmos:apocryphal_pentimento a skos:Concept ;
     skos:definition "Costrizione semantica che finge, all'interno di opere famose, l'esistenza di un elemento oggi assente (o l'assenza di un elemento oggi presente); questo stato perduto, 'rivelato' da un apparato erudito apocrifo, costituisce l'opera invisibile che il testo descrive ed esibisce affiancata all'opera canonica reale."@it , "Semantic constraint that feigns, within famous works, the existence of an element absent today (or the absence of an element present today); this lost state, 'revealed' through an apocryphal scholarly apparatus, constitutes the invisible work, which the text describes and displays alongside the real canonical work."@en ;
     skos:scopeNote "L'opera invisibile è presentata in diade comparativa con l'originale attestato: opera canonica (fig.) vs. ricostruzione dello stato perduto, con il 'documento' radiografico a mediare."@it , "The invisible work is presented in a comparative dyad with the certified original: canonical work (fig.) vs. reconstruction of the lost state, with the radiographic 'document' acting as mediator."@en ;
     skos:related   desmos:preventive_review ;
-    skos:inScheme  desmos:SemanticConstraintScheme. .
+    skos:inScheme  desmos:SemanticConstraintScheme .
 
 desmos:beau_present a skos:Concept ;
     skos:prefLabel "Beau présent"@fr , "Beautiful present"@en , "Bel presente"@it ;
@@ -456,7 +456,7 @@ desmos:dispersed_name a skos:Concept ;
     skos:broader desmos:hypogram ;
     skos:definition "Formal constraint in which the distinct letters of one proper name are distributed within each line, while the distinct letters of a second proper name are distributed cyclically across the junctions between consecutive lines."@en , "Costrizione formale in cui le lettere distinte di un nome proprio sono distribuite all'interno di ciascun verso, mentre le lettere distinte di un secondo nome proprio sono distribuite ciclicamente nei passaggi fra versi consecutivi."@it ;
     skos:scopeNote "Specialisation of hypogram with a double, position-defined reading key (intra-line vs inter-line)."@en , "Specializzazione dell'ipogramma con doppia chiave posizionale (intra-verso vs inter-verso)."@it ;
-    skos:example "Varaldo: 'Leggo che il <b>VANO ZERbinotto A CUI'"@it ;
+    skos:example "Varaldo: 'Leggo che il VANO ZERbinotto A CUI'"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:distich a skos:Concept ;
@@ -627,7 +627,6 @@ desmos:heterogram a skos:Concept ;
 
 desmos:heterolexical_writing a skos:Concept ;
     skos:prefLabel "Heterolexical writing"@en , "Scrittura eterolessicale"@it ;
-    skos:prefLabel "Scrittura eterolessicale"@it , "Heterolexical writing"@en ;
     skos:related desmos:heterogram ;
     skos:definition "Costrizione formale che vieta la ripetizione di una stessa parola (inclusi articoli, congiunzioni e preposizioni) all'interno del medesimo testo o segmento testuale."@it , "Formal constraint requiring the non-repetition of any word (including articles, conjunctions, and prepositions) throughout the entire text or text segment, ensuring that each word token is unique."@en ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -819,6 +818,13 @@ desmos:lombard_lexicon a skos:Concept ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:LS_method a skos:Concept ;
+    skos:prefLabel "LS Method Semidefinitional Literature)"@en , "Metodo LS (Letteratura Semidefinizionale)"@it ;
+    skos:broader desmos:lexicographic_marker_constraint ;
+    skos:definition "Formal constraint in which every content word (or a defined subset) is replaced by its dictionary definition, drawing on the 'littérature définitionnelle' technique developed by Jean Lescure within the Oulipo."@en , "Costrizione formale in cui ogni parola piena (o un sottoinsieme definito) è sostituita dalla propria definizione dizionariale, secondo la tecnica della 'littérature définitionnelle' elaborata da Jean Lescure in seno all'Oulipo."@it ;
+    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:mandatory_dedication a skos:Concept ;
     skos:prefLabel "Mandatory dedication"@en , "Dedica obbligata"@it ;
     skos:definition "Semantic constraint requiring the text to constitute a dedicatory homage to a prescribed addressee."@en , "Costrizione semantica che impone al testo di costituire un omaggio dedicatorio a un destinatario prestabilito."@it ;
@@ -835,7 +841,7 @@ desmos:mandatory_genre a skos:Concept ;
 desmos:mandatory_sentence a skos:Concept ;
     skos:prefLabel "Mandatory sentence insertion"@en , "Frase obbligata"@it ;
     skos:definition "A constraint requiring the inclusion of one or more specific textual strings (typically a sentence or fixed phrase) at any position within the text."@en , "Costrizione formale che impone l'inclusione di una o più stringhe testuali specifiche (tipicamente una frase o sintagma fisso) in un punto qualsiasi del testo."@it ;
-    skos:example "Plaholder example."@en , "Esempio placeholder."@it ;
+    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:mandatory_theme a skos:Concept ;
@@ -1111,7 +1117,7 @@ desmos:rhyme_name_echo a skos:Concept ;
     skos:historyNote "The constraint was invented by Edoardo Sanguineti in 'a Jacques Roubaud' (2002), 'La regola è questa' (a cura di Raffaele Aragona)."@en , "La costrizione è stata inventata da Jacques Roubaud in 'Le Beau Présent' (1994), 'La Biblioteca Oplepiana' n. 8."@it ;
     skos:related desmos:acrostic , 
         desmos:beau_present ,
-        desmos:allitteration ;
+        desmos:alliteration ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -1190,7 +1196,6 @@ desmos:statistical_bound a skos:Concept ;
     skos:narrower desmos:statistical_bound_in_E ;
     skos:definition "Formal constraint requiring a target letter to appear in the text at a fixed interval mirroring its statistically attested frequency within a reference language or corpus."@en , "Costrizione formale che impone ad una lettera di comparire nel testo a intervalli fissi corrispondenti alla sua frequenza statistica attestata nella lingua di riferimento."@it ;
     skos:historyNote "Constraint introduced by Aldo Spinelli in 'Le ripartite' (1995), Biblioteca Oplepiana n. 9."@en , "Costrizione introdotta da Aldo Spinelli ne 'Le ripartite' (1995), Biblioteca Oplepiana n. 9."@it ;
-    skos:historyNote "The constraint was invented by Aldo Spinelli in 'Le ripartite' (1995), 'La Biblioteca Oplepiana' n. 9."@en , "La costrizione è stata inventata da Aldo Spinelli in 'Le ripartite' (1995), 'La Biblioteca Oplepiana' n. 9."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
