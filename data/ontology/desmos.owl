@@ -654,10 +654,10 @@
     <!-- https://w3id.org/desmos/constrainsFormalUnit -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/desmos/constrainsFormalUnit">
-        <rdfs:domain rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
+        <rdfs:domain rdf:resource="https://w3id.org/desmos/FormalConstraint"/>
         <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
-        <rdfs:comment xml:lang="it">Collega una costrizione letteraria all'unità discreta del sistema di scrittura (es. lettera, sillaba, parola) su cui opera la procedura.</rdfs:comment>
-        <rdfs:comment xml:lang="en">Relates a literary constraint to the discrete unit of the writing system (e.g., letter, syllable, word) on which the procedure operates.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Collega una costrizione formale all'unità discreta del sistema di scrittura (es. lettera, sillaba, parola) su cui opera la procedura.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a formal constraint to the discrete unit of the writing system (e.g., letter, syllable, word) on which the procedure operates.</rdfs:comment>
         <rdfs:label xml:lang="en">constrains formal unit</rdfs:label>
         <rdfs:label xml:lang="it">vincola unità formale</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
@@ -666,10 +666,10 @@
     <!-- https://w3id.org/desmos/constrainsSemanticUnit -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/desmos/constrainsSemanticUnit">
-        <rdfs:domain rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
+        <rdfs:domain rdf:resource="https://w3id.org/desmos/SemanticConstraint"/>
         <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
-        <rdfs:comment xml:lang="it">Collega una costrizione letteraria all'unità del piano del contenuto (es. personaggio, spazio, tempo) che viene determinata dal processo generativo.</rdfs:comment>
-        <rdfs:comment xml:lang="en">Relates a literary constraint to the unit of the content plane (e.g., character, space, time) that is determined by the generative process.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Collega una costrizione semantica all'unità del piano del contenuto (es. personaggio, spazio, tempo) che viene determinata dal processo generativo.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a semantic constraint to the unit of the content plane (e.g., character, space, time) that is determined by the generative process.</rdfs:comment>
         <rdfs:label xml:lang="en">constrains semantic unit</rdfs:label>
         <rdfs:label xml:lang="it">vincola unità semantica</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
