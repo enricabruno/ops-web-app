@@ -49,61 +49,61 @@
 	rdfs:label "Piergiorgio Odifreddi"^^xsd:string ;
 	owl:sameAs <https://viaf.org/viaf/27127695/> .
 
-<https://w3id.org/desmos/oplepiana/author/kierkia> a crm:E39_Actor , prov:Agent ;
+<https://w3id.org/desmos/oplepiana/author/chierchia> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Salvatore Chierchia"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/305314863> .
+	owl:sameAs <https://viaf.org/viaf/305314863> .
 
 <https://w3id.org/desmos/oplepiana/author/perec> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Georges Perec"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/66472103> .
+	owl:sameAs <https://viaf.org/viaf/66472103> .
 
 <https://w3id.org/desmos/oplepiana/author/grimal> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Pierre Grimal"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/66468194> .
+	owl:sameAs <https://viaf.org/viaf/66468194> .
 
 <https://w3id.org/desmos/oplepiana/author/alighieri> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Dante Alighieri"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/97105654> .
+	owl:sameAs <https://viaf.org/viaf/97105654> .
 
 <https://w3id.org/desmos/oplepiana/author/petrarca> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Francesco Petrarca"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/39382430> .
+	owl:sameAs <https://viaf.org/viaf/39382430> .
 
 <https://w3id.org/desmos/oplepiana/author/eco> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Umberto Eco"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/108299403> .
+	owl:sameAs <https://viaf.org/viaf/108299403> .
 
 <https://w3id.org/desmos/oplepiana/author/aragona> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Raffaele Aragona"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/41978016> .
+	owl:sameAs <https://viaf.org/viaf/41978016> .
 
 <https://w3id.org/desmos/oplepiana/author/cavazzoni> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Ermanno Cavazzoni"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/59892487> .
+	owl:sameAs <https://viaf.org/viaf/59892487> .
 
 <https://w3id.org/desmos/oplepiana/author/serra> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Marius Serra"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/34748332> .
+	rdfs:label "Màrius Serra"^^xsd:string ;
+	owl:sameAs <https://viaf.org/viaf/34748332> .
 
 <https://w3id.org/desmos/oplepiana/author/sanguineti> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Edoardo Sanguineti"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/66478877> .
+	owl:sameAs <https://viaf.org/viaf/66478877> .
 
 <https://w3id.org/desmos/oplepiana/author/weiss> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Giorgio Weiss"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/180157098575272552661> .
+	owl:sameAs <https://viaf.org/viaf/180157098575272552661> .
 
 <https://w3id.org/desmos/oplepiana/author/eruli> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Brunella Eruli"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/5035675> .
+	owl:sameAs <https://viaf.org/viaf/5035675> .
 
 <https://w3id.org/desmos/oplepiana/author/artusi> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Pellegrino Artusi"^^xsd:string ;
-	owl:sameAs <https://viaf.org/en/viaf/17212280> .
+	owl:sameAs <https://viaf.org/viaf/17212280> .
 
 <https://w3id.org/desmos/oplepiana/author/eliot> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "T. S. Eliot"^^xsd:string ;
-	owl:sameAs <https://viaf.org/en/viaf/56609282> .
+	owl:sameAs <https://viaf.org/viaf/56609282> .
 
 <https://w3id.org/desmos/oplepiana/author/pergola> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Paolo Pergola"^^xsd:string ;
@@ -119,31 +119,31 @@
 
 <https://w3id.org/desmos/oplepiana/author/manzoni> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Alessandro Manzoni"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/14356> .
+	owl:sameAs <https://viaf.org/viaf/14356> .
 
 <https://w3id.org/desmos/oplepiana/author/quartu> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Monica Quartu"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/32028688> .
+	owl:sameAs <https://viaf.org/viaf/32028688> .
 
 <https://w3id.org/desmos/oplepiana/author/chopin> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Fryderyk Chopin"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/71319254> .
+	owl:sameAs <https://viaf.org/viaf/71319254> .
 
 <https://w3id.org/desmos/oplepiana/author/anna-vicari> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Anna Regina Busetto Vicari"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/24821209> .
+	owl:sameAs <https://viaf.org/viaf/24821209> .
 
 <https://w3id.org/desmos/oplepiana/author/doria> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Domenico D'Oria"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/164902329> .
+	owl:sameAs <https://viaf.org/viaf/164902329> .
 
 <https://w3id.org/desmos/oplepiana/author/berardi> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Alessandra Berardi"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/160882946> .
+	owl:sameAs <https://viaf.org/viaf/160882946> .
 
 <https://w3id.org/desmos/oplepiana/author/bizzarri> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Giulio Bizzarri"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/53225477> .
+	owl:sameAs <https://viaf.org/viaf/53225477> .
 
 <https://w3id.org/desmos/oplepiana/author/fabrizi> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Daniela Fabrizi"^^xsd:string ;
@@ -155,51 +155,51 @@
 
 <https://w3id.org/desmos/oplepiana/author/carrese> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Massimo Gerardo Carrese"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/107365706> .
+	owl:sameAs <https://viaf.org/viaf/107365706> .
 
 <https://w3id.org/desmos/oplepiana/author/poier-bernhard> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Astrid Poier-Bernhard"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/56768035> .
+	owl:sameAs <https://viaf.org/viaf/56768035> .
 
 <https://w3id.org/desmos/oplepiana/author/eliana-vicari> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Eliana Vicari"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/292950830> .
+	owl:sameAs <https://viaf.org/viaf/292950830> .
 
 <https://w3id.org/desmos/oplepiana/author/brignoli> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Laura Brignoli"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/37084083> .
+	owl:sameAs <https://viaf.org/viaf/37084083> .
 
 <https://w3id.org/desmos/oplepiana/author/ciasullo> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Cesare Ciasullo"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/109156563646323242947> .
+	owl:sameAs <https://viaf.org/viaf/109156563646323242947> .
 
 <https://w3id.org/desmos/oplepiana/author/narros> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Jacopo Narros"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/8168733509365260801> .
+	owl:sameAs <https://viaf.org/viaf/8168733509365260801> .
 
 <https://w3id.org/desmos/oplepiana/author/berti> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Eduardo Berti"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/116548081> .
+	owl:sameAs <https://viaf.org/viaf/116548081> .
 
 <https://w3id.org/desmos/oplepiana/author/jouet> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Jacques Jouet"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/61547538> .
+	owl:sameAs <https://viaf.org/viaf/61547538> .
 
 <https://w3id.org/desmos/oplepiana/author/benabou> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Marcel Bénabou"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/27060829> .
+	owl:sameAs <https://viaf.org/viaf/27060829> .
 
 <https://w3id.org/desmos/oplepiana/author/baudelaire> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Charles Baudelaire"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/17218730> .
+	owl:sameAs <https://viaf.org/viaf/17218730> .
 
 <https://w3id.org/desmos/oplepiana/author/pelliti> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Matteo Pelliti"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/315181683> .
+	owl:sameAs <https://viaf.org/viaf/315181683> .
 
 <https://w3id.org/desmos/oplepiana/author/bloomfield> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Camille Bloomfield"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/264955822> .
+	owl:sameAs <https://viaf.org/viaf/264955822> .
 
 <https://w3id.org/desmos/oplepiana/author/babic> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Joshua Babic"^^xsd:string ;
@@ -211,7 +211,7 @@
 
 <https://w3id.org/desmos/oplepiana/author/leopardi> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Giacomo Leopardi"^^xsd:string ;
-	owl:sameAs <http://viaf.org/viaf/12311353> .
+	owl:sameAs <https://viaf.org/viaf/12311353> .
 
 ### Constraint ###
 desmos:acronym a desmos:FormalConstraint ;
@@ -330,7 +330,7 @@ desmos:colloquial_register_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:combinatorial_lottery a desmos:FormalConstraint ;
-	rdfs:label "Lotteria combinatoria"^^xsd:string ;
+	rdfs:label "Lottomatica combinatoria"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
@@ -440,7 +440,7 @@ desmos:enumerating_text a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter .
 
-desmos:familiar_register_lexicn a desmos:FormalConstraint ;
+desmos:familiar_register_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico familiare"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
@@ -451,15 +451,15 @@ desmos:figure_derived_count a desmos:FormalConstraint ;
     desmos:constrainsFormalUnit desmos:paragraph ;
     desmos:involvesOperation desmos:multiplication .
 
-desmos:fixed_fictional_characters a desmos:SemanticConstraint ;
+desmos:fixed_fictional_character a desmos:SemanticConstraint ;
 	rdfs:label "Costrizione sui personaggi finzionali"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_character .
 
-desmos:fixed_fictional_setting a desmos:SemanticConstraint ;
+desmos:fixed_fixed_fictional_setting a desmos:SemanticConstraint ;
 	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsSemanticUnit desmos:fictional_setting .
+	desmos:constrainsSemanticUnit desmos:fixed_fictional_setting .
 
 desmos:figured_alphabet a desmos:VisualConstraint ;
 	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
@@ -861,6 +861,11 @@ desmos:popular_register_lexicon a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
+desmos:post_1989_lexicon a desmos:FormalConstraint ;
+    rdfs:label "Lessico del dopo-muro"^^xsd:string ;
+    desmos:constraintOrigin desmos:original ;
+    desmos:constrainsFormalUnit desmos:word .
+
 desmos:prescribed_line_frame a desmos:FormalConstraint ;
 	rdfs:label "Verso condizionato"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -997,7 +1002,7 @@ desmos:statistical_bound a desmos:FormalConstraint ;
         desmos:displacement .
 
 desmos:statistical_bound_in_E a desmos:FormalConstraint ;
-	rdfs:label "Rimbalzo statistico"^^xsd:string ;
+	rdfs:label "Rimbalzo statistico in E"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:multiplication ,
@@ -1035,7 +1040,7 @@ desmos:temporal_constraint a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:line .
 
-desmos:terzine a desmos:FormalConstraint ;
+desmos:tercet a desmos:FormalConstraint ;
 	rdfs:label "Terzina"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
@@ -1204,7 +1209,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "Mi preoccupai però, anche qui a concorso già bandito, di informare l'autore del quale si proponeva di scompigliare sensatamente l'inizio del romanzo L'isola del giorno prima (Ed. Bompiani, Milano, 1994, pag. 5 e anche in quarta di copertina)."@it ;
 	crm:P129_is_about desmos:anagraphy ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/kierkia> .
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/chierchia> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_12> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La struttura del «gioco dell’alfabeto raffigurato» si basa sulla costruzione di una «griglia letteraria»."@it ;
@@ -1234,8 +1239,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "Le regole sono: (1) la lunghezza di ogni testo è fissata in 25.586 caratteri (spazi inclusi); (2) per quanto riguarda le norme tipografiche si fa riferimento a quelle in uso nei volumi pubblicati dalla Casa Editrice Einaudi; (3) in ogni testo compaiono e agiscono quattro personaggi fissi e unici (O, P, L, E), ciascuno caratterizzato in modo esplicito da almeno un attributo che inizi con la lettera del proprio nome; (4) l’ambientazione scelta è Anghiari nell’anno 1996; (5) ogni testo deve contenere, in un punto qualsiasi della narrazione, la seguente frase: Ogni piccola luce evoca profonde oscurità; (6) il tema del racconto deve essere: mystery story o suspense; (7) il titolo del racconto, escluso dal computo dei caratteri del testo, deve essere di 13 lettere."@it ;
 	crm:P129_is_about desmos:fixed_text_length ,
 		desmos:typographic_constraints ,
-		desmos:fixed_fictional_characters ,
-		desmos:fictional_setting ,
+		desmos:fixed_fictional_character ,
+		desmos:fixed_fictional_setting ,
 		desmos:mandatory_theme ,
 		desmos:mandatory_genre ,
 		desmos:fixed_title_length ;
@@ -1262,7 +1267,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 		desmos:septenary_double ,
-		desmos:terzine ,
+		desmos:tercet ,
 		desmos:sdrucciola_rhyme ,
 		desmos:truncated_rhyme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_chiti> ;
@@ -1304,7 +1309,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "«La regola che regge la costruzione di testi poetici sui momenti emozionali di intensa brevità di questi Preludi è: far durare la loro declamazione o semplice lettura nei limiti del tempo di esecuzione di ciascuno dei detti Preludi; non si è trattato quindi di scrivere parole per musica, ma di ricreare una delle possibili atmosfere sentimentali intese da Chopin. [...] Si sarà forse prodotto l'effetto di una 'costrizione temporale', col vantaggio che, a differenza di altri esercizi oplepiani, questo qui proposto è anche, in certo modo, traducibile.»"@it ;
 	crm:P129_is_about desmos:temporal_constraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_24> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/kierkia> .
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/chierchia> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Plaquette in forma collettanea dedicata a Italo Calvino nel ventennale della sua morte (2005). La consegna non impone una contrainte formale comune: ciascun autore sviluppa una propria contrainte in dialogo con l'opera e la figura di Calvino."@it ;
@@ -1312,12 +1317,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> a crm:E33_Linguistic_Object ;
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_chierchia> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "I 'telegrammi' dedicati a Italo Calvino, autore delle 'Aiuole per Queneau', sono 'panvocalici'; ciascuno di essi, cioè è costituito da parole nelle quali le cinque vocali compaiono tutte ed una volta sola."@it ;
 	crm:P129_is_about desmos:panvocalism ,
 		desmos:mandatory_dedication ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
-	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/kierkia> .
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_chierchia> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/chierchia> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La contrainte è quella de 'les beaux présents': le tre ottave scritte utilizzando soltanto le otto diverse lettere del nome 'Italo Calvino'."@it ;
@@ -1350,14 +1355,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_26_anna-vicari> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Il testo è costruito da innesti di vaneggiamenti di Albani (il leone), Odifreddi (la capra) e Cavazzoni (il serpente), su versi fiammanto (le vampe alitate dal mostro) di Sanguineti"@it ;
+	crm:P3_has_note "Il testo è costruito da innesti di vaneggiamenti di Albani (il leone), Odifreddi (la capra) e Cavazzoni (il serpente), su versi fiammanti (le vampe alitate dal mostro) di Sanguineti"@it ;
 	crm:P129_is_about desmos:cento ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_anna-vicari> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in forma collettanea sul tema delle Sirene, intese come 'fascinazioni' letterarie: il mito partenopeo e le figure sirenesche del Golfo di Napoli sono il pretesto compositivo per tredici testi à contrainte. Ciascun autore sviluppa una propria contrainte in dialogo con il tema."@it ;
-	crm:isAbout desmos:mandatory_theme ;
+	crm:P129_is_about desmos:mandatory_theme ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1470,14 +1475,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_eruli> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
-<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> a crm:E33_Linguistic_Object ;
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_chierchia> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "La forma è quella del sonetto, molto cara a Sanguineti, con l'aggiunta di un settenario e un distico di endecasillabi [...]. L'acrostico si sviluppa in diagonale e cioè contando la prima lettera del primo verso, la seconda del secondo, la terza del terzo e così via. [...] L' 'epistolina', infine, rispetta la regola aggiuntiva per cui in ciascun verso compare una sola volta la lettera che determina la lettura trasversale."@it ;
 	crm:P129_is_about desmos:acrostic ,
 		desmos:septenary ,
 		desmos:distich ,
 		desmos:classical_sonnet ,
 		desmos:lipogram ;
-	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_chierchia> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_varaldo> a crm:E33_Linguistic_Object ;
@@ -1972,12 +1977,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25> a lrmoo:F2_Expression ;
 	dcterms:title "A Italo Calvino"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_kierkia> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_chierchia> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_25_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p7-2> ;
 	crm:P2_has_type desmos:poetry , desmos:prose ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_doria> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_chierchia> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_varaldo> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
@@ -1986,7 +1991,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> a lrmoo:F2_Expression ;
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_chierchia> a lrmoo:F2_Expression ;
 	dcterms:title "Alluvione d'aiuole"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_25> .
@@ -2108,7 +2113,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_aragona> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_benabou> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_eruli> ,
-        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_kierkia> ,
+        <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_chierchia> ,
         <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_31_varaldo> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p34-1> ;
 	crm:P2_has_type desmos:poetry ,
@@ -2116,7 +2121,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_aragona> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_eruli> ,
-		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_chierchia> ,
 		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_varaldo> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> .
 
@@ -2135,7 +2140,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> a lrmoo:F2_Expression ;
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_chierchia> a lrmoo:F2_Expression ;
 	dcterms:title "Epistolina per E.S."^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_31> .
@@ -2174,7 +2179,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_33> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34> a lrmoo:F2_Expression ;
-	dcterms:title "A George Perec"^^xsd:string ;
+	dcterms:title "A Georges Perec"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_34_albani_a> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_34_albani_b> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_34_aragona> ,
@@ -2928,18 +2933,18 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> .
 
 ### Hypertextuality ###
-desmos:hypertextuality_04 a intro:INT31_IntertextualRelation ;                                       
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertext_04> a intro:INT31_IntertextualRelation ;                                       
     intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;     
     intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
 	intro:R19_hasType desmos:hypertextuality .
 
 ### Hypotext ###
-desmos:passage_ipotesto__text_06 a intro:INT21_TextPassage ;
+<https://w3id.org/desmos/oplepiana/passage/hypotext_text_isola> a intro:INT21_TextPassage ;
     intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;           
     intro:R44_hasWording "Eppure m'inorgoglisco della mia umiliazione , e poiché a tal privilegio son condannato , quasi godo d' un'aborrita salvezza : sono , credo , a memoria d' uomo , l'unico essere della nostra specie ad aver fatto naufragio su una nave deserta ."^^xsd:string .
 
 ### Hypertext ###
-desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_11> a intro:INT21_TextPassage ;
     intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
     intro:R44_hasWording "Un'aborrita memoria della nostra , della mia deserta umiliazione , e una specie di credo sono quasi nave di salvezza : poiché godo ad aver l'unico privilegio d' esser uomo , su , m'inorgoglisco a tal fatto , eppure son condannato a naufragio ."^^xsd:string .
 
@@ -3081,7 +3086,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_11> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
 	desmos:usedConstraint desmos:anagraphy ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chierchia> ;
 	dcterms:created "1996"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_12> a lrmoo:F28_Expression_Creation ;
@@ -3113,8 +3118,8 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
     desmos:usedConstraint desmos:fixed_text_length ,
         desmos:typographic_constraints ,
-        desmos:fixed_fictional_characters ,
-        desmos:fictional_setting ,
+        desmos:fixed_fictional_character ,
+        desmos:fixed_fictional_setting ,
         desmos:mandatory_theme ,
         desmos:mandatory_genre ,
         desmos:fixed_title_length ;
@@ -3125,8 +3130,8 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
     desmos:usedConstraint desmos:fixed_text_length ,
         desmos:typographic_constraints ,
-        desmos:fixed_fictional_characters ,
-        desmos:fictional_setting ,
+        desmos:fixed_fictional_character ,
+        desmos:fixed_fictional_setting ,
         desmos:mandatory_sentence ,
         desmos:mandatory_genre ,
         desmos:fixed_title_length ;
@@ -3137,8 +3142,8 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
     desmos:usedConstraint desmos:fixed_text_length ,
         desmos:typographic_constraints ,
-        desmos:fixed_fictional_characters ,
-        desmos:fictional_setting ,
+        desmos:fixed_fictional_character ,
+        desmos:fixed_fictional_setting ,
         desmos:mandatory_theme ,
         desmos:mandatory_genre ,
         desmos:fixed_title_length ;
@@ -3164,7 +3169,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chiti> ;
     desmos:usedConstraint desmos:acronym ,
         desmos:mandatory_genre ,
-		desmos:terzine ,
+		desmos:tercet ,
 		desmos:septenary_double ,
 		desmos:sdrucciola_rhyme ,
 		desmos:truncated_rhyme ;
@@ -3236,7 +3241,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_24> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_24> ;
 	desmos:usedConstraint desmos:temporal_constraint ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chierchia> ;
 	dcterms:created "2005"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25> a lrmoo:F28_Expression_Creation ;
@@ -3252,11 +3257,11 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/doria> ;
 	dcterms:created "2005"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_kierkia> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_kierkia> ;
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_chierchia> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_25_text_chierchia> ;
 	desmos:usedConstraint desmos:panvocalism ,
 		desmos:mandatory_dedication ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chierchia> ;
 	dcterms:created "2005"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_25_text_varaldo> a lrmoo:F28_Expression_Creation ;
@@ -3398,15 +3403,15 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/eruli> ;
 	dcterms:created "2010"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_kierkia> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_kierkia> ;
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_chierchia> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_chierchia> ;
 	desmos:usedConstraint desmos:acrostic ,
 		desmos:septenary ,
 		desmos:distich ,
 		desmos:classical_sonnet ,
 		desmos:lipogram ,
 		desmos:mandatory_dedication ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/kierkia> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chierchia> ;
 	dcterms:created "2010"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_31_text_varaldo> a lrmoo:F28_Expression_Creation ;
@@ -3864,7 +3869,7 @@ desmos:passage_ipertesto_plaquette_11 a intro:INT21_TextPassage ;
 	crm:P3_has_note "Il testo presenta una marcatura tipografica (sottolineatura) e numerazione progressiva per identificare le unità del testo sorgente, mentre un'altra marcatura tipografica (grassetto) per identificare le unità derivate nel testo di arrivo. La corrispondenza numerica collega l'unità sorgente al proverbio sorgente e alla sua parola finale."^^xsd:string ;
  	desmos:revealsConstraint desmos:proverbial_shift .
 
-oplepiana:text_feature_22_addomine a desmos:TextualFeature ;
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_22_addomine> a desmos:TextualFeature ;
     desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22_text_addomine> ;
     crm:P3_has_note "Una medesima sequenza grafica, risegmentata con aggiustamenti di punteggiatura, genera due letture autonome, una in italiano e una in inglese."@it ;
     desmos:revealsConstraint desmos:homographic_translation .
