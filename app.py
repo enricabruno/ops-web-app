@@ -289,7 +289,7 @@ def corpus():
             else:
                 plaquette_rel = None
 
-            volume_title = b.get('volTitle', {}).get('value', '').strip() or 'Biblioteca Oplepiana'
+            volume_title = b.get('volTitle', {}).get('value', '').strip() or 'Plaquette singole'
 
             exp_data = {
                 'uri': b['expression']['value'],
