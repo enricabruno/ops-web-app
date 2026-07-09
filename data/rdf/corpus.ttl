@@ -3495,6 +3495,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_35> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_35> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
 	dcterms:created "2012"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_35_text_brignoli> a lrmoo:F28_Expression_Creation ;
@@ -3637,7 +3638,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
 	dcterms:created "2015"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/41> a lrmoo:F28_Expression_Creation ;
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_41> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41> ;
 	desmos:usedConstraint desmos:mandatory_dedication ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
