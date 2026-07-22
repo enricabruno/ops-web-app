@@ -29,7 +29,7 @@ desmos:SemanticConstraintScheme a skos:ConceptScheme ;
 
 desmos:LiteraryFormScheme a skos:ConceptScheme ;
     skos:prefLabel "Literary form scheme"@en , "Schema delle forme letterarie"@it ;
-    skos:definition "A scheme defining the literary form of a work (i.e. poetry and prose)."@en , "Schema che definisce la forma letteraria di un'opera (poesia e prosa)."@it .
+    skos:definition "A scheme defining the literary form of a work (i.e. poetry, prose and visual poetry)."@en , "Schema che definisce la forma letteraria di un'opera (poesia, prosa e poesia visiva)."@it .
 
 desmos:ArtisticFormScheme a skos:ConceptScheme ;
     skos:prefLabel "Artistic form scheme"@en , "Schema delle forme artistiche"@it ;
@@ -45,7 +45,7 @@ desmos:SemanticUnitScheme a skos:ConceptScheme ;
 
 desmos:ProceduralOperationScheme a skos:ConceptScheme ;
     skos:prefLabel "Procedural operation scheme"@en , "Schema delle operazioni procedurali"@it ;
-    skos:definition "A scheme describing the procedure applied to generate the constrained text (e.g. addition, subtraction, replacement)."@en , "Schema che descrive la procedura applicata per generare il testo vincolato (es. addizione, sottrazione, sostituzione)."@it .
+    skos:definition "A scheme describing the procedural operations applied to generate the constrained text, as retrieved from the TOLLE classification by Bénabou."@en , "Schema che descrive le operazioni procedurali applicate per generare il testo vincolato riprese dalla classificazione TOLLE di Bénabou."@it .
 
 # ---------------------------------------------------------
 # CONCEPTS
@@ -65,24 +65,23 @@ desmos:original a skos:Concept ;
 ### Literary Forms
 desmos:poetry a skos:Concept ;
     skos:prefLabel "Poetry"@en , "Poesia"@it ;
-    skos:definition "Literary form concerning texts organized in verses or lines, where the structure is determined by metrical, rhyming, and stanzaic constraints."@en , "Forma letteraria che riguarda testi organizzati in versi o righe, dove la struttura è determinata da vincoli metrici, rimici e strofici."@it ;
+    skos:definition "Literary form concerning texts organized in verses."@en , "Forma letteraria che riguarda testi organizzati in versi."@it ;
     skos:exactMatch <https://id.loc.gov/authorities/subjects/sh85103704> ;
     skos:inScheme desmos:LiteraryFormScheme .
 
 desmos:prose a skos:Concept ;
     skos:prefLabel "Prose"@en , "Prosa"@it ;
-    skos:definition "Literary form organized into sentences and paragraphs, lacking structural metrical segmentation."@en , "Forma letteraria organizzata in frasi e paragrafi, priva di una segmentazione metrica strutturale."@it ;
+    skos:definition "Literary form organized into sentences and paragraphs independently of metrical or rhyming constraints."@en , "Forma letteraria organizzata in frasi e paragrafi, indipendentemente da vincoli metrici o rimici."@it ;
     skos:exactMatch <https://id.loc.gov/authorities/subjects/sh85107565> ;
     skos:inScheme desmos:LiteraryFormScheme .
 
-### Artistic Forms
-
 desmos:visual_poetry a skos:Concept ;
     skos:prefLabel "Visual poetry"@en , "Poesia visiva"@it ;
-    skos:definition "Artistic form concerning texts that combine word and image, where the meaning derives not only from the text but also from its visual arrangement in space."@en , "Forma d'arte che riguarda testi che combinano parola e immagine, dove il significato deriva non solo dal testo ma anche dalla sua disposizione visiva nello spazio."@it ;
+    skos:definition "Literary form in which text and image are combined and the meaning derives both from linguistic content and from the visual arrangement of elements in space."@en , "Forma letteraria in cui testo e immagine si combinano e il significato deriva sia dal contenuto linguistico sia dalla disposizione visiva degli elementi nello spazio."@it ;
     skos:exactMatch <https://id.loc.gov/authorities/subjects/sh85143931> ;
-    skos:inScheme desmos:ArtisticFormScheme .
+    skos:inScheme desmos:LiteraryFormScheme .
 
+### Artistic Forms
 desmos:visual_art a skos:Concept ;
     skos:prefLabel "Visual art"@en , "Arte visiva"@it ;
     skos:definition "Artistic form concerning works that primarily use visual elements to convey meaning, including painting, sculpture, photography, and other visual media."@en , "Forma d'arte che riguarda opere che utilizzano principalmente elementi visivi per trasmettere significato, inclusi pittura, scultura, fotografia e altri media visivi."@it ;
@@ -92,7 +91,7 @@ desmos:visual_art a skos:Concept ;
 desmos:music a skos:Concept ;
     skos:inScheme desmos:ArtisticFormScheme ;
     skos:prefLabel "Music"@en , "Musica"@it ;
-    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores) referenced as intermedial constraints."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni non linguistiche (es. partiture musicali) richiamate come costrizioni intermediali."@it .
+    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores)."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni non linguistiche (es. partiture musicali)."@it .
 
 ### Formal Unit
 desmos:letter a skos:Concept ;
@@ -109,19 +108,18 @@ desmos:line a skos:Concept ;
 
 desmos:paragraph a skos:Concept ;
     skos:prefLabel "Paragraph"@en , "Paragrafo"@it ;
-    skos:definition "A formal unit consisting of a block of text treated as a single compositional segment."@en ,
-        "Unità formale costituita da un blocco di testo trattato come segmento compositivo unitario."@it ;
+    skos:definition "A formal unit comprising one or more sentences delimited by typographic breaks, functioning as the primary compositional segment in prose texts."@en , "Unità formale composta da una o più frasi delimitate da interruzioni tipografiche, che costituisce il segmento compositivo primario nei testi in prosa."@it ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:page a skos:Concept ;
     skos:prefLabel "Page"@en , "Pagina"@it ;
-    skos:definition "A formal unit serving as a support for the spatial organization of textual content."@en , "Unità formale che funge da supporto per l'organizzazione spaziale dei contenuti testuali."@it ;
+    skos:definition "A formal unit that delimits a fixed portion of written space, used in DeSMòS as a quantitative measure constraining the extent of a text."@en , "Unità formale che delimita una porzione fissa di spazio scritto, utilizzata in DeSMòS come misura quantitativa per vincolare l'estensione di un testo."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q1069725> ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:stanza a skos:Concept ;
     skos:prefLabel "Stanza"@en , "Strofa"@it ;
-    skos:definition "A formal unit consisting of a set of verses organized according to a shared metrical, rhyming, or thematic pattern."@en , "Unità formale costituita da un insieme di versi organizzati secondo uno schema metrico, rimico o tematico condiviso."@it ;
+    skos:definition "A formal unit consisting of a set of verses organized according to a shared metrical or rhyming pattern."@en , "Unità formale costituita da un insieme di versi organizzati secondo uno schema metrico o rimico condiviso."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q1756348> ;
     skos:inScheme desmos:FormalUnitScheme .
 
@@ -146,7 +144,7 @@ desmos:word a skos:Concept ;
 
 desmos:image a skos:Concept ;
     skos:prefLabel "Image"@en , "Immagine"@it ;
-    skos:definition "A formal unit consisting of a visual (iconic) element functioning as the minimal constrained constituent in visual or intermedial works."@en , "Unità formale costituita da un elemento visivo (iconico) che funge da costituente minimo vincolato in opere visive o intermediali."@it ;
+    "A formal unit consisting of a discrete visual element that constitutes an object of constraint in works combining text and image."@en , "Unità formale costituita da un elemento visivo discreto che costituisce oggetto di costrizione in opere che combinano testo e immagine."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q478798> ;
     skos:inScheme desmos:FormalUnitScheme .
 
