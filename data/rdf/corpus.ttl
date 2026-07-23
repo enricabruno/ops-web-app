@@ -1160,8 +1160,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	Ridesidero l'atona armonia, [C] 
 	la smania gaia, l'indole beata, [D]
 	d'erotiche macerie la mania, [C] 
-	l'italo coro l'aria delicata. [D]»"""@it .
-
+	l'italo coro l'aria delicata. [D]»"""@it ;
 	crm:P129_is_about desmos:mythographic_units ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_03> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
@@ -1216,20 +1215,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_11> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Mi preoccupai però, anche qui a concorso già bandito, di informare l'autore del quale si proponeva di scompigliare sensatamente l'inizio del romanzo L'isola del giorno prima (Ed. Bompiani, Milano, 1994, pag. 5 e anche in quarta di copertina)."@it ;
-	crm:P190_has_symbolic_content """ Nicola Aurilio [Ilion], DIMENTICANDO SOPRAVVIVO: 
-	«Poiché sono uomo,
-	son essere condannato 
-	ad un'aborrita umiliazione, 
-	a naufragio di mia e nostra nave, 
-	eppure, credo a una salvezza 
-	della specie, 
-	su di tal fatto m'inorgoglisco: 
-	godo 
-	d'aver l'unico 'privilegio' 
-	della quasi deserta memoria.» 
-	
+	crm:P190_has_symbolic_content """ 
+	««Un'aborrita memoria della nostra, della mia deserta umiliazione, e una specie di credo sono quasi nave di
+	salvezza: poiché godo ad aver l'unico privilegio d'essere uomo, su, m'inorgoglisco a tal fatto, eppure son condannato a naufragio.»
+
 	«Eppure m'inorgoglisco della mia umiliazione, e poiché a tal privilegio son condannato, quasi godo d'un'aborrita salvezza: sono, credo, a memoria d'uomo, l'unico essere della nostra specie ad aver fatto naufragio su una nave deserta.»
-	Umberto Eco, L'isola del giorno prima (Bompiani, 1994, p. 5)."""@it .
+	Umberto Eco, L'isola del giorno prima (Bompiani, 1994, p. 5)."""@it ;
 	crm:P129_is_about desmos:anagraphy ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/chierchia> .
@@ -1306,7 +1297,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."@it ;
-	crm:P190_has_symbolic_content "«Lemme lemme la Lilastrocca / languida lingua saltimbocca, / lettera quì lettera là / son caramelle color lìllà.». Il testo è il terzo dei sei componimenti (Onirick-O, Pataffio-P, Lilastrocca-L, Epistillo-E, Pelegia-P, Osametro-O) le cui iniziali compongono l'acronimo OPLEPO."@it ;
+	crm:P190_has_symbolic_content """«Lemme lemme la Lilastrocca 
+	languida lingua saltimbocca, 
+	lettera quì lettera là 
+	son caramelle color lìllà.» 
+	Il testo è il terzo dei sei componimenti (Onirick-O, Pataffio-P, Lilastrocca-L, Epistillo-E, Pelegia-P, Osametro-O) le cui iniziali compongono l'acronimo OPLEPO."""@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 		desmos:alliteration ;
@@ -1455,9 +1450,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P190_has_symbolic_content """«[a]llora, con la mestola forata,
 		[a]lla scarlatta prende un bel colore:
 		[b]uccio per busto è licenza poetica,
-			[b]uttate dentro mandorle a filetti:
-			[c]on conti corti e tagliatelle lunghe,
-			[c]i stanno come il pancotto nel credo…»"""@it .
+		[b]uttate dentro mandorle a filetti:
+		[c]on conti corti e tagliatelle lunghe,
+		[c]i stanno come il pancotto nel credo…»"""@it ;
 	crm:P129_is_about desmos:distich ,
 		desmos:alphabetical_acrostic;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
