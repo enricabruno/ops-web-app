@@ -1004,6 +1004,15 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .quote-left, .quote-right { color: var(--color-accent); font-size: 2.5rem; line-height: 0.5; }
 
+.blockquote-example {
+    font-size: 1rem;
+    font-style: normal;
+    opacity: 0.85;
+    padding: 0.8rem 3rem;
+    margin-top: 0;
+    white-space: pre-line;
+}
+
 .relation-label, .manifestation-title {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
 }
