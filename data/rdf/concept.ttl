@@ -144,7 +144,7 @@ desmos:word a skos:Concept ;
 
 desmos:image a skos:Concept ;
     skos:prefLabel "Image"@en , "Immagine"@it ;
-    "A formal unit consisting of a discrete visual element that constitutes an object of constraint in works combining text and image."@en , "Unità formale costituita da un elemento visivo discreto che costituisce oggetto di costrizione in opere che combinano testo e immagine."@it ;
+    skos:definition "A formal unit consisting of a discrete visual element that constitutes an object of constraint in works combining text and image."@en , "Unità formale costituita da un elemento visivo discreto che costituisce oggetto di costrizione in opere che combinano testo e immagine."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q478798> ;
     skos:inScheme desmos:FormalUnitScheme .
 
@@ -235,11 +235,10 @@ desmos:subtraction a skos:Concept ;
 
 ### Literary Constraints
 desmos:acronym a skos:Concept ;
-    skos:prefLabel "Acronym constraint"@en , "Acronimo"@it ;
-    skos:definition "Formal constraint requiring that the initial letters of successive words or text segments form a predefined word, name or fixed sequence (e.g. an organization's name), to be read horizontally or as a hidden lexical thread within the text."@en , "Costrizione formale che richiede che le lettere iniziali di parole successive o di segmenti testuali formino una parola, un nome o una sequenza fissa prestabilita (per esempio la sigla di un'organizzazione), da leggere in orizzontale o come filo lessicale nascosto nel testo."@it ;
-    skos:related desmos:acrostic ,
-        desmos:poliacrostic ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:prefLabel "Acronym"@en , "Acronimo"@it ;
+    skos:definition "Formal constraint requiring that the initial letters of successive words form a predefined word, name or fixed sequence (e.g. an organization's name), to be read horizontally or as a hidden lexical thread within the text."@en , "Costrizione formale che richiede che le lettere iniziali di parole successive formino una parola, un nome o una sequenza fissa prestabilita (per esempio, la sigla di un'organizzazione), da leggere in orizzontale o come filo lessicale nascosto nel testo."@it ;
+    skos:related desmos:acrostic ;
+    skos:example  "Successive word-initials (Eccomi Dunque Onorata A Raccontar Di Oplepo…) → EDOARDO "@en , "Iniziali di parole successive (Eccomi Dunque Onorata A Raccontar Di Oplepo…) → EDOARDO."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:acrostic a skos:Concept ;
@@ -249,7 +248,7 @@ desmos:acrostic a skos:Concept ;
         desmos:poliacrostic ;
     skos:related desmos:acronym ;
     skos:definition "Formal constraint in which the initial letters of each line, read vertically, form a word or phrase."@en , "Costrizione formale in cui le lettere iniziali di ogni verso, lette verticalmente, formano una parola o una frase."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:example "Iniziali dei versi/paragrafi lette in verticale → UMBERTO."@it , "Verse/paragraph initials read vertically → UMBERTO."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alliteration a skos:Concept ;
@@ -257,51 +256,54 @@ desmos:alliteration a skos:Concept ;
     skos:related desmos:tautogram ,
         desmos:rhyme_name_echo ;
     skos:definition "Formal constraint requiring the repetition of one or more consonantal or vocalic phonemes in the initial or stressed position of phonetically proximate words within a text or section."@en , "Costrizione formale che impone la ripetizione di uno o più fonemi consonantici o vocalici in posizione iniziale o accentuata di parole foneticamente prossime all'interno di un testo o di una sezione."@it ;
-    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
+    skos:example "Ripetizione di /l/ in posizione iniziale: «Lemme lemme la Lilastrocca / languida lingua saltimbocca»."@it , "Repetition of /l/ in initial position: «Lemme lemme la Lilastrocca / languida lingua saltimbocca»."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alphabetic_set_constraint a skos:Concept ;
     skos:prefLabel "Alphabetic-set constraint"@en , "Vincolo sul set alfabetico"@it ;
      skos:narrower desmos:lipogram , 
         desmos:beau_present , 
-        desmos:prisoner_constraint ;
-    skos:definition "Costrizione formale che regola il sottoinsieme delle lettere ammesse nel testo."@it , "Formal constraint that regulates the subset of letters allowed in the text."@en ;
+        desmos:prisoner_constraint ,
+        desmos:progressive_alphabetical_lipogram ,
+        desmos:progressive_vocalic_lipogram ;
+    skos:definition "Formal constraint that regulates the subset of alphabetical letters allowed in the text."@en , "Costrizione formale che regola il sottoinsieme delle lettere dell'alfabeto ammesse nel testo."@it ;
+    skos:example "Per esclusione: lipogramma in 'x' (nessuna x nel testo). Per inclusione: beau présent per E.S. usando solo {A,D,E,G,I,N,O,R,S,T,U}."@it , "By exclusion: lipogram in 'x' (no x in the text). By inclusion: beau présent for E.S. using only {A,D,E,G,I,N,O,R,S,T,U}."@en .
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alphabetical_acrostic a skos:Concept ;
     skos:prefLabel "Alphabetical acrostic"@en , "Acrostico alfabetico"@it ;
     skos:broader desmos:acrostic ;
     skos:definition "Formal constraint in which the initial letters of successive lines follow alphabetical order, forming a complete or partial sequence of the alphabet when read vertically."@en , "Costrizione formale in cui le lettere iniziali di versi successivi seguono l'ordine alfabetico, formando una sequenza completa o parziale dell'alfabeto letta verticalmente."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:example "Iniziali di versi successivi in ordine alfabetico: A-B-C-D-E-F… → sequenza dell'alfabeto letta verticalmente."@it , "Initials of successive lines in alphabetical order: A-B-C-D-E-F… → alphabet sequence read vertically."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alternating_rhyme a skos:Concept ;
     skos:prefLabel "Alternating rhyme"@en , "Rima alternata"@it ;
     skos:definition "Formal constraint requiring an alternating rhyme pattern across adjacent lines within a stanza or section."@en , "Costrizione rimica che impone un andamento alternato delle rime tra versi contigui di una strofa o sezione."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:example "Schema ABAB: mio-dote-natio-mote / armonia-beata-mania-delicata."@it , "Scheme ABAB: mio-dote-natio-mote / armonia-beata-mania-delicata."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:anagram a skos:Concept ;
     skos:prefLabel "Anagram"@en , "Anagramma"@it ;
-    skos:related desmos:burried_word ,
+    skos:related desmos:buried_word ,
         desmos:enigmatic_transformation_chain ,
         desmos:metagram ;
     skos:definition "Formal constraint based on the rearrangement of the letters of a word or phrase to form a new one, while preserving the same set of characters."@en , "Costrizione formale che prevede la riorganizzazione delle lettere di una parola o di un sintagma per formarne una nuova, utilizzando tutte le lettere originali."@it ;
-    skos:example "Example of a word-level anagram: 'l'attrice' → 'le tracce'."@en , "Esempio di anagramma a livello di parola: 'l'attrice' → 'le tracce'."@it ;
+    skos:example "'l'attrice' → 'le tracce' (stesse lettere, nuova sequenza)."@it , "'l'attrice' → 'le tracce' (same letters, new sequence)."@en .
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:anagraphy a skos:Concept ;
     skos:prefLabel "Anagraphy"@en , "Anagrafia"@it ;
     skos:definition "Formal constraint consisting in reconstructing a given text by reusing the exact same words and punctuation marks, but rearranged in a different order to create a new meaning."@en , "Costrizione formale che consiste nel ricomporre un testo preesistente riutilizzandone integralmente le parole e i segni di interpunzione, ma disponendoli in un ordine differente per generare un nuovo significato."@it ;
     skos:historyNote "The term 'anagraphy' was coined by Salvatore Chierchia in 'L'isola teletrasportata' (1995), 'La Biblioteca Oplepiana' n. 11."@en , "Il termine 'anagrafia' è stato coniato da Salvatore Chierchia in 'L'isola teletrasportata' (1995), 'La Biblioteca Oplepiana' n. 11."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:example "Testo-sorgente (Eco, incipit de 'L'isola del giorno prima', 1994): «Eppure m'inorgoglisco della mia umiliazione…». Anagrafia (Aurilio, 1995): «Poiché sono uomo, / son essere condannato / ad un'aborrita umiliazione…». Stesse parole, nuovo ordine."@it , "Source text (Eco, opening of 'L'isola del giorno prima', 1994): «Eppure m'inorgoglisco della mia umiliazione…». Anagraphy (Aurilio, 1995): «Poiché sono uomo, / son essere condannato / ad un'aborrita umiliazione…». Same words, new order."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:antonymic_rewriting a skos:Concept ;
     skos:prefLabel "Antonymic rewriting"@en , "Riscrittura antonimica"@it ;
     skos:altLabel "Antonymic poetry"@en , "Poesia antonimica"@it ;
     skos:definition "Formal constraint that rewrites a source text by replacing its lexical units with their antonyms (or with semantically opposite terms), so that the new text systematically inverts the meaning of the original while preserving its structure."@en , "Costrizione formale che riscrive un testo di partenza sostituendo le sue unità lessicali con i rispettivi antonimi (o con termini di senso opposto), così che il nuovo testo ne inverte sistematicamente il significato conservandone la struttura."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:example "«Il bianco silenzio della sera» → «Il nero rumore del mattino» (ogni parola piena sostituita dal suo opposto)."@it , "«The white silence of the evening» → «The black noise of the morning» (each content word replaced by its opposite)."@en ;
     skos:closeMatch <https://oulipo.net/contraintes/traduction-antonymique> ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -311,6 +313,8 @@ desmos:apocryphal_pentimento a skos:Concept ;
     skos:definition "Costrizione semantica che finge, all'interno di opere famose, l'esistenza di un elemento oggi assente (o l'assenza di un elemento oggi presente); questo stato perduto, 'rivelato' da un apparato erudito apocrifo, costituisce l'opera invisibile che il testo descrive ed esibisce affiancata all'opera canonica reale."@it , "Semantic constraint that feigns, within famous works, the existence of an element absent today (or the absence of an element present today); this lost state, 'revealed' through an apocryphal scholarly apparatus, constitutes the invisible work, which the text describes and displays alongside the real canonical work."@en ;
     skos:scopeNote "L'opera invisibile è presentata in diade comparativa con l'originale attestato: opera canonica (fig.) vs. ricostruzione dello stato perduto, con il 'documento' radiografico a mediare."@it , "The invisible work is presented in a comparative dyad with the certified original: canonical work (fig.) vs. reconstruction of the lost state, with the radiographic 'document' acting as mediator."@en ;
     skos:related   desmos:preventive_review ;
+    skos:example "L'autore inventa un radiologo fittizio (Orbirazzi) che, con radiografie apocrife, 'dimostra' che un'opera famosa era in origine diversa: es. la 'Flagellazione di Cristo' di Piero della Francesca sarebbe originariamente stata una 'Poesia architettonica' priva di figure umane."@it ,
+    "The author invents a fictional radiologist (Orbirazzi) who, using apocryphal X-rays, 'proves' that a famous work was originally different: e.g., Piero della Francesca's 'Flagellation of Christ' would originally have been an 'Architectural Poem' devoid of human figures."@en ;
     skos:inScheme  desmos:SemanticConstraintScheme .
 
 desmos:beau_present a skos:Concept ;
@@ -318,7 +322,7 @@ desmos:beau_present a skos:Concept ;
     skos:broader desmos:alphabetic_set_constraint;
     skos:related desmos:rhyme_name_echo ;
     skos:definition "Oulipian formal constraint where each line of a poem dedicated to a person is written using only the letters found in the recipient's name."@en ,"Costrizione formale oulipiana in cui ogni verso di un componimento dedicato a una persona è scritto utilizzando esclusivamente le lettere che compongono il nome del destinatario."@it ;
-    skos:scopeNote "The constraint is based on inclusion and, for this reason, the generative mechanism is inverse to that of a lipogram."@en , "La costrizione è basata sull'inclusione e, per questo motivo, il meccanismo generativo è inverso a quello del lipogramma."@it ;
+    skos:scopeNote "The constraint is based on inclusion and, for this reason, the generative mechanism is inverse to that of a lipogram or an alphabetic set constraint."@en , "La costrizione è basata sull'inclusione e, per questo motivo, il meccanismo generativo è inverso a quello del lipogramma o del vincolo sul set alfabetico."@it ;
     skos:historyNote "The constraint was invented by the Oulipo."@en , "La costrizione è stata inventata dall'Oulipo."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/beau-present> ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
@@ -1072,7 +1076,8 @@ desmos:procomplementary_verb_lexicon a skos:Concept ;
 
 desmos:progressive_alphabetical_lipogram a skos:Concept ;
     skos:prefLabel "Alphabetical lipogram"@en , "Lipogramma alfabetico"@it ;
-    skos:broader desmos:lipogram ;
+    skos:broader desmos:lipogram ,
+        desmos:alphabetic_set_constraint ;
     skos:related desmos:progressive_vocalic_lipogram ;
     skos:definition "Formal constraint structuring a text into successive sections, each omitting an alphabetical letter. The sequence of omitted letters follows the order of the alphabet until the sequence has exhausted all the letters."@en , "Costrizione formale che struttura un testo in sezioni successive, ciascuna delle quali omette una lettera alfabetica. La sequenza delle lettere omesse segue l'ordine dell'alfabeto e alla fine esaurisce tutte le lettere."@it ;
     skos:scopeNote "Alphabetical counterpart of the progressive vocalic lipogram, restricted to the alphabet set {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z} instead of the vowel set."@en , "Corrispettivo alfabetico del lipogramma vocalico progressivo, ristretto al set alfabetico {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z} anziché al set vocalico."@it ;
@@ -1088,7 +1093,8 @@ desmos:progressive_century_datation a skos:Concept ;
 
 desmos:progressive_vocalic_lipogram a skos:Concept ;
     skos:prefLabel "Progressive vocalic lipogram"@en , "Lipogramma vocalico progressivo"@it ;
-    skos:broader desmos:lipogram ;
+    skos:broader desmos:lipogram ,
+        desmos:alphabetic_set_constraint ;
     skos:related desmos:progressive_alphabetical_lipogram ;  
     skos:definition "Formal constraint structuring a text into five successive sections, each omitting one of the five vowels in turn, so that the sequence of omitted vowels exhausts the entire vowel set."@en , "Costrizione formale che struttura un testo in cinque sezioni successive, ciascuna delle quali omette a turno una delle cinque vocali, in modo che la sequenza delle vocali omesse esaurisca l'intero set vocalico."@it ;
     skos:scopeNote "Vocalic counterpart of the progressive alphabetical lipogram, restricted to the vowel set {A, E, I, O, U} instead of the full alphabet."@en , "Corrispettivo vocalico del lipogramma alfabetico progressivo, ristretto al set vocalico {A, E, I, O, U} anziché all'intero alfabeto."@it ;
