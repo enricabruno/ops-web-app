@@ -508,6 +508,7 @@ def expression():
             ?lingObj a crm:E33_Linguistic_Object ;
                      crm:P67_refers_to ?uri ;
                      crm:P3_has_note ?fragText .
+            OPTIONAL { ?lingObj crm:P190_has_symbolic_content ?fragContent }
             BIND("direct" AS ?fSource)
 
             OPTIONAL {
@@ -523,7 +524,8 @@ def expression():
             BIND(COALESCE(STR(?volTitle), "Biblioteca Oplepiana") AS ?finalFullTitle)
             BIND(COALESCE(STR(?volYear), "") AS ?finalYear)
             BIND(COALESCE(STR(?pageVal), "") AS ?finalPage)
-            BIND(CONCAT(STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource)) AS ?fragData)
+            BIND(COALESCE(STR(?fragContent), "") AS ?finalContent)
+            BIND(CONCAT(STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent) AS ?fragData)
         }
 
         OPTIONAL { ?uri lrmoo:R76_is_derivative_of ?srcExpr . ?srcExpr dct:title ?srcTitle . }
@@ -564,8 +566,8 @@ def expression():
             entry = entry.strip()
             if not entry:
                 continue
-            # 5-part concat: text ## full_title ## year ## page ## source_type
-            parts = entry.split('##', 4)
+            # 6-part concat: text ## full_title ## year ## page ## source_type ## symbolic_content
+            parts = entry.split('##', 5)
             frag_text = parts[0].strip()
             if not frag_text or frag_text in seen_frag_texts:
                 continue
@@ -576,6 +578,7 @@ def expression():
                 'issued':    parts[2].strip() if len(parts) > 2 else '',
                 'page':      parts[3].strip() if len(parts) > 3 else '',
                 'source':    parts[4].strip() if len(parts) > 4 else 'direct',
+                'content':   parts[5].strip() if len(parts) > 5 else '',
             })
     
     exact_matches = [m.strip() for m in b.get('exactMatches', {}).get('value', '').split('||') if m.strip()]

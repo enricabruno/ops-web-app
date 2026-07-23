@@ -142,6 +142,13 @@
                             <i class="fa-solid fa-quote-right"></i>
                         </p>
                     </blockquote>
+                    {% if fragment.content %}
+                    <blockquote class="declaration-block declaration-example mt-3">
+                        <p class="blockquote-text blockquote-example">
+                            {{ fragment.content }}
+                        </p>
+                    </blockquote>
+                    {% endif %}
                     <div class="source-declaration text-end mt-2">
                         <span class="relation-label">
                             Fonte: <span class="manifestation-title">{{ fragment.man_title }}</span>,
