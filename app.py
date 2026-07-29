@@ -48,6 +48,19 @@ app = Flask(__name__)
 def urlencode_filter(s):
     return quote(str(s), safe='')
 
+@app.template_filter('split_example')
+def split_example_filter(text):
+    if not text:
+        return {'citation': '', 'excerpt': '', 'reading': ''}
+
+    blocks = [b.strip() for b in text.split('\n\n', 2)]
+
+    if len(blocks) >= 3:
+        return {'citation': blocks[0], 'excerpt': blocks[1], 'reading': blocks[2]}
+    if len(blocks) == 2:
+        return {'citation': blocks[0], 'excerpt': '', 'reading': blocks[1]}
+    return {'citation': '', 'excerpt': '', 'reading': blocks[0]}
+
 GRAPHDB_URL = os.getenv('GRAPHDB_URL', 'http://localhost:7200/repositories')
 REPOSITORY_ID = os.getenv('REPOSITORY_ID', 'desmos')
 SPARQL_ENDPOINT = f"{GRAPHDB_URL}/{REPOSITORY_ID}"
@@ -358,27 +371,67 @@ def test_connection():
     print(f"Connection test result: {response}")
     return jsonify(response)
 
-@app.route('/explain/<label>')
-def explain(label):
+def _parse_lod_items(raw):
+    items = []
+    for item in [v for v in raw.split('||') if v]:
+        parts = item.split('##', 1)
+        label = parts[0]
+        link = parts[1] if len(parts) > 1 and parts[1] else None
+        items.append({'label': label, 'link': link})
+    return items
+
+
+def _parse_relation_items(raw):
+    items = []
+    for item in [v for v in raw.split('||') if v]:
+        parts = item.split('##', 1)
+        uri = parts[0]
+        label = parts[1] if len(parts) > 1 and parts[1] else uri
+        items.append({'uri': uri, 'label': label})
+    return items
+
+
+def _external_source_abbr(link):
+    if 'oulipo.net' in link:
+        return 'OULIPO'
+    if 'wikidata.org' in link:
+        return 'WD'
+    return 'LOD'
+
+
+@app.route('/explain')
+def explain():
+    raw_uri = request.args.get('uri', '').strip()
+    if not raw_uri:
+        return render_template('explain.html', info=None, error="URI della costrizione mancante.")
+
+    uri = unquote(raw_uri)
+
     query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-    SELECT ?definition ?example ?originLabel ?type
+    SELECT ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote
+           (GROUP_CONCAT(DISTINCT ?altLabel; separator="||") AS ?altLabels)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?operationLabel), "##", COALESCE(STR(?opMatch), "")); separator="||") AS ?operations)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?formalUnitLabel), "##", COALESCE(STR(?fuMatch), "")); separator="||") AS ?formalUnits)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?semanticUnitLabel), "##", COALESCE(STR(?suMatch), "")); separator="||") AS ?semanticUnits)
     WHERE {{
+        BIND(<{uri}> AS ?constraint)
         ?constraint a skos:Concept ;
-            skos:prefLabel "{label}"@it ;
+            skos:prefLabel ?prefLabel ;
             rdf:type ?type .
-        FILTER(?type IN (desmos:FormalConstraint, desmos:SemanticConstraint))
+        FILTER(lang(?prefLabel) = "it")
+        FILTER(?type IN (desmos:FormalConstraint, desmos:SemanticConstraint, desmos:VisualConstraint))
 
         OPTIONAL {{ ?constraint skos:definition ?definition . FILTER(lang(?definition) = "it") }}
         OPTIONAL {{ ?constraint skos:example ?example . FILTER(lang(?example) = "it") }}
+        OPTIONAL {{ ?constraint skos:scopeNote ?scopeNote . FILTER(lang(?scopeNote) = "it") }}
+        OPTIONAL {{ ?constraint skos:historyNote ?historyNote . FILTER(lang(?historyNote) = "it") }}
+        OPTIONAL {{ ?constraint skos:altLabel ?altLabel . FILTER(lang(?altLabel) = "it") }}
 
-        OPTIONAL {{ ?constraint desmos:constraintScope ?scope . ?scope skos:prefLabel ?scopeLabel . FILTER(lang(?scopeLabel) = "it") }}
         OPTIONAL {{ ?constraint desmos:constraintOrigin ?origin . ?origin skos:prefLabel ?originLabel . FILTER(lang(?originLabel) = "it") }}
 
         OPTIONAL {{
@@ -409,36 +462,129 @@ def explain(label):
             BIND(COALESCE(STR(?suExact), STR(?suClose), STR(?suRelated), "") AS ?suMatch)
         }}
     }}
-    GROUP BY ?definition ?example ?originLabel ?type
+    GROUP BY ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote
     """
     result = execute_sparql_query(query)
 
-    def _parse_lod_items(raw):
-        items = []
-        for item in [v for v in raw.split('||') if v]:
-            parts = item.split('##', 1)
-            label = parts[0]
-            link = parts[1] if len(parts) > 1 and parts[1] else None
-            items.append({'label': label, 'link': link})
-        return items
+    if not result['success'] or not result['data']['results']['bindings']:
+        return render_template('explain.html', info=None, error="Costrizione non trovata.")
 
-    info = {'label': label, 'operations': [], 'formal_units': [], 'semantic_units': []}
-    if result['success'] and result['data']['results']['bindings']:
-        row = result['data']['results']['bindings'][0]
+    row = result['data']['results']['bindings'][0]
 
-        full_type_uri = row.get('type', {}).get('value', '')
-        class_name = full_type_uri.split('/')[-1]
-        info['definition'] = row.get('definition', {}).get('value', 'Definizione non disponibile.')
-        info['example'] = row.get('example', {}).get('value', None)
-        info['class_type'] = class_name
-        info['display_type'] = "Formale" if "Formal" in class_name else "Semantico"
-        info['origin'] = row.get('originLabel', {}).get('value', 'N/D')
+    full_type_uri = row.get('type', {}).get('value', '')
+    class_name = full_type_uri.split('/')[-1]
+    if 'Formal' in class_name:
+        display_type = "Formale"
+    elif 'Semantic' in class_name:
+        display_type = "Semantica"
+    elif 'Visual' in class_name:
+        display_type = "Visuale"
+    else:
+        display_type = class_name
 
-        info['operations'] = _parse_lod_items(row.get('operations', {}).get('value', ''))
-        info['formal_units'] = _parse_lod_items(row.get('formalUnits', {}).get('value', ''))
-        info['semantic_units'] = _parse_lod_items(row.get('semanticUnits', {}).get('value', ''))
+    info = {
+        'uri': uri,
+        'label': row.get('prefLabel', {}).get('value', ''),
+        'definition': row.get('definition', {}).get('value', 'Definizione non disponibile.'),
+        'example': row.get('example', {}).get('value', None),
+        'class_type': class_name,
+        'display_type': display_type,
+        'origin': row.get('originLabel', {}).get('value', None),
+        'scope_note': row.get('scopeNote', {}).get('value', None),
+        'history_note': row.get('historyNote', {}).get('value', None),
+        'alt_labels': [v.strip() for v in row.get('altLabels', {}).get('value', '').split('||') if v.strip()],
+        'operations': _parse_lod_items(row.get('operations', {}).get('value', '')),
+        'formal_units': _parse_lod_items(row.get('formalUnits', {}).get('value', '')),
+        'semantic_units': _parse_lod_items(row.get('semanticUnits', {}).get('value', '')),
+    }
 
-    return render_template('explain.html', info=info)
+    relations_query = f"""
+    PREFIX desmos: <https://w3id.org/desmos/>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+    SELECT
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?broader), "##", ?broaderLabel); separator="||") AS ?broaderData)
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?narrower), "##", ?narrowerLabel); separator="||") AS ?narrowerData)
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?related), "##", ?relatedLabel); separator="||") AS ?relatedData)
+           (GROUP_CONCAT(DISTINCT STR(?exactMatch); separator="||") AS ?exactMatches)
+           (GROUP_CONCAT(DISTINCT STR(?closeMatch); separator="||") AS ?closeMatches)
+    WHERE {{
+        BIND(<{uri}> AS ?constraint)
+        OPTIONAL {{
+            ?constraint skos:broader ?broader .
+            ?broader skos:prefLabel ?broaderLabel .
+            FILTER(lang(?broaderLabel) = "it")
+        }}
+        OPTIONAL {{
+            ?constraint skos:narrower ?narrower .
+            ?narrower skos:prefLabel ?narrowerLabel .
+            FILTER(lang(?narrowerLabel) = "it")
+        }}
+        OPTIONAL {{
+            ?constraint skos:related ?related .
+            ?related skos:prefLabel ?relatedLabel .
+            FILTER(lang(?relatedLabel) = "it")
+        }}
+        OPTIONAL {{ ?constraint skos:exactMatch ?exactMatch }}
+        OPTIONAL {{ ?constraint skos:closeMatch ?closeMatch }}
+    }}
+    """
+    rel_result = execute_sparql_query(relations_query)
+    info['broader'] = []
+    info['narrower'] = []
+    info['related'] = []
+    info['exact_matches'] = []
+    info['close_matches'] = []
+    if rel_result['success'] and rel_result['data']['results']['bindings']:
+        rel_row = rel_result['data']['results']['bindings'][0]
+        info['broader'] = _parse_relation_items(rel_row.get('broaderData', {}).get('value', ''))
+        info['narrower'] = _parse_relation_items(rel_row.get('narrowerData', {}).get('value', ''))
+        info['related'] = _parse_relation_items(rel_row.get('relatedData', {}).get('value', ''))
+        info['exact_matches'] = [
+            {'uri': m, 'source': _external_source_abbr(m)}
+            for m in rel_row.get('exactMatches', {}).get('value', '').split('||') if m
+        ]
+        info['close_matches'] = [
+            {'uri': m, 'source': _external_source_abbr(m)}
+            for m in rel_row.get('closeMatches', {}).get('value', '').split('||') if m
+        ]
+
+    occurrences_query = f"""
+    PREFIX desmos:  <https://w3id.org/desmos/>
+    PREFIX lrmoo:   <http://iflastandards.info/ns/lrm/lrmoo/>
+    PREFIX crm:     <http://www.cidoc-crm.org/cidoc-crm/>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+
+    SELECT DISTINCT ?expr ?title ?year ?visible
+    WHERE {{
+      ?creation desmos:usedConstraint <{uri}> ;
+                lrmoo:R17_created ?expr .
+      OPTIONAL {{ ?expr dcterms:title ?title }}
+      OPTIONAL {{ ?creation dcterms:created ?year }}
+      OPTIONAL {{
+        ?feat desmos:revealsConstraint <{uri}> ;
+              desmos:isFeatureOf ?featTarget .
+        {{ BIND(?expr AS ?featTarget) }}
+        UNION
+        {{ ?expr crm:P148_has_component ?featTarget }}
+      }}
+      BIND(BOUND(?feat) AS ?visible)
+    }}
+    ORDER BY ?year ?title
+    """
+    occ_result = execute_sparql_query(occurrences_query)
+    occurrences = []
+    if occ_result['success']:
+        for b in occ_result['data']['results']['bindings']:
+            occurrences.append({
+                'uri': b.get('expr', {}).get('value', ''),
+                'title': b.get('title', {}).get('value', ''),
+                'year': b.get('year', {}).get('value', ''),
+                'visible': b.get('visible', {}).get('value', '') == 'true',
+            })
+    info['occurrences'] = occurrences
+
+    return render_template('explain.html', info=info, error=None)
 
 @app.route('/expression')
 def expression():

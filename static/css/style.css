@@ -1160,6 +1160,81 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .col-md-3 dd.fst-italic { margin-top: 0.2rem; }
 
+.explain-column { max-width: 46rem; margin: 0 auto; }
+
+.explain-alt-labels { font-size: 0.95rem; }
+
+.explain-note {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.explain-example-citation {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+}
+
+.explain-example-excerpt {
+    border-left: 2px solid var(--color-border);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin-bottom: 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    white-space: pre-wrap;
+}
+
+.explain-example-reading {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.explain-network-group { margin-bottom: 1rem; }
+
+.explain-occurrences-list { margin: 0; padding: 0; }
+
+.explain-occurrence-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.explain-occurrence-item:last-child { border-bottom: none; }
+
+.explain-occurrence-marker {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-accent);
+    flex: 0 0 auto;
+}
+
+.explain-occurrence-marker--visible { background-color: var(--color-accent); }
+.explain-occurrence-marker--hidden  { background-color: transparent; }
+
+.explain-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 400px) {
+    .metadata-grid .metadata-label { flex-basis: 40%; padding: 0.8rem; font-size: 0.7rem; }
+    .metadata-grid .metadata-value { padding: 0.8rem; font-size: 0.9rem; }
+}
+
 /* ============================================
    PAGE: QUERY HUB
    ============================================ */
