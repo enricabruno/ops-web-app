@@ -237,6 +237,35 @@
 
     
 
+
+    <!-- https://w3id.org/desmos/isLowerOrderUnitThan -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/desmos/isLowerOrderUnitThan">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <owl:inverseOf rdf:resource="https://w3id.org/desmos/isHigherOrderUnitThan"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:comment xml:lang="it">Collega un'unità formale all'unità formale di ordine superiore che la contiene o la organizza (es. la lettera è di ordine inferiore rispetto alla sillaba e alla parola). Da usarsi esclusivamente tra concetti dello schema FormalUnitScheme.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a formal unit to the higher-order formal unit that contains or organizes it (e.g., the letter is of lower order than the syllable and the word). To be used exclusively between concepts of the FormalUnitScheme.</rdfs:comment>
+        <rdfs:label xml:lang="it">è unità di ordine inferiore a</rdfs:label>
+        <rdfs:label xml:lang="en">is lower-order unit than</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:ObjectProperty>
+
+    <!-- https://w3id.org/desmos/isHigherOrderUnitThan -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/desmos/isHigherOrderUnitThan">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <owl:inverseOf rdf:resource="https://w3id.org/desmos/isLowerOrderUnitThan"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:comment xml:lang="it">Relazione inversa di isLowerOrderUnitThan. Collega un'unità formale all'unità formale di ordine inferiore che essa contiene o organizza (es. la parola è di ordine superiore rispetto alla lettera e alla sillaba).</rdfs:comment>
+        <rdfs:comment xml:lang="en">Inverse relationship of isLowerOrderUnitThan. Relates a formal unit to the lower-order formal unit it contains or organizes (e.g., the word is of higher order than the letter and the syllable).</rdfs:comment>
+        <rdfs:label xml:lang="it">è unità di ordine superiore a</rdfs:label>
+        <rdfs:label xml:lang="en">is higher-order unit than</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:ObjectProperty>
+
     <!-- http://www.cidoc-crm.org/cidoc-crm/P2_has_type -->
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P2_has_type">
@@ -946,9 +975,19 @@
         <rdfs:label xml:lang="en">date issued</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
     </owl:DatatypeProperty>
+
+    <!-- https://w3id.org/desmos/hasExcerpt -->
+
+    <owl:DatatypeProperty rdf:about="https://w3id.org/desmos/hasExcerpt">
+        <rdfs:domain rdf:resource="https://w3id.org/desmos/TextualFeature"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="it">Collega una caratteristica testuale (Textual Feature) ad un estratto dell'espressione, nel quale  la traccia della costrizione è visibile. La proprieta è facoltativa: una caratteristica testuale può sussistere senza estratto quando la traccia non è verbalizzabile (disposizione grafica, apparato iconografico, impaginazione).</rdfs:comment>
+        <rdfs:comment xml:lang="en">Links a Textual Feature to a data string providing an excerpt of the expression where the trace of the constraint is visible. The property is OPTIONAL: a Textual Feature may exist without an excerpt when the trace is not verbalisable (graphic layout, iconographic apparatus, pagination).</rdfs:comment>
+        <rdfs:label xml:lang="it">ha estratto </rdfs:label>
+        <rdfs:label xml:lang="en">has excerpt</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:DatatypeProperty>
     
-
-
     <!-- http://schema.org/pagination -->
 
     <owl:DatatypeProperty rdf:about="http://schema.org/pagination">
