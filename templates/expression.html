@@ -81,7 +81,7 @@
                     <dd class="col-sm-7 small">
                         <div class="d-flex flex-wrap">
                             {% for c in expr.constraints_formali %}
-                                <a href="/explain/{{ c.label | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
+                                <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
                             {% endfor %}
                         </div>
                     </dd>
@@ -92,7 +92,7 @@
                     <dd class="col-sm-7 small">
                         <div class="d-flex flex-wrap">
                             {% for c in expr.constraints_semantiche %}
-                                <a href="/explain/{{ c.label | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
+                                <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
                             {% endfor %}
                         </div>
                     </dd>

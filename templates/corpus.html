@@ -127,7 +127,7 @@
                                 <p class="expr-detail-text x-small mb-3">
                                     <span class="fw-bold">Costrizioni usate:</span>
                                     {% for c in labeled %}
-                                    <a href="/explain/{{ c.label }}"
+                                    <a href="/explain?uri={{ c.uri | urlencode }}"
                                     class="constraint-badge"
                                     title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
                                     {{ c.label }}

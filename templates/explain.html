@@ -3,24 +3,75 @@
 {% block title %}{{ info.label if info else "Costrizione" }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5 px-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <h1 class="fw-bold constraint-title">{{ info.label }}</h1>
-            <div class="mb-5 definition-container">
-                <p class="text_explain">{{ info.definition }}</p>
-            </div>
-            <div class="metadata-grid mb-5">
-                <div class="metadata-row">
-                    <div class="metadata-label">Categoria</div>
-                    <div class="metadata-value">{{ info.display_type }}</div>
-                </div>
+<div class="container mt-5 px-3">
+    {% if error %}
+    <div class="alert alert-danger explain-column">
+        <strong>Errore:</strong> {{ error }}
+        <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
+    </div>
 
-                <div class="metadata-row">
-                    <div class="metadata-label">Origine</div>
-                    <div class="metadata-value">{{ info.origin }}</div>
-                </div>
+    {% elif info %}
+    <div class="explain-column">
 
+        <!-- 1. Intestazione -->
+        <h1 class="fw-bold constraint-title">{{ info.label }}</h1>
+        {% if info.alt_labels %}
+        <p class="text-center text-muted fst-italic explain-alt-labels mb-2">
+            {{ info.alt_labels | join(' · ') }}
+        </p>
+        {% endif %}
+        <div class="d-flex justify-content-center gap-2 mb-4">
+            <span class="badge-scope">{{ info.display_type }}</span>
+            {% if info.origin %}
+            <span class="badge-scope">{{ info.origin }}</span>
+            {% endif %}
+        </div>
+
+        <!-- 2. Definizione -->
+        <div class="mb-5 definition-container">
+            <p class="text_explain">{{ info.definition }}</p>
+        </div>
+
+        <!-- 3. Note -->
+        {% if info.scope_note or info.history_note %}
+        <section class="mb-5">
+            {% if info.scope_note %}
+            <p class="explain-note">
+                <span class="metadata-section-label d-block mb-1">Ambito di applicazione</span>
+                {{ info.scope_note }}
+            </p>
+            {% endif %}
+            {% if info.history_note %}
+            <p class="explain-note">
+                <span class="metadata-section-label d-block mb-1">Nota storica</span>
+                {{ info.history_note }}
+            </p>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- 4. Esempio -->
+        {% if info.example %}
+        {% set ex = info.example | split_example %}
+        <section class="mb-5">
+            <h5 class="section-label">Esempio</h5>
+            {% if ex.citation %}
+            <p class="explain-example-citation relation-label">{{ ex.citation }}</p>
+            {% endif %}
+            {% if ex.excerpt %}
+            <div class="explain-example-excerpt">{{ ex.excerpt }}</div>
+            {% endif %}
+            {% if ex.reading %}
+            <p class="explain-example-reading">{{ ex.reading }}</p>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- 5. Analisi -->
+        {% if info.operations or info.formal_units or info.semantic_units %}
+        <section class="mb-5">
+            <h5 class="section-label">Analisi</h5>
+            <div class="metadata-grid">
                 {% if info.operations %}
                 <div class="metadata-row">
                     <div class="metadata-label">Operazione</div>
@@ -48,7 +99,86 @@
                 </div>
                 {% endif %}
             </div>
-        </div>
+        </section>
+        {% endif %}
+
+        <!-- 6. Rete concettuale -->
+        {% if info.broader or info.narrower or info.related %}
+        <section class="mb-5">
+            <h5 class="section-label">Rete concettuale</h5>
+
+            {% if info.broader %}
+            <div class="explain-network-group">
+                <div class="metadata-section-label mb-2">Termine più generale</div>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for item in info.broader %}
+                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if info.narrower %}
+            <div class="explain-network-group">
+                <div class="metadata-section-label mb-2">Termini più specifici</div>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for item in info.narrower %}
+                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if info.related %}
+            <div class="explain-network-group">
+                <div class="metadata-section-label mb-2">Termini correlati</div>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for item in info.related %}
+                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- 7. Allineamenti esterni -->
+        {% if info.exact_matches or info.close_matches %}
+        <section class="mb-5">
+            <h5 class="section-label">Allineamenti esterni</h5>
+            <div class="d-flex flex-wrap gap-3">
+                {% for m in info.exact_matches %}
+                <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer" class="link-external-xs text-decoration-none">{{ m.source }}<sup class="external-arrow">&#8599;</sup></a>
+                {% endfor %}
+                {% for m in info.close_matches %}
+                <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer" class="link-external-xs text-decoration-none">{{ m.source }}<sup class="external-arrow">&#8599;</sup></a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 8. Occorrenze nel corpus -->
+        {% if info.occurrences %}
+        <section class="mb-5">
+            <h5 class="section-label">Occorrenze nel corpus</h5>
+            <ul class="explain-occurrences-list list-unstyled">
+                {% for occ in info.occurrences %}
+                <li class="explain-occurrence-item">
+                    <span class="explain-occurrence-marker {{ 'explain-occurrence-marker--visible' if occ.visible else 'explain-occurrence-marker--hidden' }}"
+                          title="{{ 'Costrizione osservabile nel testo' if occ.visible else 'Solo dichiarata' }}"></span>
+                    <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>
+                    {% if occ.year %}<span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="explain-legend text-muted small">
+                <span class="explain-occurrence-marker explain-occurrence-marker--visible"></span> costrizione osservabile nel testo
+                <span class="explain-occurrence-marker explain-occurrence-marker--hidden ms-3"></span> solo dichiarata
+            </p>
+        </section>
+        {% endif %}
+
     </div>
+    {% endif %}
 </div>
 {% endblock %}
