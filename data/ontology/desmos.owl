@@ -238,6 +238,18 @@
     
 
 
+        <!-- https://w3id.org/desmos/illustrates -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/desmos/illustrates">
+        <rdfs:domain rdf:resource="https://w3id.org/desmos/CorpusExample"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:comment xml:lang="it">Collega un esempio di corpus al concetto SKOS (una costrizione) di cui costituisce un'attestazione documentata.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a corpus example to the SKOS concept (i.e. a constraint) for which it provides a documented attestation.</rdfs:comment>
+        <rdfs:label xml:lang="it">illustra</rdfs:label>
+        <rdfs:label xml:lang="en">illustrates</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:ObjectProperty>
+
     <!-- https://w3id.org/desmos/isLowerOrderUnitThan -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/desmos/isLowerOrderUnitThan">
@@ -1293,6 +1305,17 @@
         <rdfs:label xml:lang="it">INT15 Intertestualità nelle teorie dell'intertestualità</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
     </owl:Class>
+
+        <!-- https://w3id.org/desmos/CorpusExample -->
+
+    <owl:Class rdf:about="https://w3id.org/desmos/CorpusExample">
+        <rdfs:comment xml:lang="it">Attestazione documentata di una costrizione in un testo del corpus. Reifica un esempio (citazione della fonte, campione di testo vincolato ed eventuale spiegazione) come entità autonoma, collegata al concetto SKOS che essa illustra tramite desmos:illustrates.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Documented attestation of a constraint in a corpus text. It reifies an example (source citation, sample of constrained text and optional explanation) as a standalone entity, linked to the SKOS concept it illustrates via desmos:illustrates.</rdfs:comment>
+        <rdfs:label xml:lang="it">Esempio di corpus</rdfs:label>
+        <rdfs:label xml:lang="en">Corpus example</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
+    </owl:Class>
+
     
 
 
