@@ -51,6 +51,7 @@
 
 <https://w3id.org/desmos/oplepiana/author/chierchia> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Salvatore Chierchia"^^xsd:string ;
+	skos:altLabel "Sal Kierkia"^^xsd:string ;
 	owl:sameAs <https://viaf.org/viaf/305314863> .
 
 <https://w3id.org/desmos/oplepiana/author/perec> a crm:E39_Actor , prov:Agent ;
@@ -213,7 +214,19 @@
 	rdfs:label "Giacomo Leopardi"^^xsd:string ;
 	owl:sameAs <https://viaf.org/viaf/12311353> .
 
+<https://w3id.org/desmos/oplepiana/author/giuliani> a crm:E39_Actor , prov:Agent ;
+    rdfs:label "Marco Giuliani"^^xsd:string ;
+    skos:altLabel "Triton"^^xsd:string ;
+    rdfs:seeAlso <https://www.rebussisti.it/2025/06/29/il-trofeo-ari> .
+
 ### Constraint ###
+desmos:acrobistic a desmos:FormalConstraint ;
+	rdfs:label "Eco di rima"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line ;
+	desmos:involvesOperation desmos:multiplication .
+
 desmos:acronym a desmos:FormalConstraint ;
 	rdfs:label "Acronimo"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
@@ -861,6 +874,13 @@ desmos:popular_register_lexicon a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
+desmos:postal_code_acrostic a desmos:FormalConstraint ;
+	rdfs:label "Acrostico dei codici postali"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:letter ,
+		desmos:line ;
+	desmos:involvesOperation desmos:substitution .
+
 desmos:post_1989_lexicon a desmos:FormalConstraint ;
     rdfs:label "Lessico del dopo-muro"^^xsd:string ;
     desmos:constraintOrigin desmos:original ;
@@ -916,6 +936,12 @@ desmos:quatrain a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
+desmos:rebus a desmos:FormalConstraint ;
+	rdfs:label "Rebus"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:letter ;
+	desmos:involvesOperation desmos:displacement .
+
 desmos:regraphing a desmos:FormalConstraint ;
 	rdfs:label "Rigrafia"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
@@ -928,13 +954,6 @@ desmos:register_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
-
-desmos:rhyme_name_echo a desmos:FormalConstraint ;
-	rdfs:label "Eco di rima"^^xsd:string ;
-	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line ;
-	desmos:involvesOperation desmos:multiplication .
 
 desmos:sdrucciola_hendecasyllable a desmos:FormalConstraint ;
     rdfs:label "Endecasillabo sdrucciolo"^^xsd:string ;
@@ -1153,14 +1172,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_03> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Una semplice sequenza ininterrotta di nomi di personaggi mitologici [...] si trasforma in un componimento poetico. Canto tenero è costituito da 14 strofe, ciascuna di 4 endecasillabi a rima alterna, con schema metrico ABAB CDCD."@it ;
-	crm:P190_has_symbolic_content """«Anna, perenna - ligia al poter mio -, [A] 
-	e mesci a caso o reca come dote, [B] 
-	tipico tono fausto a te natio, [A] 
-	né farti debellar in odì o mote… [B]
-	Ridesidero l'atona armonia, [C] 
-	la smania gaia, l'indole beata, [D]
-	d'erotiche macerie la mania, [C] 
-	l'italo coro l'aria delicata. [D]»"""@it ;
 	crm:P129_is_about desmos:mythographic_units ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_03> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
@@ -1215,12 +1226,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_11> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Mi preoccupai però, anche qui a concorso già bandito, di informare l'autore del quale si proponeva di scompigliare sensatamente l'inizio del romanzo L'isola del giorno prima (Ed. Bompiani, Milano, 1994, pag. 5 e anche in quarta di copertina)."@it ;
-	crm:P190_has_symbolic_content """ 
-	««Un'aborrita memoria della nostra, della mia deserta umiliazione, e una specie di credo sono quasi nave di
-	salvezza: poiché godo ad aver l'unico privilegio d'essere uomo, su, m'inorgoglisco a tal fatto, eppure son condannato a naufragio.»
-
-	«Eppure m'inorgoglisco della mia umiliazione, e poiché a tal privilegio son condannato, quasi godo d'un'aborrita salvezza: sono, credo, a memoria d'uomo, l'unico essere della nostra specie ad aver fatto naufragio su una nave deserta.»
-	Umberto Eco, L'isola del giorno prima (Bompiani, 1994, p. 5)."""@it ;
 	crm:P129_is_about desmos:anagraphy ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/chierchia> .
@@ -1271,7 +1276,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_addomine> 
     a crm:E33_Linguistic_Object ;
     crm:P3_has_note "L'intero testo è un acronimo onomastico: le iniziali di ciascuna parola formano, di séguito, i nomi dei membri attivi dell'OPLEPO."@it ;
-    crm:P190_has_symbolic_content "«[E]ccomi [d]unque – [o]norata – [a] [r]accontar [d]i [O]plepo. [S]enza [a]rte [n]oi [g]iaceremmo [u]mili, [i]mmobili [n]ell'[e]ntropia. [T]al [i]mplicito disordine…»."@it ;
     crm:P129_is_about desmos:acronym ;
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_addomine> ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
@@ -1297,11 +1301,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_17_sebregondi> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "L'elogio si apre con una incitazione (Orsù...) in forma di acronimo per OPLEPO. [...] In ciascun componimento inoltre risuona, attraverso allitterazioni variamente insistite, la lettera di cui è portatore."@it ;
-	crm:P190_has_symbolic_content """«Lemme lemme la Lilastrocca 
-	languida lingua saltimbocca, 
-	lettera quì lettera là 
-	son caramelle color lìllà.» 
-	Il testo è il terzo dei sei componimenti (Onirick-O, Pataffio-P, Lilastrocca-L, Epistillo-E, Pelegia-P, Osametro-O) le cui iniziali compongono l'acronimo OPLEPO."""@it ;
 	crm:P129_is_about desmos:mandatory_genre ,
 		desmos:acronym ,
 		desmos:alliteration ;
@@ -1447,12 +1446,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_sanguineti> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "I 21 distici offrono, inoltre, un acrostico alfabetico doppio"@it ;
-	crm:P190_has_symbolic_content """«[a]llora, con la mestola forata,
-		[a]lla scarlatta prende un bel colore:
-		[b]uccio per busto è licenza poetica,
-		[b]uttate dentro mandorle a filetti:
-		[c]on conti corti e tagliatelle lunghe,
-		[c]i stanno come il pancotto nel credo…»"""@it ;
 	crm:P129_is_about desmos:distich ,
 		desmos:alphabetical_acrostic;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
@@ -1460,7 +1453,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_a> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Si tratta di un 'acrobistico', definizione che richiama immediatamente la struttura utilizzata: nome e cognome del poeta francese contano esattamente 14 lettere e le rime ABAB ABAB AAB ABB foneticamente li richiamano."@it ;
-	crm:P129_is_about desmos:rhyme_name_echo ;
+	crm:P129_is_about desmos:acrobistic ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1664,13 +1657,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "Le lettere iniziali dei brevi paragrafi del testo (che sono anche le iniziali dei nomi dei personaggi) compongono l'acrostico UMBERTO."@it ;
 	crm:P129_is_about desmos:acrostic ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_narros> ;
-	crm:P190_has_symbolic_content """«[U]baldo la mattina esce di casa e trova nella cassetta delle lettere un foglio con sù scritta la storia di Marundia. 
-	[M]arundia è una lettrice di medicine… 
-	[B]etlemme è un feto di acciuga… 
-	[E]rmes è un lettore di aria… 
-	[R]odolfo è un lettore di occhi… 
-	[T]onjo è un lettore di piccioni… 
-	[O]lona è una lettrice di baci…»"""@it ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_varaldo_a> a crm:E33_Linguistic_Object ;
@@ -1726,6 +1712,16 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:acrostic ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_46> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Il rebus è un gioco illustrato composto da una o più vignette, nelle quali alcuni soggetti (persone, animali, cose) sono contrassegnati da lettere, denominate grafemi, o piiù raramente da asterischi. Procedendo da sinistra verso destra e abbinando opportunamente i grafemi con gli elementi da essi indicati, o nel caso degli asterischi specificando tout court ciò che gli elementi marcati sono o fanno, si otterrà una frase ('prima lettura'), la quale, mantenendo le lettere nel medesimo ordine ma ripartendole diversamente, verrà convertita in un'altra frase, di senso compiuto ('seconda lettura'), corrispondente alla soluzione del rebus. Il doppio diagramma numerico indica la lunghezza delle parole costituenti le due letture."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_47> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Le 'Cartoline di città' (dove l'acronimo CAP viene reinterpretato in 'Codici di Avviamento Poetico') sono brevi poesie geografico-sintetiche derivate dai vari Codici di Avviamento Postale italiani (o esteri) di altrettante città. le lettere iniziali dei versi corrispondonon al numero che compone il CAP secondo la corrispondenza A=0 e 1 (due numeri attribuiti alla stessa lettera A per mantenere la sequenza alfabetica più intuitiva, dove B è la seconda lettera dell'alfabeto), quindi B=2, C=3, ecc. I testi sono composti di due quartine e un distico (con rima ABAB ABAB CC) che ripartiscono i 10 numeri dei due CAP nei qali ogni verso inizia con la lettera corrispondente alla sequenza dei deu CAP cittadini."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pelliti> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_pelliti> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Acrostico anagrammatico biografico per Charles Baudelaire."@it ;
@@ -1969,7 +1965,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
     crm:P2_has_type desmos:prose,
 		desmos:visual_art ;        
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_20> .
-
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> a lrmoo:F2_Expression ;
 	dcterms:title "Morti fortunati"^^xsd:string ;
@@ -2438,6 +2433,34 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> a lrmoo:F2_Expression ;
+	dcterms:title "Est modus in rebus"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_46> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p50> ;
+	crm:P2_has_type desmos:prose ,
+		desmos:visual_poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_46> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> a lrmoo:F2_Expression ;
+	dcterms:title "Rebus di Triton"^^xsd:string ;
+	crm:P2_has_type desmos:prose ,
+		desmos:visual_poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_46> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> a lrmoo:F2_Expression ;
+	dcterms:title "Cartoline di città"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_47> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p51> ;
+	crm:P2_has_type desmos:poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47_text_pelliti> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_47> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_47_text_pelliti> a lrmoo:F2_Expression ;
+	dcterms:title "Capri"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_47> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> a lrmoo:F2_Expression ;
 	dcterms:title "Ciarle per Charles"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_50_pelliti> ,
@@ -2893,6 +2916,18 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_3> ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45> ;
 	schema:pagination "413-479"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_46> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 46"@it ;
+	dcterms:issued "2020"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_47> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 47"@it ;
+	dcterms:issued "2021"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 50"@it ;
@@ -3423,7 +3458,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_30_text_sanguineti> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30_text_sanguineti> ;
-	desmos:usedConstraint desmos:rhyme_name_echo ,
+	desmos:usedConstraint desmos:acrobistic ,
 		desmos:acrostic ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sanguineti> ;
 	dcterms:created "2010"^^xsd:gYear .
@@ -3769,6 +3804,37 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/addomine> ;
 	dcterms:created "2020"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_46> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+	desmos:usedConstraint desmos:rebus ;
+	dcterms:created "2020"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_46_text_giuliani> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> ;
+	desmos:usedConstraint desmos:placeholder ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/giuliani> ;
+	dcterms:created "2020"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_47> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pelliti> ;
+	desmos:usedConstraint desmos:acronym ,
+		desmos:quartain ,
+		desmos:distich ,
+		desmos:alternating_rhyme ,
+		desmos:postal_code_acrostic ;
+	dcterms:created "2021"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_47_text_pelliti> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47_text_pelliti> ;
+	desmos:usedConstraint desmos:postal_code_acrostic ,
+		desmos:quartain ,
+		desmos:distich ,
+		desmos:alternating_rhyme ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pelliti> ;
+	dcterms:created "2021"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> ;
 	desmos:usedConstraint desmos:mandatory_dedication ;
@@ -4000,6 +4066,16 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
     crm:P3_has_note "Nel sottotesto la prima parola di ciascuna riga è in corsivo; lette in colonna lungo il margine, queste parole compongono un testo verticale autonomo e di senso compiuto (acrostico di parole)."^^xsd:string ;
     desmos:revealsConstraint desmos:acrostic .
 
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_46_giuliani> a desmos:TextualFeature ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> ;
+    crm:P3_has_note "Sulla scena illustrata (un barbiere e il cliente) sono sovrimposti grafemi isolati — «F» sul barbiere, «FOR» al centro, «P» a terra — non integrati nel disegno ma da leggere come lettere. La loro presenza segnala che gli elementi raffigurati vanno abbinati ai grafemi per ricavare la prima lettura («P recisa / F rase FOR male»), risegmentata poi nella soluzione."^^xsd:string ;
+    desmos:revealsConstraint desmos:rebus .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_47_pelliti> a desmos:TextualFeature ;
+	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47_text_pelliti> ;
+	crm:P3_has_note "Il testo presenta alla fine delle glosse in cui è riportato l'elenco delle poesie. Tra parentesi è riportato il CAP della città in questione e le prime lettere di ogni verso sono in grassetto, richiamando così le lettere del CAP."^^xsd:string ;
+ 	desmos:revealsConstraint desmos:metric_liposyllabism .
+
 ### Work ###
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_01> a lrmoo:F1_Work ;
 	dcterms:title "Edulcoranti"^^xsd:string ;
@@ -4174,6 +4250,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_45> a lrmoo:F1_Work ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_46> a lrmoo:F1_Work ;
+	dcterms:title "Est modus in rebus"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_47> a lrmoo:F1_Work ;
+	dcterms:title "Cartoline di città"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_50> a lrmoo:F1_Work ;
 	dcterms:title "Ciarle per Charles"^^xsd:string ;
