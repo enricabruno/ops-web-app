@@ -884,6 +884,11 @@ desmos:example_iambic_hendecasyllable a desmos:CorpusExample ;
               """Esempio segnaposto."""@it ;
     desmos:illustrates desmos:iambic_hendecasyllable .
 
+desmos:example_inverted_rhyme a desmos:CorpusExample ;
+    rdf:value """Placeholder example."""@en ,
+              """Esempio segnaposto."""@it ;
+    desmos:illustrates desmos:inverted_rhyme .
+
 desmos:example_ironic_register_lexicon a desmos:CorpusExample ;
     rdf:value """Placeholder example"""@en ,
               """Esempio segnaposto"""@it ;
@@ -1091,6 +1096,11 @@ desmos:example_panvocalism a desmos:CorpusExample ;
     rdf:value """Placeholder example."""@en ,
               """Esempio placeholder."""@it ;
     desmos:illustrates desmos:panvocalism .
+
+desmos:example_paronomasia a desmos:CorpusExample ;
+    rdf:value """Placeholder example."""@en ,
+              """Esempio placeholder."""@it ;
+    desmos:illustrates desmos:paronomasia .
 
 desmos:example_pentomino_segmentation a desmos:CorpusExample ;
     rdf:value """Placeholder example"""@en ,
