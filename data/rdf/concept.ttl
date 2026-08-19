@@ -709,6 +709,14 @@ desmos:iambic_hendecasyllable a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
+desmos:inverted_rhyme a skos:Concept ;
+    skos:prefLabel "Inverted rhyme"@en , "Rima invertita"@it ;
+    skos:definition "Formal constraint requiring a section to reproduce, in reversed order, the rhyme scheme of a preceding section: if the first stanza rhymes ABC, the second mirrors it as CBA, so that the sequence of rhymes is inverted."@en , "Costrizione rimica che impone a una sezione di riprodurre in ordine rovesciato lo schema delle rime di una sezione precedente: se la prima strofa rima secondo lo schema ABC, la seconda vi corrisponde specularmente CBA, così che la successione delle rime risulti invertita."@it ;
+    skos:scopeNote "The constraint operates on the distributional order of rhymes across lines (rhyme scheme), not on the phonetic reversal of the rhyme-word's phonemes (for which see rather palindrome or anagram)."@en , "La costrizione opera sull'ordine di distribuzione delle rime tra i versi (schema rimico), non sull'inversione fonetica dei fonemi della parola-rima (per cui si vedano piuttosto palindromo o anagramma)."@it ;
+    skos:related desmos:enclosed_rhyme , desmos:alternating_rhyme ;
+    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
 desmos:ironic_register_lexicon a skos:Concept ;
     skos:prefLabel "Ironic-register lexicon"@en , "Lessico ironico"@it ;
     skos:broader desmos:register_lexicon ;
@@ -1024,6 +1032,15 @@ desmos:panvocalism a skos:Concept ;
     skos:prefLabel "Panvocalism"@en , "Panvocalismo"@it ;
     skos:definition "Formal constraint that requires using words or phrases that contain all five vowels (i.e. a, e, i, o, u)"@en , "Costrizione formale che richiede di utilizzare parole o frasi che contengono tutte e cinque le vocali (i.e. a, e, i, o, u)"@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:paronomasia a skos:Concept ;
+    skos:prefLabel "Paronomasia"@en , "Paronomasia"@it ;
+    skos:altLabel "Annomination"@en , "Annominatio"@la ;
+    skos:definition "Formal constraint based on phonic similarity rather than identity: two or more words differing in meaning are brought together because their sound is nearly identical (paronyms), so that the slight phonetic difference generates a semantic tension or wordplay (e.g. traduttore / traditore)."@en , "Costrizione formale fondata sulla somiglianza fonica, non sull'identità: due o più parole di significato diverso sono accostate in virtù di una sonorità quasi identica (paronimi), così che il lieve scarto fonetico genera una tensione semantica o un gioco di parole (es. traduttore / traditore)."@it ;
+    skos:scopeNote "Unlike homophony (phonic identity) and homonymy (identical spelling or pronunciation), paronomasia rests on the partial phonetic resemblance between distinct words (paronyms)."@en , "A differenza dell'omofonia (identità fonica) e dell'omonimia (grafia o pronuncia identiche), la paronomasia si fonda sulla parziale somiglianza fonetica tra parole distinte (paronimi)."@it ;
+    skos:related desmos:homophony , desmos:homonymy , desmos:alliteration ;
+    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:pentomino_segmentation a skos:Concept ;
