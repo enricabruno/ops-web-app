@@ -3,7 +3,7 @@
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 desmos:example_LS_method a desmos:CorpusExample ;
-    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_17_text_varaldo> ;
+    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40_text_berti> ;
     rdf:value """Placeholder example."""@en ,
               """Esempio segnaposto."""@it ;
     desmos:illustrates desmos:LS_method .
@@ -245,25 +245,11 @@ di rada Gonone e Dorgali ...
 Only the twelve letters forming the spouses' names are admitted (A D E G I L M N O R U Z)."""@en ;
     desmos:illustrates desmos:beau_present .
 
-desmos:example_bisyllabic_text a desmos:CorpusExample ;
-    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> ;
-    rdf:value """Giuseppe Varaldo, «I costretti sposi. 50 regole, 50 ottave», Biblioteca Oplepiana n. 36 (2014), ottava 25 «Bisillabi»:
-
-Renzo aver vuole, come propria sposa,
-certo nata ella pure presso Lecco,
-una pia - nonché bella - cara tosa.
-Nozze ormai quasi pronte, quando ecco ...
-
-Ogni parola dell'ottava è bisillabica; nelle elisioni ciò che precede e ciò che segue l'apostrofo conta come parola unica."""@it ,
-              """Giuseppe Varaldo, «I costretti sposi. 50 regole, 50 ottave», Biblioteca Oplepiana no. 36 (2014), octave 25 «Bisillabi»:
-
-Renzo aver vuole, come propria sposa,
-certo nata ella pure presso Lecco,
-una pia - nonché bella - cara tosa.
-Nozze ormai quasi pronte, quando ecco ...
-
-Every word in the octave is bisyllabic; in elisions, what precedes and what follows the apostrophe counts as a single word."""@en ;
-    desmos:illustrates desmos:bisyllabic_text .
+desmos:example_bisenso a desmos:CorpusExample ;
+    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> ;
+    rdf:value """Placeholder example."""@en ,
+              """Esempio placeholder."""@it ;
+    desmos:illustrates desmos:bisenso .
 
 desmos:example_boule_de_neige a desmos:CorpusExample ;
     dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> ;
@@ -1077,6 +1063,12 @@ desmos:example_non_repeating_rhyme a desmos:CorpusExample ;
               """Esempio placeholder."""@it ;
     desmos:illustrates desmos:non_repeating_rhyme .
 
+desmos:example_numeric_based_homosyntaxism a desmos:CorpusExample ;
+    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> ;
+    rdf:value """Placeholder example."""@en ,
+              """Esempio placeholder."""@it ;
+    desmos:illustrates desmos:numeric_based_homosyntaxism .
+
 desmos:example_octave a desmos:CorpusExample ;
     rdf:value """Placeholder example."""@en ,
               """Esempio placeholder."""@it ;
@@ -1128,7 +1120,7 @@ desmos:example_post_1989_lexicon a desmos:CorpusExample ;
     desmos:illustrates desmos:post_1989_lexicon .
 
 desmos:example_postal_code_acrostic a desmos:CorpusExample ;
-    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47_text_pelliti> ;
+    dcterms:source <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
     rdf:value """Placeholder example."""@en , """Esempio segnaposto."""@it ;
     desmos:illustrates desmos:postal_code_acrostic .
 
