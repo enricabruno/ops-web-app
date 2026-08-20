@@ -23,7 +23,7 @@
 
 <https://w3id.org/desmos/oplepiana/author/varaldo> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Giuseppe Varaldo"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/CFIV018313> .
+	rdf:seeAlso <http://id.sbn.it/bid/CFIV018313> .
 
 <https://w3id.org/desmos/oplepiana/author/falchetta> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Piero Falchetta"^^xsd:string ;
@@ -31,7 +31,7 @@
 
 <https://w3id.org/desmos/oplepiana/author/addomine> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Elena Addòmine"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/BRIV004408> .
+	rdfs:seeAlso <http://id.sbn.it/bid/BRIV004408> .
 
 <https://w3id.org/desmos/oplepiana/author/albani> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Paolo Albani"^^xsd:string ;
@@ -108,15 +108,15 @@
 
 <https://w3id.org/desmos/oplepiana/author/pergola> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Paolo Pergola"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/LEKV000705> .
+	rdfs:seeAlso <http://id.sbn.it/bid/LEKV000705> .
 
 <https://w3id.org/desmos/oplepiana/author/sebregondi> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Maria Sebregondi"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/CFIV079611> .
+	rdfs:seeAlso <http://id.sbn.it/bid/CFIV079611> .
 
 <https://w3id.org/desmos/oplepiana/author/tonietto> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Stefano Tonietto"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/VEAV313927> .
+	rdfs:seeAlso <http://id.sbn.it/bid/VEAV313927> .
 
 <https://w3id.org/desmos/oplepiana/author/manzoni> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Alessandro Manzoni"^^xsd:string ;
@@ -148,11 +148,11 @@
 
 <https://w3id.org/desmos/oplepiana/author/fabrizi> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Daniela Fabrizi"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/TO0V155453> .
+	rdfs:seeAlso <http://id.sbn.it/bid/TO0V155453> .
 
 <https://w3id.org/desmos/oplepiana/author/enriques> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Lorenzo Enriques"^^xsd:string ;
-	owl:sameAs <http://id.sbn.it/bid/DDSV314960> .
+	rdfs:seeAlso <http://id.sbn.it/bid/DDSV314960> .
 
 <https://w3id.org/desmos/oplepiana/author/carrese> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Massimo Gerardo Carrese"^^xsd:string ;
@@ -218,6 +218,10 @@
     rdfs:label "Marco Giuliani"^^xsd:string ;
     skos:altLabel "Triton"^^xsd:string ;
     rdfs:seeAlso <https://www.rebussisti.it/2025/06/29/il-trofeo-ari> .
+
+<https://w3id.org/desmos/oplepiana/author/montalto> a crm:E39_Actor , prov:Agent ;
+    rdfs:label "Sandro Montalto"^^xsd:string ;
+    rdfs:seeAlso <http://id.sbn.it/bid/BIAV086030> .
 
 ### Constraint ###
 desmos:acrobistic a desmos:FormalConstraint ;
@@ -293,6 +297,11 @@ desmos:beau_present a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
+
+desmos:bisenso a desmos:FormalConstraint ;
+	rdfs:label "Bisenso"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:word .
 
 desmos:bisyllabic_text a desmos:FormalConstraint ;
 	rdfs:label "Testo bisillabico"^^xsd:string ;
@@ -586,6 +595,12 @@ desmos:homonymy a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
+desmos:homosyntaxism a desmos:FormalConstraint ;
+	rdfs:label "Omosintattismo"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:substitution .
+
 desmos:iambic_hendecasyllable a desmos:FormalConstraint ;
 	rdfs:label "Endecasillabo giambico"^^xsd:string ;
     desmos:constraintOrigin desmos:historical ;
@@ -829,6 +844,14 @@ desmos:non_repeating_rhyme a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
+
+desmos:numeric_based_homosyntaxism a desmos:FormalConstraint ;
+	rdfs:label "Omosintattismo numerico"^^xsd:string ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:word ,
+		desmos:line ;
+	desmos:involvesOperation desmos:substitution .
 
 desmos:octave a desmos:FormalConstraint ;
 	rdfs:label "Ottava"^^xsd:string ;
@@ -1818,6 +1841,48 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:handwritten_realization ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Sulla base degli esercizi qui raccolti, ispirati a Kafka nel centenario della nascita [...], si potrà pur dire che esiste anche un Kafka dell'Oplepo, piccolo, sparuto gruppo di anomali sperimentatori che si diverte a esplorare i misteriori meandri del linguaggio."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/albani> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_albani> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "In questo metagramma, gioco inventato da Lewis Carroll, dove si passa da una parola all'altra con un solo cambiamento di lettera e dove ogni parola mantiene sempre almeno una 'k', in omaggio alle due del cognome dello scrittore boemo, Franz Kafka si trasforma alla fine, non in un «parassita» o «insetto infestante», tipo scarafaggio, ma in una mosca, restando pur sempre nel regno degli animali, e forse, nella metamorfosi, guadagnandoci in leggerezza."@it ;
+	crm:P129_is_about desmos:metagram ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_pergola> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Si tratta di dieci lipogrammi successivi, ciascuno in linea con il 'compito'; i lipogrammi risultano anche 'puri' poiché in ognuno di essi manca soltanto una lettera dell'alfabeto italiano, essendo presenti tutte le altre."@it ;
+	crm:P129_is_about desmos:progressive_alphabetical_lipogram ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_pergola> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_varaldo> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Tutti i verbi dell'ottava, evidenziati in grassetto, sono procomplementari. Il 'Verbo procomplementare' è quel verbo che, secondo la definizione che ne dà lo stesso GRADIT, «si usa stabilmente con particelle clitiche procomplementari (ad es. 'svignarsela') o che, in quanto usato con tali particelle, assume valori specifici, autonomi rispetto al verbo di base (ad es. sentirsela, vedersela, ecc.)»."@it ;
+	crm:P129_is_about desmos:octave ,
+		desmos:procomplementary_verb_lexicon ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_varaldo> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "In questa plaquette, ricca di esperimenti giocosi e acrobazie di ludolinguistica, l'Oplpepo ha voluto omaggiare le Olimpiadi di Parigi 2024, ormai già conclusesi."@it ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/babic> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56_aragona> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Doppie letture per paronomàsia e bisensi."@it ;
+	crm:P129_is_about desmos:paronomasia ,
+		desmos:bisenso ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/aragona> .
+
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_57> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "Questa nuova contrainte si basa sull'omosintattismo, già esplorato dall'Oulipo, con l'aggiunta di vincoli legati al codice binario ('Omosintattismi su base numerica'): il numero di sillabe di ogni verso è convertito in binario e a 0/1 è assegnata una categoria sintattica; il testo di partenza è riscritto seguendo la sequenza."@it ;
+	crm:P129_is_about desmos:numeric_based_homosyntaxism ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/montalto> .
+
 ### Expression ###
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> a lrmoo:F2_Expression ;
 	dcterms:title "Edulcoranti"^^xsd:string ;
@@ -2239,7 +2304,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_32> a lrmoo:F2_Expression ;
 	dcterms:title "Le confessioni di italiano. Peccati di lingua"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_32_addomine> ,
-		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_32_spinelli> ;
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_32_spinelli_a> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_32_spinelli_b> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p36> ;
 	crm:P2_has_type desmos:poetry ,
 		desmos:prose ;
@@ -2329,7 +2395,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> a lrmoo:F2_Expression ;
 	dcterms:title "I costretti sposi"^^xsd:string ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_costretti-sposi> ;
+	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p40> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_36> .
@@ -2614,6 +2680,56 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_54> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> a lrmoo:F2_Expression ;
+	dcterms:title "Kafkiana"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_albani> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_pergola> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_varaldo> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p59> ;
+	crm:P2_has_type desmos:poetry , desmos:prose , desmos:visual_poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_pergola> ,
+		<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_varaldo> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> a lrmoo:F2_Expression ;
+	dcterms:title "Da Kafka a Moska"^^xsd:string ;
+	crm:P2_has_type desmos:visual_poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_pergola> a lrmoo:F2_Expression ;
+	dcterms:title "Cómpito in classe. 'Il processo', di Frank Kafka"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_varaldo> a lrmoo:F2_Expression ;
+	dcterms:title "'Le metamorfosi' della Metamorfosi. Una famiglia onorabile"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> a lrmoo:F2_Expression ;
+	dcterms:title "Les jeux sont faits"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56> ,
+		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56_aragona> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p60> ;
+	crm:P2_has_type desmos:prose , desmos:visual_art , desmos:visual_poetry ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_56> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> a lrmoo:F2_Expression ;
+	dcterms:title "Una sporta di sport"^^xsd:string ;
+	crm:P2_has_type desmos:prose ,
+		desmos:visual_art ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_56> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> a lrmoo:F2_Expression ;
+	dcterms:title "Binari"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_57> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p61> ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_57> .
+
 <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> a lrmoo:F2_Expression ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> .
@@ -2642,9 +2758,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Infinito"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_infinito> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_text_promessi> a lrmoo:F2_Expression ;
+<https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> a lrmoo:F2_Expression ;
 	dcterms:title "I promessi sposi"^^xsd:string ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_promessi> .
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_promessi_sposi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> a lrmoo:F2_Expression ;
 	dcterms:title "The Love Song of J. Alfred Prufrock"^^xsd:string ;
@@ -2668,7 +2784,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Correspondances"^^xsd:string ;
 	dcterms:creator <https://w3id.org/desmos/oplepiana/author/baudelaire> ;
 	crm:P2_has_type desmos:poetry ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_baudelaire_correspondances> .
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_correspondances> .
 
 ### Manifestation ###
 <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_1> a lrmoo:F3_Manifestation ;
@@ -3046,6 +3162,24 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 55"@it ;
+	dcterms:issued "2024"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_56> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 56"@it ;
+	dcterms:issued "2024"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_57> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 57"@it ;
+	dcterms:issued "2025"^^xsd:gYear ;
+	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> .
+
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> a lrmoo:F3_Manifestation ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
@@ -3080,9 +3214,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> ;
 	owl:sameAs <http://id.sbn.it/bid/NAP0210511> .
 
-<https://w3id.org/desmos/oplepiana/manifestation/m_text_promessi> a lrmoo:F3_Manifestation ;
+<https://w3id.org/desmos/oplepiana/manifestation/m_text_promessi_sposi> a lrmoo:F3_Manifestation ;
 	dcterms:title "I promessi sposi"^^xsd:string ;
-	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_promessi> ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
 	owl:sameAs <http://id.sbn.it/bid/CFI0070115> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_lovesong> a lrmoo:F3_Manifestation ;
@@ -3100,6 +3234,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_chopin_preludi> a lrmoo:F3_Manifestation ;
 	dcterms:title "24 Preludi op. 28"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> .
+
+<https://w3id.org/desmos/oplepiana/manifestation/m_text_correspondances> a lrmoo:F3_Manifestation ;
+	dcterms:title "Correspondances"^^xsd:string ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> .
 
 ### Hypertextuality ###
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertext_04> a intro:INT31_IntertextualRelation ;                                       
@@ -3153,8 +3291,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/leopardi> ;
 	dcterms:created "1891"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_promessi> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_promessi> ;
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_promessi_sposi> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/manzoni> ;
 	dcterms:created "1827"^^xsd:gYear .
 
@@ -3786,7 +3924,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	desmos:usedConstraint desmos:mandatory_theme ,
 		desmos:fixed_title_length ;
     crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
-    desmos:usedConstraint desmos:fixed_title_length ;
     dcterms:created "2015"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_40_text_berti> a lrmoo:F28_Expression_Creation ;
@@ -3907,7 +4044,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pelliti> ;
 	desmos:usedConstraint desmos:acronym ,
-		desmos:quartain ,
+		desmos:quatrain ,
 		desmos:distich ,
 		desmos:alternating_rhyme ,
 		desmos:postal_code_acrostic ;
@@ -4010,6 +4147,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_54> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> ;
+	desmos:usedConstraint desmos:mandatory_genre ,
+		desmos:figure_bounded_text ,
+		desmos:handwritten_realization ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
 	dcterms:created "2024"^^xsd:gYear .
 
@@ -4028,6 +4168,52 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:handwritten_realization ; 
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sampieri> ;
 	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_55> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_55_text_albani> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> ;
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:metagram ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_55_text_pergola> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_pergola> ;
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:progressive_alphabetical_lipogram ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/pergola> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_55_text_varaldo> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_varaldo> ;
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:octave ,
+		desmos:procomplementary_verb_lexicon ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_56> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/babic> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_56_text_aragona> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> ;
+	desmos:usedConstraint desmos:paronomasia ,
+		desmos:bisenso ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
+	dcterms:created "2024"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_57> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> ;
+	desmos:usedConstraint desmos:numeric_based_homosyntaxism ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/montalto> ;
+	dcterms:created "2025"^^xsd:gYear .
 
 ### Textual Feature ###
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_01> a desmos:TextualFeature ;
@@ -4144,7 +4330,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
     desmos:revealsConstraint desmos:poliacrostic .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_31_benabou> a desmos:TextualFeature ;
-    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41_text_benabou> ;
+    desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_31_text_benabou> ;
     crm:P3_has_note "Il testo è disposto in colonna. La maggior parte delle righe è formata da due sole parole, un nome seguito da un aggettivo, che si susseguono una per riga; alcune di queste parole ritornano più volte nel componimento. Verso la metà, le righe a due parole sono interrotte da un blocco più breve, graficamente distinto, di versi di una o poche parole ciascuno. Dopo questo blocco riprendono le righe a due parole, alcune delle quali richiamano quelle iniziali."^^xsd:string ;
     desmos:revealsConstraint desmos:morale_elementaire .
 
@@ -4192,6 +4378,13 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
 	crm:P3_has_note "Il testo presenta, alla fine, le glosse in cui è riportato l'elenco delle poesie. Tra parentesi è riportato il CAP della città in questione e le prime lettere di ogni verso sono in grassetto, richiamando così le lettere del CAP."^^xsd:string ;
  	desmos:revealsConstraint desmos:metric_liposyllabism .
+
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_54> a desmos:TextualFeature ;
+	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> ;
+	crm:P3_has_note "La plaquette presenta alcuni testi accompagnati da un coccodrillo stilizzato con all'interno lo stesso testo scritto a mano dall'autrice/autore."^^xsd:string ;
+ 	desmos:revealsConstraint desmos:mandatory_genre ,
+		desmos:figure_bounded_text ,
+		desmos:handwritten_realization .
 
 ### Work ###
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_01> a lrmoo:F1_Work ;
@@ -4404,6 +4597,18 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "La scomparsa di sé. Coccodrillo nel coccodrillo"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> .
 
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_55> a lrmoo:F1_Work ;
+	dcterms:title "Kafkiana"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_56> a lrmoo:F1_Work ;
+	dcterms:title "Les jeux sont faits"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_57> a lrmoo:F1_Work ;
+	dcterms:title "Binari"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> .
+
 <https://w3id.org/desmos/oplepiana/work/w_text_istruzioni> a lrmoo:F1_Work ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> .
@@ -4433,9 +4638,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Infinito"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> .
 
-<https://w3id.org/desmos/oplepiana/work/w_text_promessi> a lrmoo:F1_Work ;
+<https://w3id.org/desmos/oplepiana/work/w_text_promessi_sposi> a lrmoo:F1_Work ;
 	dcterms:title "I promessi sposi"^^xsd:string ;
-	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_promessi> .
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_lovesong> a lrmoo:F1_Work ;
 	dcterms:title "The Love Song of J. Alfred Prufrock"^^xsd:string ;
