@@ -70,6 +70,31 @@ p {
 .text-danger { color: var(--color-accent) !important; }
 
 /* ============================================
+   SISTEMA UNICO — SOTTOLINEATURA DEI RIMANDI DI CONTENUTO
+   Sottolineatura sempre presente ma trasparente a riposo (transparent,
+   non "none": così la comparsa in hover/focus è animabile). Applicata ai
+   rimandi intertestuali (ipotesto, testi contenuti, breadcrumb, link
+   padre/figlio, badge verso /explain, confronto testi). Il colore di
+   riposo resta quello del contesto (color: inherit); solo hover/focus
+   passano a var(--color-accent). Regole più specifiche a valle (es.
+   .badge-vincolo, .expr-breadcrumb a) possono sovrascrivere il colore di
+   riposo mantenendo comunque questo meccanismo di sottolineatura.
+   ============================================ */
+.link-intra {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.15em;
+    color: inherit;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.link-intra:hover,
+.link-intra:focus-visible {
+    text-decoration-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* ============================================
    LAYOUT — GLOBALE
    ============================================ */
 
@@ -258,8 +283,7 @@ footer hr { border-color: var(--color-border); opacity: 1; }
 
 .btn-primary,
 .btn-outline-neutral,
-.btn-outline-custom,
-.btn-confronto {
+.btn-outline-custom {
     background-color: var(--color-surface) !important;
     color: var(--color-accent) !important;
     border: 2px solid var(--color-accent) !important;
@@ -274,16 +298,10 @@ footer hr { border-color: var(--color-border); opacity: 1; }
 
 .btn-primary:hover,
 .btn-outline-neutral:hover,
-.btn-outline-custom:hover,
-.btn-confronto:hover {
+.btn-outline-custom:hover {
     background-color: var(--color-accent) !important;
     color: var(--color-bg) !important;
     border-color: var(--color-accent) !important;
-}
-
-.btn-confronto-sm {
-    font-size: 0.6rem;
-    padding: 4px 12px;
 }
 
 .btn-secondary { background-color: var(--color-muted); color: #ffffff; }
@@ -512,8 +530,6 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--color-text);
     font-size: 0.85rem;
     font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
     border: none !important;
     background: transparent !important;
     padding: 0;
@@ -521,7 +537,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 .badge-vincolo:hover {
     color: var(--color-accent) !important;
-    text-decoration: none !important;
     background-color: transparent !important;
 }
 
@@ -796,15 +811,85 @@ tbody tr:last-child td { border-bottom: none; }
     opacity: 0.75;
 }
 
-.volume-chevron {
-    font-size: 0.9rem;
-    margin-left: 0.5rem;
-    transition: transform 0.25s ease;
+/* Indicatore unico di apertura, identico ai tre livelli della pagina (volume,
+   plaquette, testo). Forma e dimensione sono assolute: non ereditano il contesto
+   tipografico dell'intestazione che lo ospita — corsivo e peso inclusi. */
+.chevron {
     display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-text);
+    transition: transform 0.25s ease;
 }
 
-.volume-toggle[aria-expanded="true"] .volume-chevron {
+/* Un'unica regola di rotazione, agganciata ad aria-expanded: vale sia per i
+   toggle custom sia per gli .accordion-button gestiti da Bootstrap. */
+[aria-expanded="true"] .chevron {
     transform: rotate(180deg);
+}
+
+/* Il chevron SVG di Bootstrap è sostituito dal glifo: senza questo gli accordion
+   mostrerebbero due indicatori sovrapposti. Il button perde anche il
+   `margin-left: auto` che Bootstrap metteva sullo ::after, quindi la spinta a
+   destra passa a space-between, lo stesso meccanismo dei toggle custom. */
+.accordion-button::after {
+    display: none;
+}
+
+.accordion-button {
+    justify-content: space-between;
+}
+
+/* Elenco delle plaquette (secondo livello). Un unico passo verticale, deciso qui:
+   niente margini sui figli, quindi niente collasso e nessuna differenza fra
+   gruppo aperto e gruppo chiuso. */
+.plaquette-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-left: 1rem;
+}
+
+.plaquette-list > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* La riga è l'unità omogenea della lista: collettanea e monografica condividono
+   filo di separazione e altezza, e si leggono come pari-livello. */
+.plaquette-row {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--color-accent);
+}
+
+/* Livello intermedio (titolo di plaquette): stessa resa tipografica e stesso
+   padding verticale del button dell'accordion monografico (py-3 = 1rem). */
+.plaquette-heading {
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    margin: 0;
+    padding: 1rem 0;
+    border-bottom: 0;
+}
+
+.plaquette-heading .plaquette-count {
+    font-style: normal;
+    white-space: nowrap;
+}
+
+/* Lo stacco dei testi espansi è padding del contenitore, non margine dei figli. */
+.plaquette-collapse {
+    padding-bottom: 1rem;
+}
+
+/* L'ultimo testo non raddoppia il filo con quello della riga. */
+.plaquette-collapse .expression-item:last-child .accordion-item {
+    border-bottom: 0;
 }
 
 .expression-card { transition: opacity 0.3s ease; }
@@ -812,18 +897,21 @@ tbody tr:last-child td { border-bottom: none; }
 
 .label-xs { font-size: 0.7rem; }
 
-/* Accordion */
-.accordion-button .fw-semibold {
+/* Accordion. Il titolo dell'espressione non è in grassetto: il grassetto resta
+   riservato alle intestazioni di primo livello (volumi e "Plaquette singole"). */
+.accordion-button .expr-title {
     color: var(--color-text) !important;
+    /* Esplicito, non ereditato: l'h2.accordion-header che lo contiene è
+       comunque soggetto alla regola h1-h6 { font-weight: 700 }. */
+    font-weight: 400;
     font-style: italic;
     transition: color 0.3s ease;
 }
 
-.accordion-button:hover .fw-semibold { color: var(--color-text); }
+.accordion-button:hover .expr-title { color: var(--color-text); }
 
-.accordion-button:not(.collapsed) .fw-semibold {
+.accordion-button:not(.collapsed) .expr-title {
     color: var(--color-accent) !important;
-    font-weight: 700;
 }
 
 .accordion-button:focus { box-shadow: none; border-color: rgba(3, 151, 178, 0.1); }
@@ -853,7 +941,7 @@ tbody tr:last-child td { border-bottom: none; }
 .link-external-xs   { font-size: 0.75rem; }
 .section-title-sm   { font-size: 0.85rem; }
 .arrow-indicator    { font-size: 0.8rem; }
-.link-source-sm     { font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 0.85rem; color: var(--color-text) !important; transition: color 0.2s ease; }
+.link-source-sm     { font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 0.85rem; color: var(--color-text) !important; }
 .link-source-sm:hover { color: var(--color-accent) !important; }
 
 .expression-title { color: var(--color-accent); }
@@ -868,16 +956,22 @@ tbody tr:last-child td { border-bottom: none; }
     letter-spacing: 0.05em;
 }
 
+.expr-meta-dl dt {
+    font-size: 1.05rem;
+}
+
 .expr-meta-dl dd {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--color-text) !important;
     font-style: normal;
 }
 
-.expr-meta-dl dd a {
+/* :not(.ext-icon-link) esclude l'anchor dell'icona esterna: quel colore (a
+   riposo e in hover) è governato da .ext-icon-link più sotto, non da qui. */
+.expr-meta-dl dd a:not(.ext-icon-link) {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--color-text) !important;
     font-style: normal;
 }
@@ -976,10 +1070,46 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .link-external-xs:hover { color: var(--color-accent) !important; }
 
+/* Icona di rimando esterno: riquadro con angolo aperto e freccia uscente, disegnata
+   come SVG inline in una mask CSS. Definita qui una volta sola, vale automaticamente
+   in tutti i punti che usano .external-arrow (scheda, risorse, /explain). Il colore
+   è currentColor, quindi eredita quello del link e segue l'hover. line-height: 1
+   impedisce che l'apice allarghi l'interlinea della riga che lo ospita. */
 .external-arrow {
-    font-size: 0.7em;
-    vertical-align: super;
-    margin-left: 2px;
+    display: inline-block;
+    position: relative;
+    top: -1.5rem;              /* apice: vertical-align non basta, v. sotto */
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-left: 0.25rem;      /* rem, non em: font-size è 0 su questo stesso
+                                   elemento, quindi un em qui risolverebbe a 0 */
+    line-height: 1;
+    font-size: 0;              /* nasconde il glifo di testo sottostante */
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* Rimando a risorsa esterna nella scheda bibliografica: l'etichetta è testo
+   statico (non ipertestuale), solo l'icona in apice è cliccabile. Padding +
+   margine negativo uguali e opposti allargano l'area attiva a >=24px senza
+   spostare il testo circostante. Nessuna sottolineatura: non è un rimando
+   intertestuale (v. .link-intra), ma un marcatore di risorsa esterna. */
+.ext-label { color: var(--color-text); }
+
+.ext-icon-link {
+    display: inline-block;
+    padding: 0.5em;
+    margin: -0.5em;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ext-icon-link:hover,
+.ext-icon-link:focus-visible {
+    color: var(--color-accent);
+    text-decoration: none;
 }
 
 /* Citazione dichiarativa */
@@ -1464,3 +1594,168 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .cm-s-neo .cm-def,
 .CodeMirror .cm-def          { color: var(--color-text)   !important; }
+
+/* ============================================
+   /expression — LAYOUT
+   Solo spaziature, larghezze e collapse: colori e font dalle variabili
+   e dalle famiglie già dichiarate sopra.
+   ============================================ */
+
+.expr-breadcrumb {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+.expr-breadcrumb a {
+    color: var(--color-muted);
+}
+
+.expr-breadcrumb a:hover { color: var(--color-accent); }
+
+.expr-breadcrumb-sep { margin: 0 0.4rem; }
+
+.expr-breadcrumb-current { color: var(--color-text); }
+
+/* Scheda bibliografica. Classe AUTONOMA, non un'estensione di .filter-card: quella
+   codifica elevazione e interattività del pannello filtri in /corpus, questa è
+   contenuto statico. Niente box-shadow, niente transform — e nessuna dipendenza,
+   così ritocchi al pannello filtri non si propagano qui. */
+.expr-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+}
+
+/* Toggle "… e altre N" dell'elenco costrizioni */
+.constraint-more {
+    display: inline-block;
+    font-style: italic;
+    color: var(--color-muted);
+    cursor: pointer;
+}
+
+.constraint-more:hover { color: var(--color-accent); }
+
+.child-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.child-item:last-child { border-bottom: none; }
+
+/* Pannello dei tratti testuali: stesso incasso della dichiarazione paratestuale */
+.feature-block {
+    padding: 1.2rem 1.5rem;
+    background-color: var(--color-surface);
+    border-left: 2px solid var(--color-accent);
+}
+
+.alert-implicita {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    padding: 1rem 1.25rem;
+    text-align: center;
+}
+
+/* ============================================
+   /expression — ANELLO DELLE COSTRIZIONI
+   SVG inline, nessuna libreria. Colori solo da variabili esistenti:
+   --color-accent (formali), lo stesso accent a opacità ridotta (semantiche),
+   --color-border (traccia), --color-text / --color-muted (testo).
+   ============================================ */
+
+.cviz {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.cviz-ring {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.cviz-total {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    fill: var(--color-text);
+}
+
+.cviz-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.cviz-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cviz-legend-item:hover { color: var(--color-accent); }
+
+/* Il pallino ripete esattamente il colore del rispettivo segmento dell'anello. */
+.cviz-dot {
+    flex: none;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+}
+
+.cviz-dot-semantiche { opacity: 0.55; }
+
+.cviz-badges {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* I badge dentro l'espansione restano centrati sotto l'anello. */
+.cviz-badges .d-flex { justify-content: center; }
+
+/* ============================================
+   /expression — LARGHEZZA MISURATA E RITMO VERTICALE
+   Solo struttura e spaziatura: nessun colore, nessun font, nessun componente.
+   ============================================ */
+
+.expr-container {
+    max-width: 1060px;
+    margin-inline: auto;
+}
+
+/* Testata compressa: il respiro sotto il titolo è uno solo, dichiarato qui,
+   invece di sommarsi fra utility del wrapper e margine nativo dell'h1. */
+.expr-header { margin-bottom: 2rem; }
+.expr-header .expr-breadcrumb { margin-bottom: 0.25rem; }
+.expr-header .expression-title { margin-bottom: 0; }
+
+/* Ritmo fra i blocchi di primo livello, e chiusura fissa prima del footer
+   uguale su ogni espressione, qualunque sia l'ultima sezione presente. */
+.expr-container > .row,
+.expr-container > section { margin-bottom: 3rem; }
+
+.expr-container > :last-child { margin-bottom: 4rem; }
+
+/* L'heading non deve toccare il bordo superiore del box. */
+.expr-card > .section-label { margin-top: 0; }
+
+/* Nessun margine residuo sotto l'ultima riga: il padding inferiore della card
+   deve restare l'unico spazio, simmetrico a quello superiore. */
+.expr-card > .expr-meta-dl { margin-bottom: 0; }
+.expr-card > .expr-meta-dl > dd:last-of-type { margin-bottom: 0; }
