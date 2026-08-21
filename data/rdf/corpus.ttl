@@ -23,7 +23,7 @@
 
 <https://w3id.org/desmos/oplepiana/author/varaldo> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Giuseppe Varaldo"^^xsd:string ;
-	rdf:seeAlso <http://id.sbn.it/bid/CFIV018313> .
+	rdfs:seeAlso <http://id.sbn.it/bid/CFIV018313> .
 
 <https://w3id.org/desmos/oplepiana/author/falchetta> a crm:E39_Actor , prov:Agent ;
 	rdfs:label "Piero Falchetta"^^xsd:string ;
@@ -1807,6 +1807,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il 10 febbraio 2023, presso l'Artoteca Alliance in Strada de' Gironda 22 a Bari, si è inaugurata la mostra 'Gustave Eiffel (1832-1923), l' 'homme de fer', organizzata dall'Alliance Française Bari. [...] La mostra documentaria ha ricostruito il percorso del famoso ingegnere attraverso pannelli informativi contenenti documenti d'epoca, quadri, poesie, fotografie, locandine cinematografiche e fumetti. [...] La mostra è stata completata da un pannello realizzato dall'Oplepo, che include cinque composizioni grafico-letterarie che circondano una caricatura dell'ingegnere e della sua torre."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> ;
+	crm:P129_is_about desmos:mandatory_dedication ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_51_bloomfield> a crm:E33_Linguistic_Object ;
@@ -2652,7 +2653,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Il cuboide. Racconto in novantasei didascalie"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_52> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p56> ;
-	crm:P2_has_type desmos:prose .
+	crm:P2_has_type desmos:prose ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_52> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> a lrmoo:F2_Expression ;
 	dcterms:title "In diebus illis. Poesie datate"^^xsd:string ;
@@ -3889,13 +3891,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		<https://w3id.org/desmos/oplepiana/author/ciasullo> ;
 	dcterms:created "2014"^^xsd:gYear .
 
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_37_text_varaldo_ciasullo> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37_text_varaldo_ciasullo> ;
-	desmos:usedConstraint desmos:preventive_review ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ,
-		<https://w3id.org/desmos/oplepiana/author/ciasullo> ;
-	dcterms:created "2014"^^xsd:gYear .
-
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_38> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> ;
 	desmos:usedConstraint desmos:heterolexical_writing ;
@@ -4092,6 +4087,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> ;
 	desmos:usedConstraint desmos:mandatory_dedication ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
 	dcterms:created "2021"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_50_text_pelliti> a lrmoo:F28_Expression_Creation ;
@@ -4112,18 +4108,21 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> ;
+	desmos:usedConstraint desmos:mandatory_dedication ; 
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
 	dcterms:created "2023"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51_text_aragona> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> ;
-	desmos:usedConstraint desmos:boule_de_neige ;
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:boule_de_neige ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
 	dcterms:created "2023"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_51_text_bloomfield> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_bloomfield> ;
-	desmos:usedConstraint desmos:calligram ,
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:calligram ,
 		desmos:homophony ,
 		desmos:anagram ,
 		desmos:value_inversion ;
@@ -4199,12 +4198,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_56> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/babic> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
+	desmos:usedConstraint desmos:mandatory_theme ;
 	dcterms:created "2024"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_56_text_aragona> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56_text_aragona> ;
-	desmos:usedConstraint desmos:paronomasia ,
+	desmos:usedConstraint desmos:mandatory_theme ,
+		desmos:paronomasia ,
 		desmos:bisenso ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/aragona> ;
 	dcterms:created "2024"^^xsd:gYear .
