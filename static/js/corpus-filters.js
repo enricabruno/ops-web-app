@@ -1,3 +1,25 @@
+const FILTER_IDS = [
+    'filterAuthor',
+    'filterGenre',
+    'filterConstraintType',
+    'filterOrigin',
+    'filterOperation',
+    'filterUnit',
+];
+
+function isVisible(el) {
+    return el.style.display !== 'none';
+}
+
+/**
+ * Espande o richiude un contenitore .collapse aggiornando l'aria-expanded
+ * dell'intestazione che lo comanda.
+ */
+function setCollapsed(collapseDiv, heading, expanded) {
+    if (collapseDiv) collapseDiv.classList.toggle('show', expanded);
+    if (heading) heading.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+}
+
 function applyFilters() {
     const authorVal         = document.getElementById('filterAuthor').value.toLowerCase();
     const genreVal          = document.getElementById('filterGenre').value.toLowerCase();
@@ -5,6 +27,8 @@ function applyFilters() {
     const originVal         = document.getElementById('filterOrigin').value.toLowerCase();
     const operationVal      = document.getElementById('filterOperation').value.toLowerCase();
     const unitVal           = document.getElementById('filterUnit').value.toLowerCase();
+
+    const anyFilter = FILTER_IDS.some(id => document.getElementById(id).value !== '');
 
     document.querySelectorAll('.expression-item').forEach(item => {
         const matchesAuthor = !authorVal || item.dataset.author.toLowerCase().includes(authorVal);
@@ -31,46 +55,41 @@ function applyFilters() {
         item.style.display = (matchesAuthor && matchesGenre && matchesConstraintType && matchesOrigin && matchesOperation && matchesUnit) ? '' : 'none';
     });
 
-    document.querySelectorAll('.accordion').forEach(accordion => {
-        const hasVisibleItem = Array.from(accordion.querySelectorAll('.expression-item'))
-            .some(item => item.style.display !== 'none');
-        const collapseDiv = accordion.closest('.collapse');
-        const heading = collapseDiv ? collapseDiv.previousElementSibling : accordion.previousElementSibling;
+    // Livello intermedio: le plaquette singole. Nasconde le intestazioni rimaste vuote
+    // e aggiorna il conteggio dei testi visibili accanto al titolo.
+    document.querySelectorAll('.plaquette-block').forEach(block => {
+        const items   = Array.from(block.querySelectorAll('.expression-item'));
+        const visible = items.filter(isVisible);
 
-        accordion.style.display = hasVisibleItem ? '' : 'none';
+        block.style.display = visible.length ? '' : 'none';
 
-        if (heading && heading.classList.contains('volume-heading')) {
-            heading.style.display = hasVisibleItem ? '' : 'none';
+        const counter = block.querySelector('.plaquette-count');
+        if (counter) {
+            const total = Number(counter.dataset.total);
+            const noun  = total === 1 ? 'testo' : 'testi';
+            counter.textContent = anyFilter
+                ? `${visible.length} di ${total} ${noun}`
+                : `${total} ${noun}`;
         }
 
-        if (collapseDiv) {
-            if (hasVisibleItem) {
-                collapseDiv.classList.add('show');
-                if (heading) heading.setAttribute('aria-expanded', 'true');
-            } else {
-                collapseDiv.classList.remove('show');
-                if (heading) heading.setAttribute('aria-expanded', 'false');
-            }
-        }
+        setCollapsed(block.querySelector('.plaquette-collapse'),
+                     block.querySelector('.plaquette-heading'),
+                     anyFilter && visible.length > 0);
+    });
+
+    // Livello esterno: i volumi (e il gruppo "Plaquette singole").
+    document.querySelectorAll('.volume-block').forEach(block => {
+        const hasVisibleItem = Array.from(block.querySelectorAll('.expression-item')).some(isVisible);
+
+        block.style.display = hasVisibleItem ? '' : 'none';
+
+        setCollapsed(block.querySelector('.volume-collapse'),
+                     block.querySelector('.volume-heading'),
+                     anyFilter && hasVisibleItem);
     });
 }
 
 function resetFilters() {
-    document.getElementById('filterAuthor').value         = '';
-    document.getElementById('filterGenre').value          = '';
-    document.getElementById('filterConstraintType').value = '';
-    document.getElementById('filterOrigin').value         = '';
-    document.getElementById('filterOperation').value      = '';
-    document.getElementById('filterUnit').value           = '';
-
-    document.querySelectorAll('.expression-item').forEach(item => { item.style.display = ''; });
-    document.querySelectorAll('.accordion').forEach(accordion => { accordion.style.display = ''; });
-    document.querySelectorAll('.collapse[id^="volume-"]').forEach(col => {
-        col.classList.remove('show');
-        const heading = col.previousElementSibling;
-        if (heading) {
-            heading.style.display = '';
-            heading.setAttribute('aria-expanded', 'false');
-        }
-    });
+    FILTER_IDS.forEach(id => { document.getElementById(id).value = ''; });
+    applyFilters();
 }
