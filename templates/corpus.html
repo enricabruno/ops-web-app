@@ -3,6 +3,89 @@
 {% block title %}Corpus{% endblock %}
 
 {% block content %}
+{# Voce di accordion per una singola espressione. `uid` rende univoci gli id dei collapse.
+   Nessun margine sul wrapper: il ritmo verticale è gestito dai contenitori. #}
+{% macro expression_item(expr, uid, item_class='border-0 border-bottom') %}
+<div class="expression-item"
+     data-author="{{ expr.author }}"
+     data-type="{{ expr.type }}"
+     data-constraint-type="{{ expr.constraint_types | join(',') }}"
+     data-origins="{{ expr.origins | join(',') }}"
+     data-operations="{{ expr.operations | join(',') }}"
+     data-units="{{ expr.units | join(',') }}">
+
+    <div class="accordion-item {{ item_class }}">
+        <h2 class="accordion-header" id="heading-{{ uid }}">
+            <button class="accordion-button collapsed px-0 py-3 bg-transparent shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-{{ uid }}"
+            aria-expanded="false"
+            aria-controls="collapse-{{ uid }}">
+            <span class="expr-title"><i>{{ expr.title }}</i></span>
+            <span class="chevron">&#x25BE;</span>
+        </button>
+        </h2>
+        <div id="collapse-{{ uid }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="heading-{{ uid }}"
+             data-bs-parent="">
+            <div class="accordion-body pt-1 pb-3 ps-0">
+                <p class="expr-detail-text x-small mb-2">
+                    <span class="fw-bold">Autore:</span>
+                    {{ expr.author }}
+                </p>
+                {% set labeled = expr.constraints | selectattr('label') | list %}
+                {% if labeled %}
+                <p class="expr-detail-text x-small mb-3">
+                    <span class="fw-bold">Costrizioni usate:</span>
+                    {% for c in labeled %}
+                    <a href="/explain?uri={{ c.uri | urlencode }}"
+                    class="constraint-badge"
+                    title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
+                    {{ c.label }}
+                </a>{% if not loop.last %};{% endif %}
+                {% endfor %}
+            </p>
+            {% elif expr.constraints %}
+            <p class="expr-detail-text small mb-3">
+                <span class="fw-bold label-xs">Costrizioni:</span>
+                Etichette non disponibili — verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
+            {% else %}
+            <p class="expr-detail-text small mb-3">
+                <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
+                {% endif %}
+
+                <a href="/expression?uri={{ expr.uri | urlencode }}"
+                   class="btn-approfondisci">
+                    Approfondisci &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{# Banda "Consegna comune": le costrizioni dell'espressione contenitore di una plaquette. #}
+{% macro consegna_comune(container) %}
+{% set labeled = container.constraints | selectattr('label') | list %}
+{% if labeled %}
+<p class="expr-detail-text x-small mb-2 pb-2 border-bottom">
+    <span class="fw-bold">Consegna comune:</span>
+    {% for c in labeled %}
+    <a href="/explain?uri={{ c.uri | urlencode }}"
+       class="constraint-badge"
+       title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
+        {{ c.label }}
+    </a>{% if not loop.last %};{% endif %}
+    {% endfor %}
+    <a href="/expression?uri={{ container.uri | urlencode }}" class="btn-approfondisci ms-2">
+        Approfondisci &rarr;
+    </a>
+</p>
+{% endif %}
+{% endmacro %}
+
 <div class="container mt-5 px-5">
     <div class="row">
         <aside class="col-md-3">
@@ -84,76 +167,52 @@
 
             {% for volume in volumes %}
             {% set vol_loop = loop %}
+            <section class="volume-block">
             <h4 class="volume-heading volume-toggle"
                 data-bs-toggle="collapse"
                 data-bs-target="#volume-{{ vol_loop.index }}"
                 aria-expanded="false"
                 aria-controls="volume-{{ vol_loop.index }}">
-                {{ volume.title }}<span class="volume-chevron">&#x25BE;</span>
+                {{ volume.title }}<span class="chevron">&#x25BE;</span>
             </h4>
-            <div id="volume-{{ vol_loop.index }}" class="collapse">
-            <div class="accordion mb-4" id="corpusAccordion-{{ vol_loop.index }}">
-                {% for expr in volume.expressions %}
-                <div class="expression-item mb-1"
-                     data-author="{{ expr.author }}"
-                     data-type="{{ expr.type }}"
-                     data-constraint-type="{{ expr.constraint_types | join(',') }}"
-                     data-origins="{{ expr.origins | join(',') }}"
-                     data-operations="{{ expr.operations | join(',') }}"
-                     data-units="{{ expr.units | join(',') }}">
+            <div id="volume-{{ vol_loop.index }}" class="collapse volume-collapse">
 
-                    <div class="accordion-item border-0 border-bottom">
-                        <h2 class="accordion-header" id="heading-{{ vol_loop.index }}-{{ loop.index }}">
-                            <button class="accordion-button collapsed px-0 py-3 bg-transparent shadow-none"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapse-{{ vol_loop.index }}-{{ loop.index }}"
-                            aria-expanded="false"
-                            aria-controls="collapse-{{ vol_loop.index }}-{{ loop.index }}">
-                            <span class="fw-semibold text"><i>{{ expr.title }}</i></span>
-                        </button>
-                        </h2>
-                        <div id="collapse-{{ vol_loop.index }}-{{ loop.index }}"
-                             class="accordion-collapse collapse"
-                             aria-labelledby="heading-{{ vol_loop.index }}-{{ loop.index }}"
-                             data-bs-parent="">
-                            <div class="accordion-body pt-1 pb-3 ps-0">
-                                <p class="expr-detail-text x-small mb-2">
-                                    <span class="fw-bold">Autore:</span>
-                                    {{ expr.author }}
-                                </p>
-                                {% set labeled = expr.constraints | selectattr('label') | list %}
-                                {% if labeled %}
-                                <p class="expr-detail-text x-small mb-3">
-                                    <span class="fw-bold">Costrizioni usate:</span>
-                                    {% for c in labeled %}
-                                    <a href="/explain?uri={{ c.uri | urlencode }}"
-                                    class="constraint-badge"
-                                    title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
-                                    {{ c.label }}
-                                </a>{% if not loop.last %};{% endif %}
-                                {% endfor %}
-                            </p>
-                            {% elif expr.constraints %}
-                            <p class="expr-detail-text small mb-3">
-                                <span class="fw-bold label-xs">Costrizioni:</span>
-                                Etichette non disponibili — verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
-                            {% else %}
-                            <p class="expr-detail-text small mb-3">
-                                <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
-                                {% endif %}
-
-                                <a href="/expression?uri={{ expr.uri | urlencode }}"
-                                   class="btn-approfondisci">
-                                    Approfondisci &rarr;
-                                </a>
-                            </div>
-                        </div>
+            {# Terzo livello: <volume> → <titolo plaquette> → <testi contenuti>.
+               .plaquette-list impone un unico passo verticale fra righe omogenee. #}
+            <div class="plaquette-list">
+            {% for plaq in volume.plaquettes %}
+            <div class="plaquette-block plaquette-row">
+                {% if plaq.texts %}
+                <h4 class="volume-heading volume-toggle plaquette-heading"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#plaq-{{ plaq.num }}"
+                    aria-expanded="false"
+                    aria-controls="plaq-{{ plaq.num }}">
+                    <span>{{ plaq.label }}<span class="plaquette-count label-xs fw-normal ms-2"
+                          data-total="{{ plaq.texts | length }}">{{ plaq.texts | length }} {{ 'testo' if plaq.texts | length == 1 else 'testi' }}</span></span>
+                    <span class="chevron">&#x25BE;</span>
+                </h4>
+                <div id="plaq-{{ plaq.num }}" class="collapse plaquette-collapse">
+                    <div class="accordion" id="plaqAccordion-{{ plaq.num }}">
+                        {% if plaq.container %}{{ consegna_comune(plaq.container) }}{% endif %}
+                        {% for expr in plaq.texts %}
+                        {{ expression_item(expr, 'plaq-' ~ plaq.num ~ '-' ~ loop.index) }}
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
+                {% elif plaq.container %}
+                {# Plaquette monografica: nessuna tendina intermedia, voce singola.
+                   Il filo di separazione è quello della riga, non della card. #}
+                <div class="accordion plaquette-mono" id="plaqAccordion-{{ plaq.num }}">
+                    {{ expression_item(plaq.container, 'plaq-' ~ plaq.num, 'border-0') }}
+                </div>
+                {% endif %}
             </div>
+            {% endfor %}
             </div>
+
+            </div>
+            </section>
             {% else %}
             <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
             {% endfor %}

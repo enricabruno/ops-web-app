@@ -3,7 +3,32 @@
 {% block title %}{{ expr.title if expr else "Espressione" }}{% endblock %}
 
 {% block content %}
+{# Elenco di badge costrizione: oltre 15 voci il resto va in un collapse Bootstrap. #}
+{% macro constraint_badges(items, collapse_id) %}
+{% set soglia = 15 %}
+<div class="d-flex flex-wrap gap-2">
+    {% for c in items[:soglia] %}
+    <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
+    {% endfor %}
+</div>
+{% if items | length > soglia %}
+{# .d-flex va sul figlio: su .collapse vincerebbe per !important tenendolo sempre aperto. #}
+<div class="collapse" id="{{ collapse_id }}">
+    <div class="d-flex flex-wrap gap-2 mt-2">
+        {% for c in items[soglia:] %}
+        <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
+        {% endfor %}
+    </div>
+</div>
+<a class="badge-vincolo link-intra constraint-more mt-2" data-bs-toggle="collapse" href="#{{ collapse_id }}"
+   role="button" aria-expanded="false" aria-controls="{{ collapse_id }}">
+    &hellip; e altre {{ items | length - soglia }}
+</a>
+{% endif %}
+{% endmacro %}
+
 <div class="container mt-5 px-5 content-container">
+  <div class="expr-container">
     {% if error %}
     <div class="alert alert-danger">
         <strong>Errore:</strong> {{ error }}
@@ -11,130 +36,197 @@
     </div>
 
     {% elif expr %}
-    <div class="mb-5 text-center">
+
+    {# TESTATA — margini governati da .expr-header, non da utility #}
+    <div class="expr-header text-center">
+        {% if expr.volume_title or expr.parent %}
+        <nav class="expr-breadcrumb" aria-label="Percorso">
+            {% if expr.volume_title %}
+            <span>{{ expr.volume_title }}</span>
+            <span class="expr-breadcrumb-sep">&rsaquo;</span>
+            {% endif %}
+            {% if expr.parent %}
+            <a href="/expression?uri={{ expr.parent.uri | urlencode }}" class="link-intra">{{ expr.parent.title }}</a>
+            <span class="expr-breadcrumb-sep">&rsaquo;</span>
+            {% endif %}
+            <span class="expr-breadcrumb-current">{{ expr.title }}</span>
+        </nav>
+        {% endif %}
+
         <h1 class="fw-bold expression-title">{{ expr.title }}</h1>
     </div>
 
-    <div class="row g-5 mb-5 align-items-start">
-        
-        <div class="col-md-4">
-            <section class="h-100">
-                <h5 class="section-label">Metadati Bibliografici</h5>
-                <dl class="row mb-0 mt-4 px-3 expr-meta-dl">
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Titolo</dt>
-                    <dd class="col-sm-7 small text-muted"><i>{{ expr.title }}</i></dd>
+    {# La card si dimensiona sul proprio contenuto; la colonna destra si centra
+       rispetto ad essa senza obbligarla ad allungarsi. #}
+    <div class="row g-4 align-items-start">
 
-                    {% if expr.manif_title %}
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">{{ expr.manif_label }}</dt>
-                    <dd class="col-sm-7 small text-muted"><i>{{ expr.manif_title }}</i></dd>
+        <div class="col-md-7">
+            <section class="expr-card">
+                <h5 class="section-label text-center">Scheda bibliografica</h5>
+                <dl class="row mb-0 mt-4 expr-meta-dl">
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Titolo:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3"><i>{{ expr.title }}</i></dd>
+
+                    {% if expr.parent or expr.manif_title %}
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Collocazione:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">
+                        {% if expr.parent %}
+                        In <a href="/expression?uri={{ expr.parent.uri | urlencode }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
+                        {% else %}
+                        <i>{{ expr.manif_title }}</i>
+                        {% endif %}
+                    </dd>
                     {% endif %}
 
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Autore</dt>
-                    <dd class="col-sm-7 small text-muted">
-                        {% if expr.author_link %}
-                        <a href="{{ expr.author_link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                            {{ expr.author }}<sup class="lod-indicator">{% if 'viaf.org' in expr.author_link %}VIAF{% elif 'id.sbn.it' in expr.author_link %}SBN{% else %}LOD{% endif %}</sup><sup class="external-arrow">&#8599;</sup>
-                        </a>
-                        {% else %}
-                        {{ expr.author }}
-                        {% endif %}
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Autore:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">
+                        {# Solo l'icona è ipertestuale: il nome resta testo statico, non
+                           reagisce al hover. Aria-label sull'anchor perché non contiene
+                           più testo leggibile dagli screen reader. #}
+                        <span class="ext-label">{{ expr.author }}</span>{% for l in expr.author_links %}<a href="{{ l.url }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" title="{{ l.abbr }}" aria-label="Apri la scheda {{ l.abbr }} di {{ expr.author }}"><sup class="external-arrow">&#8599;</sup></a>{% endfor %}
                     </dd>
 
                     {% if expr.year %}
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Anno</dt>
-                    <dd class="col-sm-7 small text-muted">{{ expr.year }}</dd>
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Anno:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">{{ expr.year }}</dd>
                     {% endif %}
 
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Risorsa</dt>
-                    <dd class="col-sm-7">
+                    {% if expr.work_types %}
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Forma:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">{{ expr.work_types }}</dd>
+                    {% endif %}
+
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Ipotesto:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">
+                        {% if expr.sources %}
+                            {% for source in expr.sources %}
+                            <div class="mb-1">
+                                <a href="/expression?uri={{ source.uri | urlencode }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small">&middot; <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="link-intra" title="Vedi i testi a confronto">confronta &#8644;</a></span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            Testo originale
+                        {% endif %}
+                    </dd>
+
+                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Risorse:</dt>
+                    <dd class="col-sm-7 small text-muted ps-3">
                         <div class="d-flex flex-wrap gap-2">
-                            {% set all_links = [] %}
-                            {% if expr.see_alsos %}{% set all_links = all_links + expr.see_alsos %}{% endif %}
-                            {% if expr.exact_matches %}{% set all_links = all_links + expr.exact_matches %}{% endif %}
-                            
-                            {% if all_links %}
-                                {% for link in all_links %}
-                                <a href="{{ link }}" target="_blank" class="text-decoration-none link-external-xs">
-                                    {% if 'viaf.org' in link %}VIAF{% elif 'id.sbn.it' in link %}SBN{% else %}LOD{% endif %}<sup class="external-arrow">&#8599;</sup>
-                                </a>
-                                {% endfor %}
+                            {% for l in expr.resources %}
+                            <span><span class="ext-label">{{ l.abbr }}</span><a href="{{ l.url }}" target="_blank" rel="noopener noreferrer"
+                               class="ext-icon-link" title="{{ l.abbr }}" aria-label="Apri {{ l.abbr }}"><sup class="external-arrow">&#8599;</sup></a></span>
                             {% else %}
-                                <span class="text-muted">Nessuna</span>
-                            {% endif %}
+                            <span class="text-muted">Nessuna</span>
+                            {% endfor %}
                         </div>
-                    </dd>  
+                    </dd>
                 </dl>
             </section>
         </div>
 
-        <div class="col-md-4">
-            <section class="h-100 px-3">
-                <h5 class="section-label">Costrizioni</h5>
-                <dl class="row mb-0 mt-4 px-3 expr-meta-dl">
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Totale</dt>
-                    <dd class="col-sm-7 small text-muted">
-                        <span class="badge rounded-pill bg-light text-dark">{{ expr.total_constraints }}</span>
-                    </dd>
+        {# Nessun box qui: l'anello resta su fondo pagina. align-self-center lo centra
+           verticalmente rispetto alla card, senza allungare né l'una né l'altra. #}
+        <div class="col-md-5 align-self-center">
+            <section>
+                <h5 class="section-label text-center">Costrizioni presenti</h5>
 
-                    {% if expr.constraints_formali %}
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Formali</dt>
-                    <dd class="col-sm-7 small">
-                        <div class="d-flex flex-wrap">
-                            {% for c in expr.constraints_formali %}
-                                <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
-                            {% endfor %}
-                        </div>
-                    </dd>
+                {% set tot = expr.total_constraints %}
+                {% set nf = expr.constraints_formali | length %}
+                {% set ns = expr.constraints_semantiche | length %}
+
+                {% if tot %}
+                {# Circonferenza per r=52: 2 * 3.1416 * 52. L'arco semantiche è il complemento
+                   esatto di quello formali, così la somma chiude il cerchio senza gap né
+                   sovrapposizioni alle giunzioni. #}
+                {% set c = 326.73 %}
+                {% set lf = (c * nf / tot) | round(2) %}
+                {% set ls = (c - lf) | round(2) %}
+                <div class="cviz">
+                    <svg class="cviz-ring" width="160" height="160" viewBox="0 0 120 120"
+                         role="img" aria-labelledby="cviz-title">
+                        <title id="cviz-title">{{ tot }} {{ 'costrizione' if tot == 1 else 'costrizioni' }}: {{ nf }} {{ 'formale' if nf == 1 else 'formali' }}, {{ ns }} {{ 'semantica' if ns == 1 else 'semantiche' }}</title>
+                        <g transform="rotate(-90 60 60)" fill="none" stroke-width="8">
+                            <circle cx="60" cy="60" r="52" stroke="var(--color-border)"/>
+                            {% if ns %}
+                            <circle cx="60" cy="60" r="52" stroke="var(--color-accent)" opacity="0.55"
+                                    stroke-dasharray="{{ ls }} {{ (c - ls) | round(2) }}"
+                                    stroke-dashoffset="-{{ lf }}"/>
+                            {% endif %}
+                            {% if nf %}
+                            <circle cx="60" cy="60" r="52" stroke="var(--color-accent)"
+                                    stroke-dasharray="{{ lf }} {{ (c - lf) | round(2) }}"
+                                    stroke-dashoffset="0"/>
+                            {% endif %}
+                        </g>
+                        {# Solo il numero: la parola resta nel <title> per gli screen reader. #}
+                        <text class="cviz-total" x="60" y="60" text-anchor="middle" dominant-baseline="central">{{ tot }}</text>
+                    </svg>
+
+                    {# Le voci di legenda sono i toggle: i badge restano nascosti finché
+                       non si clicca su "Formali"/"Semantiche". #}
+                    <div class="cviz-legend">
+                        {% if nf %}
+                        <a class="cviz-legend-item" data-bs-toggle="collapse" href="#cviz-formali"
+                           role="button" aria-expanded="false" aria-controls="cviz-formali">
+                            <span class="cviz-dot"></span>Formali ({{ nf }})
+                        </a>
+                        {% endif %}
+                        {% if ns %}
+                        <a class="cviz-legend-item" data-bs-toggle="collapse" href="#cviz-semantiche"
+                           role="button" aria-expanded="false" aria-controls="cviz-semantiche">
+                            <span class="cviz-dot cviz-dot-semantiche"></span>Semantiche ({{ ns }})
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    {% if nf %}
+                    <div class="collapse" id="cviz-formali">
+                        <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali') }}</div>
+                    </div>
                     {% endif %}
-
-                    {% if expr.constraints_semantiche %}
-                    <dt class="col-sm-5 metadata-section-label text-end pe-3">Semantiche</dt>
-                    <dd class="col-sm-7 small">
-                        <div class="d-flex flex-wrap">
-                            {% for c in expr.constraints_semantiche %}
-                                <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo">{{ c.label }}</a>{% if not loop.last %}<span class="text-muted me-1">,</span>{% endif %}
-                            {% endfor %}
-                        </div>
-                    </dd>
-                    {% endif %}  
-                </dl>
-                {% if not expr.constraints_formali and not expr.constraints_semantiche %}
+                    {% if ns %}
+                    <div class="collapse" id="cviz-semantiche">
+                        <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche') }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
                 <p class="expr-plain-text small text-center mt-3">Nessuna costrizione utilizzata.</p>
                 {% endif %}
             </section>
         </div>
+    </div>
 
-        <div class="col-md-4">
-            <section class="h-100">
-                <h5 class="section-label">Ipotesto di riferimento</h5>
-                <div class="mt-4 d-flex flex-column align-items-center px-3">
-                    {% if expr.sources %}
-                        {% for source in expr.sources %}
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <i class="fa-solid fa-arrow-right-long text-muted"></i>
-                            <a href="/expression?uri={{ source.uri | urlencode }}" class="text-dark text-decoration-none link-source-sm">
-                                {{ source.title }}
-                            </a>
-                        </div>
-                        {% endfor %}
-                        {% if expr.has_alignment %}
-                        <div class="mt-3 d-flex align-items-center gap-2">
-                            <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="btn btn-confronto btn-confronto-sm">Vedi testi a confronto</a>
-                        </div>
-                        {% endif %}
-                    {% else %}
-                        <span class="expr-plain-text">Testo originale</span>
-                    {% endif %}
+    {# ==================== 3. TESTI CONTENUTI ==================== #}
+    {% if expr.children %}
+    <section>
+        <h5 class="section-label">Testi contenuti nella plaquette</h5>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% for child in expr.children %}
+                <div class="child-item">
+                    <a href="/expression?uri={{ child.uri | urlencode }}" class="link-source-sm link-intra"><i>{{ child.title }}</i></a>
+                    {% if child.author %}<span class="text-muted small ms-2">{{ child.author }}</span>{% endif %}
                 </div>
-            </section>
+                {% endfor %}
+            </div>
         </div>
-    </div> <div class="row justify-content-center">
-        <div class="col-lg-10">
+    </section>
+    {% endif %}
+
+    {# ==================== 4. STATUTO DELLA COSTRIZIONE ==================== #}
+    <section>
+        <h5 class="section-label">{{ expr.status_label }}</h5>
+
+        {% if expr.fragments or expr.features %}
+        {% set due_pannelli = expr.fragments and expr.features %}
+        <div class="row g-4 justify-content-center">
+
             {% if expr.fragments %}
-            <section class="mt-1">
-                <h5 class="section-label text-center mb-4">Esplicitazione delle costrizioni usate</h5>
+            <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
+                <h6 class="section-label-declaration">Dichiarazione paratestuale</h6>
                 {% for fragment in expr.fragments %}
-                <div class="mb-5 text-center">
+                <div class="mb-4 text-center">
                     <blockquote class="declaration-block">
                         <p class="blockquote-text">
                             <i class="fa-solid fa-quote-left"></i>
@@ -149,6 +241,13 @@
                         </p>
                     </blockquote>
                     {% endif %}
+                    {% if fragment.declared %}
+                    <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                        {% for c in fragment.declared %}
+                        <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <div class="source-declaration text-end mt-2">
                         <span class="relation-label">
                             Fonte: <span class="manifestation-title">{{ fragment.man_title }}</span>,
@@ -158,11 +257,37 @@
                     </div>
                 </div>
                 {% endfor %}
-            </section>
+            </div>
+            {% endif %}
+
+            {% if expr.features %}
+            <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
+                <h6 class="section-label-declaration">Tratti testuali rivelatori</h6>
+                {% for feature in expr.features %}
+                <div class="declaration-block feature-block mb-4">
+                    <p class="expr-plain-text">{{ feature.note }}</p>
+                    {% if feature.constraints %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
-    </div>  
+
+        {% else %}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="alert-implicita">
+                    <strong>Costrizione implicita:</strong> nessuna dichiarazione paratestuale né
+                    tratto testuale manifesto. La costrizione è nota unicamente come metadato di
+                    catalogazione.
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
 
     {% endif %}
+  </div>
 </div>
 {% endblock %}
