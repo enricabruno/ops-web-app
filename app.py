@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
-from SPARQLWrapper import SPARQLWrapper, JSON
+from SPARQLWrapper import SPARQLWrapper, JSON, POST
 from dotenv import load_dotenv
 from urllib.parse import quote, unquote
 from collections import defaultdict
@@ -75,6 +75,9 @@ def execute_sparql_query(query):
         sparql = SPARQLWrapper(SPARQL_ENDPOINT)
         sparql.setQuery(query)
         sparql.setReturnFormat(JSON)
+        # POST: in GET la query viaggia nell'URL e le query lunghe sfondano il
+        # limite di header di Tomcat ("Request header is too large").
+        sparql.setMethod(POST)
         results = sparql.query().convert()
 
         print(f"✓ Query successful")
@@ -135,6 +138,9 @@ def corpus():
            (SAMPLE(?_parentTitle) AS ?parentTitle)
            (SAMPLE(?_parentPlaquetteTitle) AS ?parentPlaquetteTitle)
            (SAMPLE(?_directMfTitle) AS ?directMfTitle)
+           (SAMPLE(?_directMf) AS ?directMfUri)
+           (SAMPLE(?_containerTitle) AS ?containerTitle)
+           (SAMPLE(?_parentExpr) AS ?parentExpr)
            (SAMPLE(?_volTitle) AS ?volTitle)
            (GROUP_CONCAT(DISTINCT ?authorName; separator=", ") AS ?authors)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?constraint), "##", COALESCE(?constraintLabel, ""), "##", COALESCE(?constraintTypeLocal, ""), "##", COALESCE(?originLabel, "")); separator="||") AS ?constraintData)
@@ -207,13 +213,22 @@ def corpus():
       }
       OPTIONAL {
         # Stop at the immediate F3_Manifestation — do NOT traverse crm:P148i_is_component_of.
-        ?expression lrmoo:R4i_is_embodied_in ?_directMf .
+        # L'inverso ^lrmoo:R4_embodies copre le espressioni che asseriscono solo quel verso.
+        ?expression lrmoo:R4i_is_embodied_in|^lrmoo:R4_embodies ?_directMf .
         ?_directMf dct:title ?_directMfTitle .
 
         # Risalita al volume principale (es. "La Biblioteca Oplepiana, I volume")
         OPTIONAL {
           ?_directMf crm:P148i_is_component_of ?_mainVolume .
           ?_mainVolume dct:title ?_volTitle .
+        }
+
+        # Titolo "vero" della plaquette: viene dall'espressione contenitore (es. "Kafkiana"),
+        # non dal dcterms:title della manifestazione (che è "Plaquette N. 55").
+        OPTIONAL {
+          ?_directMf lrmoo:R4_embodies|^lrmoo:R4i_is_embodied_in ?_containerExpr .
+          FILTER NOT EXISTS { ?_anyParent crm:P148_has_component ?_containerExpr }
+          ?_containerExpr dct:title ?_containerTitle .
         }
       }
     }
@@ -304,6 +319,13 @@ def corpus():
 
             volume_title = b.get('volTitle', {}).get('value', '').strip() or 'Plaquette singole'
 
+            # Chiave di raggruppamento di secondo livello: la manifestazione (m_plaquette_NN),
+            # condivisa dall'espressione contenitore e dai testi che contiene.
+            mf_uri = b.get('directMfUri', {}).get('value', '')
+            container_title = b.get('containerTitle', {}).get('value', '').strip()
+            parent_expr = b.get('parentExpr', {}).get('value', '')
+            plaq_match = re.search(r'm_plaquette_(\d+)', mf_uri)
+
             exp_data = {
                 'uri': b['expression']['value'],
                 'title': b['title']['value'],
@@ -316,6 +338,13 @@ def corpus():
                 'units': sorted(set(formal_units + semantic_units)),
                 'plaquette_rel': plaquette_rel,
                 'volume': volume_title,
+                'mf_uri': mf_uri,
+                'plaquette_key': mf_uri,
+                'plaquette_label': container_title or direct_mf_title or 'Plaquette senza titolo',
+                'plaq_num': int(plaq_match.group(1)) if plaq_match else 999,
+                'is_component': bool(parent_expr),
+                'parent_expr': parent_expr,
+                'is_container': False,  # calcolato dopo, su tutte le espressioni
             }
             expressions.append(exp_data)
             facets['authors'].add(b['authors']['value'])
@@ -326,11 +355,48 @@ def corpus():
     facets['units'] = sorted(list(facets.pop('formal_units') | facets.pop('semantic_units')))
     facets = {k: sorted(list(v)) if isinstance(v, set) else v for k, v in facets.items()}
 
+    # Un'espressione è "contenitore" se compare come padre (parentExpr) di almeno un'altra riga
+    parent_uris = {e['parent_expr'] for e in expressions if e['parent_expr']}
+    for exp_data in expressions:
+        exp_data['is_container'] = exp_data['uri'] in parent_uris
+
     # Raggruppa le espressioni per volume (es. "Biblioteca Oplepiana, Volume I")
     volumes_map = {}
     for exp_data in expressions:
         volumes_map.setdefault(exp_data['volume'], []).append(exp_data)
-    volumes = [{'title': vol_title, 'expressions': vol_expressions}
+
+    def build_plaquette_groups(vol_expressions):
+        """Raggruppa le espressioni di un volume per plaquette: <titolo plaquette> → <testi>.
+
+        Il gruppo nasce dalla chiave mf_uri (la manifestazione condivisa da contenitore e
+        componenti), mai dalla riga del contenitore: per alcune plaquette (30, 50, 51, 56)
+        l'espressione contenitore non compare tra i risultati della query.
+        """
+        groups_map = {}
+        for exp_data in vol_expressions:
+            key = exp_data['plaquette_key'] or exp_data['uri']
+            group = groups_map.get(key)
+            if group is None:
+                group = groups_map[key] = {
+                    'label': exp_data['plaquette_label'],
+                    'num': exp_data['plaq_num'],
+                    'container': None,
+                    'texts': [],
+                }
+            if exp_data['is_component']:
+                group['texts'].append(exp_data)
+            else:
+                # Contenitore di una collettanea oppure plaquette monografica: in entrambi
+                # i casi la riga descrive la plaquette nel suo insieme.
+                group['container'] = exp_data
+        # Ordine di plaquette (= ordine fisico nel volume), non alfabetico.
+        return sorted(groups_map.values(), key=lambda g: g['num'])
+
+    # Ogni gruppo — i tre volumi e le plaquette autonome — ha lo stesso terzo livello:
+    # <volume> → <titolo plaquette> → <testi contenuti>.
+    volumes = [{'title': vol_title,
+                'expressions': vol_expressions,
+                'plaquettes': build_plaquette_groups(vol_expressions)}
                for vol_title, vol_expressions in sorted(volumes_map.items())]
 
     print(f"Total expressions processed: {len(expressions)}")
@@ -391,12 +457,26 @@ def _parse_relation_items(raw):
     return items
 
 
+# Abbreviazione della fonte esterna, in ordine di verifica. I primi quattro sono
+# vocabolari di autorità; id.loc.gov e il Nuovo Soggettario BNCF sono anch'essi dati
+# collegati e restano 'LOD'. Tutto il resto (siti d'autore, oplepo.com) è 'WEB':
+# risorse di approfondimento, non dati collegati.
+_EXTERNAL_SOURCES = (
+    ('viaf.org', 'VIAF'),
+    ('id.sbn.it', 'SBN'),
+    ('wikidata.org', 'WD'),
+    ('oulipo.net', 'OULIPO'),
+    ('id.loc.gov', 'LOD'),
+    ('thes.bncf.firenze.sbn.it', 'LOD'),
+    ('oplepo.com', 'Scheda Oplepo'),
+)
+
+
 def _external_source_abbr(link):
-    if 'oulipo.net' in link:
-        return 'OULIPO'
-    if 'wikidata.org' in link:
-        return 'WD'
-    return 'LOD'
+    for needle, abbr in _EXTERNAL_SOURCES:
+        if needle in link:
+            return abbr
+    return 'WEB'
 
 
 @app.route('/explain')
@@ -604,11 +684,19 @@ def expression():
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX intro: <https://w3id.org/lso/intro/beta202506#>
     PREFIX schema: <http://schema.org/>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-    SELECT ?title ?authorName ?authorLink ?year ?workType
+    SELECT ?title ?authorName ?year
+           (GROUP_CONCAT(DISTINCT ?authorLinkRaw; separator="||") AS ?authorLinks)
+           (GROUP_CONCAT(DISTINCT ?wtLabel; separator=", ") AS ?workTypeLabels)
            (SAMPLE(?_manifTitle) AS ?manifTitle)
            (SAMPLE(STR(?_parentExpr)) AS ?parentExprStr)
+           (SAMPLE(?_parentTitle) AS ?parentTitle)
+           (SAMPLE(?_volTitle) AS ?volTitle)
            (SAMPLE(?hasAlignment) AS ?alignment)
+           (GROUP_CONCAT(DISTINCT ?childData; separator="||") AS ?childrenData)
+           (GROUP_CONCAT(DISTINCT ?tfData; separator="||") AS ?featuresData)
+           (GROUP_CONCAT(DISTINCT ?declPair; separator="||") AS ?declaredData)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?constraint), "##", STR(?constraintLabel), "##", STR(?scheme)); separator="||") AS ?constraintData)
            (GROUP_CONCAT(DISTINCT ?fragData; separator="|||") AS ?fragmentsConcat)
            (GROUP_CONCAT(DISTINCT ?exactMatch; separator="||") AS ?exactMatches)
@@ -618,25 +706,51 @@ def expression():
         BIND(<%s> AS ?uri)
 
         ?uri dct:title ?title .
-        OPTIONAL { ?uri crm:P2_has_type ?workType }
-        OPTIONAL { ?uri owl:sameAs ?sameAs }
+        # Forma testuale: etichette italiane dei concetti SKOS. Fuori dalla GROUP BY,
+        # altrimenti un'espressione multi-tipo moltiplica le righe e se ne perde parte.
+        OPTIONAL {
+            ?uri crm:P2_has_type ?workType .
+            ?workType skos:prefLabel ?wtLabel .
+            FILTER(lang(?wtLabel) = "it")
+        }
         OPTIONAL { ?uri rdfs:seeAlso ?seeAlso }
 
         ?creation lrmoo:R17_created ?uri ;
                   crm:P14_carried_out_by ?author .
         ?author rdfs:label ?authorName .
-        OPTIONAL { ?author owl:sameAS ?authorLink }
-        
+        # 10 autori su 51 non hanno owl:sameAs ma solo rdfs:seeAlso: servono entrambe.
+        OPTIONAL { ?author owl:sameAs|rdfs:seeAlso ?authorLinkRaw }
+
         OPTIONAL { ?creation dct:created ?year }
 
-        # 1. Recupero Manifestazione: property path cattura R4_is_embodied_in e ^R4_embodies
+        # 1. Recupero Manifestazione: property path cattura R4i_is_embodied_in e ^R4_embodies
         OPTIONAL {
-            ?uri (lrmoo:R4_is_embodied_in | ^lrmoo:R4_embodies) ?_manifNode .
+            ?uri (lrmoo:R4i_is_embodied_in | ^lrmoo:R4_embodies) ?_manifNode .
             ?_manifNode dct:title ?_manifTitleRaw .
             BIND(STR(?_manifTitleRaw) AS ?_manifTitle)
+
+            # Risalita al volume, per il breadcrumb
+            OPTIONAL {
+                ?_manifNode crm:P148i_is_component_of ?_vol .
+                ?_vol dct:title ?_volTitle .
+            }
         }
-        # 1b. Verifica se l'espressione è componente di un'espressione padre
-        OPTIONAL { ?uri crm:P148i_is_component_of ?_parentExpr }
+        # 1b. Espressione padre (plaquette contenitore) con titolo, per link e breadcrumb
+        OPTIONAL {
+            ?uri crm:P148i_is_component_of|^crm:P148_has_component ?_parentExpr .
+            ?_parentExpr dct:title ?_parentTitle .
+        }
+        # 1c. Testi contenuti, se l'espressione è un contenitore
+        OPTIONAL {
+            ?uri crm:P148_has_component ?child .
+            ?child dct:title ?childTitle .
+            OPTIONAL {
+                ?chCr lrmoo:R17_created ?child ;
+                      crm:P14_carried_out_by ?chA .
+                ?chA rdfs:label ?childAuthor .
+            }
+            BIND(CONCAT(STR(?child), "##", STR(?childTitle), "##", COALESCE(STR(?childAuthor), "")) AS ?childData)
+        }
 
         # 2. Costrizioni
         OPTIONAL {
@@ -655,6 +769,14 @@ def expression():
                      crm:P67_refers_to ?uri ;
                      crm:P3_has_note ?fragText .
             OPTIONAL { ?lingObj crm:P190_has_symbolic_content ?fragContent }
+            # Costrizione dichiarata dal paratesto. Può essercene più d'una: la coppia
+            # viene proiettata a parte e riagganciata al frammento in Python via URI.
+            OPTIONAL {
+                ?lingObj crm:P129_is_about ?declC .
+                ?declC skos:prefLabel ?declCL .
+                FILTER(lang(?declCL) = "it")
+                BIND(CONCAT(STR(?lingObj), "§", STR(?declC), "§", STR(?declCL)) AS ?declPair)
+            }
             BIND("direct" AS ?fSource)
 
             OPTIONAL {
@@ -671,7 +793,23 @@ def expression():
             BIND(COALESCE(STR(?volYear), "") AS ?finalYear)
             BIND(COALESCE(STR(?pageVal), "") AS ?finalPage)
             BIND(COALESCE(STR(?fragContent), "") AS ?finalContent)
-            BIND(CONCAT(STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent) AS ?fragData)
+            BIND(CONCAT(STR(?lingObj), "##", STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent) AS ?fragData)
+        }
+
+        # 3b. Tratti testuali rivelatori (desmos:TextualFeature). Una feature può
+        # rivelare più costrizioni: si proiettano coppie (feature, costrizione) e si
+        # raggruppa per feature in Python, evitando una subquery correlata.
+        OPTIONAL {
+            ?tf a desmos:TextualFeature ;
+                desmos:isFeatureOf ?uri ;
+                crm:P3_has_note ?tfNote .
+            OPTIONAL {
+                ?tf desmos:revealsConstraint ?tfC .
+                ?tfC skos:prefLabel ?tfCL .
+                FILTER(lang(?tfCL) = "it")
+            }
+            BIND(CONCAT(STR(?tf), "§", STR(?tfNote), "§",
+                        COALESCE(STR(?tfC), ""), "§", COALESCE(STR(?tfCL), "")) AS ?tfData)
         }
 
         OPTIONAL { ?uri lrmoo:R76_is_derivative_of ?srcExpr . ?srcExpr dct:title ?srcTitle . }
@@ -683,7 +821,7 @@ def expression():
             BIND("true" AS ?hasAlignment)
         }
     }
-    GROUP BY ?title ?authorName ?authorLink ?year ?workType ?hasAlignment
+    GROUP BY ?title ?authorName ?year ?hasAlignment
     """ % uri
 
     result = execute_sparql_query(query)
@@ -691,7 +829,9 @@ def expression():
         return render_template('expression.html', expr=None, error="Dati non trovati.")
 
     b = result['data']['results']['bindings'][0]
-    
+
+    work_types = b.get('workTypeLabels', {}).get('value', '')
+
     constraints_formali, constraints_semantiche = [], []
     seen_uris = set()
     raw_constraints = b.get('constraintData', {}).get('value', '')
@@ -704,6 +844,16 @@ def expression():
                 if 'FormalConstraintScheme' in parts[2]: constraints_formali.append(obj)
                 elif 'SemanticConstraintScheme' in parts[2]: constraints_semantiche.append(obj)
 
+    # Costrizioni dichiarate dal paratesto (P129_is_about), raggruppate per E33 di origine
+    declared_by_obj = {}
+    for pair in b.get('declaredData', {}).get('value', '').split('||'):
+        bits = pair.split('§')
+        if len(bits) == 3 and bits[1]:
+            entry = {'uri': bits[1], 'label': bits[2]}
+            bucket = declared_by_obj.setdefault(bits[0], [])
+            if entry not in bucket:
+                bucket.append(entry)
+
     fragments = []
     seen_frag_texts = set()
     raw_frags = b.get('fragmentsConcat', {}).get('value', '')
@@ -712,41 +862,97 @@ def expression():
             entry = entry.strip()
             if not entry:
                 continue
-            # 6-part concat: text ## full_title ## year ## page ## source_type ## symbolic_content
-            parts = entry.split('##', 5)
-            frag_text = parts[0].strip()
+            # 7-part concat: obj_uri ## text ## full_title ## year ## page ## source ## content
+            parts = entry.split('##', 6)
+            obj_uri = parts[0].strip()
+            frag_text = parts[1].strip() if len(parts) > 1 else ''
             if not frag_text or frag_text in seen_frag_texts:
                 continue
             seen_frag_texts.add(frag_text)
             fragments.append({
+                'uri':       obj_uri,
                 'text':      frag_text,
-                'man_title': parts[1].strip() if len(parts) > 1 else '',
-                'issued':    parts[2].strip() if len(parts) > 2 else '',
-                'page':      parts[3].strip() if len(parts) > 3 else '',
-                'source':    parts[4].strip() if len(parts) > 4 else 'direct',
-                'content':   parts[5].strip() if len(parts) > 5 else '',
+                'man_title': parts[2].strip() if len(parts) > 2 else '',
+                'issued':    parts[3].strip() if len(parts) > 3 else '',
+                'page':      parts[4].strip() if len(parts) > 4 else '',
+                'source':    parts[5].strip() if len(parts) > 5 else 'direct',
+                'content':   parts[6].strip() if len(parts) > 6 else '',
+                'declared':  declared_by_obj.get(obj_uri, []),
             })
-    
-    exact_matches = [m.strip() for m in b.get('exactMatches', {}).get('value', '').split('||') if m.strip()]
-    see_alsos = [s.strip() for s in b.get('seeAlsos', {}).get('value', '').split('||') if s.strip()]
+
+    # Tratti testuali rivelatori: coppie (feature, costrizione) raggruppate per feature,
+    # così una nota con più costrizioni rivelate resta una sola voce.
+    features_by_uri = {}
+    for pair in b.get('featuresData', {}).get('value', '').split('||'):
+        bits = pair.split('§')
+        if len(bits) != 4 or not bits[0]:
+            continue
+        feat = features_by_uri.setdefault(bits[0], {'note': bits[1], 'constraints': []})
+        if bits[2]:
+            entry = {'uri': bits[2], 'label': bits[3]}
+            if entry not in feat['constraints']:
+                feat['constraints'].append(entry)
+    features = list(features_by_uri.values())
+
+    # Testi contenuti (se l'espressione è una plaquette contenitore)
+    children = []
+    for item in b.get('childrenData', {}).get('value', '').split('||'):
+        bits = item.split('##')
+        if len(bits) >= 2 and bits[0]:
+            children.append({'uri': bits[0], 'title': bits[1],
+                             'author': bits[2] if len(bits) > 2 else ''})
+    children.sort(key=lambda c: c['title'])
+
+    # Statuto della costrizione: tassonomia 2×2 su dichiarazione paratestuale e
+    # tratto testuale manifesto.
+    has_declaration, has_features = bool(fragments), bool(features)
+    if has_declaration and has_features:
+        status_key, status_label = 'dichiarata-manifesta', 'Costrizione dichiarata e manifesta'
+    elif has_declaration:
+        status_key, status_label = 'dichiarata', 'Costrizione dichiarata'
+    elif has_features:
+        status_key, status_label = 'manifesta', 'Costrizione non dichiarata ma manifesta nel testo'
+    else:
+        status_key, status_label = 'implicita', 'Costrizione implicita'
+
+    def _link_list(raw):
+        """Da stringa concatenata a lista deduplicata di {url, abbr}, ordine preservato."""
+        out, seen = [], set()
+        for url in (u.strip() for u in raw.split('||')):
+            if url and url not in seen:
+                seen.add(url)
+                out.append({'url': url, 'abbr': _external_source_abbr(url)})
+        return out
+
+    author_links = _link_list(b.get('authorLinks', {}).get('value', ''))
+    resources = _link_list(b.get('seeAlsos', {}).get('value', '') + '||' +
+                           b.get('exactMatches', {}).get('value', ''))
 
     manif_title = b.get('manifTitle', {}).get('value', '')
     parent_expr_str = b.get('parentExprStr', {}).get('value', '')
-    manif_label = 'In:' if parent_expr_str else 'Plaquette:'
+    parent_title = b.get('parentTitle', {}).get('value', '')
+    parent = {'uri': parent_expr_str, 'title': parent_title} if parent_expr_str else None
+    manif_label = 'In:' if parent else 'Plaquette:'
 
     expr = {
         'uri': uri,
         'title': b['title']['value'],
         'author': b['authorName']['value'],
-        'author_link': b.get('authorLink', {}).get('value') or None,
+        'author_links': author_links,
         'year': b.get('year', {}).get('value', ''),
+        'work_types': work_types,
         'total_constraints': len(seen_uris),
         'constraints_formali': constraints_formali,
         'constraints_semantiche': constraints_semantiche,
         'fragments': fragments,
+        'features': features,
+        'children': children,
+        'parent': parent,
+        'volume_title': b.get('volTitle', {}).get('value', ''),
+        'status_key': status_key,
+        'status_label': status_label,
         'sources': [{'uri': x.split('##')[0], 'title': x.split('##')[1]} for x in b.get('derivedFrom', {}).get('value', '').split('||') if '##' in x],
-        'exact_matches': exact_matches,
-        'see_alsos': see_alsos,
+        'resources': resources,
         'manif_title': manif_title,
         'manif_label': manif_label,
         'has_alignment': b.get('alignment', {}).get('value', '') == 'true',
