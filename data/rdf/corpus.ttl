@@ -478,7 +478,7 @@ desmos:fixed_fictional_character a desmos:SemanticConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_character .
 
-desmos:fixed_fixed_fictional_setting a desmos:SemanticConstraint ;
+desmos:fixed_fictional_setting a desmos:SemanticConstraint ;
 	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fixed_fictional_setting .
