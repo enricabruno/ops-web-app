@@ -70,19 +70,21 @@
 {% macro consegna_comune(container) %}
 {% set labeled = container.constraints | selectattr('label') | list %}
 {% if labeled %}
-<p class="expr-detail-text x-small mb-2 pb-2 border-bottom">
-    <span class="fw-bold">Consegna comune:</span>
-    {% for c in labeled %}
-    <a href="/explain?uri={{ c.uri | urlencode }}"
-       class="constraint-badge"
-       title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
-        {{ c.label }}
-    </a>{% if not loop.last %};{% endif %}
-    {% endfor %}
-    <a href="/expression?uri={{ container.uri | urlencode }}" class="btn-approfondisci ms-2">
+<div class="consegna-comune pb-2 border-bottom">
+    <p class="expr-detail-text x-small mb-2">
+        <span class="fw-bold">Consegna comune:</span>
+        {% for c in labeled %}
+        <a href="/explain?uri={{ c.uri | urlencode }}"
+           class="constraint-badge"
+           title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
+            {{ c.label }}
+        </a>{% if not loop.last %};{% endif %}
+        {% endfor %}
+    </p>
+    <a href="/expression?uri={{ container.uri | urlencode }}" class="btn-approfondisci">
         Approfondisci &rarr;
     </a>
-</p>
+</div>
 {% endif %}
 {% endmacro %}
 
