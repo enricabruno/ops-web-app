@@ -22,13 +22,29 @@ PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
 PREFIX dcterms:    <http://purl.org/dc/terms/>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?constraint ?label
+SELECT ?numCostrizioni ?numPlaquette ?numTesti
 WHERE {
-  ?constraint a desmos:FormlaConstraint ;
-              skos:prefLabel ?label .
-  FILTER(lang(?label) = "it")
-}
-ORDER BY ?label`;
+  {
+    SELECT (COUNT(DISTINCT ?constraint) AS ?numCostrizioni)
+    WHERE {
+      ?constraint a desmos:FormalConstraint .
+    }
+  }
+  {
+    SELECT (COUNT(DISTINCT ?plaquette) AS ?numPlaquette)
+    WHERE {
+      ?plaquette a lrmoo:F3_Manifestation ;
+                 dcterms:title ?plaquetteTitle .
+      FILTER(STRSTARTS(STR(?plaquetteTitle), "Plaquette"))
+    }
+  }
+  {
+    SELECT (COUNT(DISTINCT ?testo) AS ?numTesti)
+    WHERE {
+      ?testo a lrmoo:F2_Expression .
+    }
+  }
+}`;
 
 // ── Template Queries ────────────────────────────────────────────────────────
 const TEMPLATES = {
