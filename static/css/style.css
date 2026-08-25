@@ -358,15 +358,17 @@ footer hr { border-color: var(--color-border); opacity: 1; }
 .btn-resource:hover { background-color: var(--color-accent); color: #ffffff; }
 
 .btn-approfondisci {
-    display: inline-block;
+    display: table;
+    margin-top: 0.5rem;
     background-color: var(--color-surface) !important;
     color: var(--color-accent) !important;
-    border: 2px solid var(--color-accent) !important;
+    border: 1px solid var(--color-accent) !important;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 0.65rem;
-    padding: 4px 12px;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    padding: 4px 10px;
     border-radius: 30px;
     text-decoration: none !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
@@ -1399,11 +1401,14 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .query-hub-link:hover .query-hub-icon { color: #ffffff !important; }
 
 .query-hub-link.query-hub-nl .query-hub-icon,
-.query-hub-link.query-hub-nl .query-hub-title,
-.query-hub-link.query-hub-sparql .query-hub-icon,
-.query-hub-link.query-hub-sparql .query-hub-title { color: var(--color-muted); }
+.query-hub-link.query-hub-sparql .query-hub-icon { color: var(--color-muted); }
 
-.query-hub-link .query-hub-desc { color: var(--color-muted); font-size: 1.1rem; }
+.query-hub-title {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    color: var(--color-text);
+}
+
+.query-hub-link .query-hub-desc { color: var(--color-text); font-size: 1.1rem; }
 
 .query-hub-icon {
     height: 60px;

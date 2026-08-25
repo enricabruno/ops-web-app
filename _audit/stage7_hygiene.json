@@ -1,0 +1,96 @@
+{
+  "whitespace_issues_count": {
+    "leading/trailing-space": 1,
+    "double-space": 4
+  },
+  "whitespace_issues_sample": [
+    [
+      "leading/trailing-space",
+      "https://w3id.org/desmos/embedded_numeral_calculus",
+      "http://www.w3.org/2004/02/skos/core#historyNote",
+      "The constraint was invented by Laura Brignoli in 'Che magìa "
+    ],
+    [
+      "double-space",
+      "https://w3id.org/desmos/example_alternating_rhyme",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+      "Giuseppe Varaldo, «Canto tenero. Mitografemi», Biblioteca Op"
+    ],
+    [
+      "double-space",
+      "https://w3id.org/desmos/example_enclosed_rhyme",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+      "Giuseppe Varaldo, «Identikit lessicali», Biblioteca Oplepian"
+    ],
+    [
+      "double-space",
+      "https://w3id.org/desmos/example_enclosed_rhyme",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+      "Giuseppe Varaldo, «Identikit lessicali», Biblioteca Oplepian"
+    ],
+    [
+      "double-space",
+      "https://w3id.org/desmos/example_alternating_rhyme",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+      "Giuseppe Varaldo, «Canto tenero. Mitografemi», Biblioteca Op"
+    ]
+  ],
+  "uri_issues": [],
+  "apostrophe_quote_report": {
+    "http://www.w3.org/2004/02/skos/core#definition": {
+      "straight_ascii": 99,
+      "curly_U+2019": 9
+    },
+    "http://purl.org/dc/terms/title": {
+      "straight_ascii": 23,
+      "caporali": 1,
+      "curly_U+2019": 2
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": {
+      "caporali": 89,
+      "straight_ascii": 69,
+      "straight_doublequote": 2
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P3_has_note": {
+      "curly_U+2019": 10,
+      "straight_ascii": 62,
+      "caporali": 15
+    },
+    "http://www.w3.org/2004/02/skos/core#scopeNote": {
+      "straight_ascii": 18
+    },
+    "http://www.w3.org/2004/02/skos/core#example": {
+      "straight_ascii": 40,
+      "caporali": 33
+    },
+    "http://www.w3.org/2004/02/skos/core#historyNote": {
+      "straight_ascii": 17,
+      "caporali": 2
+    },
+    "https://w3id.org/lso/intro/beta202506#R44_hasWording": {
+      "straight_ascii": 2
+    },
+    "http://www.w3.org/2004/02/skos/core#prefLabel": {
+      "straight_ascii": 2
+    },
+    "http://www.w3.org/2000/01/rdf-schema#label": {
+      "straight_ascii": 1
+    }
+  },
+  "mixed_apostrophe_properties": {
+    "http://www.w3.org/2004/02/skos/core#definition": {
+      "straight_ascii": 99,
+      "curly_U+2019": 9
+    },
+    "http://purl.org/dc/terms/title": {
+      "straight_ascii": 23,
+      "caporali": 1,
+      "curly_U+2019": 2
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P3_has_note": {
+      "curly_U+2019": 10,
+      "straight_ascii": 62,
+      "caporali": 15
+    }
+  }
+}

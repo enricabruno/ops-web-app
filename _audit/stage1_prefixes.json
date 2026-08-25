@@ -1,0 +1,92 @@
+{
+  "desmos.owl": {
+    "declared": {
+      "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+      "owl": "http://www.w3.org/2002/07/owl#",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "xml": "http://www.w3.org/XML/1998/namespace",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "intro": "https://w3id.org/lso/intro/beta202506#",
+      "lrmoo": "http://iflastandards.info/ns/lrm/lrmoo/",
+      "desmos": "https://w3id.org/desmos/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "(default)": "https://w3id.org/desmos/"
+    },
+    "unused_declared": [
+      "crm",
+      "desmos",
+      "intro",
+      "lrmoo",
+      "prov",
+      "xml",
+      "xsd"
+    ],
+    "used_undeclared": []
+  },
+  "concept.ttl": {
+    "declared": {
+      "desmos": "https://w3id.org/desmos/",
+      "oplepiana": "https://w3id.org/desmos/oplepiana/",
+      "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+      "owl": "http://www.w3.org/2002/07/owl#",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "lrmoo": "http://iflastandards.info/ns/lrm/lrmoo/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "intro": "https://w3id.org/lso/intro/beta202506#"
+    },
+    "unused_declared": [
+      "crm",
+      "dcterms",
+      "intro",
+      "lrmoo",
+      "oplepiana",
+      "owl",
+      "prov",
+      "rdf",
+      "rdfs",
+      "xsd"
+    ],
+    "used_undeclared": []
+  },
+  "corpus.ttl": {
+    "declared": {
+      "desmos": "https://w3id.org/desmos/",
+      "oplepiana": "https://w3id.org/desmos/oplepiana/",
+      "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+      "owl": "http://www.w3.org/2002/07/owl#",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "lrmoo": "http://iflastandards.info/ns/lrm/lrmoo/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "intro": "https://w3id.org/lso/intro/beta202506#",
+      "schema": "http://schema.org/"
+    },
+    "unused_declared": [
+      "oplepiana",
+      "rdf"
+    ],
+    "used_undeclared": [
+      "Elle",
+      "F"
+    ]
+  },
+  "examples.ttl": {
+    "declared": {
+      "desmos": "https://w3id.org/desmos/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "unused_declared": [],
+    "used_undeclared": []
+  }
+}
