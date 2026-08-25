@@ -50,28 +50,24 @@ ORDER BY ?authorName ?expressionTitle`,
 
   constraints:
 `PREFIX desmos: <https://w3id.org/desmos/>
-PREFIX lrmoo:  <http://iflastandards.info/ns/lrm/lrmoo/>
-PREFIX crm:    <http://www.cidoc-crm.org/cidoc-crm/>
-PREFIX dcterms:    <http://purl.org/dc/terms/>
 PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
-PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?scopeLabel ?constraintLabel ?expressionTitle
+SELECT ?constraintLabel (GROUP_CONCAT(?unitLabel; separator=", ") AS ?unitLabels)
 WHERE {
-  ?creation lrmoo:R17_created ?expression ;
-            desmos:usedConstraint ?constraint .
-  ?expression dcterms:title ?expressionTitle .
+  ?constraint a desmos:FormalConstraint ;
+              desmos:constrainsFormalUnit ?unit .
   OPTIONAL {
     ?constraint skos:prefLabel ?constraintLabel .
     FILTER(lang(?constraintLabel) = "it")
   }
   OPTIONAL {
-    ?constraint desmos:constraintScope ?scope .
-    ?scope skos:prefLabel ?scopeLabel .
-    FILTER(lang(?scopeLabel) = "it")
+    ?unit skos:prefLabel ?unitLabel .
+    FILTER(lang(?unitLabel) = "it")
   }
 }
-ORDER BY ?scopeLabel ?constraintLabel`,
+GROUP BY ?constraint ?constraintLabel
+ORDER BY ?constraintLabel
+LIMIT 50`,
 
   derivatives:
 `PREFIX lrmoo:  <http://iflastandards.info/ns/lrm/lrmoo/>
@@ -120,6 +116,7 @@ function loadTemplate(name) {
     editor.setValue(TEMPLATES[name]);
     document.getElementById('results-section').classList.add('d-none');
     document.getElementById('results-count-badge').textContent = '';
+    hideDownloadButton();
     editor.focus();
   }
 }
@@ -128,6 +125,7 @@ function clearEditor() {
   document.getElementById('results-section').classList.add('d-none');
   document.getElementById('query-results').innerHTML = '';
   document.getElementById('results-count-badge').textContent = '';
+  hideDownloadButton();
   resetEditor();
 }
 
@@ -150,6 +148,7 @@ async function executeQuery() {
       <span class="spinner-border spinner-border-sm me-2"></span>Interrogazione del Knowledge Graph in corso…
     </div>`;
   setBadge('', 'bg-secondary');
+  hideDownloadButton();
 
   try {
     const response = await fetch('/query', {
@@ -185,6 +184,15 @@ function setBadge(text, cls = 'bg-secondary') {
 }
 
 // ── Result rendering ────────────────────────────────────────────────────────
+let lastResultsVariables = null;
+let lastResultsBindings  = null;
+
+function hideDownloadButton() {
+  document.getElementById('download-csv-btn').classList.add('d-none');
+  lastResultsVariables = null;
+  lastResultsBindings  = null;
+}
+
 function displayResults(data) {
   const resultsDiv = document.getElementById('query-results');
 
@@ -196,6 +204,7 @@ function displayResults(data) {
       <div class="alert ${val ? 'alert-success' : 'alert-warning'} mb-0">
         Risultato ASK: <strong>${val ? 'TRUE' : 'FALSE'}</strong>
       </div>`;
+    hideDownloadButton();
     return;
   }
 
@@ -205,6 +214,7 @@ function displayResults(data) {
   if (bindings.length === 0) {
     setBadge('0 risultati', 'bg-warning text-dark');
     resultsDiv.innerHTML = '<div class="alert alert-warning mb-0">La query è valida, ma non ha restituito risultati nel repository.</div>';
+    hideDownloadButton();
     return;
   }
 
@@ -219,11 +229,36 @@ function displayResults(data) {
     <div class="results-table-wrap">
       <table class="table table-hover table-bordered table-sm align-middle bg-white mb-0">
         <thead class="table-light">
-          <tr>${variables.map(v => `<th class="text-primary small fw-semibold">${escapeHtml(v)}</th>`).join('')}</tr>
+          <tr>${variables.map(v => `<th class="small fw-semibold">${escapeHtml(v)}</th>`).join('')}</tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>
     </div>`;
+
+  lastResultsVariables = variables;
+  lastResultsBindings  = bindings;
+  document.getElementById('download-csv-btn').classList.remove('d-none');
+}
+
+function downloadResultsCSV() {
+  if (!lastResultsVariables || !lastResultsBindings) return;
+
+  const escapeCsv = (val) => `"${String(val).replace(/"/g, '""')}"`;
+  const lines = [lastResultsVariables.map(escapeCsv).join(',')];
+
+  for (const binding of lastResultsBindings) {
+    lines.push(lastResultsVariables.map(v => escapeCsv(binding[v]?.value ?? '')).join(','));
+  }
+
+  const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `risultati-sparql-${Date.now()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function renderCell(item) {
@@ -294,6 +329,7 @@ function displayError(msg) {
       <strong><i class="fa fa-exclamation-triangle me-2"></i>${escapeHtml(title)}</strong>
       <pre class="error-pre mt-2">${escapeHtml(msg)}</pre>
     </div>`;
+  hideDownloadButton();
 }
 
 // ── Init ─────────────────────────────────────────────────────────────────────

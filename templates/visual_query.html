@@ -6,47 +6,8 @@
 <div class="container mt-5 px-5">
     <div class="row">
         <div class="col-lg-10 mx-auto text-center">
-            <h1 class="fw-bold mb-4">Esplora il Knowledge Graph</h1>
-            <p class="lead text-muted mb-5">Componi la tua domanda selezionando i parametri dai menu a tendina.</p>
-
-            <div class="card shadow-sm border-0 p-5 bg-light mb-5">
-                <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 visual-query-sentence">
-                    <span>Mostrami tutte le</span>
-                    <select id="selectType" class="form-select visual-query-select">
-                        <option value="opere">opere</option>
-                        <option value="autori">autori</option>
-                    </select>
-                    <span>che utilizzano il vincolo</span>
-                    <select id="selectConstraint" class="form-select visual-query-select">
-                        <option value="all">qualsiasi</option>
-                        {% for c in constraints %}
-                            <option value="{{ c }}">{{ c }}</option>
-                        {% endfor %}
-                    </select>
-                    <span>nel contesto di</span>
-                    <select id="selectScope" class="form-select visual-query-select">
-                        <option value="all">ogni ambito</option>
-                        <option value="FormalConstraint">Costrizione formale</option>
-                        <option value="SemanticConstraint">Costrizione semantico</option>
-                    </select>
-                    <button class="btn btn-primary ms-3 px-4 shadow-sm" onclick="runVisualQuery()">
-                        Cerca &rarr;
-                    </button>
-                </div>
-            </div>
-
-            <div id="visual-results-section" class="d-none">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white fw-bold">Risultati della ricerca</div>
-                    <div id="visual-results-body" class="card-body p-0">
-                        </div>
-                </div>
-            </div>
+            <h1 class="fw-bold mb-4">Interroga il Knowledge Graph</h1>
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-<script src="{{ url_for('static', filename='js/visual-query.js') }}"></script>
 {% endblock %}

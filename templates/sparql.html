@@ -32,7 +32,7 @@
                 </li>
                 <li>
                   <button class="dropdown-item small" onclick="loadTemplate('constraints')">
-                    <i class="fa fa-tag me-2 text-muted"></i>Costrizioni per ambito
+                    <i class="fa fa-tag me-2 text-muted"></i>Elenca le costrizioni formali con le relative unità vincolate
                   </button>
                 </li>
                 <li>
@@ -75,6 +75,11 @@
         <span id="results-count-badge" class="badge bg-secondary"></span>
       </div>
       <div id="query-results" class="card-body p-3"></div>
+      <div class="card-footer bg-white d-flex justify-content-end py-2">
+        <button type="button" id="download-csv-btn" class="btn btn-sm btn-outline-neutral d-none" onclick="downloadResultsCSV()">
+          <i class="fa fa-download me-1"></i>Scarica CSV
+        </button>
+      </div>
     </div>
   </section>
 
