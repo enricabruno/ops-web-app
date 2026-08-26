@@ -695,6 +695,7 @@ def expression():
            (SAMPLE(?_parentTitle) AS ?parentTitle)
            (SAMPLE(?_volTitle) AS ?volTitle)
            (SAMPLE(?hasAlignment) AS ?alignment)
+           (SAMPLE(?isHypotextRaw) AS ?isHypotext)
            (GROUP_CONCAT(DISTINCT ?childData; separator="||") AS ?childrenData)
            (GROUP_CONCAT(DISTINCT ?tfData; separator="||") AS ?featuresData)
            (GROUP_CONCAT(DISTINCT ?declPair; separator="||") AS ?declaredData)
@@ -707,6 +708,10 @@ def expression():
         BIND(<%s> AS ?uri)
 
         ?uri dct:title ?title .
+        # Un ipotesto (fonte esterna, es. la Commedia) ha comunque una F3_Manifestation
+        # per completezza del modello LRMoo, ma è un'entità-stub con lo stesso titolo
+        # dell'espressione: non è una collocazione reale da mostrare in scheda.
+        BIND(EXISTS { ?anyExpr lrmoo:R76_is_derivative_of ?uri } AS ?isHypotextRaw)
         # Forma testuale: etichette italiane dei concetti SKOS. Fuori dalla GROUP BY,
         # altrimenti un'espressione multi-tipo moltiplica le righe e se ne perde parte.
         OPTIONAL {
@@ -982,7 +987,10 @@ def expression():
     resources = _link_list(b.get('seeAlsos', {}).get('value', '') + '||' +
                            b.get('exactMatches', {}).get('value', ''))
 
-    manif_title = b.get('manifTitle', {}).get('value', '')
+    is_hypotext = b.get('isHypotext', {}).get('value', '') == 'true'
+    # Un ipotesto ha comunque una F3_Manifestation per completezza del modello
+    # (v. commento nella query): non è una collocazione dichiarata, va taciuta.
+    manif_title = '' if is_hypotext else b.get('manifTitle', {}).get('value', '')
     parent_expr_str = b.get('parentExprStr', {}).get('value', '')
     parent_title = b.get('parentTitle', {}).get('value', '')
     parent = {'uri': parent_expr_str, 'title': parent_title} if parent_expr_str else None
