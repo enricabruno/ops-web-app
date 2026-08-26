@@ -210,25 +210,27 @@
        - classe (intestazione, una volta sola): "Dichiarazione paratestuale"/
          "Tratto testuale" sono bottoni ipertestuali che al hover/focus mostrano
          la DEFINIZIONE della categoria (testo costante, da desmos.owl — vedi i
-         due <div> nascosti sotto). Il verbo di relazione (riguarda/rivela) le
-         segue, non cliccabile, per non sdoppiare l'affordance del link.
+         due <div> nascosti sotto). Cursore 'help': è il segnale primario che
+         qui si apre una definizione, non un'azione (v. .evidence-category-btn).
        - istanza (per corsia): la linea/freccia di ciascuna corsia è essa stessa
-         il bottone che apre la prova concreta di QUELLA corsia. Niente etichetta
-         di testo per corsia: la intestazione condivisa già dice "che cos'è
-         questa categoria", la linea dice "qual è questa prova". Bracci
-         tratteggiati: nessun bottone, nessuna prova da mostrare. #}
+         il bottone che apre la prova concreta di QUELLA corsia (cursore
+         'pointer', a differenza del 'help' sopra: due cursori distinguono i
+         due tipi di popup). Il verbo di relazione (riguarda/rivela) sta sopra
+         la linea, per corsia — non nell'intestazione: ogni riga si legge come
+         una tripla RDF completa (soggetto in intestazione, predicato sulla
+         freccia, oggetto al centro). Niente verbo su un braccio tratteggiato:
+         se la relazione non sussiste, non va nominata. Bracci tratteggiati:
+         nessun bottone, nessuna prova da mostrare. #}
     {% if expr.evidence %}
     <section class="evidence-section">
         <div class="evidence-header">
             <div class="evidence-header-col evidence-header-decl">
                 <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
                         data-prov-source="evidence-def-decl">Dichiarazione paratestuale</button>
-                <span class="evidence-verb">riguarda</span>
             </div>
             <div class="evidence-header-col evidence-header-feat">
                 <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
                         data-prov-source="evidence-def-feat">Tratto testuale</button>
-                <span class="evidence-verb">rivela</span>
             </div>
         </div>
 
@@ -237,6 +239,7 @@
             <div class="evidence-row" data-status="{{ item.status_key }}">
                 <div class="evidence-arm evidence-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
                     {% if item.declared %}
+                    <span class="evidence-arm-verb">riguarda</span>
                     <button type="button" class="evidence-arm-line" data-bs-toggle="popover"
                             data-prov-source="{{ item.decl_anchor }}"
                             aria-label="Dichiarazione paratestuale — {{ item.label }}"></button>
@@ -251,6 +254,7 @@
 
                 <div class="evidence-arm evidence-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
                     {% if item.manifest %}
+                    <span class="evidence-arm-verb">rivela</span>
                     <button type="button" class="evidence-arm-line" data-bs-toggle="popover"
                             data-prov-source="{{ item.feat_anchor }}"
                             aria-label="Tratto testuale — {{ item.label }}"></button>
@@ -261,6 +265,8 @@
             </div>
             {% endfor %}
         </div>
+
+        <p class="evidence-legend">Passa il mouse sulle etichette per la definizione; seleziona una freccia per leggere la prova.</p>
 
         {# Definizioni di categoria: testo costante, non estratto a runtime da
            desmos.owl. "Tratto testuale" è rdfs:comment@it verbatim di
@@ -359,8 +365,8 @@
      senza questo, un click reale in Safari non apre mai il popover.
    - Bootstrap non chiude Popover/Tooltip con Esc (lo fa solo per modal,
      offcanvas e dropdown): va aggiunto a mano. #}
-function initEvidencePopover(btn, triggerValue) {
-    return new bootstrap.Popover(btn, {
+function initEvidencePopover(btn, triggerValue, extraOptions) {
+    var options = Object.assign({
         html: true,
         sanitize: false,
         trigger: triggerValue,
@@ -370,14 +376,15 @@ function initEvidencePopover(btn, triggerValue) {
             var src = document.getElementById(btn.dataset.provSource);
             return src ? src.innerHTML : '';
         },
-    });
+    }, extraOptions || {});
+    return new bootstrap.Popover(btn, options);
 }
 
 var categoryPopovers = [];
 var instancePopovers = [];
 
 document.querySelectorAll('.evidence-category-btn').forEach(function (btn) {
-    var popover = initEvidencePopover(btn, 'hover focus');
+    var popover = initEvidencePopover(btn, 'hover focus', { delay: { show: 150, hide: 100 } });
     btn.addEventListener('show.bs.popover', function () {
         instancePopovers.forEach(function (p) { p.hide(); });
     });

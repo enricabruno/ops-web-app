@@ -1535,17 +1535,21 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 }
 .evidence-header-col { display: flex; align-items: center; gap: 0.4rem; }
 
-.evidence-category-btn {
+/* Cursore 'help', non 'pointer': segnala che qui si apre una DEFINIZIONE, non
+   un'azione — a differenza delle frecce sotto (.evidence-arm-line, cursore
+   'pointer'), che aprono una prova concreta. Nessuna sottolineatura a riposo:
+   compare solo in hover, il cursore resta il segnale primario.
+   Selettore con [type="button"]: il reboot di Bootstrap include
+   [type="button"]:not(:disabled){cursor:pointer}, specificità (0,2,0) — il
+   nostro bottone ha type="button", quindi la corrisponde e la batterebbe
+   sia una classe singola (0,1,0) sia `button.evidence-category-btn` (0,1,1). */
+button.evidence-category-btn[type="button"] {
     all: unset;
-    cursor: pointer;
-    color: inherit;
-    border-bottom: 1px dotted var(--color-accent);
+    cursor: help;
+    transition: color .2s ease;
 }
-.evidence-category-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
-
-/* Il verbo segue il sostantivo ma non è mai cliccabile: l'affordance del link
-   resta solo sul bottone di categoria, non si sdoppia sul verbo. */
-.evidence-verb { font-style: italic; font-size: 0.85rem; color: var(--color-muted); }
+.evidence-category-btn:hover { color: var(--color-accent); border-bottom: 1px solid var(--color-accent); }
+.evidence-category-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .evidence-axis {
     display: flex;
@@ -1554,30 +1558,70 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     margin: 0 0 2rem;
 }
 
+/* 76px di altezza per fare posto al verbo sopra la linea senza comprimere il
+   ritmo verticale; align-items: flex-end tiene le linee (e il nodo) sempre
+   alla stessa quota, che la corsia abbia il verbo sopra o no. */
 .evidence-row {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-end;
+    gap: 14px;
+    min-height: 76px;
 }
 
-.evidence-arm { flex: 1 1 0; min-width: 0; display: flex; align-items: center; }
+.evidence-arm {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Il verbo di relazione sta sopra la linea del proprio braccio, centrato sulla
+   stessa larghezza: ogni riga si legge come una tripla RDF completa (soggetto
+   in intestazione, predicato qui, oggetto al centro). Assente sui bracci
+   tratteggiati — se la relazione non sussiste, non va nominata. */
+.evidence-arm-verb {
+    display: block;
+    text-align: center;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--color-text);
+    margin-bottom: 4px;
+}
 
 /* La linea è essa stessa il bersaglio quando piena, non una decorazione accanto
    a un'etichetta di testo: area cliccabile alta 24px, il tratto visibile resta
-   sottile (::before) al centro dell'area. */
+   sottile (::before) al centro dell'area. La punta (::after) è rivolta verso
+   il nodo su entrambi i lati — disegna la direzione soggetto -> oggetto della
+   tripla — con 14px di distacco dal testo del nome (il gap della riga sopra).
+   Assente sui bracci tratteggiati. */
 .evidence-arm-line {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     height: 24px;
 }
+.evidence-arm-feat .evidence-arm-line { flex-direction: row-reverse; }
+
 .evidence-arm-line::before {
     content: '';
     display: block;
-    width: 100%;
+    flex: 1 1 auto;
     border-top: 2px solid var(--color-accent);
 }
 .evidence-arm.is-dashed .evidence-arm-line::before { border-top-style: dashed; opacity: 0.5; }
+
+.evidence-arm.is-solid .evidence-arm-line::after {
+    content: '';
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+.evidence-arm-decl.is-solid .evidence-arm-line::after { border-left: 7px solid var(--color-accent); }
+.evidence-arm-feat.is-solid .evidence-arm-line::after { border-right: 7px solid var(--color-accent); }
 
 button.evidence-arm-line {
     all: unset;
@@ -1587,12 +1631,20 @@ button.evidence-arm-line {
     height: 24px;
     cursor: pointer;
 }
-button.evidence-arm-line:hover::before { border-color: var(--color-text); }
+button.evidence-arm-line:hover::before { border-top-width: 2.4px; }
 button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
 .evidence-node { flex: 0 0 auto; max-width: 220px; text-align: center; }
 
 .evidence-constraint { display: block; font-weight: 700; }
+
+.evidence-legend {
+    font-size: .75rem;
+    color: var(--color-muted);
+    font-style: italic;
+    text-align: center;
+    margin-top: 1.5rem;
+}
 
 /* Corpo del popover: stesso stile per i due livelli (definizione di categoria
    sull'intestazione, prova concreta sulla corsia). Il contenuto viene dal <div
