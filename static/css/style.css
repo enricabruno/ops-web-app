@@ -1569,6 +1569,69 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     border-left: 2px solid var(--color-accent);
 }
 
+/* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra
+   e tratto testuale rivelatore a destra. Il "binario" (::before) di ciascun
+   braccio è sempre disegnato: pieno e cliccabile se l'evidenza esiste (rimanda
+   con un'ancora al testo integrale sotto), tratteggiato e non interattivo se no. */
+.ev-axis {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.ev-axis-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ev-arm { flex: 1 1 0; min-width: 0; }
+
+.ev-arm-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+}
+.ev-arm-decl .ev-arm-line { flex-direction: row-reverse; }
+
+.ev-arm-line::before {
+    content: '';
+    flex: 1 1 auto;
+    height: 0;
+    border-top: 2px solid var(--color-accent);
+}
+
+.ev-arm.is-dashed .ev-arm-line::before { border-top-style: dashed; opacity: 0.5; }
+.ev-arm.is-dashed .ev-arm-label { opacity: 0.6; }
+
+.ev-arm-decl.is-solid .ev-arm-line:hover,
+.ev-arm-feat.is-solid .ev-arm-line:hover { color: var(--color-accent); }
+.ev-arm.is-solid .ev-arm-line:hover::before { border-color: var(--color-text); }
+.ev-arm.is-solid .ev-arm-line:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+
+.ev-arm-label { font-size: 0.8rem; }
+
+.ev-axis-node {
+    flex: 0 0 auto;
+    max-width: 220px;
+    text-align: center;
+}
+
+.ev-axis-constraint {
+    display: block;
+    font-weight: 700;
+}
+
+.ev-axis-status {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
 .alert-implicita {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 0.95rem;
