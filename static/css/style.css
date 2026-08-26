@@ -1754,17 +1754,35 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 /* ============================================
    /expression — LARGHEZZA MISURATA E RITMO VERTICALE
    Solo struttura e spaziatura: nessun colore, nessun font, nessun componente.
+   Scala: 0.75rem / 1.5rem / 2rem / 3rem / 4rem — stacchi maggiori solo fra
+   sezioni gerarchicamente più separate, mai valori intermedi arbitrari.
    ============================================ */
 
+/* Niente max-width proprio: la larghezza segue quella di .container come
+   corpus.html (prima era ristretta a 1060px, più stretta delle altre
+   pagine — v. anche la rimozione di .content-container nel template). */
 .expr-container {
-    max-width: 1060px;
     margin-inline: auto;
 }
 
-/* Testata compressa: il respiro sotto il titolo è uno solo, dichiarato qui,
-   invece di sommarsi fra utility del wrapper e margine nativo dell'h1. */
-.expr-header { margin-bottom: 2rem; }
-.expr-header .expr-breadcrumb { margin-bottom: 0.25rem; }
+/* .container (regola globale, condivisa da tutte le pagine) ha un suo
+   padding: 2rem su tutti i lati: si somma silenziosamente a mt-5 in alto
+   (5rem invece di 3) e al margin-bottom dell'asse in fondo (6rem invece
+   di 4), senza comparire come spazio riconoscibile. Non si tocca la
+   regola condivisa (la usano anche altre pagine): si azzera solo il
+   padding verticale del container che avvolge .expr-container, lasciando
+   px-5 intatto in orizzontale. */
+.container:has(> .expr-container) {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Il titolo è l'elemento gerarchicamente più forte della pagina: il
+   margin-top da 3rem verso la navbar è già dato da .container.mt-5 nel
+   template (invariato apposta, vale anche per il ramo di errore). Qui resta
+   solo il suo margin-bottom, il più ampio della pagina. */
+.expr-header { margin-bottom: 3.5rem; }
+.expr-header .expr-breadcrumb { margin-bottom: 1.5rem; }
 .expr-header .expression-title { margin-bottom: 0; }
 
 /* Ritmo fra i blocchi di primo livello, e chiusura fissa prima del footer
@@ -1773,6 +1791,29 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 .expr-container > section { margin-bottom: 3rem; }
 
 .expr-container > :last-child { margin-bottom: 4rem; }
+
+/* Separazione scheda+visualizzazione -> asse: un filo a piena larghezza,
+   non spazio indifferenziato, con lo stesso passo (2rem) sopra e sotto.
+   Il margin-bottom della riga è azzerato a favore del padding-top qui:
+   un margin proprio si fonderebbe con quello della riga per il collasso
+   (vincerebbe il maggiore dei due, non la somma), il padding no. */
+.expr-container > .row:has(+ .evidence-section) { margin-bottom: 2rem; }
+.expr-container > .row + .evidence-section {
+    border-top: 0.5px solid var(--color-border);
+    padding-top: 2rem;
+}
+
+/* Esplicito e non affidato al solo :last-child: l'asse deve chiudersi a
+   4rem dal filo del footer indipendentemente da cosa la segue. */
+.expr-container > .evidence-section { margin-bottom: 4rem; }
+
+/* La regola globale "section { margin-bottom: 3rem }" (riga 111) si applica
+   a qualunque <section>, comprese queste due dentro la row: gonfiava la
+   colonna di 3rem oltre il contenuto visibile, senza mostrarsi come spazio
+   (le colonne non hanno bordo/sfondo proprio) ma disallineando comunque
+   l'altezza della row rispetto a scheda e asse sottostanti. Qui lo spazio
+   fra le colonne è governato dalla row (gx-5/gy-4), non dai <section>. */
+.expr-container > .row section { margin-bottom: 0; }
 
 /* L'heading non deve toccare il bordo superiore del box. */
 .expr-card > .section-label { margin-top: 0; }
