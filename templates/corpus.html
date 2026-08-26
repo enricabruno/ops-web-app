@@ -35,39 +35,6 @@
     </a>
 {% endmacro %}
 
-{% macro expression_item(expr, uid, item_class='border-0 border-bottom') %}
-<div class="expression-item"
-     data-author="{{ expr.author }}"
-     data-type="{{ expr.type }}"
-     data-constraint-type="{{ expr.constraint_types | join(',') }}"
-     data-origins="{{ expr.origins | join(',') }}"
-     data-operations="{{ expr.operations | join(',') }}"
-     data-units="{{ expr.units | join(',') }}">
-
-    <div class="accordion-item {{ item_class }}">
-        <h2 class="accordion-header" id="heading-{{ uid }}">
-            <button class="accordion-button collapsed px-0 py-3 bg-transparent shadow-none"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse-{{ uid }}"
-            aria-expanded="false"
-            aria-controls="collapse-{{ uid }}">
-            <span class="expr-title"><i>{{ expr.title }}</i></span>
-            <span class="chevron">&#x25BE;</span>
-        </button>
-        </h2>
-        <div id="collapse-{{ uid }}"
-             class="accordion-collapse collapse"
-             aria-labelledby="heading-{{ uid }}"
-             data-bs-parent="">
-            <div class="accordion-body pt-1 pb-3 ps-0">
-                {{ expression_body(expr) }}
-            </div>
-        </div>
-    </div>
-</div>
-{% endmacro %}
-
 {# Riga di disclosure WAI-ARIA: un solo pattern per volumi, plaquette e testi.
    N = 2 volumi, 3 plaquette, 4 testi. Usata con {% call %}: il contenuto
    passato diventa il pannello. #}
@@ -192,52 +159,51 @@
 
             {% for volume in volumes %}
             {% set vol_loop = loop %}
-            <section class="volume-block">
-            <h4 class="volume-heading volume-toggle"
-                data-bs-toggle="collapse"
-                data-bs-target="#volume-{{ vol_loop.index }}"
-                aria-expanded="false"
-                aria-controls="volume-{{ vol_loop.index }}">
-                {{ volume.title }}<span class="chevron">&#x25BE;</span>
-            </h4>
-            <div id="volume-{{ vol_loop.index }}" class="collapse volume-collapse">
-
+            {% call disclosure_row('vol-' ~ vol_loop.index, 2, volume.title, row_class='volume-row') %}
             {# Terzo livello: <volume> → <titolo plaquette> → <testi contenuti>.
                .plaquette-list impone un unico passo verticale fra righe omogenee. #}
             <div class="plaquette-list">
             {% for plaq in volume.plaquettes %}
-            <div class="plaquette-block plaquette-row">
                 {% if plaq.texts %}
-                <h4 class="volume-heading volume-toggle plaquette-heading"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#plaq-{{ plaq.num }}"
-                    aria-expanded="false"
-                    aria-controls="plaq-{{ plaq.num }}">
-                    <span>{{ plaq.label }}<span class="plaquette-count label-xs fw-normal ms-2"
-                          data-total="{{ plaq.texts | length }}">{{ plaq.texts | length }} {{ 'testo' if plaq.texts | length == 1 else 'testi' }}</span></span>
-                    <span class="chevron">&#x25BE;</span>
-                </h4>
-                <div id="plaq-{{ plaq.num }}" class="collapse plaquette-collapse">
-                    <div class="accordion" id="plaqAccordion-{{ plaq.num }}">
-                        {% if plaq.container %}{{ consegna_comune(plaq.container) }}{% endif %}
-                        {% for expr in plaq.texts %}
-                        {{ expression_item(expr, 'plaq-' ~ plaq.num ~ '-' ~ loop.index) }}
-                        {% endfor %}
-                    </div>
-                </div>
+                {% call disclosure_row('plaq-' ~ plaq.num, 3, plaq.label, count=plaq.texts | length, row_class='plaquette-row') %}
+                {% if plaq.container %}{{ consegna_comune(plaq.container) }}{% endif %}
+                {% for expr in plaq.texts %}
+                {% call disclosure_row(
+                    'plaq-' ~ plaq.num ~ '-' ~ loop.index, 4,
+                    expr.title,
+                    row_class='text-row',
+                    data_attrs={
+                        'author': expr.author,
+                        'type': expr.type,
+                        'constraint-type': expr.constraint_types | join(','),
+                        'origins': expr.origins | join(','),
+                        'operations': expr.operations | join(','),
+                        'units': expr.units | join(','),
+                    }) %}
+                {{ expression_body(expr) }}
+                {% endcall %}
+                {% endfor %}
+                {% endcall %}
                 {% elif plaq.container %}
-                {# Plaquette monografica: nessuna tendina intermedia, voce singola.
-                   Il filo di separazione è quello della riga, non della card. #}
-                <div class="accordion plaquette-mono" id="plaqAccordion-{{ plaq.num }}">
-                    {{ expression_item(plaq.container, 'plaq-' ~ plaq.num, 'border-0') }}
-                </div>
+                {# Plaquette monografica: stessa riga di una plaquette con testi,
+                   cambia solo il contenuto del pannello. #}
+                {% call disclosure_row(
+                    'plaq-' ~ plaq.num, 3, plaq.label,
+                    row_class='plaquette-row',
+                    data_attrs={
+                        'author': plaq.container.author,
+                        'type': plaq.container.type,
+                        'constraint-type': plaq.container.constraint_types | join(','),
+                        'origins': plaq.container.origins | join(','),
+                        'operations': plaq.container.operations | join(','),
+                        'units': plaq.container.units | join(','),
+                    }) %}
+                {{ expression_body(plaq.container) }}
+                {% endcall %}
                 {% endif %}
-            </div>
             {% endfor %}
             </div>
-
-            </div>
-            </section>
+            {% endcall %}
             {% else %}
             <p class="text-muted">Nessuna espressione trovata nel corpus.</p>
             {% endfor %}
