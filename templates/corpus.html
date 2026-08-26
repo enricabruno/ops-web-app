@@ -3,8 +3,38 @@
 {% block title %}Corpus{% endblock %}
 
 {% block content %}
-{# Voce di accordion per una singola espressione. `uid` rende univoci gli id dei collapse.
-   Nessun margine sul wrapper: il ritmo verticale è gestito dai contenitori. #}
+{% macro expression_body(expr) %}
+<p class="expr-detail-text x-small mb-2">
+    <span class="fw-bold">Autore:</span>
+    {{ expr.author }}
+</p>
+{% set labeled = expr.constraints | selectattr('label') | list %}
+{% if labeled %}
+<p class="expr-detail-text x-small mb-3">
+    <span class="fw-bold">Costrizioni usate:</span>
+    {% for c in labeled %}
+    <a href="/explain?uri={{ c.uri | urlencode }}"
+    class="constraint-badge"
+    title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
+    {{ c.label }}
+</a>{% if not loop.last %};{% endif %}
+{% endfor %}
+</p>
+{% elif expr.constraints %}
+<p class="expr-detail-text small mb-3">
+    <span class="fw-bold label-xs">Costrizioni:</span>
+    Etichette non disponibili: verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
+{% else %}
+<p class="expr-detail-text small mb-3">
+    <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
+    {% endif %}
+
+    <a href="/expression?uri={{ expr.uri | urlencode }}"
+       class="btn-approfondisci">
+        Approfondisci &rarr;
+    </a>
+{% endmacro %}
+
 {% macro expression_item(expr, uid, item_class='border-0 border-bottom') %}
 <div class="expression-item"
      data-author="{{ expr.author }}"
@@ -31,38 +61,31 @@
              aria-labelledby="heading-{{ uid }}"
              data-bs-parent="">
             <div class="accordion-body pt-1 pb-3 ps-0">
-                <p class="expr-detail-text x-small mb-2">
-                    <span class="fw-bold">Autore:</span>
-                    {{ expr.author }}
-                </p>
-                {% set labeled = expr.constraints | selectattr('label') | list %}
-                {% if labeled %}
-                <p class="expr-detail-text x-small mb-3">
-                    <span class="fw-bold">Costrizioni usate:</span>
-                    {% for c in labeled %}
-                    <a href="/explain?uri={{ c.uri | urlencode }}"
-                    class="constraint-badge"
-                    title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
-                    {{ c.label }}
-                </a>{% if not loop.last %};{% endif %}
-                {% endfor %}
-            </p>
-            {% elif expr.constraints %}
-            <p class="expr-detail-text small mb-3">
-                <span class="fw-bold label-xs">Costrizioni:</span>
-                Etichette non disponibili — verificare il caricamento di <code>concept.ttl</code> in GraphDB.</p>
-            {% else %}
-            <p class="expr-detail-text small mb-3">
-                <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
-                {% endif %}
-
-                <a href="/expression?uri={{ expr.uri | urlencode }}"
-                   class="btn-approfondisci">
-                    Approfondisci &rarr;
-                </a>
+                {{ expression_body(expr) }}
             </div>
         </div>
     </div>
+</div>
+{% endmacro %}
+
+{# Riga di disclosure WAI-ARIA: un solo pattern per volumi, plaquette e testi.
+   N = 2 volumi, 3 plaquette, 4 testi. Usata con {% call %}: il contenuto
+   passato diventa il pannello. #}
+{% macro disclosure_row(uid, level, title, count=None, row_class='', data_attrs={}) %}
+<div class="disclosure-row {{ row_class }}"{% for key, value in data_attrs.items() %} data-{{ key }}="{{ value }}"{% endfor %}>
+    <h{{ level }} class="disclosure-heading" id="heading-{{ uid }}">
+        <button class="disclosure-toggle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse-{{ uid }}" aria-expanded="false"
+                aria-controls="collapse-{{ uid }}">
+            <span class="disclosure-title">{{ title }}</span>
+            {% if count is not none %}
+            <span class="disclosure-count label-xs fw-normal ms-2" data-total="{{ count }}">{{ count }} {{ 'testo' if count == 1 else 'testi' }}</span>
+            {% endif %}
+            <span class="chevron" aria-hidden="true">&#x25BE;</span>
+        </button>
+    </h{{ level }}>
+    <div id="collapse-{{ uid }}" class="collapse disclosure-panel"
+         aria-labelledby="heading-{{ uid }}">{{ caller() }}</div>
 </div>
 {% endmacro %}
 
