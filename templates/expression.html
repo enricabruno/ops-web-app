@@ -279,7 +279,7 @@
             <p>Questa classe comprende espressioni identificabili, in forma scritta o parlata, che utilizzano un linguaggio umano per comunicare un contenuto. Nel piano evidenziale di DeSMòS è la dichiarazione paratestuale genettiana (epitestuale o peritestuale) che, insieme al tratto testuale, fonda l'identificabilità della costrizione.</p>
         </div>
         <div id="evidence-def-feat" class="visually-hidden">
-            <p>Caratteristica osservabile dell'espressione che può rendere leggibile una costrizione. In DeSMòS è intesa come evidenza intratestuale: una traccia testuale che supporta l'identificazione della costrizione, senza implicare di per sé sufficienza o necessità.</p>
+            <p>Caratteristica osservabile dell'espressione che rende leggibile una costrizione. Viene intesa come evidenza intratestuale: una traccia testuale che supporta l'identificazione della costrizione</p>
         </div>
 
         {# Sorgenti dei popover: un div nascosto per oggetto di evidenza (non per
@@ -288,9 +288,6 @@
         {% for fragment in expr.fragments %}
         <div id="{{ fragment.anchor }}" class="visually-hidden">
             <p>{{ fragment.text }}</p>
-            {% if fragment.content %}
-            <p><i>{{ fragment.content }}</i></p>
-            {% endif %}
             {% if fragment.lo_author %}
             <p>Autore: {{ fragment.lo_author }}</p>
             {% endif %}
@@ -301,10 +298,6 @@
             {% if fonte %}
             <p>Fonte: {{ fonte | join(', ') }}</p>
             {% endif %}
-            {% if fragment.declared | length > 1 %}
-            <p>Costrizioni coperte: {{ fragment.declared | map(attribute='label') | join(', ') }}</p>
-            {% endif %}
-            <p><code>{{ fragment.uri }}</code></p>
         </div>
         {% endfor %}
 
