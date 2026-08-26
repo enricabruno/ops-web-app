@@ -789,134 +789,40 @@ tbody tr:last-child td { border-bottom: none; }
 
 .expression-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
 
-.volume-heading {
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    color: var(--color-text);
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-accent);
-}
+/* Disclosure rows: unico pattern per volume, plaquette, testo.
+   Font: ereditato dalla regola globale h1-h6 (Futura). */
+.disclosure-heading { margin: 0; }              /* annulla margin-bottom globale e margin-top di h2 */
 
-.volume-toggle {
-    cursor: pointer;
-    user-select: none;
+.disclosure-toggle {
+    all: unset;                                 /* rimuove lo stile nativo del button; eredita font dall'hN */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-accent);
 }
+.disclosure-toggle:hover         { opacity: 0.75; }
+.disclosure-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
 
-.volume-toggle:hover {
-    opacity: 0.75;
-}
+.volume-row    > .disclosure-heading .disclosure-toggle { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; }
+.plaquette-row > .disclosure-heading .disclosure-toggle { font-size: 1rem;   font-weight: 400; font-style: italic; }
+.text-row      > .disclosure-heading .disclosure-toggle { font-size: 0.95rem; font-weight: 400; font-style: italic; }
 
-/* Indicatore unico di apertura, identico ai tre livelli della pagina (volume,
-   plaquette, testo). Forma e dimensione sono assolute: non ereditano il contesto
-   tipografico dell'intestazione che lo ospita — corsivo e peso inclusi. */
-.chevron {
-    display: inline-block;
-    margin-left: 0.5rem;
-    font-size: 0.85rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--color-text);
-    transition: transform 0.25s ease;
-}
+.chevron { font-size: 0.9rem; margin-left: 0.5rem; transition: transform 0.25s ease; }
+.disclosure-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
-/* Un'unica regola di rotazione, agganciata ad aria-expanded: vale sia per i
-   toggle custom sia per gli .accordion-button gestiti da Bootstrap. */
-[aria-expanded="true"] .chevron {
-    transform: rotate(180deg);
-}
-
-/* Il chevron SVG di Bootstrap è sostituito dal glifo: senza questo gli accordion
-   mostrerebbero due indicatori sovrapposti. Il button perde anche il
-   `margin-left: auto` che Bootstrap metteva sullo ::after, quindi la spinta a
-   destra passa a space-between, lo stesso meccanismo dei toggle custom. */
-.accordion-button::after {
-    display: none;
-}
-
-.accordion-button {
-    justify-content: space-between;
-}
-
-/* Elenco delle plaquette (secondo livello). Un unico passo verticale, deciso qui:
-   niente margini sui figli, quindi niente collasso e nessuna differenza fra
-   gruppo aperto e gruppo chiuso. */
-.plaquette-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-left: 1rem;
-}
-
-.plaquette-list > * {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-/* La riga è l'unità omogenea della lista: collettanea e monografica condividono
-   filo di separazione e altezza, e si leggono come pari-livello. */
-.plaquette-row {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-accent);
-}
-
-/* Livello intermedio (titolo di plaquette): stessa resa tipografica e stesso
-   padding verticale del button dell'accordion monografico (py-3 = 1rem). */
-.plaquette-heading {
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: italic;
-    margin: 0;
-    padding: 1rem 0;
-    border-bottom: 0;
-}
-
-.plaquette-heading .plaquette-count {
-    font-style: normal;
-    white-space: nowrap;
-}
-
-/* Lo stacco dei testi espansi è padding del contenitore, non margine dei figli. */
-.plaquette-collapse {
-    padding-bottom: 1rem;
-}
-
-/* L'ultimo testo non raddoppia il filo con quello della riga. */
-.plaquette-collapse .expression-item:last-child .accordion-item {
-    border-bottom: 0;
-}
+/* Unica sorgente di spaziatura verticale fra righe omogenee */
+.plaquette-list  { display: flex; flex-direction: column; gap: 1.5rem; }
+.disclosure-panel > .plaquette-list { padding-top: 1.5rem; }
+.disclosure-panel { padding-top: 0.75rem; }
+.disclosure-panel .disclosure-row + .disclosure-row { margin-top: 1rem; }
 
 .expression-card { transition: opacity 0.3s ease; }
 .expression-card[style*="display: none"] { opacity: 0; }
 
 .label-xs { font-size: 0.7rem; }
-
-/* Accordion. Il titolo dell'espressione non è in grassetto: il grassetto resta
-   riservato alle intestazioni di primo livello (volumi e "Plaquette singole"). */
-.accordion-button .expr-title {
-    color: var(--color-text) !important;
-    /* Esplicito, non ereditato: l'h2.accordion-header che lo contiene è
-       comunque soggetto alla regola h1-h6 { font-weight: 700 }. */
-    font-weight: 400;
-    font-style: italic;
-    transition: color 0.3s ease;
-}
-
-.accordion-button:hover .expr-title { color: var(--color-text); }
-
-.accordion-button:not(.collapsed) .expr-title {
-    color: var(--color-accent) !important;
-}
-
-.accordion-button:focus { box-shadow: none; border-color: rgba(3, 151, 178, 0.1); }
 
 /* Evidenza testuale */
 .text-evidence {
