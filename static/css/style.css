@@ -59,7 +59,7 @@ p {
 }
 
 .fair-link {
-    color: var(--color-muted);
+    color: var(--color-text);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -226,7 +226,7 @@ footer a:hover {
 }
 
 footer .x-small,
-footer p.x-small { color: var(--color-muted); font-size: 0.75rem; }
+footer p.x-small { color: var(--color-text); font-size: 0.75rem; }
 
 footer hr { border-color: var(--color-border); opacity: 1; }
 
@@ -523,7 +523,7 @@ tbody tr:last-child td { border-bottom: none; }
 .badge-intertext {
     font-size: 0.65rem;
     background-color: var(--color-surface);
-    color: var(--color-muted);
+    color: var(--color-text);
 }
 
 .badge-vincolo {
@@ -566,7 +566,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 /* ── Loading ── */
 
-.loading { text-align: center; padding: 2rem; color: var(--color-muted); }
+.loading { text-align: center; padding: 2rem; color: var(--color-text); }
 
 .loading::after {
     content: '...';
@@ -724,7 +724,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .corpus-container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
 
-.corpus-container .lead { font-size: 1.1rem; color: var(--color-muted); margin-bottom: 2rem; }
+.corpus-container .lead { font-size: 1.1rem; color: var(--color-text); margin-bottom: 2rem; }
 
 .corpus-stats {
     background-color: var(--color-surface);
@@ -783,7 +783,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .facet-text { font-size: 0.95rem; color: var(--color-text); user-select: none; }
 
-.facet-empty { font-size: 0.9rem; color: var(--color-muted); font-style: italic; margin: 0; }
+.facet-empty { font-size: 0.9rem; color: var(--color-text); font-style: italic; margin: 0; }
 
 .corpus-content { min-height: 400px; }
 
@@ -901,7 +901,7 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-text);
     letter-spacing: 0.08em;
     border-bottom: 1px solid var(--color-border);
     padding-bottom: 0.5rem;
@@ -939,7 +939,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .internal-link:hover {
-    color: var(--color-muted) !important;
+    color: var(--color-text) !important;
     text-decoration: none !important;
     background-color: transparent !important;
 }
@@ -1015,7 +1015,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     display: inline-block;
     padding: 0.5em;
     margin: -0.5em;
-    color: var(--color-muted);
+    color: var(--color-text);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -1134,13 +1134,13 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-muted);
+    color: var(--color-text);
     display: block;
     margin-bottom: 0.25rem;
 }
 
 .anag-stat-value         { font-size: 1.4rem; font-weight: 700; color: var(--color-accent); line-height: 1; }
-.anag-stat-value--muted  { color: var(--color-muted); }
+.anag-stat-value--muted  { color: var(--color-text); }
 
 .anag-legend-gradient {
     height: 8px;
@@ -1189,8 +1189,8 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .metadata-grid .metadata-value { flex: 1; padding: 1.2rem 1.5rem; font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 1rem; color: var(--color-text); }
 
-.metadata-label  { color: var(--color-muted); font-weight: 400; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.metadata-value  { color: var(--color-muted); font-size: 1rem; margin-bottom: 0.5rem; }
+.metadata-label  { color: var(--color-text); font-weight: 400; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.metadata-value  { color: var(--color-text); font-size: 1rem; margin-bottom: 0.5rem; }
 
 .text_explain {
     font-size: 1.15rem;
@@ -1210,7 +1210,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .explain-note {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    color: var(--color-muted);
+    color: var(--color-text);
     font-size: 1rem;
     line-height: 1.7;
 }
@@ -1218,7 +1218,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .explain-example-citation {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 0.85rem;
-    color: var(--color-muted);
+    color: var(--color-text);
     margin-bottom: 0.75rem;
 }
 
@@ -1235,7 +1235,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .explain-example-reading {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    color: var(--color-muted);
+    color: var(--color-text);
     font-size: 1rem;
     line-height: 1.7;
 }
@@ -1313,7 +1313,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .query-hub-link:hover .query-hub-icon { color: #ffffff !important; }
 
 .query-hub-link.query-hub-nl .query-hub-icon,
-.query-hub-link.query-hub-sparql .query-hub-icon { color: var(--color-muted); }
+.query-hub-link.query-hub-sparql .query-hub-icon { color: var(--color-text); }
 
 .query-hub-title {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
@@ -1439,7 +1439,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     white-space: nowrap;
 }
 
-.lang-tag { font-size: 0.7rem; color: var(--color-muted); margin-left: 3px; }
+.lang-tag { font-size: 0.7rem; color: var(--color-text); margin-left: 3px; }
 
 .error-pre {
     white-space: pre-wrap;
@@ -1482,7 +1482,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     border-right: 1px solid var(--color-border) !important;
 }
 
-.CodeMirror-linenumber { color: var(--color-muted) !important; }
+.CodeMirror-linenumber { color: var(--color-text) !important; }
 
 .CodeMirror-selected         { background: rgba(3, 151, 178, 0.15) !important; }
 .CodeMirror-focused .CodeMirror-selected { background: rgba(3, 151, 178, 0.20) !important; }
@@ -1504,7 +1504,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .CodeMirror .cm-variable-2   { color: var(--color-text)   !important; font-weight: normal !important; }
 
 .cm-s-neo .cm-comment,
-.CodeMirror .cm-comment      { color: var(--color-muted)  !important; font-style: italic !important; }
+.CodeMirror .cm-comment      { color: var(--color-text)  !important; font-style: italic !important; }
 
 .cm-s-neo .cm-number,
 .CodeMirror .cm-number       { color: var(--color-accent) !important; }
@@ -1521,11 +1521,11 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .expr-breadcrumb {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 0.85rem;
-    color: var(--color-muted);
+    color: var(--color-text);
 }
 
 .expr-breadcrumb a {
-    color: var(--color-muted);
+    color: var(--color-text);
 }
 
 .expr-breadcrumb a:hover { color: var(--color-accent); }
@@ -1549,7 +1549,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .constraint-more {
     display: inline-block;
     font-style: italic;
-    color: var(--color-muted);
+    color: var(--color-text);
     cursor: pointer;
 }
 
@@ -1584,7 +1584,7 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
    /expression — ANELLO DELLE COSTRIZIONI
    SVG inline, nessuna libreria. Colori solo da variabili esistenti:
    --color-accent (formali), lo stesso accent a opacità ridotta (semantiche),
-   --color-border (traccia), --color-text / --color-muted (testo).
+   --color-border (traccia), --color-text (testo).
    ============================================ */
 
 .cviz {
