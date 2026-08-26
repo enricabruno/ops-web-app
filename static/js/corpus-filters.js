@@ -13,11 +13,22 @@ function isVisible(el) {
 
 /**
  * Espande o richiude un contenitore .collapse aggiornando l'aria-expanded
- * dell'intestazione che lo comanda.
+ * del bottone di disclosure che lo comanda.
  */
-function setCollapsed(collapseDiv, heading, expanded) {
+function setCollapsed(collapseDiv, toggle, expanded) {
     if (collapseDiv) collapseDiv.classList.toggle('show', expanded);
-    if (heading) heading.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    if (toggle) toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+}
+
+/**
+ * Elementi con dati di filtro dentro `el`: normalmente i .text-row discendenti,
+ * ma una plaquette monografica porta gli stessi data-* sulla propria riga, che
+ * quindi va inclusa anche quando è `el` stesso (querySelectorAll non la vedrebbe).
+ */
+function dataItemsIn(el) {
+    const items = Array.from(el.querySelectorAll('[data-author]'));
+    if (el.matches('[data-author]')) items.unshift(el);
+    return items;
 }
 
 function applyFilters() {
@@ -30,7 +41,7 @@ function applyFilters() {
 
     const anyFilter = FILTER_IDS.some(id => document.getElementById(id).value !== '');
 
-    document.querySelectorAll('.expression-item').forEach(item => {
+    document.querySelectorAll('[data-author]').forEach(item => {
         const matchesAuthor = !authorVal || item.dataset.author.toLowerCase().includes(authorVal);
         const matchesGenre  = !genreVal  || item.dataset.type.toLowerCase() === genreVal;
 
@@ -55,15 +66,15 @@ function applyFilters() {
         item.style.display = (matchesAuthor && matchesGenre && matchesConstraintType && matchesOrigin && matchesOperation && matchesUnit) ? '' : 'none';
     });
 
-    // Livello intermedio: le plaquette singole. Nasconde le intestazioni rimaste vuote
-    // e aggiorna il conteggio dei testi visibili accanto al titolo.
-    document.querySelectorAll('.plaquette-block').forEach(block => {
-        const items   = Array.from(block.querySelectorAll('.expression-item'));
+    // Livello intermedio: le plaquette. Nasconde le righe rimaste vuote e aggiorna
+    // il conteggio dei testi visibili accanto al titolo (le monografiche non ne hanno).
+    document.querySelectorAll('.plaquette-row').forEach(block => {
+        const items   = dataItemsIn(block);
         const visible = items.filter(isVisible);
 
         block.style.display = visible.length ? '' : 'none';
 
-        const counter = block.querySelector('.plaquette-count');
+        const counter = block.querySelector('.disclosure-count');
         if (counter) {
             const total = Number(counter.dataset.total);
             const noun  = total === 1 ? 'testo' : 'testi';
@@ -72,19 +83,19 @@ function applyFilters() {
                 : `${total} ${noun}`;
         }
 
-        setCollapsed(block.querySelector('.plaquette-collapse'),
-                     block.querySelector('.plaquette-heading'),
+        setCollapsed(block.querySelector('.disclosure-panel'),
+                     block.querySelector('.disclosure-toggle'),
                      anyFilter && visible.length > 0);
     });
 
-    // Livello esterno: i volumi (e il gruppo "Plaquette singole").
-    document.querySelectorAll('.volume-block').forEach(block => {
-        const hasVisibleItem = Array.from(block.querySelectorAll('.expression-item')).some(isVisible);
+    // Livello esterno: i volumi.
+    document.querySelectorAll('.volume-row').forEach(block => {
+        const hasVisibleItem = Array.from(block.querySelectorAll('[data-author]')).some(isVisible);
 
         block.style.display = hasVisibleItem ? '' : 'none';
 
-        setCollapsed(block.querySelector('.volume-collapse'),
-                     block.querySelector('.volume-heading'),
+        setCollapsed(block.querySelector('.disclosure-panel'),
+                     block.querySelector('.disclosure-toggle'),
                      anyFilter && hasVisibleItem);
     });
 }
