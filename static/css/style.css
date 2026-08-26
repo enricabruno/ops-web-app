@@ -1535,21 +1535,28 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 }
 .evidence-header-col { display: flex; align-items: center; gap: 0.4rem; }
 
-/* Cursore 'help', non 'pointer': segnala che qui si apre una DEFINIZIONE, non
-   un'azione — a differenza delle frecce sotto (.evidence-arm-line, cursore
-   'pointer'), che aprono una prova concreta. Nessuna sottolineatura a riposo:
-   compare solo in hover, il cursore resta il segnale primario.
+/* cursor: pointer, non 'help' — mai il punto interrogativo. Con lo stesso
+   cursore delle frecce, il segnale distintivo fra i due livelli di popup
+   resta solo il cambio di colore in hover (var(--color-accent) su
+   var(--color-text), percepibile): per questo la legenda sotto l'asse non è
+   opzionale, è l'unico altro indizio scritto della differenza fra i due.
+   border-bottom trasparente a riposo, non assente: riserva lo spazio della
+   riga così l'hover non sposta il testo di un pixel comparendo dal nulla.
    Selettore con [type="button"]: il reboot di Bootstrap include
    [type="button"]:not(:disabled){cursor:pointer}, specificità (0,2,0) — il
    nostro bottone ha type="button", quindi la corrisponde e la batterebbe
    sia una classe singola (0,1,0) sia `button.evidence-category-btn` (0,1,1). */
 button.evidence-category-btn[type="button"] {
     all: unset;
-    cursor: help;
-    transition: color .2s ease;
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+    border-bottom: 1px solid transparent;
 }
-.evidence-category-btn:hover { color: var(--color-accent); border-bottom: 1px solid var(--color-accent); }
-.evidence-category-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+/* Stessa specificità (0,2,1) della regola base sopra, altrimenti :hover perde
+   contro il suo `all: unset` (che include color) esattamente come il cursore
+   prima della correzione — v. commento sopra. */
+button.evidence-category-btn[type="button"]:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+button.evidence-category-btn[type="button"]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .evidence-axis {
     display: flex;
