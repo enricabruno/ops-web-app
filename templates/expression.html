@@ -3,7 +3,6 @@
 {% block title %}{{ expr.title if expr else "Espressione" }}{% endblock %}
 
 {% block content %}
-{# Elenco di badge costrizione: oltre 15 voci il resto va in un collapse Bootstrap. #}
 {% macro constraint_badges(items, collapse_id) %}
 {% set soglia = 15 %}
 <div class="d-flex flex-wrap gap-2">
@@ -12,7 +11,6 @@
     {% endfor %}
 </div>
 {% if items | length > soglia %}
-{# .d-flex va sul figlio: su .collapse vincerebbe per !important tenendolo sempre aperto. #}
 <div class="collapse" id="{{ collapse_id }}">
     <div class="d-flex flex-wrap gap-2 mt-2">
         {% for c in items[soglia:] %}
@@ -37,7 +35,7 @@
 
     {% elif expr %}
 
-    {# TESTATA — margini governati da .expr-header, non da utility #}
+    {# TESTATA #}
     <div class="expr-header text-center">
         {% if expr.volume_title or expr.parent %}
         <nav class="expr-breadcrumb" aria-label="Percorso">
@@ -60,16 +58,18 @@
        scheda e visualizzazione, bordo superiore a contatto. #}
     <div class="row gx-5 gy-4 align-items-start">
 
+    {# SCHEDA BIBL + COSTRIZIONI #}
+
         <div class="col-md-7">
             <section class="expr-card">
                 <h5 class="section-label text-center">Scheda bibliografica</h5>
-                <dl class="row mb-0 mt-4 expr-meta-dl">
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Titolo:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3"><i>{{ expr.title }}</i></dd>
+                <dl class="mb-0 mt-4 expr-meta-dl">
+                    <dt class="metadata-section-label">Titolo:</dt>
+                    <dd class="small text-muted"><i>{{ expr.title }}</i></dd>
 
                     {% if expr.parent or expr.manif_title %}
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Collocazione:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">
+                    <dt class="metadata-section-label">Collocazione:</dt>
+                    <dd class="small text-muted">
                         {% if expr.parent %}
                         In <a href="/expression?uri={{ expr.parent.uri | urlencode }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
                         {% else %}
@@ -78,8 +78,8 @@
                     </dd>
                     {% endif %}
 
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Autore:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">
+                    <dt class="metadata-section-label">Autore:</dt>
+                    <dd class="small text-muted">
                         {# Solo l'icona è ipertestuale: il nome resta testo statico, non
                            reagisce al hover. Aria-label sull'anchor perché non contiene
                            più testo leggibile dagli screen reader. #}
@@ -87,17 +87,17 @@
                     </dd>
 
                     {% if expr.year %}
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Anno:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">{{ expr.year }}</dd>
+                    <dt class="metadata-section-label">Anno:</dt>
+                    <dd class="small text-muted">{{ expr.year }}</dd>
                     {% endif %}
 
                     {% if expr.work_types %}
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Forma:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">{{ expr.work_types }}</dd>
+                    <dt class="metadata-section-label">Forma:</dt>
+                    <dd class="small text-muted">{{ expr.work_types }}</dd>
                     {% endif %}
 
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Ipotesto:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">
+                    <dt class="metadata-section-label">Ipotesto:</dt>
+                    <dd class="small text-muted">
                         {% if expr.sources %}
                             {% for source in expr.sources %}
                             <div class="mb-1">
@@ -109,8 +109,8 @@
                         {% endif %}
                     </dd>
 
-                    <dt class="col-sm-5 metadata-section-label text-start pe-3">Risorse:</dt>
-                    <dd class="col-sm-7 small text-muted ps-3">
+                    <dt class="metadata-section-label">Risorse:</dt>
+                    <dd class="small text-muted">
                         <div class="d-flex flex-wrap gap-2">
                             {% for l in expr.resources %}
                             <span><span class="ext-label">{{ l.abbr }}</span><a href="{{ l.url }}" target="_blank" rel="noopener noreferrer"
@@ -124,8 +124,6 @@
             </section>
         </div>
 
-        {# Nessun box qui: l'anello resta su fondo pagina. Allineata in alto con la
-           scheda (align-items-start sulla row), non centrata verticalmente. #}
         <div class="col-md-5">
             <section>
                 <h5 class="section-label text-center">Costrizioni presenti</h5>
@@ -197,45 +195,18 @@
         </div>
     </div>
 
-    {# ==================== 3. ASSE BIPOLARE ====================
-       Uno stato per costrizione, leggibile dai bracci (pieno = c'è evidenza,
-       tratteggiato = non c'è): nessuna dicitura di stato duplicata sotto il nodo.
-       Il testo integrale delle prove resta nel markup, non generato in JS. Usa
-       .visually-hidden (Bootstrap) invece dell'attributo hidden: hidden equivale a
-       display:none, che il Ctrl+F nativo del browser NON cerca — .visually-hidden
-       tiene il testo in flusso (clip 1x1px) restando quindi cercabile e stampabile
-       a popover chiuso, che è esattamente il requisito.
-
-       Popover a due livelli, entrambi al passaggio del mouse (oltre che al
-       focus da tastiera, mai solo hover: v. inizializzazione sotto):
-       - classe (intestazione, una volta sola): "Dichiarazione paratestuale"/
-         "Tratto testuale" sono bottoni ipertestuali che al hover/focus mostrano
-         la DEFINIZIONE della categoria (testo costante, da desmos.owl — vedi i
-         due <div> nascosti sotto). Il segnale distintivo fra i due livelli di
-         popup è solo il colore in hover (v. .evidence-category-btn).
-       - istanza (per corsia): la linea/freccia di ciascuna corsia è essa stessa
-         il bottone che apre subito, al passaggio del mouse, la prova concreta
-         di QUELLA corsia. Il verbo di relazione (riguarda/rivela) sta sopra
-         la linea, per corsia — non nell'intestazione: ogni riga si legge come
-         una tripla RDF completa (soggetto in intestazione, predicato sulla
-         freccia, oggetto al centro). Niente verbo su un braccio tratteggiato:
-         se la relazione non sussiste, non va nominata. Bracci tratteggiati:
-         nessun bottone, nessuna prova da mostrare. #}
+    {# ASSE ORIZZONTALE #}
     {% if expr.evidence %}
     <section class="evidence-section">
         <div class="evidence-axis">
-            {# .evidence-header è dentro .evidence-axis (non sopra come blocco a
-               parte) perché position:absolute la aggancia allo spazio già
-               riservato in cima alla prima corsia — deve stare nello stesso
-               contenitore posizionato, non essere una sorella. #}
             <div class="evidence-header">
                 <div class="evidence-header-col evidence-header-decl">
-                    <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
-                            data-prov-source="evidence-def-decl">Dichiarazione paratestuale</button>
+                    <span class="evidence-header-label">Dichiarazione paratestuale<button type="button" class="evidence-info-badge" data-bs-toggle="popover"
+                            data-prov-source="evidence-def-decl" aria-label="Informazioni: Dichiarazione paratestuale">i</button></span>
                 </div>
                 <div class="evidence-header-col evidence-header-feat">
-                    <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
-                            data-prov-source="evidence-def-feat">Tratto testuale</button>
+                    <span class="evidence-header-label">Caratteristica testuale<button type="button" class="evidence-info-badge" data-bs-toggle="popover"
+                            data-prov-source="evidence-def-feat" aria-label="Informazioni: Caratteristica testuale">i</button></span>
                 </div>
             </div>
             {% for item in expr.evidence %}
@@ -269,13 +240,6 @@
             {% endfor %}
         </div>
 
-        {# Definizioni di categoria: testo costante, non estratto a runtime da
-           desmos.owl. "Tratto testuale" è rdfs:comment@it verbatim di
-           desmos:TextualFeature. "Dichiarazione paratestuale" integra
-           rdfs:comment@it di crm:E33_Linguistic_Object con la clausola sul
-           piano evidenziale nella dcterms:description@it dell'ontologia
-           ("...dichiarazioni paratestuali genettiane (epitestuali o
-           peritestuali)... crm:E33_Linguistic_Object"). #}
         <div id="evidence-def-decl" class="visually-hidden">
             <p>Comprende porzioni di testo intese come dichiarazioni paratestuali genettiane (epitestuale o peritestuale) in cui l'autore o il curatore esplicita la presenza di una o più costrizioni.</p>
         </div>
@@ -285,15 +249,8 @@
         {% for fragment in expr.fragments %}
         <div id="{{ fragment.anchor }}" class="visually-hidden">
             <p><i>{{ fragment.text }}</i></p>
-            {% if fragment.lo_author %}
-            <p>Autore: {{ fragment.lo_author }}</p>
-            {% endif %}
-            {% set fonte = [] %}
-            {% if fragment.man_title %}{% set _ = fonte.append(fragment.man_title) %}{% endif %}
-            {% if fragment.issued %}{% set _ = fonte.append(fragment.issued) %}{% endif %}
-            {% if fragment.page %}{% set _ = fonte.append('pp. ' ~ fragment.page) %}{% endif %}
-            {% if fonte %}
-            <p>Fonte: {{ fonte | join(', ') }}</p>
+            {% if fragment.man_title %}
+            <p class="evidence-source">Fonte: {% if fragment.lo_author %}{{ fragment.lo_author }}, {% endif %}{{ fragment.man_title }}{% if fragment.vol_title %}, in {{ fragment.vol_title }}{% endif %}{% if fragment.issued %}, {{ fragment.issued }}{% endif %}{% if fragment.page %}, pp. {{ fragment.page }}{% endif %}</p>
             {% endif %}
         </div>
         {% endfor %}
@@ -302,7 +259,6 @@
         <div id="{{ feature.anchor }}" class="visually-hidden">
             <p>{{ feature.note }}</p>
             {% if feature.constraints | length > 1 %}
-            <p>Costrizioni rivelate: {{ feature.constraints | map(attribute='label') | join(', ') }}</p>
             {% endif %}
             <p><code>{{ feature.uri }}</code></p>
         </div>
@@ -333,45 +289,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script>
-function initEvidencePopover(btn, triggerValue, extraOptions) {
-    var options = Object.assign({
-        html: true,
-        sanitize: false,
-        trigger: triggerValue,
-        placement: 'top',
-        customClass: 'evidence-popover',
-        content: function () {
-            var src = document.getElementById(btn.dataset.provSource);
-            return src ? src.innerHTML : '';
-        },
-    }, extraOptions || {});
-    return new bootstrap.Popover(btn, options);
-}
-
-var categoryPopovers = [];
-var instancePopovers = [];
-
-document.querySelectorAll('.evidence-category-btn').forEach(function (btn) {
-    var popover = initEvidencePopover(btn, 'hover focus', { delay: { show: 150, hide: 100 } });
-    btn.addEventListener('show.bs.popover', function () {
-        instancePopovers.forEach(function (p) { p.hide(); });
-    });
-    categoryPopovers.push(popover);
-});
-
-document.querySelectorAll('button.evidence-arm-line').forEach(function (btn) {
-    var popover = initEvidencePopover(btn, 'hover focus');
-    btn.addEventListener('click', function () {
-        if (document.activeElement !== btn) btn.focus();
-    });
-    btn.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') popover.hide();
-    });
-    btn.addEventListener('show.bs.popover', function () {
-        categoryPopovers.forEach(function (p) { p.hide(); });
-    });
-    instancePopovers.push(popover);
-});
-</script>
+<script src="{{ url_for('static', filename='js/evidence-popover.js') }}"></script>
 {% endblock %}
