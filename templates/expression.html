@@ -27,7 +27,7 @@
 {% endif %}
 {% endmacro %}
 
-<div class="container mt-5 px-5 content-container">
+<div class="container mt-5 px-5">
   <div class="expr-container">
     {% if error %}
     <div class="alert alert-danger">
@@ -56,9 +56,9 @@
         <h1 class="fw-bold expression-title">{{ expr.title }}</h1>
     </div>
 
-    {# La card si dimensiona sul proprio contenuto; la colonna destra si centra
-       rispetto ad essa senza obbligarla ad allungarsi. #}
-    <div class="row g-4 align-items-start">
+    {# Le due colonne si allineano in alto: stesso stacco dal titolo per
+       scheda e visualizzazione, bordo superiore a contatto. #}
+    <div class="row gx-5 gy-4 align-items-start">
 
         <div class="col-md-7">
             <section class="expr-card">
@@ -124,9 +124,9 @@
             </section>
         </div>
 
-        {# Nessun box qui: l'anello resta su fondo pagina. align-self-center lo centra
-           verticalmente rispetto alla card, senza allungare né l'una né l'altra. #}
-        <div class="col-md-5 align-self-center">
+        {# Nessun box qui: l'anello resta su fondo pagina. Allineata in alto con la
+           scheda (align-items-start sulla row), non centrata verticalmente. #}
+        <div class="col-md-5">
             <section>
                 <h5 class="section-label text-center">Costrizioni presenti</h5>
 
