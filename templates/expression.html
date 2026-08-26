@@ -223,18 +223,21 @@
          nessun bottone, nessuna prova da mostrare. #}
     {% if expr.evidence %}
     <section class="evidence-section">
-        <div class="evidence-header">
-            <div class="evidence-header-col evidence-header-decl">
-                <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
-                        data-prov-source="evidence-def-decl">Dichiarazione paratestuale</button>
-            </div>
-            <div class="evidence-header-col evidence-header-feat">
-                <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
-                        data-prov-source="evidence-def-feat">Tratto testuale</button>
-            </div>
-        </div>
-
         <div class="evidence-axis">
+            {# .evidence-header è dentro .evidence-axis (non sopra come blocco a
+               parte) perché position:absolute la aggancia allo spazio già
+               riservato in cima alla prima corsia — deve stare nello stesso
+               contenitore posizionato, non essere una sorella. #}
+            <div class="evidence-header">
+                <div class="evidence-header-col evidence-header-decl">
+                    <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
+                            data-prov-source="evidence-def-decl">Dichiarazione paratestuale</button>
+                </div>
+                <div class="evidence-header-col evidence-header-feat">
+                    <button type="button" class="evidence-category-btn" data-bs-toggle="popover"
+                            data-prov-source="evidence-def-feat">Tratto testuale</button>
+                </div>
+            </div>
             {% for item in expr.evidence %}
             <div class="evidence-row" data-status="{{ item.status_key }}">
                 <div class="evidence-arm evidence-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
@@ -266,8 +269,6 @@
             {% endfor %}
         </div>
 
-        <p class="evidence-legend">Passa il mouse sulle etichette per la definizione; seleziona una freccia per leggere la prova.</p>
-
         {# Definizioni di categoria: testo costante, non estratto a runtime da
            desmos.owl. "Tratto testuale" è rdfs:comment@it verbatim di
            desmos:TextualFeature. "Dichiarazione paratestuale" integra
@@ -276,18 +277,14 @@
            ("...dichiarazioni paratestuali genettiane (epitestuali o
            peritestuali)... crm:E33_Linguistic_Object"). #}
         <div id="evidence-def-decl" class="visually-hidden">
-            <p>Questa classe comprende espressioni identificabili, in forma scritta o parlata, che utilizzano un linguaggio umano per comunicare un contenuto. Nel piano evidenziale di DeSMòS è la dichiarazione paratestuale genettiana (epitestuale o peritestuale) che, insieme al tratto testuale, fonda l'identificabilità della costrizione.</p>
+            <p>Comprende porzioni di testo intese come dichiarazioni paratestuali genettiane (epitestuale o peritestuale) in cui l'autore o il curatore esplicita la presenza di una o più costrizioni.</p>
         </div>
         <div id="evidence-def-feat" class="visually-hidden">
-            <p>Caratteristica osservabile dell'espressione che rende leggibile una costrizione. Viene intesa come evidenza intratestuale: una traccia testuale che supporta l'identificazione della costrizione</p>
+            <p>Evidenza intratestuale del testo che rende visibile una o più costrizioni. Viene intesa come evidenza intratestuale.</p>
         </div>
-
-        {# Sorgenti dei popover: un div nascosto per oggetto di evidenza (non per
-           costrizione) — una dichiarazione condivisa da tre costrizioni resta un
-           solo testo, e i tre bottoni delle tre corsie puntano allo stesso id. #}
         {% for fragment in expr.fragments %}
         <div id="{{ fragment.anchor }}" class="visually-hidden">
-            <p>{{ fragment.text }}</p>
+            <p><i>{{ fragment.text }}</i></p>
             {% if fragment.lo_author %}
             <p>Autore: {{ fragment.lo_author }}</p>
             {% endif %}
@@ -337,27 +334,6 @@
 
 {% block extra_scripts %}
 <script>
-{# Init dopo bootstrap.bundle.min.js (caricato in base.html prima di extra_scripts):
-   qui new bootstrap.Popover esiste già. content è una funzione, non una stringa
-   statica, letta ogni apertura dal div nascosto — non generato in JS, così il
-   testo resta cercabile con Ctrl+F e stampabile anche a popover chiuso.
-
-   Due livelli, due popover diversi che non si aprono mai insieme (ognuno
-   chiude quelli dell'altro livello al proprio show.bs.popover):
-   - .evidence-category-btn (intestazione, una volta sola): trigger 'hover
-     focus', mostra la definizione di categoria.
-   - .evidence-arm-line quando è un <button> (per corsia, solo bracci pieni):
-     trigger 'focus', mostra la prova concreta di quella corsia.
-
-   trigger resta 'focus' puro sui bottoni-corsia (non 'focus click': i due
-   combinati creano un conflitto di toggle sul secondo click nei browser dove
-   il click già dà focus da solo). Le due righe con addEventListener coprono
-   i due casi che 'focus' da solo non copre, verificati con Chromium e WebKit
-   reali via Playwright:
-   - Safari non dà focus a un <button> al click del mouse (solo da tastiera):
-     senza questo, un click reale in Safari non apre mai il popover.
-   - Bootstrap non chiude Popover/Tooltip con Esc (lo fa solo per modal,
-     offcanvas e dropdown): va aggiunto a mano. #}
 function initEvidencePopover(btn, triggerValue, extraOptions) {
     var options = Object.assign({
         html: true,
