@@ -797,7 +797,7 @@ tbody tr:last-child td { border-bottom: none; }
     all: unset;                                 /* rimuove lo stile nativo del button; eredita font dall'hN */
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     cursor: pointer;
     padding-bottom: 0.5rem;
@@ -810,10 +810,16 @@ tbody tr:last-child td { border-bottom: none; }
 .plaquette-row > .disclosure-heading .disclosure-toggle { font-size: 1rem;   font-weight: 400; font-style: italic; }
 .text-row      > .disclosure-heading .disclosure-toggle { font-size: 0.95rem; font-weight: 400; font-style: italic; }
 
-.chevron { font-size: 0.9rem; margin-left: 0.5rem; transition: transform 0.25s ease; }
+/* Il titolo occupa lo spazio disponibile; conteggio e chevron restano a larghezza
+   fissa, così il conteggio è sempre incolonnato indipendentemente dalla lunghezza
+   del titolo, e il chevron resta nella stessa posizione anche senza conteggio. */
+.disclosure-title { flex: 1 1 auto; min-width: 0; }
+.disclosure-count { flex: 0 0 5rem; text-align: right; font-style: normal; color: var(--color-muted); }
+.chevron          { flex: 0 0 auto; margin-left: 1rem; font-size: 0.9rem; transition: transform 0.25s ease; }
 .disclosure-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
 /* Unica sorgente di spaziatura verticale fra righe omogenee */
+.volume-list     { display: flex; flex-direction: column; gap: 2.5rem; }
 .plaquette-list  { display: flex; flex-direction: column; gap: 1.5rem; }
 .disclosure-panel > .plaquette-list { padding-top: 1.5rem; }
 .disclosure-panel { padding-top: 0.75rem; }
