@@ -685,6 +685,7 @@ def expression():
     PREFIX intro: <https://w3id.org/lso/intro/beta202506#>
     PREFIX schema: <http://schema.org/>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
 
     SELECT ?title ?authorName ?year
            (GROUP_CONCAT(DISTINCT ?authorLinkRaw; separator="||") AS ?authorLinks)
@@ -777,6 +778,12 @@ def expression():
                 FILTER(lang(?declCL) = "it")
                 BIND(CONCAT(STR(?lingObj), "§", STR(?declC), "§", STR(?declCL)) AS ?declPair)
             }
+            # Voce che ha redatto la dichiarazione paratestuale: non è detto sia l'autore
+            # letterario dell'espressione (crm:P14_carried_out_by, altro predicato).
+            OPTIONAL {
+                ?lingObj prov:wasAttributedTo ?loAuthor .
+                ?loAuthor rdfs:label ?loAuthorLabel .
+            }
             BIND("direct" AS ?fSource)
 
             OPTIONAL {
@@ -793,7 +800,8 @@ def expression():
             BIND(COALESCE(STR(?volYear), "") AS ?finalYear)
             BIND(COALESCE(STR(?pageVal), "") AS ?finalPage)
             BIND(COALESCE(STR(?fragContent), "") AS ?finalContent)
-            BIND(CONCAT(STR(?lingObj), "##", STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent) AS ?fragData)
+            BIND(COALESCE(STR(?loAuthorLabel), "") AS ?finalLoAuthor)
+            BIND(CONCAT(STR(?lingObj), "##", STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent, "##", ?finalLoAuthor) AS ?fragData)
         }
 
         # 3b. Tratti testuali rivelatori (desmos:TextualFeature). Una feature può
@@ -862,8 +870,8 @@ def expression():
             entry = entry.strip()
             if not entry:
                 continue
-            # 7-part concat: obj_uri ## text ## full_title ## year ## page ## source ## content
-            parts = entry.split('##', 6)
+            # 8-part concat: obj_uri ## text ## full_title ## year ## page ## source ## content ## lo_author
+            parts = entry.split('##', 7)
             obj_uri = parts[0].strip()
             frag_text = parts[1].strip() if len(parts) > 1 else ''
             if not frag_text or frag_text in seen_frag_texts:
@@ -877,6 +885,7 @@ def expression():
                 'page':      parts[4].strip() if len(parts) > 4 else '',
                 'source':    parts[5].strip() if len(parts) > 5 else 'direct',
                 'content':   parts[6].strip() if len(parts) > 6 else '',
+                'lo_author': parts[7].strip() if len(parts) > 7 and parts[7].strip() else None,
                 'declared':  declared_by_obj.get(obj_uri, []),
             })
     # Ancora stabile per il rimando dell'asse bipolare al testo sotto: assegnata
