@@ -76,7 +76,7 @@
                 <div class="metadata-row">
                     <div class="metadata-label">Operazione</div>
                     <div class="metadata-value">
-                        {% for item in info.operations %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %} &nearr;</sup></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                        {% for item in info.operations %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
                     </div>
                 </div>
                 {% endif %}
@@ -85,7 +85,7 @@
                 <div class="metadata-row">
                     <div class="metadata-label">Unità formale</div>
                     <div class="metadata-value">
-                        {% for item in info.formal_units %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %} &nearr;</sup></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                        {% for item in info.formal_units %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
                     </div>
                 </div>
                 {% endif %}
@@ -94,7 +94,7 @@
                 <div class="metadata-row">
                     <div class="metadata-label">Unità semantica</div>
                     <div class="metadata-value">
-                        {% for item in info.semantic_units %}{% if not loop.first %}, {% endif %}{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">{{ item.label }}<sup class="lod-indicator">{% if 'wikidata.org' in item.link %}WD{% else %}LOD{% endif %} &nearr;</sup></a>{% else %}{{ item.label }}{% endif %}{% endfor %}
+                        {% for item in info.semantic_units %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
                     </div>
                 </div>
                 {% endif %}

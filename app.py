@@ -790,10 +790,11 @@ def expression():
                 ?loAuthor rdfs:label ?loAuthorLabel .
             }
             BIND("direct" AS ?fSource)
-
             OPTIONAL {
                 ?uri lrmoo:R4i_is_embodied_in ?plaquette .
-                ?plaquette schema:pagination ?pageVal .
+                ?plaquette dct:title ?fragManTitle .
+                OPTIONAL { ?plaquette schema:pagination ?pageVal }
+                OPTIONAL { ?plaquette dct:issued ?directYear }
                 OPTIONAL {
                     ?plaquette crm:P148i_is_component_of ?mainVolume .
                     ?mainVolume dct:title ?volTitle ;
@@ -801,12 +802,13 @@ def expression():
                 }
             }
 
-            BIND(COALESCE(STR(?volTitle), "Biblioteca Oplepiana") AS ?finalFullTitle)
-            BIND(COALESCE(STR(?volYear), "") AS ?finalYear)
+            BIND(COALESCE(STR(?fragManTitle), "") AS ?finalManTitle)
+            BIND(COALESCE(STR(?volTitle), "") AS ?finalVolTitle)
+            BIND(COALESCE(STR(?volYear), STR(?directYear), "") AS ?finalYear)
             BIND(COALESCE(STR(?pageVal), "") AS ?finalPage)
             BIND(COALESCE(STR(?fragContent), "") AS ?finalContent)
             BIND(COALESCE(STR(?loAuthorLabel), "") AS ?finalLoAuthor)
-            BIND(CONCAT(STR(?lingObj), "##", STR(?fragText), "##", ?finalFullTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent, "##", ?finalLoAuthor) AS ?fragData)
+            BIND(CONCAT(STR(?lingObj), "##", STR(?fragText), "##", ?finalManTitle, "##", ?finalYear, "##", ?finalPage, "##", STR(?fSource), "##", ?finalContent, "##", ?finalLoAuthor, "##", ?finalVolTitle) AS ?fragData)
         }
 
         # 3b. Tratti testuali rivelatori (desmos:TextualFeature). Una feature può
@@ -875,8 +877,8 @@ def expression():
             entry = entry.strip()
             if not entry:
                 continue
-            # 8-part concat: obj_uri ## text ## full_title ## year ## page ## source ## content ## lo_author
-            parts = entry.split('##', 7)
+            # 9-part concat: obj_uri ## text ## man_title ## year ## page ## source ## content ## lo_author ## vol_title
+            parts = entry.split('##', 8)
             obj_uri = parts[0].strip()
             frag_text = parts[1].strip() if len(parts) > 1 else ''
             if not frag_text or frag_text in seen_frag_texts:
@@ -891,6 +893,7 @@ def expression():
                 'source':    parts[5].strip() if len(parts) > 5 else 'direct',
                 'content':   parts[6].strip() if len(parts) > 6 else '',
                 'lo_author': parts[7].strip() if len(parts) > 7 and parts[7].strip() else None,
+                'vol_title': parts[8].strip() if len(parts) > 8 and parts[8].strip() else None,
                 'declared':  declared_by_obj.get(obj_uri, []),
             })
     # Ancora stabile per il rimando dell'asse bipolare al testo sotto: assegnata

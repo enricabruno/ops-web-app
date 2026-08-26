@@ -15,6 +15,9 @@
     </div>
 
     <script id="puzzle-config" type="application/json">{"word": "OPS!"}</script>
-    <script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
 </section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
 {% endblock %}

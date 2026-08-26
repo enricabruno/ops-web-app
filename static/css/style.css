@@ -874,8 +874,33 @@ tbody tr:last-child td { border-bottom: none; }
     letter-spacing: 0.05em;
 }
 
+/* CSS Grid dimensionata sul contenuto: max-content su entrambe le colonne le
+   stringe rispettivamente alla parola più lunga ("Collocazione:") e al valore
+   più lungo, eliminando per costruzione il vuoto fra le due colonne che la
+   griglia Bootstrap (col-sm-5/col-sm-7, frazioni fisse) lasciava con etichette
+   corte. width: max-content (non max-width) fa sì che il blocco sia largo
+   quanto la riga più lunga, non quanto lo spazio disponibile: con
+   minmax(0, 1fr) sulla seconda colonna il blocco si allargava fino al
+   contenitore mentre il testo restava a sinistra, spostando il vuoto a destra
+   invece di eliminarlo. margin auto centra questa larghezza intrinseca sotto
+   il titolo "Scheda bibliografica". La seconda colonna resta minmax(0, ...)
+   anziché max-content puro: sul valore più lungo (es. Collocazione con titolo
+   estero) permette alla colonna di restringersi e mandare il testo a capo
+   entro max-width: 100%, invece di sfondare il bordo della card. */
+.expr-meta-dl {
+    display: grid;
+    grid-template-columns: max-content minmax(0, max-content);
+    column-gap: 1.5rem;
+    row-gap: 0.85rem;
+    width: max-content;
+    max-width: 100%;
+    margin: 1.5rem auto 0;
+}
+
 .expr-meta-dl dt {
     font-size: 1.05rem;
+    text-align: right;
+    margin: 0;
 }
 
 .expr-meta-dl dd {
@@ -883,6 +908,12 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 1.1rem;
     color: var(--color-text) !important;
     font-style: normal;
+    margin: 0;
+}
+
+@media (max-width: 36rem) {
+    .expr-meta-dl { grid-template-columns: 1fr; row-gap: 0.25rem; }
+    .expr-meta-dl dt { text-align: left; margin-top: 0.75rem; }
 }
 
 /* :not(.ext-icon-link) esclude l'anchor dell'icona esterna: quel colore (a
@@ -965,15 +996,6 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 0.95rem;
     line-height: 1.7;
 }
-
-/* Link LOD (autore in expression, operazioni/unità in explain) */
-a:has(.lod-indicator) {
-    color: var(--color-text) !important;
-    text-decoration: none !important;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-}
-
-a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decoration: none !important; }
 
 .link-external-xs {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
@@ -1528,55 +1550,56 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .constraint-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 /* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra e
-   tratto testuale a destra. Popover a due livelli: le due etichette di categoria
-   nell'intestazione (una sola volta, .evidence-category-btn) spiegano che cos'è
+   tratto testuale a destra. Popover a due livelli: il badge "i" in alto a destra
+   di ciascuna intestazione (.evidence-info-badge, hover/focus) spiega che cos'è
    la categoria; la linea di ciascuna corsia (.evidence-arm-line, bottone quando
    piena) apre la prova concreta di quella corsia — due popover diversi che non
    si aprono mai insieme (v. script). Bracci tratteggiati: solo linea decorativa,
    nessun bottone, nessuna prova da mostrare. Lo stato di una costrizione si
    legge dai bracci: nessuna dicitura duplicata sul nodo. */
-/* All'estremo della freccia, non sopra l'intera colonna: sovrapposta allo
-   spazio già riservato in cima alla prima corsia (min-height 76px meno
-   l'altezza di verbo+linea, ~30px vuoti che altrimenti non hanno funzione)
-   invece di aggiungere un blocco separato con margine proprio. Così
-   "Dichiarazione paratestuale"/"Tratto testuale" leggono come l'inizio
-   stesso della freccia: la tripla si legge in un colpo solo, dall'alto in
-   basso, sulla prima corsia — [Dichiarazione paratestuale] / riguarda /
-   freccia -> [Costrizione]. */
 .evidence-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 14px;
+    margin-bottom: 0.75rem;
 }
 .evidence-header-col { flex: 1 1 0; display: flex; }
 .evidence-header-decl { justify-content: flex-start; }
 .evidence-header-feat { justify-content: flex-end; }
 
-/* cursor: pointer, non 'help' — mai il punto interrogativo. Con lo stesso
-   cursore delle frecce, il segnale distintivo fra i due livelli di popup
-   resta solo il cambio di colore in hover (var(--color-accent) su
-   var(--color-text), percepibile): per questo la legenda sotto l'asse non è
-   opzionale, è l'unico altro indizio scritto della differenza fra i due.
-   Nessuna sottolineatura, né a riposo né in hover: solo il colore cambia.
-   Selettore con [type="button"]: il reboot di Bootstrap include
-   [type="button"]:not(:disabled){cursor:pointer}, specificità (0,2,0) — il
-   nostro bottone ha type="button", quindi la corrisponde e la batterebbe
-   sia una classe singola (0,1,0) sia `button.evidence-category-btn` (0,1,1). */
-button.evidence-category-btn[type="button"] {
-    all: unset;
-    cursor: pointer;
-    transition: color .2s ease;
+/* La dicitura resta testo statico nero, non reagisce al hover: solo il badge
+   "i" è ipertestuale (v. .evidence-info-badge). */
+.evidence-header-label {
+    position: relative;
+    display: inline-block;
+    padding: 8px 18px 2px 0;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    color: var(--color-text);
 }
-/* Stessa specificità (0,2,1) della regola base sopra, altrimenti :hover perde
-   contro il suo `all: unset` (che include color) esattamente come il cursore
-   prima della correzione — v. commento sopra. */
-button.evidence-category-btn[type="button"]:hover { color: var(--color-accent); }
-button.evidence-category-btn[type="button"]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+button.evidence-info-badge[type="button"] {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1.2px solid currentColor;
+    font-style: italic;
+    font-size: 0.62rem;
+    line-height: 1;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+}
+button.evidence-info-badge[type="button"]:hover,
+button.evidence-info-badge[type="button"]:focus-visible { color: var(--color-accent); border-color: var(--color-accent); }
+button.evidence-info-badge[type="button"]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .evidence-axis {
     position: relative;
