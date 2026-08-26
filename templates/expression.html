@@ -206,16 +206,16 @@
        tiene il testo in flusso (clip 1x1px) restando quindi cercabile e stampabile
        a popover chiuso, che è esattamente il requisito.
 
-       Popover a due livelli:
+       Popover a due livelli, entrambi al passaggio del mouse (oltre che al
+       focus da tastiera, mai solo hover: v. inizializzazione sotto):
        - classe (intestazione, una volta sola): "Dichiarazione paratestuale"/
          "Tratto testuale" sono bottoni ipertestuali che al hover/focus mostrano
          la DEFINIZIONE della categoria (testo costante, da desmos.owl — vedi i
-         due <div> nascosti sotto). Cursore 'help': è il segnale primario che
-         qui si apre una definizione, non un'azione (v. .evidence-category-btn).
+         due <div> nascosti sotto). Il segnale distintivo fra i due livelli di
+         popup è solo il colore in hover (v. .evidence-category-btn).
        - istanza (per corsia): la linea/freccia di ciascuna corsia è essa stessa
-         il bottone che apre la prova concreta di QUELLA corsia (cursore
-         'pointer', a differenza del 'help' sopra: due cursori distinguono i
-         due tipi di popup). Il verbo di relazione (riguarda/rivela) sta sopra
+         il bottone che apre subito, al passaggio del mouse, la prova concreta
+         di QUELLA corsia. Il verbo di relazione (riguarda/rivela) sta sopra
          la linea, per corsia — non nell'intestazione: ogni riga si legge come
          una tripla RDF completa (soggetto in intestazione, predicato sulla
          freccia, oggetto al centro). Niente verbo su un braccio tratteggiato:
@@ -361,7 +361,7 @@ document.querySelectorAll('.evidence-category-btn').forEach(function (btn) {
 });
 
 document.querySelectorAll('button.evidence-arm-line').forEach(function (btn) {
-    var popover = initEvidencePopover(btn, 'focus');
+    var popover = initEvidencePopover(btn, 'hover focus');
     btn.addEventListener('click', function () {
         if (document.activeElement !== btn) btn.focus();
     });
