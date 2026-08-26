@@ -101,7 +101,7 @@
                         {% if expr.sources %}
                             {% for source in expr.sources %}
                             <div class="mb-1">
-                                <a href="/expression?uri={{ source.uri | urlencode }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small">&middot; <a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="link-intra" title="Vedi i testi a confronto">confronta &#8644;</a></span>{% endif %}
+                                <a href="/expression?uri={{ source.uri | urlencode }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small"><a href="/anagrafia?uri={{ expr.uri | urlencode }}" class="link-intra" title="Vedi i testi a confronto">(confronta &#8644;)</a></span>{% endif %}
                             </div>
                             {% endfor %}
                         {% else %}
