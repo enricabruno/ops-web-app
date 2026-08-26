@@ -1526,14 +1526,27 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
    si aprono mai insieme (v. script). Bracci tratteggiati: solo linea decorativa,
    nessun bottone, nessuna prova da mostrare. Lo stato di una costrizione si
    legge dai bracci: nessuna dicitura duplicata sul nodo. */
+/* All'estremo della freccia, non sopra l'intera colonna: sovrapposta allo
+   spazio già riservato in cima alla prima corsia (min-height 76px meno
+   l'altezza di verbo+linea, ~30px vuoti che altrimenti non hanno funzione)
+   invece di aggiungere un blocco separato con margine proprio. Così
+   "Dichiarazione paratestuale"/"Tratto testuale" leggono come l'inizio
+   stesso della freccia: la tripla si legge in un colpo solo, dall'alto in
+   basso, sulla prima corsia — [Dichiarazione paratestuale] / riguarda /
+   freccia -> [Costrizione]. */
 .evidence-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin: 1.5rem 0 0.75rem;
+    align-items: flex-start;
+    gap: 14px;
 }
-.evidence-header-col { display: flex; align-items: center; gap: 0.4rem; }
+.evidence-header-col { flex: 1 1 0; display: flex; }
+.evidence-header-decl { justify-content: flex-start; }
+.evidence-header-feat { justify-content: flex-end; }
 
 /* cursor: pointer, non 'help' — mai il punto interrogativo. Con lo stesso
    cursore delle frecce, il segnale distintivo fra i due livelli di popup
@@ -1557,10 +1570,11 @@ button.evidence-category-btn[type="button"]:hover { color: var(--color-accent); 
 button.evidence-category-btn[type="button"]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .evidence-axis {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    margin: 0 0 2rem;
+    margin: 1.5rem 0 2rem;
 }
 
 /* 76px di altezza per fare posto al verbo sopra la linea senza comprimere il
@@ -1589,7 +1603,6 @@ button.evidence-category-btn[type="button"]:focus-visible { outline: 2px solid v
     display: block;
     text-align: center;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-style: italic;
     font-size: 0.8rem;
     color: var(--color-text);
     margin-bottom: 4px;
