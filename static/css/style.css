@@ -710,6 +710,13 @@ tbody tr:last-child td { border-bottom: none; }
 
 .ops-initial { color: var(--color-accent); }
 
+.hero-intro-text a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.hero-intro-text a:hover { opacity: 0.8; }
+
 @media (prefers-reduced-motion: reduce) {
     .puzzle-piece-wrapper { transition: none !important; transform: translateX(0) !important; }
 }
