@@ -879,6 +879,10 @@ def expression():
                 'content':   parts[6].strip() if len(parts) > 6 else '',
                 'declared':  declared_by_obj.get(obj_uri, []),
             })
+    # Ancora stabile per il rimando dell'asse bipolare al testo sotto: assegnata
+    # sulla lista già filtrata/deduplicata, non sull'indice grezzo del ciclo.
+    for i, frag in enumerate(fragments, start=1):
+        frag['anchor'] = f'ev-decl-{i}'
 
     # Tratti testuali rivelatori: coppie (feature, costrizione) raggruppate per feature,
     # così una nota con più costrizioni rivelate resta una sola voce.
@@ -893,6 +897,8 @@ def expression():
             if entry not in feat['constraints']:
                 feat['constraints'].append(entry)
     features = list(features_by_uri.values())
+    for i, feat in enumerate(features, start=1):
+        feat['anchor'] = f'ev-feat-{i}'
 
     # Testi contenuti (se l'espressione è una plaquette contenitore)
     children = []
@@ -914,6 +920,45 @@ def expression():
         status_key, status_label = 'manifesta', 'Costrizione non dichiarata ma manifesta nel testo'
     else:
         status_key, status_label = 'implicita', 'Costrizione implicita'
+
+    # Asse bipolare: a differenza di status_key/status_label sopra (vero se ALMENO UNA
+    # dichiarazione/tratto esiste in tutta l'espressione), qui lo stato è per costrizione
+    # — un'espressione con tre costrizioni può avere tre stati diversi. I dati vengono
+    # dalle stesse due join già presenti nella query grande (P67_refers_to+P129_is_about
+    # per il paratesto, isFeatureOf+revealsConstraint per il tratto), solo raggruppati
+    # per costrizione invece che per oggetto di evidenza.
+    decl_anchor_by_constraint = {}
+    for frag in fragments:
+        for c in frag['declared']:
+            decl_anchor_by_constraint.setdefault(c['uri'], frag['anchor'])
+
+    feat_anchor_by_constraint = {}
+    for feat in features:
+        for c in feat['constraints']:
+            feat_anchor_by_constraint.setdefault(c['uri'], feat['anchor'])
+
+    evidence = []
+    for c in constraints_formali + constraints_semantiche:
+        declared = c['uri'] in decl_anchor_by_constraint
+        manifest = c['uri'] in feat_anchor_by_constraint
+        if declared and manifest:
+            ev_status_key, ev_status_label = 'dichiarata-manifesta', 'Costrizione dichiarata e manifesta'
+        elif declared:
+            ev_status_key, ev_status_label = 'dichiarata', 'Costrizione dichiarata'
+        elif manifest:
+            ev_status_key, ev_status_label = 'manifesta', 'Costrizione non dichiarata ma manifesta nel testo'
+        else:
+            ev_status_key, ev_status_label = 'implicita', 'Costrizione implicita'
+        evidence.append({
+            'uri': c['uri'],
+            'label': c['label'],
+            'declared': declared,
+            'manifest': manifest,
+            'status_key': ev_status_key,
+            'status_label': ev_status_label,
+            'decl_anchor': decl_anchor_by_constraint.get(c['uri']),
+            'feat_anchor': feat_anchor_by_constraint.get(c['uri']),
+        })
 
     def _link_list(raw):
         """Da stringa concatenata a lista deduplicata di {url, abbr}, ordine preservato."""
@@ -946,6 +991,7 @@ def expression():
         'constraints_semantiche': constraints_semantiche,
         'fragments': fragments,
         'features': features,
+        'evidence': evidence,
         'children': children,
         'parent': parent,
         'volume_title': b.get('volTitle', {}).get('value', ''),

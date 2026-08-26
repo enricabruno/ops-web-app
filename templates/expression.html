@@ -218,6 +218,49 @@
     <section>
         <h5 class="section-label">{{ expr.status_label }}</h5>
 
+        {# Asse bipolare: uno stato per costrizione, non uno solo per l'intera
+           espressione (expr.status_label sopra riflette invece "esiste ALMENO UNA
+           dichiarazione/tratto nell'espressione" — può divergere dallo stato di una
+           singola costrizione qui sotto). Il braccio pieno rimanda con un'ancora al
+           testo integrale nel pannello sotto; il braccio tratteggiato non è un
+           bersaglio, perché non c'è alcuna prova da mostrare. #}
+        {% if expr.evidence %}
+        <div class="ev-axis">
+            {% for item in expr.evidence %}
+            <div class="ev-axis-row" data-status="{{ item.status_key }}">
+                <div class="ev-arm ev-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
+                    {% if item.declared %}
+                    <a href="#{{ item.decl_anchor }}" class="ev-arm-line">
+                        <span class="ev-arm-label">Dichiarazione paratestuale</span>
+                    </a>
+                    {% else %}
+                    <span class="ev-arm-line" aria-hidden="true">
+                        <span class="ev-arm-label">Dichiarazione paratestuale</span>
+                    </span>
+                    {% endif %}
+                </div>
+
+                <div class="ev-axis-node">
+                    <a href="/explain?uri={{ item.uri | urlencode }}" class="link-intra ev-axis-constraint">{{ item.label }}</a>
+                    <span class="ev-axis-status">{{ item.status_label }}</span>
+                </div>
+
+                <div class="ev-arm ev-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
+                    {% if item.manifest %}
+                    <a href="#{{ item.feat_anchor }}" class="ev-arm-line">
+                        <span class="ev-arm-label">Tratto testuale rivelatore</span>
+                    </a>
+                    {% else %}
+                    <span class="ev-arm-line" aria-hidden="true">
+                        <span class="ev-arm-label">Tratto testuale rivelatore</span>
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% if expr.fragments or expr.features %}
         {% set due_pannelli = expr.fragments and expr.features %}
         <div class="row g-4 justify-content-center">
@@ -226,7 +269,7 @@
             <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
                 <h6 class="section-label-declaration">Dichiarazione paratestuale</h6>
                 {% for fragment in expr.fragments %}
-                <div class="mb-4 text-center">
+                <div id="{{ fragment.anchor }}" class="mb-4 text-center">
                     <blockquote class="declaration-block">
                         <p class="blockquote-text">
                             <i class="fa-solid fa-quote-left"></i>
@@ -264,7 +307,7 @@
             <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
                 <h6 class="section-label-declaration">Tratti testuali rivelatori</h6>
                 {% for feature in expr.features %}
-                <div class="declaration-block feature-block mb-4">
+                <div id="{{ feature.anchor }}" class="declaration-block feature-block mb-4">
                     <p class="expr-plain-text">{{ feature.note }}</p>
                     {% if feature.constraints %}
                     {% endif %}
