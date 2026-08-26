@@ -1514,7 +1514,8 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
    Nessuna sottolineatura a riposo; compare in hover/focus, non è mai invisibile
    del tutto (l'elemento resta un <a>, l'affordance arriva con l'interazione). */
 .constraint-link { text-decoration: none; color: inherit; cursor: pointer; }
-.constraint-link:hover { text-decoration: underline; text-decoration-color: var(--color-accent); }
+.constraint-link:hover,
+.constraint-link:focus-visible { color: var(--color-accent); text-decoration: none; }
 .constraint-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 /* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra e
