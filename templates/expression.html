@@ -311,9 +311,17 @@
 {# Init dopo bootstrap.bundle.min.js (caricato in base.html prima di extra_scripts):
    qui new bootstrap.Popover esiste già. content è una funzione, non una stringa
    statica, letta ogni apertura dal div nascosto — non generato in JS, così il
-   testo resta cercabile con Ctrl+F e stampabile anche a popover chiuso. #}
+   testo resta cercabile con Ctrl+F e stampabile anche a popover chiuso.
+   trigger resta 'focus' puro (non 'focus click': i due combinati creano un
+   conflitto di toggle sul secondo click nei browser dove il click già dà focus
+   da solo). Le due righe seguenti coprono i due casi che 'focus' da solo non
+   copre, verificati con Chromium e WebKit reali via Playwright:
+   - Safari non dà focus a un <button> al click del mouse (solo da tastiera):
+     senza questo, un click reale in Safari non apre mai il popover.
+   - Bootstrap non chiude Popover/Tooltip con Esc (lo fa solo per modal,
+     offcanvas e dropdown): va aggiunto a mano. #}
 document.querySelectorAll('.evidence-arm-btn').forEach(function (btn) {
-    new bootstrap.Popover(btn, {
+    var popover = new bootstrap.Popover(btn, {
         html: true,
         sanitize: false,
         trigger: 'focus',
@@ -323,6 +331,12 @@ document.querySelectorAll('.evidence-arm-btn').forEach(function (btn) {
             var src = document.getElementById(btn.dataset.provSource);
             return src ? src.innerHTML : '';
         },
+    });
+    btn.addEventListener('click', function () {
+        if (document.activeElement !== btn) btn.focus();
+    });
+    btn.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') popover.hide();
     });
 });
 </script>
