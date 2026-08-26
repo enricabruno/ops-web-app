@@ -8,7 +8,7 @@
 {% set soglia = 15 %}
 <div class="d-flex flex-wrap gap-2">
     {% for c in items[:soglia] %}
-    <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
+    <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
     {% endfor %}
 </div>
 {% if items | length > soglia %}
@@ -16,7 +16,7 @@
 <div class="collapse" id="{{ collapse_id }}">
     <div class="d-flex flex-wrap gap-2 mt-2">
         {% for c in items[soglia:] %}
-        <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
+        <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
         {% endfor %}
     </div>
 </div>
@@ -197,7 +197,94 @@
         </div>
     </div>
 
-    {# ==================== 3. TESTI CONTENUTI ==================== #}
+    {# ==================== 3. ASSE BIPOLARE ====================
+       Uno stato per costrizione, leggibile dai bracci (pieno = c'è evidenza,
+       tratteggiato = non c'è): nessuna dicitura di stato duplicata sotto il nodo.
+       Il testo integrale delle prove resta nel markup, non generato in JS. Usa
+       .visually-hidden (Bootstrap) invece dell'attributo hidden: hidden equivale a
+       display:none, che il Ctrl+F nativo del browser NON cerca — .visually-hidden
+       tiene il testo in flusso (clip 1x1px) restando quindi cercabile e stampabile
+       a popover chiuso, che è esattamente il requisito. Il popover si aggancia al
+       bottone-etichetta del braccio, non all'intestazione d'asse: quando una
+       dichiarazione copre più costrizioni l'intestazione è condivisa da più corsie
+       e non identifica una singola evidenza. #}
+    {% if expr.evidence %}
+    <section class="evidence-section">
+        <div class="evidence-axis">
+            {% for item in expr.evidence %}
+            <div class="evidence-row" data-status="{{ item.status_key }}">
+                <div class="evidence-arm evidence-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
+                    {% if item.declared %}
+                    <button type="button" class="evidence-arm-btn" data-bs-toggle="popover"
+                            data-prov-source="{{ item.decl_anchor }}"
+                            aria-label="Dichiarazione paratestuale — {{ item.label }}">
+                        Dichiarazione paratestuale
+                    </button>
+                    {% else %}
+                    <span class="evidence-arm-label">nessuna dichiarazione</span>
+                    {% endif %}
+                    <span class="evidence-arm-line" aria-hidden="true"></span>
+                </div>
+
+                <div class="evidence-node">
+                    <a href="/explain?uri={{ item.uri | urlencode }}" class="evidence-constraint constraint-link">{{ item.label }}</a>
+                </div>
+
+                <div class="evidence-arm evidence-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
+                    <span class="evidence-arm-line" aria-hidden="true"></span>
+                    {% if item.manifest %}
+                    <button type="button" class="evidence-arm-btn" data-bs-toggle="popover"
+                            data-prov-source="{{ item.feat_anchor }}"
+                            aria-label="Tratto testuale rivelatore — {{ item.label }}">
+                        Tratto testuale rivelatore
+                    </button>
+                    {% else %}
+                    <span class="evidence-arm-label">nessun tratto</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {# Sorgenti dei popover: un div nascosto per oggetto di evidenza (non per
+           costrizione) — una dichiarazione condivisa da tre costrizioni resta un
+           solo testo, e i tre bottoni delle tre corsie puntano allo stesso id. #}
+        {% for fragment in expr.fragments %}
+        <div id="{{ fragment.anchor }}" class="visually-hidden">
+            <p>{{ fragment.text }}</p>
+            {% if fragment.content %}
+            <p><i>{{ fragment.content }}</i></p>
+            {% endif %}
+            {% if fragment.lo_author %}
+            <p>Autore: {{ fragment.lo_author }}</p>
+            {% endif %}
+            {% set fonte = [] %}
+            {% if fragment.man_title %}{% set _ = fonte.append(fragment.man_title) %}{% endif %}
+            {% if fragment.issued %}{% set _ = fonte.append(fragment.issued) %}{% endif %}
+            {% if fragment.page %}{% set _ = fonte.append('pp. ' ~ fragment.page) %}{% endif %}
+            {% if fonte %}
+            <p>Fonte: {{ fonte | join(', ') }}</p>
+            {% endif %}
+            {% if fragment.declared | length > 1 %}
+            <p>Costrizioni coperte: {{ fragment.declared | map(attribute='label') | join(', ') }}</p>
+            {% endif %}
+            <p><code>{{ fragment.uri }}</code></p>
+        </div>
+        {% endfor %}
+
+        {% for feature in expr.features %}
+        <div id="{{ feature.anchor }}" class="visually-hidden">
+            <p>{{ feature.note }}</p>
+            {% if feature.constraints | length > 1 %}
+            <p>Costrizioni rivelate: {{ feature.constraints | map(attribute='label') | join(', ') }}</p>
+            {% endif %}
+            <p><code>{{ feature.uri }}</code></p>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {# ==================== 4. TESTI CONTENUTI ==================== #}
     {% if expr.children %}
     <section>
         <h5 class="section-label">Testi contenuti nella plaquette</h5>
@@ -214,123 +301,29 @@
     </section>
     {% endif %}
 
-    {# ==================== 4. STATUTO DELLA COSTRIZIONE ==================== #}
-    <section>
-        <h5 class="section-label">{{ expr.status_label }}</h5>
-
-        {# Asse bipolare: uno stato per costrizione, non uno solo per l'intera
-           espressione (expr.status_label sopra riflette invece "esiste ALMENO UNA
-           dichiarazione/tratto nell'espressione" — può divergere dallo stato di una
-           singola costrizione qui sotto). Il braccio pieno rimanda con un'ancora al
-           testo integrale nel pannello sotto; il braccio tratteggiato non è un
-           bersaglio, perché non c'è alcuna prova da mostrare. #}
-        {% if expr.evidence %}
-        <div class="ev-axis">
-            {% for item in expr.evidence %}
-            <div class="ev-axis-row" data-status="{{ item.status_key }}">
-                <div class="ev-arm ev-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
-                    {% if item.declared %}
-                    <a href="#{{ item.decl_anchor }}" class="ev-arm-line">
-                        <span class="ev-arm-label">Dichiarazione paratestuale</span>
-                    </a>
-                    {% else %}
-                    <span class="ev-arm-line" aria-hidden="true">
-                        <span class="ev-arm-label">Dichiarazione paratestuale</span>
-                    </span>
-                    {% endif %}
-                </div>
-
-                <div class="ev-axis-node">
-                    <a href="/explain?uri={{ item.uri | urlencode }}" class="link-intra ev-axis-constraint">{{ item.label }}</a>
-                    <span class="ev-axis-status">{{ item.status_label }}</span>
-                </div>
-
-                <div class="ev-arm ev-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
-                    {% if item.manifest %}
-                    <a href="#{{ item.feat_anchor }}" class="ev-arm-line">
-                        <span class="ev-arm-label">Tratto testuale rivelatore</span>
-                    </a>
-                    {% else %}
-                    <span class="ev-arm-line" aria-hidden="true">
-                        <span class="ev-arm-label">Tratto testuale rivelatore</span>
-                    </span>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% if expr.fragments or expr.features %}
-        {% set due_pannelli = expr.fragments and expr.features %}
-        <div class="row g-4 justify-content-center">
-
-            {% if expr.fragments %}
-            <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
-                <h6 class="section-label-declaration">Dichiarazione paratestuale</h6>
-                {% for fragment in expr.fragments %}
-                <div id="{{ fragment.anchor }}" class="mb-4 text-center">
-                    <blockquote class="declaration-block">
-                        <p class="blockquote-text">
-                            <i class="fa-solid fa-quote-left"></i>
-                            {{ fragment.text }}
-                            <i class="fa-solid fa-quote-right"></i>
-                        </p>
-                    </blockquote>
-                    {% if fragment.content %}
-                    <blockquote class="declaration-block declaration-example mt-3">
-                        <p class="blockquote-text blockquote-example">
-                            {{ fragment.content }}
-                        </p>
-                    </blockquote>
-                    {% endif %}
-                    {% if fragment.declared %}
-                    <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
-                        {% for c in fragment.declared %}
-                        <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo link-intra">{{ c.label }}</a>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <div class="source-declaration text-end mt-2">
-                        <span class="relation-label">
-                            Fonte: <span class="manifestation-title">{{ fragment.man_title }}</span>,
-                            {{ fragment.issued }},
-                            pp. {{ fragment.page if fragment.page else 'n.d.' }}
-                        </span>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            {% if expr.features %}
-            <div class="{{ 'col-md-6' if due_pannelli else 'col-lg-8 mx-auto' }}">
-                <h6 class="section-label-declaration">Tratti testuali rivelatori</h6>
-                {% for feature in expr.features %}
-                <div id="{{ feature.anchor }}" class="declaration-block feature-block mb-4">
-                    <p class="expr-plain-text">{{ feature.note }}</p>
-                    {% if feature.constraints %}
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        {% else %}
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="alert-implicita">
-                    <strong>Costrizione implicita:</strong> nessuna dichiarazione paratestuale né
-                    tratto testuale manifesto. La costrizione è nota unicamente come metadato di
-                    catalogazione.
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </section>
-
     {% endif %}
   </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+{# Init dopo bootstrap.bundle.min.js (caricato in base.html prima di extra_scripts):
+   qui new bootstrap.Popover esiste già. content è una funzione, non una stringa
+   statica, letta ogni apertura dal div nascosto — non generato in JS, così il
+   testo resta cercabile con Ctrl+F e stampabile anche a popover chiuso. #}
+document.querySelectorAll('.evidence-arm-btn').forEach(function (btn) {
+    new bootstrap.Popover(btn, {
+        html: true,
+        sanitize: false,
+        trigger: 'focus',
+        placement: 'top',
+        customClass: 'evidence-popover',
+        content: function () {
+            var src = document.getElementById(btn.dataset.provSource);
+            return src ? src.innerHTML : '';
+        },
+    });
+});
+</script>
 {% endblock %}

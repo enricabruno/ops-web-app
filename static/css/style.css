@@ -918,16 +918,6 @@ tbody tr:last-child td { border-bottom: none; }
     border: none;
 }
 
-.section-label-declaration {
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: left;
-    color: var(--color-text);
-    margin-bottom: 1rem;
-    padding-left: 0;
-    border: none;
-}
-
 .external-link-icon { color: var(--color-accent); }
 
 .internal-link {
@@ -1026,52 +1016,10 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     text-decoration: none;
 }
 
-/* Citazione dichiarativa */
-.blockquote-text {
-    position: relative;
-    padding: 1.2rem 3.5rem;
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 1.15rem;
-    font-style: italic;
-    letter-spacing: 0.04em;
-    line-height: 1.8;
-    color: var(--color-text);
-    margin: 0;
-    margin-top: 2rem;
-    text-align: justify;
-    display: inline-block;
-}
-
-.blockquote-text i.fa-solid { color: var(--color-accent); font-size: 1rem; position: absolute; }
-.blockquote-text i.fa-quote-left  { top: -10px; left: 0; }
-.blockquote-text i.fa-quote-right { bottom: -10px; right: 0; }
-
 .quote-left, .quote-right { color: var(--color-accent); font-size: 2.5rem; line-height: 0.5; }
 
-.blockquote-example {
-    font-size: 1rem;
-    font-style: normal;
-    opacity: 0.85;
-    padding: 0.8rem 3rem;
-    margin-top: 0;
-    white-space: pre-line;
-}
-
-.relation-label, .manifestation-title {
+.relation-label {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-}
-
-.source-declaration {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.8rem;
-    text-transform: none;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    padding-bottom: 30px;
-    margin-top: 4rem;
-    margin-left: 1rem;
-    text-align: right;
 }
 
 /* ============================================
@@ -1562,86 +1510,78 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 
 .child-item:last-child { border-bottom: none; }
 
-/* Pannello dei tratti testuali: stesso incasso della dichiarazione paratestuale */
-.feature-block {
-    padding: 1.2rem 1.5rem;
-    background-color: var(--color-surface);
-    border-left: 2px solid var(--color-accent);
-}
+/* Link al nome di una costrizione: nell'asse bipolare e in "Costrizioni presenti".
+   Nessuna sottolineatura a riposo; compare in hover/focus, non è mai invisibile
+   del tutto (l'elemento resta un <a>, l'affordance arriva con l'interazione). */
+.constraint-link { text-decoration: none; color: inherit; cursor: pointer; }
+.constraint-link:hover { text-decoration: underline; text-decoration-color: var(--color-accent); }
+.constraint-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
-/* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra
-   e tratto testuale rivelatore a destra. Il "binario" (::before) di ciascun
-   braccio è sempre disegnato: pieno e cliccabile se l'evidenza esiste (rimanda
-   con un'ancora al testo integrale sotto), tratteggiato e non interattivo se no. */
-.ev-axis {
+/* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra e
+   tratto testuale rivelatore a destra. Il binario (.evidence-arm-line) è sempre
+   disegnato: pieno se l'evidenza esiste (il bottone-etichetta apre il popover con
+   la prova), tratteggiato e non interattivo se no ("nessuna dichiarazione"/"nessun
+   tratto" al posto dell'intestazione ripetuta in grigio). Lo stato di una
+   costrizione si legge dai bracci: nessuna dicitura di stato duplicata sul nodo. */
+.evidence-axis {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     margin: 1.5rem 0 2rem;
 }
 
-.ev-axis-row {
+.evidence-row {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.ev-arm { flex: 1 1 0; min-width: 0; }
-
-.ev-arm-line {
+.evidence-arm {
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    width: 100%;
-    text-decoration: none;
-    color: var(--color-text);
 }
-.ev-arm-decl .ev-arm-line { flex-direction: row-reverse; }
+/* Bottone/etichetta prima, binario dopo nel markup per entrambi i bracci: qui si
+   inverte solo il lato destro, così il binario resta sempre adiacente al nodo. */
+.evidence-arm-feat { flex-direction: row-reverse; }
 
-.ev-arm-line::before {
-    content: '';
+.evidence-arm-line {
     flex: 1 1 auto;
     height: 0;
     border-top: 2px solid var(--color-accent);
 }
+.evidence-arm.is-dashed .evidence-arm-line { border-top-style: dashed; opacity: 0.5; }
+.evidence-arm.is-dashed .evidence-arm-label { opacity: 0.6; }
 
-.ev-arm.is-dashed .ev-arm-line::before { border-top-style: dashed; opacity: 0.5; }
-.ev-arm.is-dashed .ev-arm-label { opacity: 0.6; }
-
-.ev-arm-decl.is-solid .ev-arm-line:hover,
-.ev-arm-feat.is-solid .ev-arm-line:hover { color: var(--color-accent); }
-.ev-arm.is-solid .ev-arm-line:hover::before { border-color: var(--color-text); }
-.ev-arm.is-solid .ev-arm-line:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
-
-.ev-arm-label { font-size: 0.8rem; }
-
-.ev-axis-node {
-    flex: 0 0 auto;
-    max-width: 220px;
-    text-align: center;
-}
-
-.ev-axis-constraint {
-    display: block;
-    font-weight: 700;
-}
-
-.ev-axis-status {
-    display: block;
-    font-size: 0.75rem;
-    opacity: 0.75;
-}
-
-.alert-implicita {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.95rem;
+.evidence-arm-btn {
+    all: unset;
+    cursor: pointer;
+    font-size: 0.8rem;
     color: var(--color-text);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
-    padding: 1rem 1.25rem;
-    text-align: center;
+    white-space: nowrap;
 }
+.evidence-arm-btn:hover { color: var(--color-accent); }
+.evidence-arm-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+
+.evidence-arm-label { font-size: 0.8rem; color: var(--color-text); white-space: nowrap; }
+
+.evidence-node { flex: 0 0 auto; max-width: 220px; text-align: center; }
+
+.evidence-constraint { display: block; font-weight: 700; }
+
+/* Corpo del popover di provenienza: agganciato al bottone-etichetta del braccio,
+   non all'intestazione d'asse (v. commento nel template). Il contenuto viene dal
+   <div hidden> corrispondente, non da JS. */
+.evidence-popover {
+    max-width: 320px;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+}
+.evidence-popover .popover-body { font-size: 0.8rem; }
+.evidence-popover .popover-body p { margin-bottom: 0.5rem; }
+.evidence-popover .popover-body p:last-child { margin-bottom: 0; }
+.evidence-popover code { font-size: 0.7rem; word-break: break-all; }
 
 /* ============================================
    /expression — ANELLO DELLE COSTRIZIONI
