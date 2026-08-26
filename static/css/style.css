@@ -1519,16 +1519,39 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
 .constraint-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 /* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra e
-   tratto testuale rivelatore a destra. Il binario (.evidence-arm-line) è sempre
-   disegnato: pieno se l'evidenza esiste (il bottone-etichetta apre il popover con
-   la prova), tratteggiato e non interattivo se no ("nessuna dichiarazione"/"nessun
-   tratto" al posto dell'intestazione ripetuta in grigio). Lo stato di una
-   costrizione si legge dai bracci: nessuna dicitura di stato duplicata sul nodo. */
+   tratto testuale a destra. Popover a due livelli: le due etichette di categoria
+   nell'intestazione (una sola volta, .evidence-category-btn) spiegano che cos'è
+   la categoria; la linea di ciascuna corsia (.evidence-arm-line, bottone quando
+   piena) apre la prova concreta di quella corsia — due popover diversi che non
+   si aprono mai insieme (v. script). Bracci tratteggiati: solo linea decorativa,
+   nessun bottone, nessuna prova da mostrare. Lo stato di una costrizione si
+   legge dai bracci: nessuna dicitura duplicata sul nodo. */
+.evidence-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 0.75rem;
+}
+.evidence-header-col { display: flex; align-items: center; gap: 0.4rem; }
+
+.evidence-category-btn {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    border-bottom: 1px dotted var(--color-accent);
+}
+.evidence-category-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+
+/* Il verbo segue il sostantivo ma non è mai cliccabile: l'affordance del link
+   resta solo sul bottone di categoria, non si sdoppia sul verbo. */
+.evidence-verb { font-style: italic; font-size: 0.85rem; color: var(--color-muted); }
+
 .evidence-axis {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    margin: 1.5rem 0 2rem;
+    margin: 0 0 2rem;
 }
 
 .evidence-row {
@@ -1537,44 +1560,43 @@ a:has(.lod-indicator):hover { color: var(--color-accent) !important; text-decora
     gap: 1rem;
 }
 
-.evidence-arm {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-/* Bottone/etichetta prima, binario dopo nel markup per entrambi i bracci: qui si
-   inverte solo il lato destro, così il binario resta sempre adiacente al nodo. */
-.evidence-arm-feat { flex-direction: row-reverse; }
+.evidence-arm { flex: 1 1 0; min-width: 0; display: flex; align-items: center; }
 
+/* La linea è essa stessa il bersaglio quando piena, non una decorazione accanto
+   a un'etichetta di testo: area cliccabile alta 24px, il tratto visibile resta
+   sottile (::before) al centro dell'area. */
 .evidence-arm-line {
     flex: 1 1 auto;
-    height: 0;
+    display: flex;
+    align-items: center;
+    height: 24px;
+}
+.evidence-arm-line::before {
+    content: '';
+    display: block;
+    width: 100%;
     border-top: 2px solid var(--color-accent);
 }
-.evidence-arm.is-dashed .evidence-arm-line { border-top-style: dashed; opacity: 0.5; }
-.evidence-arm.is-dashed .evidence-arm-label { opacity: 0.6; }
+.evidence-arm.is-dashed .evidence-arm-line::before { border-top-style: dashed; opacity: 0.5; }
 
-.evidence-arm-btn {
+button.evidence-arm-line {
     all: unset;
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    height: 24px;
     cursor: pointer;
-    font-size: 0.8rem;
-    color: var(--color-text);
-    white-space: nowrap;
 }
-.evidence-arm-btn:hover { color: var(--color-accent); }
-.evidence-arm-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
-
-.evidence-arm-label { font-size: 0.8rem; color: var(--color-text); white-space: nowrap; }
+button.evidence-arm-line:hover::before { border-color: var(--color-text); }
+button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
 .evidence-node { flex: 0 0 auto; max-width: 220px; text-align: center; }
 
 .evidence-constraint { display: block; font-weight: 700; }
 
-/* Corpo del popover di provenienza: agganciato al bottone-etichetta del braccio,
-   non all'intestazione d'asse (v. commento nel template). Il contenuto viene dal
-   <div hidden> corrispondente, non da JS. */
+/* Corpo del popover: stesso stile per i due livelli (definizione di categoria
+   sull'intestazione, prova concreta sulla corsia). Il contenuto viene dal <div
+   .visually-hidden corrispondente, non da JS. */
 .evidence-popover {
     max-width: 320px;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
