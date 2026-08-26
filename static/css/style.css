@@ -814,7 +814,7 @@ tbody tr:last-child td { border-bottom: none; }
    fissa, così il conteggio è sempre incolonnato indipendentemente dalla lunghezza
    del titolo, e il chevron resta nella stessa posizione anche senza conteggio. */
 .disclosure-title { flex: 1 1 auto; min-width: 0; }
-.disclosure-count { flex: 0 0 5rem; text-align: right; font-style: normal; color: var(--color-muted); }
+.disclosure-count { flex: 0 0 5rem; text-align: right; font-style: normal; color: var(--color-text); }
 .chevron          { flex: 0 0 auto; margin-left: 1rem; font-size: 0.9rem; transition: transform 0.25s ease; }
 .disclosure-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
