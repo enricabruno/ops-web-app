@@ -1171,5 +1171,112 @@ def anagrafia():
     return render_template('anagrafia.html', data=viz_data, error=None)
 
 
+DEFAULT_HIERARCHY_SCHEME = 'https://w3id.org/desmos/FormalConstraintScheme'
+
+
+@app.route('/api/hierarchy')
+def api_hierarchy():
+    """Albero SKOS (skos:broader, con skos:related annessi) di uno ConceptScheme,
+    per la visualizzazione radiale in /hierarchy. Query string: ?scheme=<URI>
+    (default FormalConstraintScheme). Il FILTER NOT EXISTS nella query
+    sopprime a runtime eventuali skos:broader ridondanti residui: è una rete
+    di sicurezza, non un sostituto della pulizia dei dati (v. Task 1 su
+    concept.ttl)."""
+    raw_scheme = request.args.get('scheme', DEFAULT_HIERARCHY_SCHEME).strip()
+    scheme_uri = unquote(raw_scheme) or DEFAULT_HIERARCHY_SCHEME
+
+    label_query = f"""
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?label WHERE {{
+        <{scheme_uri}> skos:prefLabel ?label .
+        FILTER(lang(?label) = "it")
+    }}
+    """
+    label_result = execute_sparql_query(label_query)
+    scheme_label = scheme_uri
+    if label_result['success'] and label_result['data']['results']['bindings']:
+        scheme_label = label_result['data']['results']['bindings'][0].get('label', {}).get('value', scheme_uri)
+
+    tree_query = f"""
+    PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+    PREFIX desmos: <https://w3id.org/desmos/>
+
+    SELECT ?concept ?labelIt ?labelEn ?broader
+           (GROUP_CONCAT(DISTINCT STR(?rel); separator="||") AS ?relatedData)
+    WHERE {{
+      BIND(<{scheme_uri}> AS ?scheme)
+      ?concept a skos:Concept ;
+               skos:inScheme ?scheme ;
+               skos:prefLabel ?labelIt , ?labelEn .
+      FILTER(lang(?labelIt) = "it")
+      FILTER(lang(?labelEn) = "en")
+      OPTIONAL {{
+        ?concept skos:broader ?broader .
+        FILTER NOT EXISTS {{
+          ?concept skos:broader ?mid .
+          ?mid skos:broader+ ?broader .
+          FILTER(?mid != ?broader)
+        }}
+      }}
+      OPTIONAL {{ ?concept skos:related ?rel . ?rel skos:inScheme ?scheme . }}
+    }}
+    GROUP BY ?concept ?labelIt ?labelEn ?broader
+    """
+    result = execute_sparql_query(tree_query)
+    if not result['success']:
+        return jsonify({'error': result.get('error', 'Query SPARQL fallita.')}), 502
+
+    nodes = {}
+    for b in result['data']['results']['bindings']:
+        uri = b['concept']['value']
+        entry = nodes.setdefault(uri, {
+            'name': b.get('labelIt', {}).get('value', ''),
+            'en': b.get('labelEn', {}).get('value', ''),
+            'related': set(),
+            'broader_candidates': set(),
+        })
+        broader_val = b.get('broader', {}).get('value')
+        if broader_val:
+            entry['broader_candidates'].add(broader_val)
+        for rel in b.get('relatedData', {}).get('value', '').split('||'):
+            rel = rel.strip()
+            if rel:
+                entry['related'].add(rel)
+
+    # Un concetto con più di un candidato skos:broader e' un'anomalia residua
+    # (non dovrebbe accadere dopo il Task 1 su concept.ttl): scelta
+    # deterministica, il primo in ordine alfabetico di URI, con un warning
+    # esplicito — l'anomalia viene loggata, non silenziata.
+    parent_of = {}
+    for uri, entry in nodes.items():
+        candidates = sorted(entry['broader_candidates'])
+        if len(candidates) > 1:
+            print(f"WARNING /api/hierarchy: {uri} ha {len(candidates)} genitori skos:broader "
+                  f"{candidates}; uso il primo in ordine alfabetico: {candidates[0]}")
+        parent_of[uri] = candidates[0] if candidates else None
+
+    children_of = defaultdict(list)
+    for uri, parent in parent_of.items():
+        if parent:
+            children_of[parent].append(uri)
+
+    def build(uri):
+        node = nodes[uri]
+        return {
+            'uri': uri,
+            'name': node['name'],
+            'en': node['en'],
+            'related': sorted(node['related']),
+            'children': [build(child) for child in sorted(children_of.get(uri, ()))],
+        }
+
+    roots = sorted(uri for uri, parent in parent_of.items() if parent is None)
+    return jsonify({
+        'scheme': scheme_uri,
+        'label': scheme_label,
+        'children': [build(uri) for uri in roots],
+    })
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
