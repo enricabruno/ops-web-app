@@ -4372,7 +4372,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_46_giuliani> a desmos:TextualFeature ;
     desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> ;
-    crm:P3_has_note "Sulla scena illustrata (un barbiere e il cliente) sono sovrimposti grafemi isolati — «F» sul barbiere, «FOR» al centro, «P» a terra — non integrati nel disegno ma da leggere come lettere. La loro presenza segnala che gli elementi raffigurati vanno abbinati ai grafemi per ricavare la prima lettura («P recisa / F rase FOR male»), risegmentata poi nella soluzione."^^xsd:string ;
+    crm:P3_has_note "Sulla scena illustrata (un barbiere e il cliente) sono sovrimposti grafemi isolati — «F» sul barbiere, «FOR» al centro, «P» a terra, non integrati nel disegno ma da leggere come lettere. La loro presenza segnala che gli elementi raffigurati vanno abbinati ai grafemi per ricavare la prima lettura («P recisa / F rase FOR male»), risegmentata poi nella soluzione."^^xsd:string ;
     desmos:revealsConstraint desmos:rebus .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_47> a desmos:TextualFeature ;
