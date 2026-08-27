@@ -3,12 +3,17 @@
 {% block title %}{{ expr.title if expr else "Espressione" }}{% endblock %}
 
 {% block content %}
-{% macro constraint_badges(items, collapse_id) %}
-{% set soglia = 15 %}
+{% macro constraint_badges(items, collapse_id, soglia) %}
 <div class="d-flex flex-wrap gap-2">
     {% for c in items[:soglia] %}
     <a href="/explain?uri={{ c.uri | urlencode }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
     {% endfor %}
+    {% if items | length > soglia %}
+    <a class="badge-vincolo cviz-more-badge" data-bs-toggle="collapse" href="#{{ collapse_id }}"
+       role="button" aria-expanded="false" aria-controls="{{ collapse_id }}">
+        +{{ items | length - soglia }}
+    </a>
+    {% endif %}
 </div>
 {% if items | length > soglia %}
 <div class="collapse" id="{{ collapse_id }}">
@@ -18,10 +23,6 @@
         {% endfor %}
     </div>
 </div>
-<a class="badge-vincolo link-intra constraint-more mt-2" data-bs-toggle="collapse" href="#{{ collapse_id }}"
-   role="button" aria-expanded="false" aria-controls="{{ collapse_id }}">
-    &hellip; e altre {{ items | length - soglia }}
-</a>
 {% endif %}
 {% endmacro %}
 
@@ -139,6 +140,7 @@
                 {% set c = 326.73 %}
                 {% set lf = (c * nf / tot) | round(2) %}
                 {% set ls = (c - lf) | round(2) %}
+                {% set soglia = 10 if (nf and ns) else 20 %}
                 <div class="cviz">
                     <svg class="cviz-ring" width="160" height="160" viewBox="0 0 120 120"
                          role="img" aria-labelledby="cviz-title">
@@ -159,34 +161,20 @@
                         {# Solo il numero: la parola resta nel <title> per gli screen reader. #}
                         <text class="cviz-total" x="60" y="60" text-anchor="middle" dominant-baseline="central">{{ tot }}</text>
                     </svg>
-
-                    {# Le voci di legenda sono i toggle: i badge restano nascosti finché
-                       non si clicca su "Formali"/"Semantiche". #}
-                    <div class="cviz-legend">
+                    <div class="cviz-columns{{ '' if (nf and ns) else ' cviz-columns-single' }}">
                         {% if nf %}
-                        <a class="cviz-legend-item" data-bs-toggle="collapse" href="#cviz-formali"
-                           role="button" aria-expanded="false" aria-controls="cviz-formali">
-                            <span class="cviz-dot"></span>Formali ({{ nf }})
-                        </a>
+                        <div class="cviz-column">
+                            <h6 class="cviz-category-heading"><span class="cviz-dot"></span>Formali ({{ nf }})</h6>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali', soglia) }}</div>
+                        </div>
                         {% endif %}
                         {% if ns %}
-                        <a class="cviz-legend-item" data-bs-toggle="collapse" href="#cviz-semantiche"
-                           role="button" aria-expanded="false" aria-controls="cviz-semantiche">
-                            <span class="cviz-dot cviz-dot-semantiche"></span>Semantiche ({{ ns }})
-                        </a>
+                        <div class="cviz-column">
+                            <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-semantiche"></span>Semantiche ({{ ns }})</h6>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche', soglia) }}</div>
+                        </div>
                         {% endif %}
                     </div>
-
-                    {% if nf %}
-                    <div class="collapse" id="cviz-formali">
-                        <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali') }}</div>
-                    </div>
-                    {% endif %}
-                    {% if ns %}
-                    <div class="collapse" id="cviz-semantiche">
-                        <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche') }}</div>
-                    </div>
-                    {% endif %}
                 </div>
                 {% else %}
                 <p class="expr-plain-text small text-center mt-3">Nessuna costrizione utilizzata.</p>
