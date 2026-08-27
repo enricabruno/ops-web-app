@@ -17,35 +17,96 @@
 
 desmos:ConstraintOriginScheme a skos:ConceptScheme ;
     skos:prefLabel "Constraint's origin scheme"@en , "Schema dell'origine della costrizione"@it ;
-    skos:definition "A scheme defining the origin of the constraint, distinguishing between forms inherited from tradition and Oulipian or Oplepian inventions."@en , "Schema che definisce la provenienza della costrizione, distinguendo tra forme ereditate dalla tradizione e invenzioni oulipiane o oplepiane."@it .
+    skos:definition "A scheme defining the origin of the constraint, distinguishing between forms inherited from tradition and Oulipian or Oplepian inventions."@en , "Schema che definisce la provenienza della costrizione, distinguendo tra forme ereditate dalla tradizione e invenzioni oulipiane o oplepiane."@it ;
+    skos:hasTopConcept
+        desmos:historical ,
+        desmos:original .
 
 desmos:FormalConstraintScheme a skos:ConceptScheme ;
     skos:prefLabel "Formal constraint scheme"@en , "Schema delle costrizioni formali"@it ;
-    skos:definition "A scheme defining the formal constraints, namely those constraints that intervene primarily on the signifier."@en , "Schema che definisce le costrizioni formali, ovvero quelle costrizioni che intervengono primariamente sul significante."@it .
+    skos:definition "A scheme defining the formal constraints, namely those constraints that intervene primarily on the signifier."@en , "Schema che definisce le costrizioni formali, ovvero quelle costrizioni che intervengono primariamente sul significante."@it ;
+    # Radici di alberi non banali (>=1 figlio). Le altre 78 radici dello schema
+    # sono concetti isolati non ancora collocati in una gerarchia, non top
+    # concept: v. reports/orphan_concepts.md (Task 6).
+    skos:hasTopConcept
+        desmos:alphabetic_set_constraint ,
+        desmos:lexicographic_marker_constraint ,
+        desmos:acrostic ,
+        desmos:monovocalism ,
+        desmos:vowel_alternation ,
+        desmos:vowel_slide ,
+        desmos:isosyllabic_words ,
+        desmos:homosyntaxism ,
+        desmos:hypogram ,
+        desmos:mnemonic_encoding ,
+        desmos:statistical_bound ,
+        desmos:septenary_double .
 
 desmos:SemanticConstraintScheme a skos:ConceptScheme ;
     skos:prefLabel "Semantic constraint scheme"@en , "Schema delle costrizioni semantiche"@it ;
-    skos:definition "A scheme defining the semantic constraints, namely those constraints that intervene primarily on the signified."@en , "Schema che definisce le costrizioni semantiche, ovvero quelle costrizioni che intervengono primariamente sul significato."@it .
+    skos:definition "A scheme defining the semantic constraints, namely those constraints that intervene primarily on the signified."@en , "Schema che definisce le costrizioni semantiche, ovvero quelle costrizioni che intervengono primariamente sul significato."@it ;
+    skos:hasTopConcept
+        desmos:apocryphal_pentimento ,
+        desmos:divergent_captions ,
+        desmos:fixed_fictional_character ,
+        desmos:fixed_fictional_setting ,
+        desmos:mandatory_dedication ,
+        desmos:mandatory_genre ,
+        desmos:mandatory_theme ,
+        desmos:value_inversion .
 
 desmos:LiteraryFormScheme a skos:ConceptScheme ;
     skos:prefLabel "Literary form scheme"@en , "Schema delle forme letterarie"@it ;
-    skos:definition "A scheme defining the literary form of a work (i.e. poetry, prose and visual poetry)."@en , "Schema che definisce la forma letteraria di un'opera (poesia, prosa e poesia visiva)."@it .
+    skos:definition "A scheme defining the literary form of a work (i.e. poetry, prose and visual poetry)."@en , "Schema che definisce la forma letteraria di un'opera (poesia, prosa e poesia visiva)."@it ;
+    skos:hasTopConcept
+        desmos:poetry ,
+        desmos:prose ,
+        desmos:visual_poetry .
 
 desmos:ArtisticFormScheme a skos:ConceptScheme ;
     skos:prefLabel "Artistic form scheme"@en , "Schema delle forme artistiche"@it ;
-    skos:definition "A scheme defining the artistic form of a work (i.e. visual poetry and visual art)."@en , "Schema che definisce la forma artistica di un'opera (poesia visuale e arte visuale)."@it .
+    skos:definition "A scheme defining the artistic form of a work (i.e. visual poetry and visual art)."@en , "Schema che definisce la forma artistica di un'opera (poesia visuale e arte visuale)."@it ;
+    skos:hasTopConcept
+        desmos:music ,
+        desmos:visual_art .
 
 desmos:FormalUnitScheme a skos:ConceptScheme ;
     skos:prefLabel "Formal unit scheme"@en , "Schema delle unità formali"@it ;
-    skos:definition "A scheme defining the discrete units that constitute the object of the formal constraint."@en , "Schema che definisce le unità discrete che costituiscono l'oggetto della costrizione di tipo formale."@it .
+    skos:definition "A scheme defining the discrete units that constitute the object of the formal constraint."@en , "Schema che definisce le unità discrete che costituiscono l'oggetto della costrizione di tipo formale."@it ;
+    skos:hasTopConcept
+        desmos:image ,
+        desmos:letter ,
+        desmos:line ,
+        desmos:page ,
+        desmos:paragraph ,
+        desmos:stanza ,
+        desmos:syllable ,
+        desmos:typography ,
+        desmos:word .
 
 desmos:SemanticUnitScheme a skos:ConceptScheme ;
     skos:prefLabel "Semantic unit scheme"@en , "Schema delle unità semantiche"@it ;
-    skos:definition "A scheme defining the discrete units that constitute the object of the semantic constraint."@en , "Schema che definisce le unità discrete che costituiscono l'oggetto della costrizione di tipo semantico."@it .
+    skos:definition "A scheme defining the discrete units that constitute the object of the semantic constraint."@en , "Schema che definisce le unità discrete che costituiscono l'oggetto della costrizione di tipo semantico."@it ;
+    skos:hasTopConcept
+        desmos:addressee ,
+        desmos:fictional_character ,
+        desmos:fictional_setting ,
+        desmos:fictional_time ,
+        desmos:literary_genre ,
+        desmos:theme .
 
 desmos:ProceduralOperationScheme a skos:ConceptScheme ;
     skos:prefLabel "Procedural operation scheme"@en , "Schema delle operazioni procedurali"@it ;
-    skos:definition "A scheme describing the procedural operations applied to generate the constrained text, as retrieved from the TOLLE classification by Bénabou."@en , "Schema che descrive le operazioni procedurali applicate per generare il testo vincolato riprese dalla classificazione TOLLE di Bénabou."@it .
+    skos:definition "A scheme describing the procedural operations applied to generate the constrained text, as retrieved from the TOLLE classification by Bénabou."@en , "Schema che descrive le operazioni procedurali applicate per generare il testo vincolato riprese dalla classificazione TOLLE di Bénabou."@it ;
+    skos:hasTopConcept
+        desmos:addition ,
+        desmos:contraction ,
+        desmos:displacement ,
+        desmos:division ,
+        desmos:extraction ,
+        desmos:multiplication ,
+        desmos:substitution ,
+        desmos:subtraction .
 
 # ---------------------------------------------------------
 # CONCEPTS
