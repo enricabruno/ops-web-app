@@ -1176,9 +1176,8 @@ DEFAULT_HIERARCHY_SCHEME = 'https://w3id.org/desmos/FormalConstraintScheme'
 
 @app.route('/api/hierarchy')
 def api_hierarchy():
-    """Albero SKOS (skos:broader, con skos:related annessi) di uno ConceptScheme,
-    per la visualizzazione radiale in /hierarchy. Query string: ?scheme=<URI>
-    (default FormalConstraintScheme). Il FILTER NOT EXISTS nella query
+    """Albero SKOS (skos:broader, con skos:related annessi) di uno ConceptScheme.
+    Query string: ?scheme=<URI> (default FormalConstraintScheme). Il FILTER NOT EXISTS nella query
     sopprime a runtime eventuali skos:broader ridondanti residui: è una rete
     di sicurezza, non un sostituto della pulizia dei dati (v. Task 1 su
     concept.ttl)."""
@@ -1276,38 +1275,6 @@ def api_hierarchy():
         'label': scheme_label,
         'children': [build(uri) for uri in roots],
     })
-
-
-@app.route('/api/schemes')
-def api_schemes():
-    """Elenco degli 8 skos:ConceptScheme (uri + prefLabel@it), per popolare il
-    <select> di /hierarchy senza etichette hard-coded lato client."""
-    query = """
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    SELECT ?scheme ?label WHERE {
-        ?scheme a skos:ConceptScheme ;
-                skos:prefLabel ?label .
-        FILTER(lang(?label) = "it")
-    }
-    ORDER BY ?label
-    """
-    result = execute_sparql_query(query)
-    if not result['success']:
-        return jsonify({'error': result.get('error', 'Query SPARQL fallita.')}), 502
-
-    schemes = [
-        {
-            'uri': b['scheme']['value'],
-            'label': b.get('label', {}).get('value', b['scheme']['value']),
-        }
-        for b in result['data']['results']['bindings']
-    ]
-    return jsonify(schemes)
-
-
-@app.route('/hierarchy')
-def hierarchy():
-    return render_template('hierarchy.html')
 
 
 if __name__ == '__main__':
