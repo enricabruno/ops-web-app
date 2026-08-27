@@ -1741,26 +1741,36 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
     fill: var(--color-text);
 }
 
-.cviz-legend {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1rem;
+/* Due colonne (Formali / Semantiche), una per categoria; se una sola categoria
+   è popolata il chiamante aggiunge .cviz-columns-single per passare a colonna
+   unica a piena larghezza, senza intestazione orfana né gap residuo. */
+.cviz-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
 }
 
-.cviz-legend-item {
+.cviz-columns-single { grid-template-columns: 1fr; }
+
+@media (max-width: 768px) {
+    .cviz-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+.cviz-column { text-align: center; }
+
+/* Intestazione di categoria: non più un toggle, solo testo statico + pallino
+   per mantenere leggibile la corrispondenza con i segmenti dell'anello. */
+.cviz-category-heading {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 0.85rem;
+    font-weight: 700;
     color: var(--color-text);
-    text-decoration: none;
-    cursor: pointer;
+    margin: 0;
 }
-
-.cviz-legend-item:hover { color: var(--color-accent); }
 
 /* Il pallino ripete esattamente il colore del rispettivo segmento dell'anello. */
 .cviz-dot {
@@ -1774,12 +1784,18 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 .cviz-dot-semantiche { opacity: 0.55; }
 
 .cviz-badges {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     text-align: center;
 }
 
-/* I badge dentro l'espansione restano centrati sotto l'anello. */
 .cviz-badges .d-flex { justify-content: center; }
+
+/* Toggle "+N" che espande in linea i nomi oltre la soglia: unico collapse
+   rimasto in questa visualizzazione. */
+.cviz-more-badge {
+    font-style: italic;
+    cursor: pointer;
+}
 
 /* ============================================
    /expression — LARGHEZZA MISURATA E RITMO VERTICALE
