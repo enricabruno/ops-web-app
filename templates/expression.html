@@ -148,12 +148,12 @@
                         <g transform="rotate(-90 60 60)" fill="none" stroke-width="8">
                             <circle cx="60" cy="60" r="52" stroke="var(--color-border)"/>
                             {% if ns %}
-                            <circle cx="60" cy="60" r="52" stroke="var(--color-accent)" opacity="0.55"
+                            <circle cx="60" cy="60" r="52" stroke="var(--color-semantiche)"
                                     stroke-dasharray="{{ ls }} {{ (c - ls) | round(2) }}"
                                     stroke-dashoffset="-{{ lf }}"/>
                             {% endif %}
                             {% if nf %}
-                            <circle cx="60" cy="60" r="52" stroke="var(--color-accent)"
+                            <circle cx="60" cy="60" r="52" stroke="var(--color-formali)"
                                     stroke-dasharray="{{ lf }} {{ (c - lf) | round(2) }}"
                                     stroke-dashoffset="0"/>
                             {% endif %}
@@ -164,13 +164,13 @@
                     <div class="cviz-columns{{ '' if (nf and ns) else ' cviz-columns-single' }}">
                         {% if nf %}
                         <div class="cviz-column">
-                            <h6 class="cviz-category-heading"><span class="cviz-dot"></span>Formali ({{ nf }})</h6>
+                            <h6 class="cviz-category-heading"><span class="cviz-dot"></span>Formali</h6>
                             <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali', soglia) }}</div>
                         </div>
                         {% endif %}
                         {% if ns %}
                         <div class="cviz-column">
-                            <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-semantiche"></span>Semantiche ({{ ns }})</h6>
+                            <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-semantiche"></span>Semantiche</h6>
                             <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche', soglia) }}</div>
                         </div>
                         {% endif %}
@@ -189,22 +189,33 @@
         <div class="evidence-axis">
             <div class="evidence-header">
                 <div class="evidence-header-col evidence-header-decl">
-                    <span class="evidence-header-label">Dichiarazione paratestuale<button type="button" class="evidence-info-badge" data-bs-toggle="popover"
-                            data-prov-source="evidence-def-decl" aria-label="Informazioni: Dichiarazione paratestuale">i</button></span>
+                    <span class="evidence-header-label">Dichiarazione paratestuale</span>
+                    <p class="evidence-header-def">(Comprende porzioni di testo intese come dichiarazioni paratestuali genettiane (epitestuale o peritestuale) in cui l'autore o il curatore esplicita la presenza di una o più costrizioni)</p>
                 </div>
                 <div class="evidence-header-col evidence-header-feat">
-                    <span class="evidence-header-label">Caratteristica testuale<button type="button" class="evidence-info-badge" data-bs-toggle="popover"
-                            data-prov-source="evidence-def-feat" aria-label="Informazioni: Caratteristica testuale">i</button></span>
+                    <span class="evidence-header-label">Caratteristica testuale</span>
+                    <p class="evidence-header-def">(Evidenza intratestuale del testo che rende visibile una o più costrizioni. Viene intesa come evidenza intratestuale)</p>
                 </div>
             </div>
             {% for item in expr.evidence %}
             <div class="evidence-row" data-status="{{ item.status_key }}">
                 <div class="evidence-arm evidence-arm-decl {{ 'is-solid' if item.declared else 'is-dashed' }}">
                     {% if item.declared %}
-                    <span class="evidence-arm-verb">riguarda</span>
-                    <button type="button" class="evidence-arm-line" data-bs-toggle="popover"
-                            data-prov-source="{{ item.decl_anchor }}"
-                            aria-label="Dichiarazione paratestuale — {{ item.label }}"></button>
+                    <span class="evidence-arm-verb-wrap">
+                        <span class="evidence-arm-verb">riguarda</span>
+                        <button type="button" class="evidence-arm-icon-btn" data-bs-toggle="popover"
+                                data-bs-placement="left" data-prov-source="{{ item.decl_anchor }}"
+                                aria-label="Dichiarazione paratestuale — {{ item.label }}">
+                            <svg class="evidence-arm-icon" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                 stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                <path d="M12 6.5C10.2 4.6 7.4 3.9 4.5 4.4v12.2c2.9-.5 5.7.2 7.5 2.1 1.8-1.9 4.6-2.6 7.5-2.1V4.4C16.6 3.9 13.8 4.6 12 6.5z"/>
+                                <path d="M12 6.5v12.2"/>
+                                <path d="M4.5 5.8H1.8v13.4c3.4-1.4 7-1.7 10.2-1 3.2-.7 6.8-.4 10.2 1V5.8h-2.7"/>
+                            </svg>
+                        </button>
+                    </span>
+                    <span class="evidence-arm-line" aria-hidden="true"></span>
                     {% else %}
                     <span class="evidence-arm-line" aria-hidden="true"></span>
                     {% endif %}
@@ -216,10 +227,20 @@
 
                 <div class="evidence-arm evidence-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
                     {% if item.manifest %}
-                    <span class="evidence-arm-verb">rivela</span>
-                    <button type="button" class="evidence-arm-line" data-bs-toggle="popover"
-                            data-prov-source="{{ item.feat_anchor }}"
-                            aria-label="Tratto testuale — {{ item.label }}"></button>
+                    <span class="evidence-arm-verb-wrap">
+                        <span class="evidence-arm-verb">rivela</span>
+                        <button type="button" class="evidence-arm-icon-btn" data-bs-toggle="popover"
+                                data-bs-placement="right" data-prov-source="{{ item.feat_anchor }}"
+                                aria-label="Tratto testuale — {{ item.label }}">
+                            <svg class="evidence-arm-icon" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                 aria-hidden="true" focusable="false">
+                                <circle cx="10.5" cy="10.5" r="7"/>
+                                <path d="M15.6 15.6 21 21"/>
+                            </svg>
+                        </button>
+                    </span>
+                    <span class="evidence-arm-line" aria-hidden="true"></span>
                     {% else %}
                     <span class="evidence-arm-line" aria-hidden="true"></span>
                     {% endif %}
@@ -228,12 +249,6 @@
             {% endfor %}
         </div>
 
-        <div id="evidence-def-decl" class="visually-hidden">
-            <p>Comprende porzioni di testo intese come dichiarazioni paratestuali genettiane (epitestuale o peritestuale) in cui l'autore o il curatore esplicita la presenza di una o più costrizioni.</p>
-        </div>
-        <div id="evidence-def-feat" class="visually-hidden">
-            <p>Evidenza intratestuale del testo che rende visibile una o più costrizioni. Viene intesa come evidenza intratestuale.</p>
-        </div>
         {% for fragment in expr.fragments %}
         <div id="{{ fragment.anchor }}" class="visually-hidden">
             <p><i>{{ fragment.text }}</i></p>

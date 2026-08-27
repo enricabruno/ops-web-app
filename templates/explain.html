@@ -27,6 +27,13 @@
             {% endif %}
         </div>
 
+        <div id="ops-overview" data-current-uri="{{ info.uri }}"></div>
+        <div class="d-flex justify-content-center gap-3 mb-4 small text-muted">
+            <span><span class="ops-dot ops-dot-formali"></span> Formali</span>
+            <span><span class="ops-dot ops-dot-semantiche"></span> Semantiche</span>
+            <span><span class="ops-dot ops-dot-visuali"></span> Visuali</span>
+        </div>
+
         <!-- 2. Definizione -->
         <div class="mb-5 definition-container">
             <p class="text_explain">{{ info.definition }}</p>
@@ -178,7 +185,35 @@
         </section>
         {% endif %}
 
+        <!-- 9. Gerarchie -->
+        {% if info.broader or info.narrower %}
+        <section class="mb-5">
+            <h5 class="section-label">Gerarchie</h5>
+            <div id="ops-family" data-current-uri="{{ info.uri }}"></div>
+        </section>
+        {% endif %}
+
     </div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if info %}
+<script src="{{ url_for('static', filename='js/constraint_viz.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var overviewEl = document.getElementById('ops-overview');
+    var familyEl = document.getElementById('ops-family');
+    var currentUri = (overviewEl || familyEl).dataset.currentUri;
+
+    fetch('/api/concept_graph.json')
+        .then(function (res) { return res.json(); })
+        .then(function (graph) {
+            if (overviewEl) renderOverview(overviewEl, graph, currentUri);
+            if (familyEl) renderFamily(familyEl, graph, currentUri);
+        });
+});
+</script>
+{% endif %}
 {% endblock %}
