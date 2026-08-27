@@ -289,9 +289,7 @@ desmos:alphabetic_set_constraint a skos:Concept ;
     skos:prefLabel "Alphabetic-set constraint"@en , "Vincolo sul set alfabetico"@it ;
     skos:narrower desmos:lipogram ,
         desmos:beau_present ,
-        desmos:prisoner_constraint ,
-        desmos:progressive_alphabetical_lipogram ,
-        desmos:progressive_vocalic_lipogram ;
+        desmos:prisoner_constraint ;
     skos:definition "Formal constraint that regulates the subset of alphabetical letters allowed in the text."@en , "Costrizione formale che regola il sottoinsieme delle lettere dell'alfabeto ammesse nel testo."@it ;
     skos:example "Il concetto si realizza per esclusione o per inclusione: sulla medesima successione di consonanti, il primo sonetto è lipogrammatico in A, il secondo monovocalico in A."@it , "The concept is realised by exclusion or by inclusion: over the same consonant sequence, the first sonnet is lipogrammatic in A, the second monovocalic in A."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -1204,8 +1202,7 @@ desmos:procomplementary_verb_lexicon a skos:Concept ;
 
 desmos:progressive_alphabetical_lipogram a skos:Concept ;
     skos:prefLabel "Alphabetical lipogram"@en , "Lipogramma alfabetico"@it ;
-    skos:broader desmos:lipogram ,
-        desmos:alphabetic_set_constraint ;
+    skos:broader desmos:lipogram ;
     skos:related desmos:progressive_vocalic_lipogram ;
     skos:definition "Formal constraint structuring a text into successive sections, each omitting an alphabetical letter. The sequence of omitted letters follows the order of the alphabet until the sequence has exhausted all the letters."@en , "Costrizione formale che struttura un testo in sezioni successive, ciascuna delle quali omette una lettera alfabetica. La sequenza delle lettere omesse segue l'ordine dell'alfabeto e alla fine esaurisce tutte le lettere."@it ;
     skos:scopeNote "Alphabetical counterpart of the progressive vocalic lipogram, restricted to the alphabet set {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z} instead of the vowel set."@en , "Corrispettivo alfabetico del lipogramma vocalico progressivo, ristretto al set alfabetico {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z} anziché al set vocalico."@it ;
@@ -1221,8 +1218,7 @@ desmos:progressive_century_datation a skos:Concept ;
 
 desmos:progressive_vocalic_lipogram a skos:Concept ;
     skos:prefLabel "Progressive vocalic lipogram"@en , "Lipogramma vocalico progressivo"@it ;
-    skos:broader desmos:lipogram ,
-        desmos:alphabetic_set_constraint ;
+    skos:broader desmos:lipogram ;
     skos:related desmos:progressive_alphabetical_lipogram ,
         desmos:vowel_slide ;
     skos:definition "Formal constraint structuring a text into five successive sections, each omitting one of the five vowels in turn, so that the sequence of omitted vowels exhausts the entire vowel set."@en , "Costrizione formale che struttura un testo in cinque sezioni successive, ciascuna delle quali omette a turno una delle cinque vocali, in modo che la sequenza delle vocali omesse esaurisca l'intero set vocalico."@it ;
