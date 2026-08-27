@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Gerarchie{% endblock %}
+
+{% block content %}
+<div class="container mt-5 px-3">
+    <div class="hierarchy-column">
+        <h1 class="fw-bold constraint-title">Gerarchie</h1>
+        <p class="text-center text-muted mb-4">
+            Dendrogramma radiale delle costrizioni: <code>skos:broader</code> come rami,
+            <code>skos:related</code> come corde bundlate opzionali.
+        </p>
+
+        <div class="hierarchy-controls">
+            <div class="hierarchy-control-group">
+                <label for="hierarchy-scheme-select" class="hierarchy-control-label">Schema</label>
+                <select id="hierarchy-scheme-select" class="form-select hierarchy-select"></select>
+            </div>
+
+            <div class="form-check hierarchy-control-group">
+                <input type="checkbox" class="form-check-input" id="hierarchy-related-toggle" checked>
+                <label class="form-check-label hierarchy-control-label" for="hierarchy-related-toggle">
+                    Mostra corde <code>skos:related</code>
+                </label>
+            </div>
+        </div>
+
+        <div id="hierarchy-viz" role="img" aria-label="Dendrogramma radiale dello schema selezionato"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/hierarchy.js') }}"></script>
+{% endblock %}
