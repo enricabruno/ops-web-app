@@ -95,7 +95,14 @@ def index():
 def favicon():
     # I browser richiedono /favicon.ico automaticamente al primo
     # caricamento, prima ancora di leggere il <link rel="icon"> in <head>.
-    return send_from_directory(os.path.join(app.root_path, 'static', 'img'), 'logo.png')
+    # Servito con mimetype esplicito: senza, Flask dedurrebbe image/png
+    # dall'estensione del file su disco, e WebKit (a differenza di Blink)
+    # non fa MIME sniffing e ignora l'icona.
+    return send_from_directory(
+        os.path.join(app.root_path, 'static', 'img'),
+        'favicon.ico',
+        mimetype='image/vnd.microsoft.icon',
+    )
 
 @app.route('/project')
 def project():
