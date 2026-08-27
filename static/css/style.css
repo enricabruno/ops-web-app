@@ -9,6 +9,9 @@
     --color-text:    #011c21;
     --color-muted:   #6c757d;
     --color-border:  #dee2e6;
+    --color-formali:    #0077b6;
+    --color-semantiche: #fb8500;
+    --color-visuali:    #679436;
 }
 
 /* ============================================
@@ -69,16 +72,6 @@ p {
 /* sovrascrive Bootstrap text-danger con color-accent */
 .text-danger { color: var(--color-accent) !important; }
 
-/* ============================================
-   SISTEMA UNICO — RIMANDI DI CONTENUTO
-   Nessuna sottolineatura, mai (né a riposo né in hover): l'unico segnale è
-   il cambio di colore. Applicata ai rimandi intertestuali (ipotesto, testi
-   contenuti, breadcrumb, link padre/figlio, badge verso /explain, confronto
-   testi). Il colore di riposo resta quello del contesto (color: inherit);
-   solo hover/focus passano a var(--color-accent). Regole più specifiche a
-   valle (es. .badge-vincolo, .expr-breadcrumb a) possono sovrascrivere il
-   colore di riposo mantenendo comunque questo stesso meccanismo.
-   ============================================ */
 .link-intra {
     text-decoration: none;
     color: inherit;
@@ -474,10 +467,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 /* ── Badge & Tag ── */
 
-/* Stesso trattamento di .constraint-badge/.badge-vincolo: sono lo stesso
-   genere di link (rimandano a /explain), non hanno motivo di apparire come
-   pillole colorate qui e come testo semplice altrove. Lo spazio fra le tag
-   viene da .gap-2 sul contenitore flex, non più da margin proprio. */
 .constraint-tag {
     display: inline-block;
     color: var(--color-text) !important;
@@ -563,8 +552,6 @@ tbody tr:last-child td { border-bottom: none; }
 .alert-error   { background-color: #f8d7da; color: #721c24; border-color: #dc3545; }
 .alert-info    { background-color: #d1ecf1; color: #0c5460; border-color: #17a2b8; }
 
-/* Sostituisce lo stile di default di Bootstrap (colore per variante d'alert,
-   sottolineato): stesso trattamento degli altri link interni dell'app. */
 .alert-link { color: var(--color-text) !important; text-decoration: none !important; }
 .alert-link:hover { color: var(--color-accent) !important; text-decoration: none !important; }
 
@@ -627,10 +614,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .hero-text { max-width: 700px; margin: 0 auto; }
 
-/* ── Puzzle OPS! — tessere SVG generate da puzzle.js ──
-   viewBox -20 -20 140 140 | corpo 100×100 | bump max ±20px
-   Convergenza: translateX(piece-index * 40px) → 0 dopo 1.5s
-   Mobile: scala uniforme del container                        */
+/* Puzzle OPS!  */
 
 .puzzle-container {
     position: relative;
@@ -674,17 +658,10 @@ tbody tr:last-child td { border-bottom: none; }
     pointer-events: none;
 }
 
-/* "!" (4ª tessera) in color-text */
 .puzzle-piece-wrapper:nth-child(4) .puzzle-letter { fill: var(--color-text); }
-
-/* P (2ª) e ! (4ª): bottom=bump + top=concave → centroide visivo basso → compensiamo */
 .puzzle-piece-wrapper:nth-child(2) .puzzle-letter,
 .puzzle-piece-wrapper:nth-child(4) .puzzle-letter { transform: translateY(8px); }
-
 .puzzle-container.converged .puzzle-piece-wrapper { transform: translateX(0); }
-
-/* Caduta dell'ultima tessera ("!") sotto la pagina dopo l'incastro.
-   Specificità maggiore della regola .converged per vincere l'override. */
 .puzzle-container.converged .puzzle-piece-wrapper.piece-drop {
     transition: transform 0.9s cubic-bezier(0.55, 0.085, 0.68, 0.53);
     transform: translateY(700px) rotate(8deg);
@@ -800,12 +777,10 @@ tbody tr:last-child td { border-bottom: none; }
 
 .expression-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
 
-/* Disclosure rows: unico pattern per volume, plaquette, testo.
-   Font: ereditato dalla regola globale h1-h6 (Futura). */
-.disclosure-heading { margin: 0; }              /* annulla margin-bottom globale e margin-top di h2 */
+.disclosure-heading { margin: 0; }             
 
 .disclosure-toggle {
-    all: unset;                                 /* rimuove lo stile nativo del button; eredita font dall'hN */
+    all: unset;                                
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -869,31 +844,18 @@ tbody tr:last-child td { border-bottom: none; }
 .link-source-sm     { font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 0.85rem; color: var(--color-text) !important; }
 .link-source-sm:hover { color: var(--color-accent) !important; }
 
-.expression-title { color: var(--color-accent); }
-
-.expression-title { color: var(--color-accent); }
+.expression-title { color: var(--color-text); 
+    font-style: italic; 
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", serif;} 
 
 .metadata-section-label {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     text-transform: none;
     color: var(--color-text);
     letter-spacing: 0.05em;
 }
 
-/* CSS Grid dimensionata sul contenuto: max-content su entrambe le colonne le
-   stringe rispettivamente alla parola più lunga ("Collocazione:") e al valore
-   più lungo, eliminando per costruzione il vuoto fra le due colonne che la
-   griglia Bootstrap (col-sm-5/col-sm-7, frazioni fisse) lasciava con etichette
-   corte. width: max-content (non max-width) fa sì che il blocco sia largo
-   quanto la riga più lunga, non quanto lo spazio disponibile: con
-   minmax(0, 1fr) sulla seconda colonna il blocco si allargava fino al
-   contenitore mentre il testo restava a sinistra, spostando il vuoto a destra
-   invece di eliminarlo. margin auto centra questa larghezza intrinseca sotto
-   il titolo "Scheda bibliografica". La seconda colonna resta minmax(0, ...)
-   anziché max-content puro: sul valore più lungo (es. Collocazione con titolo
-   estero) permette alla colonna di restringersi e mandare il testo a capo
-   entro max-width: 100%, invece di sfondare il bordo della card. */
 .expr-meta-dl {
     display: grid;
     grid-template-columns: max-content minmax(0, max-content);
@@ -923,12 +885,6 @@ tbody tr:last-child td { border-bottom: none; }
     .expr-meta-dl dt { text-align: left; margin-top: 0.75rem; }
 }
 
-/* :not(.ext-icon-link) esclude l'anchor dell'icona esterna: quel colore (a
-   riposo e in hover) è governato da .ext-icon-link più sotto, non da qui.
-   Serve anche la variante :hover: questa regola è più specifica di
-   .link-intra:hover/.link-source-sm:hover (che restano solo a riposo su
-   questi link), quindi senza una propria regola di hover vincerebbe sempre
-   lei, colore invariato al passaggio del mouse. */
 .expr-meta-dl dd a:not(.ext-icon-link) {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 1.1rem;
@@ -1012,31 +968,20 @@ tbody tr:last-child td { border-bottom: none; }
 
 .link-external-xs:hover { color: var(--color-accent) !important; }
 
-/* Icona di rimando esterno: riquadro con angolo aperto e freccia uscente, disegnata
-   come SVG inline in una mask CSS. Definita qui una volta sola, vale automaticamente
-   in tutti i punti che usano .external-arrow (scheda, risorse, /explain). Il colore
-   è currentColor, quindi eredita quello del link e segue l'hover. line-height: 1
-   impedisce che l'apice allarghi l'interlinea della riga che lo ospita. */
 .external-arrow {
     display: inline-block;
     position: relative;
-    top: -1.5rem;              /* apice: vertical-align non basta, v. sotto */
+    top: -1.5rem;            
     width: 0.72rem;
     height: 0.72rem;
-    margin-left: 0.25rem;      /* rem, non em: font-size è 0 su questo stesso
-                                   elemento, quindi un em qui risolverebbe a 0 */
+    margin-left: 0.25rem;     
     line-height: 1;
-    font-size: 0;              /* nasconde il glifo di testo sottostante */
+    font-size: 0;             
     background-color: currentColor;
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
 }
 
-/* Rimando a risorsa esterna nella scheda bibliografica: l'etichetta è testo
-   statico (non ipertestuale), solo l'icona in apice è cliccabile. Padding +
-   margine negativo uguali e opposti allargano l'area attiva a >=24px senza
-   spostare il testo circostante. Nessuna sottolineatura: non è un rimando
-   intertestuale (v. .link-intra), ma un marcatore di risorsa esterna. */
 .ext-label { color: var(--color-text); }
 
 .ext-icon-link {
@@ -1150,7 +1095,8 @@ tbody tr:last-child td { border-bottom: none; }
    PAGE: EXPLAIN
    ============================================ */
 
-.constraint-title { color: var(--color-accent); text-align: center; }
+.constraint-title { color: var(--color-text); text-align: center; 
+font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .metadata-grid {
     border: 1px solid var(--color-border);
@@ -1191,6 +1137,56 @@ tbody tr:last-child td { border-bottom: none; }
 .col-md-3 dd.fst-italic { margin-top: 0.2rem; }
 
 .explain-column { max-width: 46rem; margin: 0 auto; }
+
+#ops-overview,
+#ops-family { width: 100%; }
+
+.ops-graph-svg { display: block; width: 100%; height: auto; }
+.ops-graph-label {
+    font-family: "Fira Code", "Courier New", monospace;
+    font-size: 11px;
+    fill: var(--color-text);
+}
+
+.ops-node { cursor: pointer; text-decoration: none; }
+.ops-node circle { transition: opacity 0.15s ease; }
+.ops-node:hover circle,
+.ops-node:focus-visible circle { opacity: 1; }
+
+.ops-tooltip {
+    position: fixed;
+    max-width: 320px;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.8rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+    z-index: 2000;
+}
+.ops-tooltip[hidden] { display: none; }
+
+/* ============================================
+   EXPLAIN — OVERVIEW
+   ============================================ */
+
+.ops-dot {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+.ops-dot-formali    { background-color: var(--color-formali); }
+.ops-dot-semantiche { background-color: var(--color-semantiche); }
+.ops-dot-visuali    { background-color: var(--color-visuali); }
+
+/* ============================================
+   EXPLAIN — GERARCHIE
+   ============================================ */
 
 .explain-alt-labels { font-size: 0.95rem; }
 
@@ -1500,8 +1496,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 /* ============================================
    /expression — LAYOUT
-   Solo spaziature, larghezze e collapse: colori e font dalle variabili
-   e dalle famiglie già dichiarate sopra.
    ============================================ */
 
 .expr-breadcrumb {
@@ -1548,22 +1542,11 @@ tbody tr:last-child td { border-bottom: none; }
 
 .child-item:last-child { border-bottom: none; }
 
-/* Link al nome di una costrizione: nell'asse bipolare e in "Costrizioni presenti".
-   Nessuna sottolineatura a riposo; compare in hover/focus, non è mai invisibile
-   del tutto (l'elemento resta un <a>, l'affordance arriva con l'interazione). */
 .constraint-link { text-decoration: none; color: inherit; cursor: pointer; }
 .constraint-link:hover,
 .constraint-link:focus-visible { color: var(--color-accent); text-decoration: none; }
 .constraint-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
-/* Asse bipolare: una riga per costrizione, dichiarazione paratestuale a sinistra e
-   tratto testuale a destra. Popover a due livelli: il badge "i" in alto a destra
-   di ciascuna intestazione (.evidence-info-badge, hover/focus) spiega che cos'è
-   la categoria; la linea di ciascuna corsia (.evidence-arm-line, bottone quando
-   piena) apre la prova concreta di quella corsia — due popover diversi che non
-   si aprono mai insieme (v. script). Bracci tratteggiati: solo linea decorativa,
-   nessun bottone, nessuna prova da mostrare. Lo stato di una costrizione si
-   legge dai bracci: nessuna dicitura duplicata sul nodo. */
 .evidence-header {
     display: flex;
     justify-content: space-between;
@@ -1571,42 +1554,24 @@ tbody tr:last-child td { border-bottom: none; }
     gap: 14px;
     margin-bottom: 0.75rem;
 }
-.evidence-header-col { flex: 1 1 0; display: flex; }
-.evidence-header-decl { justify-content: flex-start; }
-.evidence-header-feat { justify-content: flex-end; }
-
-/* La dicitura resta testo statico nero, non reagisce al hover: solo il badge
-   "i" è ipertestuale (v. .evidence-info-badge). */
+.evidence-header-col { flex: 1 1 0; }
+.evidence-header-decl { text-align: left; }
+.evidence-header-feat { text-align: right; }
 .evidence-header-label {
-    position: relative;
     display: inline-block;
-    padding: 8px 18px 2px 0;
+    padding: 8px 0 2px;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 1.05rem;
     color: var(--color-text);
 }
 
-button.evidence-info-badge[type="button"] {
-    all: unset;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 1.2px solid currentColor;
-    font-style: italic;
-    font-size: 0.62rem;
-    line-height: 1;
+.evidence-header-def {
+    margin-top: 2px;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.8rem;
     color: var(--color-text);
-    cursor: pointer;
-    transition: color .2s ease, border-color .2s ease;
+    opacity: 0.65;
 }
-button.evidence-info-badge[type="button"]:hover,
-button.evidence-info-badge[type="button"]:focus-visible { color: var(--color-accent); border-color: var(--color-accent); }
-button.evidence-info-badge[type="button"]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .evidence-axis {
     position: relative;
@@ -1616,9 +1581,6 @@ button.evidence-info-badge[type="button"]:focus-visible { outline: 2px solid var
     margin: 1.5rem 0 2rem;
 }
 
-/* 76px di altezza per fare posto al verbo sopra la linea senza comprimere il
-   ritmo verticale; align-items: flex-end tiene le linee (e il nodo) sempre
-   alla stessa quota, che la corsia abbia il verbo sopra o no. */
 .evidence-row {
     display: flex;
     align-items: flex-end;
@@ -1634,25 +1596,20 @@ button.evidence-info-badge[type="button"]:focus-visible { outline: 2px solid var
     align-items: stretch;
 }
 
-/* Il verbo di relazione sta sopra la linea del proprio braccio, centrato sulla
-   stessa larghezza: ogni riga si legge come una tripla RDF completa (soggetto
-   in intestazione, predicato qui, oggetto al centro). Assente sui bracci
-   tratteggiati — se la relazione non sussiste, non va nominata. */
-.evidence-arm-verb {
-    display: block;
-    text-align: center;
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.8rem;
-    color: var(--color-text);
+.evidence-arm-verb-wrap {
+    position: relative;
+    display: inline-block;
+    align-self: center;
     margin-bottom: 4px;
 }
 
-/* La linea è essa stessa il bersaglio quando piena, non una decorazione accanto
-   a un'etichetta di testo: area cliccabile alta 24px, il tratto visibile resta
-   sottile (::before) al centro dell'area. La punta (::after) è rivolta verso
-   il nodo su entrambi i lati — disegna la direzione soggetto -> oggetto della
-   tripla — con 14px di distacco dal testo del nome (il gap della riga sopra).
-   Assente sui bracci tratteggiati. */
+.evidence-arm-verb {
+    display: inline-block;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
 .evidence-arm-line {
     flex: 1 1 auto;
     display: flex;
@@ -1680,20 +1637,31 @@ button.evidence-info-badge[type="button"]:focus-visible { outline: 2px solid var
 .evidence-arm-decl.is-solid .evidence-arm-line::after { border-left: 7px solid var(--color-accent); }
 .evidence-arm-feat.is-solid .evidence-arm-line::after { border-right: 7px solid var(--color-accent); }
 
-button.evidence-arm-line {
-    all: unset;
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    height: 24px;
+.evidence-arm-icon-btn {
+    position: absolute;
+    top: -4px;
+    right: -14px;
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
+    color: var(--color-text);
+    transition: color 0.2s ease;
 }
-button.evidence-arm-line:hover::before { border-top-width: 2.4px; }
-button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.evidence-arm-icon-btn:hover,
+.evidence-arm-icon-btn:focus-visible { color: var(--color-accent); }
+.evidence-arm-icon-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
-.evidence-node { flex: 0 0 auto; max-width: 220px; text-align: center; }
+.evidence-arm-icon {
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+}
 
-.evidence-constraint { display: block; font-weight: 700; }
+.evidence-node { flex: 0 0 220px; text-align: center; }
+
+.evidence-constraint { display: block; font-size: 1.05rem; font-weight: 700; }
 
 .evidence-legend {
     font-size: .75rem;
@@ -1703,9 +1671,6 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
     margin-top: 1.5rem;
 }
 
-/* Corpo del popover: stesso stile per i due livelli (definizione di categoria
-   sull'intestazione, prova concreta sulla corsia). Il contenuto viene dal <div
-   .visually-hidden corrispondente, non da JS. */
 .evidence-popover {
     max-width: 320px;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
@@ -1717,9 +1682,6 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 
 /* ============================================
    /expression — ANELLO DELLE COSTRIZIONI
-   SVG inline, nessuna libreria. Colori solo da variabili esistenti:
-   --color-accent (formali), lo stesso accent a opacità ridotta (semantiche),
-   --color-border (traccia), --color-text (testo).
    ============================================ */
 
 .cviz {
@@ -1741,9 +1703,6 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
     fill: var(--color-text);
 }
 
-/* Due colonne (Formali / Semantiche), una per categoria; se una sola categoria
-   è popolata il chiamante aggiunge .cviz-columns-single per passare a colonna
-   unica a piena larghezza, senza intestazione orfana né gap residuo. */
 .cviz-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1759,8 +1718,6 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 
 .cviz-column { text-align: center; }
 
-/* Intestazione di categoria: non più un toggle, solo testo statico + pallino
-   per mantenere leggibile la corrispondenza con i segmenti dell'anello. */
 .cviz-category-heading {
     display: inline-flex;
     align-items: center;
@@ -1772,16 +1729,15 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
     margin: 0;
 }
 
-/* Il pallino ripete esattamente il colore del rispettivo segmento dell'anello. */
 .cviz-dot {
     flex: none;
     width: 0.6rem;
     height: 0.6rem;
     border-radius: 50%;
-    background-color: var(--color-accent);
+    background-color: var(--color-formali);
 }
 
-.cviz-dot-semantiche { opacity: 0.55; }
+.cviz-dot-semantiche { background-color: var(--color-semantiche); }
 
 .cviz-badges {
     margin-top: 0.75rem;
@@ -1790,81 +1746,40 @@ button.evidence-arm-line:focus-visible { outline: 2px solid var(--color-accent);
 
 .cviz-badges .d-flex { justify-content: center; }
 
-/* Toggle "+N" che espande in linea i nomi oltre la soglia: unico collapse
-   rimasto in questa visualizzazione. */
 .cviz-more-badge {
     font-style: italic;
     cursor: pointer;
 }
 
-/* ============================================
-   /expression — LARGHEZZA MISURATA E RITMO VERTICALE
-   Solo struttura e spaziatura: nessun colore, nessun font, nessun componente.
-   Scala: 0.75rem / 1.5rem / 2rem / 3rem / 4rem — stacchi maggiori solo fra
-   sezioni gerarchicamente più separate, mai valori intermedi arbitrari.
-   ============================================ */
-
-/* Niente max-width proprio: la larghezza segue quella di .container come
-   corpus.html (prima era ristretta a 1060px, più stretta delle altre
-   pagine — v. anche la rimozione di .content-container nel template). */
 .expr-container {
     margin-inline: auto;
 }
 
-/* .container (regola globale, condivisa da tutte le pagine) ha un suo
-   padding: 2rem su tutti i lati: si somma silenziosamente a mt-5 in alto
-   (5rem invece di 3) e al margin-bottom dell'asse in fondo (6rem invece
-   di 4), senza comparire come spazio riconoscibile. Non si tocca la
-   regola condivisa (la usano anche altre pagine): si azzera solo il
-   padding verticale del container che avvolge .expr-container, lasciando
-   px-5 intatto in orizzontale. */
 .container:has(> .expr-container) {
     padding-top: 0;
     padding-bottom: 0;
 }
 
-/* Il titolo è l'elemento gerarchicamente più forte della pagina: il
-   margin-top da 3rem verso la navbar è già dato da .container.mt-5 nel
-   template (invariato apposta, vale anche per il ramo di errore). Qui resta
-   solo il suo margin-bottom, il più ampio della pagina. */
 .expr-header { margin-bottom: 3.5rem; }
 .expr-header .expr-breadcrumb { margin-bottom: 1.5rem; }
 .expr-header .expression-title { margin-bottom: 0; }
 
-/* Ritmo fra i blocchi di primo livello, e chiusura fissa prima del footer
-   uguale su ogni espressione, qualunque sia l'ultima sezione presente. */
 .expr-container > .row,
 .expr-container > section { margin-bottom: 3rem; }
 
 .expr-container > :last-child { margin-bottom: 4rem; }
 
-/* Separazione scheda+visualizzazione -> asse: un filo a piena larghezza,
-   non spazio indifferenziato, con lo stesso passo (2rem) sopra e sotto.
-   Il margin-bottom della riga è azzerato a favore del padding-top qui:
-   un margin proprio si fonderebbe con quello della riga per il collasso
-   (vincerebbe il maggiore dei due, non la somma), il padding no. */
 .expr-container > .row:has(+ .evidence-section) { margin-bottom: 2rem; }
 .expr-container > .row + .evidence-section {
     border-top: 0.5px solid var(--color-border);
     padding-top: 2rem;
 }
 
-/* Esplicito e non affidato al solo :last-child: l'asse deve chiudersi a
-   4rem dal filo del footer indipendentemente da cosa la segue. */
 .expr-container > .evidence-section { margin-bottom: 4rem; }
 
-/* La regola globale "section { margin-bottom: 3rem }" (riga 111) si applica
-   a qualunque <section>, comprese queste due dentro la row: gonfiava la
-   colonna di 3rem oltre il contenuto visibile, senza mostrarsi come spazio
-   (le colonne non hanno bordo/sfondo proprio) ma disallineando comunque
-   l'altezza della row rispetto a scheda e asse sottostanti. Qui lo spazio
-   fra le colonne è governato dalla row (gx-5/gy-4), non dai <section>. */
 .expr-container > .row section { margin-bottom: 0; }
 
-/* L'heading non deve toccare il bordo superiore del box. */
 .expr-card > .section-label { margin-top: 0; }
 
-/* Nessun margine residuo sotto l'ultima riga: il padding inferiore della card
-   deve restare l'unico spazio, simmetrico a quello superiore. */
 .expr-card > .expr-meta-dl { margin-bottom: 0; }
 .expr-card > .expr-meta-dl > dd:last-of-type { margin-bottom: 0; }
