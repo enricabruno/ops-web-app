@@ -60,7 +60,7 @@
 {% macro consegna_comune(container) %}
 {% set labeled = container.constraints | selectattr('label') | list %}
 {% if labeled %}
-<div class="consegna-comune pb-2 border-bottom">
+<div class="consegna-comune pb-2">
     <p class="expr-detail-text x-small mb-2">
         <span class="fw-bold">Consegna comune:</span>
         {% for c in labeled %}
