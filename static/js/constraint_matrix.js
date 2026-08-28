@@ -206,7 +206,7 @@ function renderMatrix(containers, data, focusUri) {
         'Matrice operazione per unità delle costrizioni del corpus DeSMòS';
     const desc = el('desc');
     desc.textContent = `${rows.length} operazioni (righe, inclusa la riga senza operazione) per `
-        + `${cols.length} unità linguistiche (colonne). Ogni forma rappresenta un gruppo di costrizioni `
+        + `${cols.length} unità formali/semantiche (colonne). Ogni forma rappresenta un gruppo di costrizioni `
         + 'che condividono cella, classe e origine.';
     svg.appendChild(desc);
 
@@ -435,7 +435,7 @@ function renderMatrix(containers, data, focusUri) {
         const classLabel = (CLASS_LABELS[mark.cls] || mark.cls).toLowerCase();
         const header = `${rowLabel} × ${colLabel} · ${classLabel} · ${originLabel} · `
             + `${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`;
-        renderResults(header, 'Clicca un\'altra cella della matrice per esplorare il resto del sistema.', mark.constraints);
+        renderResults(header, 'Clicca un\'altra cella della matrice per esplorare le altre costrizioni.', mark.constraints);
     }
 
     const focusMarks = focusUri && data.index[focusUri];
