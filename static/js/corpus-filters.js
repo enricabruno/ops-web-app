@@ -16,7 +16,10 @@ function isVisible(el) {
  * del bottone di disclosure che lo comanda.
  */
 function setCollapsed(collapseDiv, toggle, expanded) {
-    if (collapseDiv) collapseDiv.classList.toggle('show', expanded);
+    if (collapseDiv) {
+        const instance = bootstrap.Collapse.getOrCreateInstance(collapseDiv, { toggle: false });
+        expanded ? instance.show() : instance.hide();
+    }
     if (toggle) toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
 }
 
@@ -83,9 +86,20 @@ function applyFilters() {
                 : `${total} ${noun}`;
         }
 
+        const expanded = anyFilter && visible.length > 0;
         setCollapsed(block.querySelector('.disclosure-panel'),
                      block.querySelector('.disclosure-toggle'),
-                     anyFilter && visible.length > 0);
+                     expanded);
+
+        // Propaga l'apertura verso il basso: se la plaquette è espansa dal
+        // filtro, apri anche tutti i .text-row figli (non solo quello che ha
+        // generato il match), così Autore/Costrizioni/Approfondisci sono
+        // visibili senza ulteriori click, come per una plaquette monografica.
+        block.querySelectorAll('.text-row').forEach(textRow => {
+            setCollapsed(textRow.querySelector('.disclosure-panel'),
+                         textRow.querySelector('.disclosure-toggle'),
+                         expanded);
+        });
     });
 
     // Livello esterno: i volumi.
