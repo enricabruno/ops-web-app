@@ -20,20 +20,16 @@
         {{ info.alt_labels | join(' · ') }}
     </p>
     {% endif %}
+    {% if info.occurrences %}
+    <span class="badge-scope">{{ info.occurrences | length }} occorrenze</span>
+    {% endif %}
 
     <div class="matrix-screen">
         <aside class="matrix-screen__id">
-            <div class="matrix-screen__badges">
-                <span class="badge-scope">{{ info.display_type }}</span>
-                {% if info.origin %}<span class="badge-scope">{{ info.origin }}</span>{% endif %}
-                <span class="badge-scope">{{ info.occurrences | length }} occorrenz{{ 'a' if info.occurrences | length == 1 else 'e' }}</span>
-            </div>
-
             <div id="constraint-matrix-legend" class="matrix-screen__legend"></div>
-
             <details class="matrix-screen__howto">
                 <summary>Come leggere la visualizzazione</summary>
-                <p>Le righe sono le operazioni procedurali, le colonne le unità linguistiche. Ogni forma
+                <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
                    raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
                    la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
                    piena opacità con contorno scuro sono quelle di questa scheda.</p>
