@@ -3,6 +3,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST
 from dotenv import load_dotenv
 from urllib.parse import quote, unquote
 from collections import defaultdict
+from functools import lru_cache
 import os
 import re
 
@@ -1275,6 +1276,164 @@ def api_hierarchy():
         'label': scheme_label,
         'children': [build(uri) for uri in roots],
     })
+
+
+# Colonne (unità): granularità linguistica crescente, poi unità semantiche.
+# letter < syllable < word < line < {stanza, paragraph} è asserito nell'ontologia
+# da desmos:isHigherOrderUnitThan (owl:TransitiveProperty); il resto della catena
+# non è nel modello ed è una scelta editoriale di questa vista.
+MATRIX_UNIT_ORDER = [
+    'letter', 'syllable', 'word', 'line', 'stanza', 'paragraph', 'page', 'typography', 'image',
+    'theme', 'fictional_character', 'fictional_setting', 'fictional_time', 'literary_genre', 'addressee',
+]
+
+# Righe (operazioni): raggruppamento concettuale additive -> riduttive -> trasformative.
+# Non asserito nell'ontologia, scelta editoriale di questa vista.
+MATRIX_OP_ORDER = [
+    'addition', 'multiplication', 'subtraction', 'division', 'contraction',
+    'substitution', 'displacement', 'extraction',
+]
+MATRIX_NO_OPERATION = '__no_operation__'
+
+
+def _local_name(uri):
+    return uri.rsplit('/', 1)[-1]
+
+
+@lru_cache(maxsize=1)
+def _fetch_constraint_matrix():
+    """Matrice operazione x unità su tutto il corpus. Identica per ogni scheda,
+    quindi calcolata una volta sola e tenuta in cache per la vita del processo."""
+    axes_query = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX desmos: <https://w3id.org/desmos/>
+    SELECT ?concept ?label ?definition ?scheme WHERE {
+      ?concept skos:inScheme ?scheme ;
+               skos:prefLabel ?label .
+      FILTER(?scheme IN (desmos:FormalUnitScheme, desmos:SemanticUnitScheme, desmos:ProceduralOperationScheme))
+      FILTER(lang(?label) = "it")
+      OPTIONAL { ?concept skos:definition ?definition . FILTER(lang(?definition) = "it") }
+    }
+    """
+    axes_result = execute_sparql_query(axes_query)
+    if not axes_result['success']:
+        raise RuntimeError(axes_result.get('error', 'Query assi fallita.'))
+
+    unit_meta = {}
+    op_meta = {}
+    for b in axes_result['data']['results']['bindings']:
+        uri = b['concept']['value']
+        local = _local_name(uri)
+        scheme = _local_name(b['scheme']['value'])
+        entry = {
+            'uri': uri,
+            'label': b['label']['value'],
+            'definition': b.get('definition', {}).get('value', ''),
+        }
+        if scheme == 'ProceduralOperationScheme':
+            op_meta[local] = entry
+        else:
+            entry['kind'] = 'formal_unit' if scheme == 'FormalUnitScheme' else 'semantic_unit'
+            unit_meta[local] = entry
+
+    cells_query = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX desmos: <https://w3id.org/desmos/>
+
+    SELECT ?constraint ?label ?cls ?origin ?unit ?op WHERE {
+      ?constraint a skos:Concept ;
+                  skos:inScheme ?scheme ;
+                  skos:prefLabel ?label .
+      FILTER(?scheme IN (desmos:FormalConstraintScheme, desmos:SemanticConstraintScheme))
+      FILTER(lang(?label) = "it")
+
+      # desmos:VisualConstraint è rdfs:subClassOf desmos:FormalConstraint: con
+      # reasoning RDFS attivo un'istanza visuale riceve anche il tipo formale.
+      # Si risolve la classe più specifica con EXISTS in ordine di priorità.
+      BIND(IF(EXISTS { ?constraint a desmos:VisualConstraint },   "visual",
+          IF(EXISTS { ?constraint a desmos:SemanticConstraint }, "semantic",
+                                                                 "formal")) AS ?cls)
+
+      OPTIONAL {
+        ?constraint desmos:constraintOrigin ?originC .
+        ?originC skos:prefLabel ?origin .
+        FILTER(lang(?origin) = "it")
+      }
+
+      OPTIONAL { ?constraint desmos:involvesOperation ?op }
+
+      { ?constraint desmos:constrainsFormalUnit ?unit }
+      UNION
+      { ?constraint desmos:constrainsSemanticUnit ?unit }
+    }
+    """
+    cells_result = execute_sparql_query(cells_query)
+    if not cells_result['success']:
+        raise RuntimeError(cells_result.get('error', 'Query celle fallita.'))
+
+    # cell_groups[(op_local, unit_local)][(cls, origin)] -> {uri: label}
+    cell_groups = defaultdict(lambda: defaultdict(dict))
+    for b in cells_result['data']['results']['bindings']:
+        curi = b['constraint']['value']
+        clabel = b['label']['value']
+        unit_local = _local_name(b['unit']['value'])
+        op_local = _local_name(b['op']['value']) if 'op' in b else MATRIX_NO_OPERATION
+        cls = b['cls']['value']
+        origin = b.get('origin', {}).get('value') or None
+        cell_groups[(op_local, unit_local)][(cls, origin)][curi] = clabel
+
+    row_order = MATRIX_OP_ORDER + [MATRIX_NO_OPERATION]
+    rows = []
+    for op_local in row_order:
+        if op_local == MATRIX_NO_OPERATION:
+            rows.append({
+                'uri': None, 'label': 'Senza operazione',
+                'definition': 'Alcune costrizioni non sono interessate da operazioni '
+                    'procedurali',
+                'kind': 'no_operation',
+            })
+        else:
+            meta = op_meta[op_local]
+            rows.append({
+                'uri': meta['uri'], 'label': meta['label'],
+                'definition': meta['definition'], 'kind': 'operation',
+            })
+
+    cols = []
+    for unit_local in MATRIX_UNIT_ORDER:
+        meta = unit_meta[unit_local]
+        cols.append({
+            'uri': meta['uri'], 'label': meta['label'], 'short': meta['label'],
+            'definition': meta['definition'], 'kind': meta['kind'],
+        })
+
+    row_index = {op_local: i for i, op_local in enumerate(row_order)}
+    col_index = {unit_local: i for i, unit_local in enumerate(MATRIX_UNIT_ORDER)}
+
+    marks = []
+    index = defaultdict(list)
+    for (op_local, unit_local), groups in cell_groups.items():
+        r = row_index[op_local]
+        c = col_index[unit_local]
+        for (cls, origin), by_uri in groups.items():
+            uris = sorted(by_uri, key=lambda u: by_uri[u])
+            mark_index = len(marks)
+            marks.append({
+                'r': r, 'c': c, 'cls': cls, 'origin': origin, 'n': len(uris),
+                'constraints': [{'uri': u, 'label': by_uri[u]} for u in uris],
+            })
+            for u in uris:
+                index[u].append(mark_index)
+
+    return {'rows': rows, 'cols': cols, 'marks': marks, 'index': dict(index)}
+
+
+@app.route('/api/constraint-matrix')
+def api_constraint_matrix():
+    try:
+        return jsonify(_fetch_constraint_matrix())
+    except RuntimeError as e:
+        return jsonify({'error': str(e)}), 502
 
 
 if __name__ == '__main__':
