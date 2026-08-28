@@ -7,7 +7,6 @@
     --color-bg:      #fdfcfb;
     --color-surface: #faf9f7;
     --color-text:    #011c21;
-    --color-muted:   #6c757d;
     --color-border:  #dee2e6;
     --color-formali:    #0077b6;
     --color-semantiche: #fb8500;
@@ -292,7 +291,7 @@ footer hr { border-color: var(--color-border); opacity: 1; }
     border-color: var(--color-accent) !important;
 }
 
-.btn-secondary { background-color: var(--color-muted); color: #ffffff; }
+.btn-secondary { background-color: var(--color-text); color: #ffffff; }
 .btn-secondary:hover { background-color: var(--color-accent); }
 
 .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -506,7 +505,7 @@ tbody tr:last-child td { border-bottom: none; }
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
 }
 
-.badge-work-type { font-size: 0.65rem; background-color: var(--color-muted); }
+.badge-work-type { font-size: 0.65rem; background-color: var(--color-text); }
 
 .badge-intertext {
     font-size: 0.65rem;
@@ -1665,7 +1664,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .evidence-legend {
     font-size: .75rem;
-    color: var(--color-muted);
+    color: var(--color-text);
     font-style: italic;
     text-align: center;
     margin-top: 1.5rem;
@@ -1783,3 +1782,306 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .expr-card > .expr-meta-dl { margin-bottom: 0; }
 .expr-card > .expr-meta-dl > dd:last-of-type { margin-bottom: 0; }
+
+/* ===== Matrice operazione x unità (explain.html) ===== */
+/* Struttura a tre fasce a piena altezza di viewport (rif. impianto: "Topography
+   of Violence", Jewish Museum Berlin): la pagina non scorre all'apertura della
+   scheda, solo la colonna dei risultati scorre al suo interno. */
+
+:root { --header-h: 82px; } /* altezza reale di nav.navbar, misurata */
+
+/* Titolo centrato sopra la matrice (come nella scheda originale), e griglia
+   sotto: insieme occupano l'intera altezza disponibile senza scroll. */
+.matrix-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--header-h));
+    min-height: 560px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.matrix-page__title {
+    flex: none;
+    margin: 20px 24px 0;
+}
+
+.matrix-page__alt-labels {
+    flex: none;
+    margin: -0.75rem 24px 0.5rem;
+}
+
+.matrix-screen {
+    --matrix-formal:   #0077b6;
+    --matrix-semantic: #fb8500;
+    --matrix-visual:   #679436;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr) 320px;
+    grid-template-rows: minmax(0, 1fr);
+    gap: 24px;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.matrix-screen__id,
+.matrix-screen__out {
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.matrix-screen__out {
+    border-left: .5px solid var(--color-border);
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.matrix-screen__viz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+}
+
+.matrix-screen__viz svg { width: 100%; height: 100%; }
+
+.matrix-screen__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
+}
+
+.matrix-screen__badges .badge-scope {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+}
+
+.matrix-screen__howto {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.82rem;
+}
+
+.matrix-screen__howto summary {
+    cursor: pointer;
+    color: var(--color-accent);
+    font-weight: 600;
+    list-style: none;
+}
+
+.matrix-screen__howto summary::-webkit-details-marker { display: none; }
+.matrix-screen__howto summary::before { content: '+ '; }
+.matrix-screen__howto[open] summary::before { content: '– '; }
+
+.matrix-screen__howto p {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    line-height: 1.45;
+    color: var(--color-text);
+    margin: 0.6rem 0 0;
+}
+
+/* Legenda: solo campioni, senza bordo né sfondo (vive nella colonna identità) */
+.matrix-screen__legend h6 {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    margin: 0.9rem 0 0.4rem;
+}
+
+.matrix-screen__legend h6:first-of-type { margin-top: 0; }
+
+.constraint-matrix-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--color-text);
+}
+
+.constraint-matrix-legend-swatch {
+    flex: none;
+    width: 14px;
+    height: 14px;
+}
+
+.constraint-matrix-loading,
+.constraint-matrix-error {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    font-style: italic;
+    padding: 1rem;
+}
+
+.matrix-cell-band {
+    fill: var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+}
+
+.matrix-cell-band--active { opacity: 0.08; }
+
+.matrix-axis-label {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 10.5px;
+    fill: var(--color-text);
+    cursor: pointer;
+}
+
+.matrix-axis-label:hover,
+.matrix-axis-label:focus { fill: var(--color-accent); outline: none; }
+
+/* Riga di scarto: etichetta breve e discreta, non compete con le operazioni dichiarate */
+.matrix-axis-label--muted { fill: var(--color-text); }
+.matrix-axis-label--muted:hover,
+.matrix-axis-label--muted:focus { fill: var(--color-accent); }
+
+.matrix-separator {
+    stroke: var(--color-border);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+.matrix-mark {
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.12s ease;
+}
+
+.matrix-mark:hover,
+.matrix-mark:focus { opacity: 1; outline: none; }
+
+.matrix-mark--dim { opacity: 0.13; }
+.matrix-mark--focus {
+    opacity: 1 !important;
+    stroke: #011c21;
+    stroke-width: 1.4;
+}
+
+.matrix-mark--formal   { fill: var(--matrix-formal); }
+.matrix-mark--semantic { fill: var(--matrix-semantic); }
+.matrix-mark--visual   { fill: var(--matrix-visual); }
+
+.constraint-matrix-tooltip {
+    position: fixed;
+    z-index: 1000;
+    max-width: 260px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(1, 28, 33, 0.12);
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
+.constraint-matrix-tooltip strong { display: block; margin-bottom: 0.2rem; }
+
+/* Colonna risultati: intestazione sticky + lista verticale, unica zona che scorre */
+.matrix-results-header {
+    position: sticky;
+    top: 0;
+    background: var(--color-bg);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--color-border);
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-text);
+    z-index: 1;
+}
+
+.matrix-results-hint {
+    font-size: 0.78rem;
+    color: var(--color-text);
+    font-style: italic;
+    margin: 0 0 0.75rem;
+}
+
+.matrix-results-empty {
+    color: var(--color-text);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.matrix-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.matrix-results-list li {
+    display: block;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.4rem 0;
+}
+
+.matrix-results-list li:last-child { border-bottom: none; }
+
+.matrix-results-list li a {
+    display: block;
+    font-size: 0.88rem;
+}
+
+.matrix-results-list li.matrix-results-current a { font-weight: 700; }
+
+/* Fallback 1: viewport troppo basso per una schermata compressa senza scroll */
+@media (max-height: 700px) {
+    .matrix-page {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+    .matrix-screen {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+    .matrix-screen__id,
+    .matrix-screen__out {
+        overflow-y: visible;
+    }
+}
+
+/* Fallback 2: viewport troppo stretto per tre colonne affiancate */
+@media (max-width: 1099.98px) {
+    .matrix-page {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+    .matrix-screen {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+    .matrix-screen__viz {
+        order: 1;
+        height: 60vh;
+        min-height: 320px;
+    }
+    .matrix-screen__out {
+        order: 2;
+        overflow-y: visible;
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-left: 0;
+        padding-top: 16px;
+    }
+    .matrix-screen__id {
+        order: 3;
+        overflow-y: visible;
+    }
+    .matrix-results-header { position: static; }
+}

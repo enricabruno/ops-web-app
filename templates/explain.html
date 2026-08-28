@@ -3,36 +3,51 @@
 {% block title %}{{ info.label if info else "Costrizione" }}{% endblock %}
 
 {% block content %}
+{% if error %}
 <div class="container mt-5 px-3">
-    {% if error %}
     <div class="alert alert-danger explain-column">
         <strong>Errore:</strong> {{ error }}
         <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
     </div>
+</div>
 
-    {% elif info %}
+{% elif info %}
+<!-- Prima schermata: titolo + identità + matrice + risultati, senza scroll di pagina -->
+<section class="matrix-page">
+    <h1 class="fw-bold constraint-title matrix-page__title">{{ info.label }}</h1>
+    {% if info.alt_labels %}
+    <p class="text-center text-muted fst-italic explain-alt-labels matrix-page__alt-labels">
+        {{ info.alt_labels | join(' · ') }}
+    </p>
+    {% endif %}
+
+    <div class="matrix-screen">
+        <aside class="matrix-screen__id">
+            <div class="matrix-screen__badges">
+                <span class="badge-scope">{{ info.display_type }}</span>
+                {% if info.origin %}<span class="badge-scope">{{ info.origin }}</span>{% endif %}
+                <span class="badge-scope">{{ info.occurrences | length }} occorrenz{{ 'a' if info.occurrences | length == 1 else 'e' }}</span>
+            </div>
+
+            <div id="constraint-matrix-legend" class="matrix-screen__legend"></div>
+
+            <details class="matrix-screen__howto">
+                <summary>Come leggere la visualizzazione</summary>
+                <p>Le righe sono le operazioni procedurali, le colonne le unità linguistiche. Ogni forma
+                   raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
+                   la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
+                   piena opacità con contorno scuro sono quelle di questa scheda.</p>
+            </details>
+        </aside>
+
+        <div class="matrix-screen__viz" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
+
+        <aside class="matrix-screen__out" id="constraint-matrix-results"></aside>
+    </div>
+</section>
+
+<div class="container mt-5 px-3">
     <div class="explain-column">
-
-        <!-- 1. Intestazione -->
-        <h1 class="fw-bold constraint-title">{{ info.label }}</h1>
-        {% if info.alt_labels %}
-        <p class="text-center text-muted fst-italic explain-alt-labels mb-2">
-            {{ info.alt_labels | join(' · ') }}
-        </p>
-        {% endif %}
-        <div class="d-flex justify-content-center gap-2 mb-4">
-            <span class="badge-scope">{{ info.display_type }}</span>
-            {% if info.origin %}
-            <span class="badge-scope">{{ info.origin }}</span>
-            {% endif %}
-        </div>
-
-        <div id="ops-overview" data-current-uri="{{ info.uri }}"></div>
-        <div class="d-flex justify-content-center gap-3 mb-4 small text-muted">
-            <span><span class="ops-dot ops-dot-formali"></span> Formali</span>
-            <span><span class="ops-dot ops-dot-semantiche"></span> Semantiche</span>
-            <span><span class="ops-dot ops-dot-visuali"></span> Visuali</span>
-        </div>
 
         <!-- 2. Definizione -->
         <div class="mb-5 definition-container">
@@ -71,41 +86,6 @@
             {% if ex.reading %}
             <p class="explain-example-reading">{{ ex.reading }}</p>
             {% endif %}
-        </section>
-        {% endif %}
-
-        <!-- 5. Analisi -->
-        {% if info.operations or info.formal_units or info.semantic_units %}
-        <section class="mb-5">
-            <h5 class="section-label">Analisi</h5>
-            <div class="metadata-grid">
-                {% if info.operations %}
-                <div class="metadata-row">
-                    <div class="metadata-label">Operazione</div>
-                    <div class="metadata-value">
-                        {% for item in info.operations %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if info.formal_units %}
-                <div class="metadata-row">
-                    <div class="metadata-label">Unità formale</div>
-                    <div class="metadata-value">
-                        {% for item in info.formal_units %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if info.semantic_units %}
-                <div class="metadata-row">
-                    <div class="metadata-label">Unità semantica</div>
-                    <div class="metadata-value">
-                        {% for item in info.semantic_units %}{% if not loop.first %}, {% endif %}<span class="ext-label">{{ item.label }}</span>{% if item.link %}<a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" aria-label="Apri la scheda esterna di {{ item.label }}"><sup class="external-arrow">&#8599;</sup></a>{% endif %}{% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-            </div>
         </section>
         {% endif %}
 
@@ -185,35 +165,11 @@
         </section>
         {% endif %}
 
-        <!-- 9. Gerarchie -->
-        {% if info.broader or info.narrower %}
-        <section class="mb-5">
-            <h5 class="section-label">Gerarchie</h5>
-            <div id="ops-family" data-current-uri="{{ info.uri }}"></div>
-        </section>
-        {% endif %}
-
     </div>
-    {% endif %}
 </div>
+{% endif %}
 {% endblock %}
 
 {% block extra_scripts %}
-{% if info %}
-<script src="{{ url_for('static', filename='js/constraint_viz.js') }}"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var overviewEl = document.getElementById('ops-overview');
-    var familyEl = document.getElementById('ops-family');
-    var currentUri = (overviewEl || familyEl).dataset.currentUri;
-
-    fetch('/api/concept_graph.json')
-        .then(function (res) { return res.json(); })
-        .then(function (graph) {
-            if (overviewEl) renderOverview(overviewEl, graph, currentUri);
-            if (familyEl) renderFamily(familyEl, graph, currentUri);
-        });
-});
-</script>
-{% endif %}
+<script type="module" src="{{ url_for('static', filename='js/constraint_matrix.js') }}"></script>
 {% endblock %}
