@@ -12,7 +12,6 @@
 </div>
 
 {% elif info %}
-<!-- Prima schermata: titolo + identità + matrice + risultati, senza scroll di pagina -->
 <section class="matrix-page">
     <h1 class="fw-bold constraint-title matrix-page__title">{{ info.label }}</h1>
     {% if info.alt_labels %}
@@ -21,7 +20,23 @@
     </p>
     {% endif %}
     {% if info.occurrences %}
-    <span class="badge-scope">{{ info.occurrences | length }} occorrenze</span>
+    <div class="matrix-page__occurrences">
+        <button class="occurrences-toggle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse-occurrences" aria-expanded="false"
+                aria-controls="collapse-occurrences">
+            <span class="badge-scope">{{ info.occurrences | length }} {{ 'occorrenza' if info.occurrences | length == 1 else 'occorrenze' }}</span>
+            <span class="chevron" aria-hidden="true">&#x25BE;</span>
+        </button>
+        <div id="collapse-occurrences" class="collapse matrix-page__occurrences-panel">
+            <ul class="explain-occurrences-list list-unstyled">
+                {% for occ in info.occurrences %}
+                <li class="explain-occurrence-item">
+                    <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% endif %}
 
     <div class="matrix-screen">
@@ -36,54 +51,41 @@
             </details>
         </aside>
 
-        <div class="matrix-screen__viz" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
+        <div class="matrix-screen__viz">
+            <div class="matrix-screen__viz-chart" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
+            <div class="matrix-screen__viz-results" id="constraint-matrix-results"></div>
+        </div>
 
-        <aside class="matrix-screen__out" id="constraint-matrix-results"></aside>
+        <aside class="matrix-screen__out">
+            <h6>Definizione</h6>
+            <p>{{ info.definition }}</p>
+            {% if info.history_note %}
+            <p class="matrix-screen__note">
+                <span class="metadata-section-label d-block mb-1">Nota storica</span>
+                {{ info.history_note }}
+            </p>
+            {% endif %}
+            {% if info.scope_note %}
+            <p class="matrix-screen__note">
+                <span class="metadata-section-label d-block mb-1">Ambito di applicazione</span>
+                {{ info.scope_note }}
+            </p>
+            {% endif %}
+            {% if info.close_matches %}
+            <div class="matrix-screen__note">
+                {% for m in info.close_matches %}
+                <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer"
+                   class="internal-link matrix-external-link"
+                   aria-label="{{ m.label }} (si apre in una nuova scheda)">{{ m.label }}&nbsp;<svg class="matrix-external-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </aside>
     </div>
 </section>
 
 <div class="container mt-5 px-3">
     <div class="explain-column">
-
-        <!-- 2. Definizione -->
-        <div class="mb-5 definition-container">
-            <p class="text_explain">{{ info.definition }}</p>
-        </div>
-
-        <!-- 3. Note -->
-        {% if info.scope_note or info.history_note %}
-        <section class="mb-5">
-            {% if info.scope_note %}
-            <p class="explain-note">
-                <span class="metadata-section-label d-block mb-1">Ambito di applicazione</span>
-                {{ info.scope_note }}
-            </p>
-            {% endif %}
-            {% if info.history_note %}
-            <p class="explain-note">
-                <span class="metadata-section-label d-block mb-1">Nota storica</span>
-                {{ info.history_note }}
-            </p>
-            {% endif %}
-        </section>
-        {% endif %}
-
-        <!-- 4. Esempio -->
-        {% if info.example %}
-        {% set ex = info.example | split_example %}
-        <section class="mb-5">
-            <h5 class="section-label">Esempio</h5>
-            {% if ex.citation %}
-            <p class="explain-example-citation relation-label">{{ ex.citation }}</p>
-            {% endif %}
-            {% if ex.excerpt %}
-            <div class="explain-example-excerpt">{{ ex.excerpt }}</div>
-            {% endif %}
-            {% if ex.reading %}
-            <p class="explain-example-reading">{{ ex.reading }}</p>
-            {% endif %}
-        </section>
-        {% endif %}
 
         <!-- 6. Rete concettuale -->
         {% if info.broader or info.narrower or info.related %}
@@ -126,38 +128,14 @@
         {% endif %}
 
         <!-- 7. Allineamenti esterni -->
-        {% if info.exact_matches or info.close_matches %}
+        {% if info.exact_matches %}
         <section class="mb-5">
             <h5 class="section-label">Allineamenti esterni</h5>
             <div class="d-flex flex-wrap gap-3">
                 {% for m in info.exact_matches %}
                 <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer" class="link-external-xs text-decoration-none">{{ m.source }}<sup class="external-arrow">&#8599;</sup></a>
                 {% endfor %}
-                {% for m in info.close_matches %}
-                <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer" class="link-external-xs text-decoration-none">{{ m.source }}<sup class="external-arrow">&#8599;</sup></a>
-                {% endfor %}
             </div>
-        </section>
-        {% endif %}
-
-        <!-- 8. Occorrenze nel corpus -->
-        {% if info.occurrences %}
-        <section class="mb-5">
-            <h5 class="section-label">Occorrenze nel corpus</h5>
-            <ul class="explain-occurrences-list list-unstyled">
-                {% for occ in info.occurrences %}
-                <li class="explain-occurrence-item">
-                    <span class="explain-occurrence-marker {{ 'explain-occurrence-marker--visible' if occ.visible else 'explain-occurrence-marker--hidden' }}"
-                          title="{{ 'Costrizione osservabile nel testo' if occ.visible else 'Solo dichiarata' }}"></span>
-                    <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>
-                    {% if occ.year %}<span class="text-muted small">({{ occ.year }})</span>{% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-            <p class="explain-legend text-muted small">
-                <span class="explain-occurrence-marker explain-occurrence-marker--visible"></span> costrizione osservabile nel testo
-                <span class="explain-occurrence-marker explain-occurrence-marker--hidden ms-3"></span> solo dichiarata
-            </p>
         </section>
         {% endif %}
 

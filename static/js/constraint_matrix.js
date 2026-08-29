@@ -10,8 +10,8 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const CELL_W = 51;
 const CELL_H = 34;
 const ROW_LABEL_W = 96;
-const COL_LABEL_H = 64;
-const COL_LABEL_GAP = 14; // distanza fra l'ancora dell'etichetta ruotata e il bordo superiore della griglia
+const COL_LABEL_H = 58; // fascia SOTTO la griglia per le etichette di colonna ruotate
+const COL_LABEL_TICK = 10; // distanza fra il bordo inferiore della griglia e l'ancora dell'etichetta
 const MARGIN = { top: 12, right: 8 };
 
 // Confine fra operazioni dichiarate e riga di scarto: dopo l'ultima delle 8
@@ -31,6 +31,19 @@ const CIRCLE_RATIO = 1.1284; // d = s * 2/sqrt(pi): cerchio di area pari al quad
 const MARK_GAP = 3;
 
 const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visuale' };
+
+// Icona tavolozza + pennello per la legenda "Classe": tratto in currentColor,
+// così ogni riga la eredita colorata nel colore della propria classe.
+const PALETTE_ICON_SVG = `
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.5C6.8 2.5 2.5 6.4 2.5 11.4c0 3.6 2.6 6.3 6 6.3.9 0 1.6-.7 1.6-1.6 0-.4-.2-.7-.4-1-.2-.3-.4-.6-.4-1 0-.8.7-1.4 1.5-1.4h1.8c2.9 0 5.1-2.1 5.1-4.7 0-3-3-5.1-6.7-5.1Z"/>
+    <circle cx="7.6" cy="10.3" r="0.9" fill="currentColor" stroke="none"/>
+    <circle cx="9.8" cy="6.9" r="0.9" fill="currentColor" stroke="none"/>
+    <circle cx="13.6" cy="6.6" r="0.9" fill="currentColor" stroke="none"/>
+    <circle cx="15.4" cy="9.9" r="0.9" fill="currentColor" stroke="none"/>
+    <path d="M13.3 9.2c1.7-1.6 4.6-4.4 5.9-5.7.7-.7 1.9-.7 2.6.1.7.7.6 1.9-.1 2.6-1.3 1.3-4.1 4.1-5.7 5.8" stroke-width="1.3"/>
+    <path d="M12.6 8.4c-1.4 1.4-3 3.7-3.6 5.2-.2.6.3 1.1.9.9 1.5-.6 3.8-2.2 5.2-3.6.9-.9.9-2.5-.1-3.4-.9-.9-2.5-1-3.4-.1z" fill="currentColor" stroke="none"/>
+</svg>`.trim();
 
 function sizeClassIndex(n) {
     let idx = 0;
@@ -106,8 +119,9 @@ function buildLegend(container) {
         const row = document.createElement('div');
         row.className = 'constraint-matrix-legend-row';
         const sw = document.createElement('span');
-        sw.className = 'constraint-matrix-legend-swatch matrix-mark--' + c.key;
-        sw.style.background = `var(--matrix-${c.key})`;
+        sw.className = 'constraint-matrix-legend-swatch constraint-matrix-legend-icon';
+        sw.style.color = `var(--matrix-${c.key})`;
+        sw.innerHTML = PALETTE_ICON_SVG;
         row.appendChild(sw);
         const lbl = document.createElement('span');
         lbl.textContent = c.label;
@@ -139,16 +153,25 @@ function buildLegend(container) {
     h3.textContent = 'Numero di costrizioni';
     container.appendChild(h3);
     const sizeLabels = ['1', '2–3', '4–6', '7–12', '13+'];
+    const sizeBox = 28;
+    const sizeGap = 8;
     sizeLabels.forEach((label, i) => {
         const row = document.createElement('div');
         row.className = 'constraint-matrix-legend-row';
         const s = SQUARE_SIDE[i];
-        const box = 22;
-        const svg = el('svg', { width: box, height: box, viewBox: `0 0 ${box} ${box}` });
+        const d = s * CIRCLE_RATIO;
+        const svgW = sizeBox * 2 + sizeGap;
+        const svg = el('svg', { width: svgW, height: sizeBox, viewBox: `0 0 ${svgW} ${sizeBox}` });
         svg.classList.add('constraint-matrix-legend-swatch');
+        svg.style.width = svgW + 'px';
+        svg.style.height = sizeBox + 'px';
+        const cx1 = sizeBox / 2;
+        const cx2 = sizeBox + sizeGap + sizeBox / 2;
+        const cy = sizeBox / 2;
         svg.appendChild(el('rect', {
-            x: (box - s) / 2, y: (box - s) / 2, width: s, height: s, fill: 'var(--color-text)',
+            x: cx1 - s / 2, y: cy - s / 2, width: s, height: s, fill: 'var(--color-text)',
         }));
+        svg.appendChild(el('circle', { cx: cx2, cy, r: d / 2, fill: 'var(--color-text)' }));
         row.appendChild(svg);
         const lbl = document.createElement('span');
         lbl.textContent = label;
@@ -178,12 +201,12 @@ function markElement(mark, cx, cy, side) {
         });
     }
     node.classList.add('matrix-mark', 'matrix-mark--' + mark.cls);
-    node.setAttribute('tabindex', '0');
-    node.setAttribute('role', 'button');
-    const originLabel = mark.origin || 'origine non specificata';
-    node.setAttribute('aria-label',
-        `${CLASS_LABELS[mark.cls] || mark.cls}, ${originLabel}, ${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`);
     return node;
+}
+
+function markAriaLabel(mark) {
+    const originLabel = mark.origin || 'origine non specificata';
+    return `${CLASS_LABELS[mark.cls] || mark.cls}, ${originLabel}, ${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`;
 }
 
 function renderMatrix(containers, data, focusUri) {
@@ -193,58 +216,77 @@ function renderMatrix(containers, data, focusUri) {
     const rows = data.rows;
     const cols = data.cols;
     const gridX0 = ROW_LABEL_W;
-    const gridY0 = MARGIN.top + COL_LABEL_H;
+    const gridTop = MARGIN.top;
+    const gridBottom = gridTop + rows.length * CELL_H;
+    const gridY0 = gridTop;
     const width = ROW_LABEL_W + cols.length * CELL_W + MARGIN.right;
-    const height = MARGIN.top + COL_LABEL_H + rows.length * CELL_H;
+    const height = gridBottom + COL_LABEL_H;
 
     const svg = el('svg', {
         viewBox: `0 0 ${width} ${height}`,
         preserveAspectRatio: 'xMidYMid meet',
         role: 'img',
+        'aria-label': 'Matrice operazione per unità delle costrizioni del corpus DeSMòS',
     });
-    svg.appendChild(el('title', {}, SVG_NS)).textContent =
-        'Matrice operazione per unità delle costrizioni del corpus DeSMòS';
     const desc = el('desc');
     desc.textContent = `${rows.length} operazioni (righe, inclusa la riga senza operazione) per `
         + `${cols.length} unità formali/semantiche (colonne). Ogni forma rappresenta un gruppo di costrizioni `
         + 'che condividono cella, classe e origine.';
     svg.appendChild(desc);
 
-    // Bande di evidenziazione riga/colonna (sotto tutto il resto)
-    const bandLayer = el('g');
-    svg.appendChild(bandLayer);
-    const rowBands = rows.map((_, r) => {
-        const band = el('rect', {
-            class: 'matrix-cell-band',
+    // Fasce alternate di riga (sotto tutto il resto): sostituiscono le linee
+    // orizzontali come riferimento di lettura per riga.
+    const stripeLayer = el('g');
+    svg.appendChild(stripeLayer);
+    for (let r = 0; r < rows.length; r += 2) {
+        stripeLayer.appendChild(el('rect', {
             x: gridX0, y: gridY0 + r * CELL_H, width: cols.length * CELL_W, height: CELL_H,
-        });
-        bandLayer.appendChild(band);
-        return band;
-    });
-    const colBands = cols.map((_, c) => {
-        const band = el('rect', {
-            class: 'matrix-cell-band',
-            x: gridX0 + c * CELL_W, y: gridY0, width: CELL_W, height: rows.length * CELL_H,
-        });
-        bandLayer.appendChild(band);
-        return band;
-    });
-
-    // Griglia
-    const gridLayer = el('g');
-    svg.appendChild(gridLayer);
-    for (let r = 0; r <= rows.length; r++) {
-        gridLayer.appendChild(el('line', {
-            x1: gridX0, x2: gridX0 + cols.length * CELL_W,
-            y1: gridY0 + r * CELL_H, y2: gridY0 + r * CELL_H,
-            stroke: 'var(--color-border)', 'stroke-width': 0.5,
+            fill: '#011c21', opacity: 0.035, 'pointer-events': 'none',
         }));
     }
-    for (let c = 0; c <= cols.length; c++) {
+
+    // Bande di evidenziazione riga/colonna. Tre sistemi indipendenti (stessa
+    // geometria, rect distinti) così l'hover sulle etichette, la selezione
+    // fissata su una marca e l'anteprima al passaggio del mouse non si
+    // cancellano a vicenda.
+    const bandLayer = el('g');
+    svg.appendChild(bandLayer);
+    function makeBandSet() {
+        const rowBands = rows.map((_, r) => {
+            const band = el('rect', {
+                class: 'matrix-cell-band',
+                x: gridX0, y: gridY0 + r * CELL_H, width: cols.length * CELL_W, height: CELL_H,
+            });
+            bandLayer.appendChild(band);
+            return band;
+        });
+        const colBands = cols.map((_, c) => {
+            const band = el('rect', {
+                class: 'matrix-cell-band',
+                x: gridX0 + c * CELL_W, y: gridY0, width: CELL_W, height: rows.length * CELL_H,
+            });
+            bandLayer.appendChild(band);
+            return band;
+        });
+        return { rowBands, colBands };
+    }
+    // Etichette: tooltip di definizione riga/colonna (comportamento invariato)
+    const { rowBands: labelRowBands, colBands: labelColBands } = makeBandSet();
+    // Selezione fissata su una marca (clic): persiste fino alla prossima selezione
+    const { rowBands: selectionRowBands, colBands: selectionColBands } = makeBandSet();
+    // Anteprima al passaggio del mouse su una marca: più leggera, transitoria
+    const { rowBands: previewRowBands, colBands: previewColBands } = makeBandSet();
+
+    // Griglia: solo le verticali interne (fra colonna e colonna), unico
+    // sostegno all'allineamento fra una marca e la sua etichetta ruotata.
+    // Niente cornice esterna: né i bordi sinistro/destro né le orizzontali.
+    const gridLayer = el('g');
+    svg.appendChild(gridLayer);
+    for (let c = 1; c < cols.length; c++) {
         gridLayer.appendChild(el('line', {
             x1: gridX0 + c * CELL_W, x2: gridX0 + c * CELL_W,
             y1: gridY0, y2: gridY0 + rows.length * CELL_H,
-            stroke: 'var(--color-border)', 'stroke-width': 0.5,
+            stroke: '#edf0f2', 'stroke-width': 0.5,
         }));
     }
 
@@ -286,8 +328,8 @@ function renderMatrix(containers, data, focusUri) {
     document.addEventListener('click', (ev) => {
         if (!tooltip.contains(ev.target) && !ev.target.classList.contains('matrix-axis-label')) {
             hideTooltip();
-            rowBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
-            colBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
+            labelRowBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
+            labelColBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
         }
     });
 
@@ -317,20 +359,27 @@ function renderMatrix(containers, data, focusUri) {
         const activate = (ev) => {
             ev.stopPropagation();
             showTooltip(text, row.label, row.definition);
-            rowBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === r));
-            colBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
+            labelRowBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === r));
+            labelColBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
         };
         text.addEventListener('mouseenter', activate);
-        text.addEventListener('mouseleave', () => { rowBands[r].classList.remove('matrix-cell-band--active'); hideTooltip(); });
+        text.addEventListener('mouseleave', () => { labelRowBands[r].classList.remove('matrix-cell-band--active'); hideTooltip(); });
         text.addEventListener('click', activate);
         text.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') activate(ev); });
         labelLayer.appendChild(text);
     });
 
-    // Etichette di colonna (ruotate)
+    // Etichette di colonna (ruotate), SOTTO l'ultima riga della griglia. Con
+    // text-anchor="end" e rotate(-45), il testo termina nell'ancora e si
+    // estende verso il basso a sinistra, nello spazio libero sotto la griglia:
+    // in nessun caso un elemento <text> qui ha y < gridBottom.
     cols.forEach((col, c) => {
         const x = gridX0 + c * CELL_W + CELL_W / 2;
-        const y = gridY0 - COL_LABEL_GAP;
+        const y = gridBottom + COL_LABEL_TICK;
+        gridLayer.appendChild(el('line', {
+            x1: x, x2: x, y1: gridBottom, y2: y - 4,
+            stroke: 'var(--color-border)', 'stroke-width': 0.5,
+        }));
         const text = el('text', {
             class: 'matrix-axis-label', x, y,
             'text-anchor': 'end', transform: `rotate(-45 ${x} ${y})`, tabindex: '0',
@@ -339,11 +388,11 @@ function renderMatrix(containers, data, focusUri) {
         const activate = (ev) => {
             ev.stopPropagation();
             showTooltip(text, col.label, col.definition);
-            colBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === c));
-            rowBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
+            labelColBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === c));
+            labelRowBands.forEach(b => b.classList.remove('matrix-cell-band--active'));
         };
         text.addEventListener('mouseenter', activate);
-        text.addEventListener('mouseleave', () => { colBands[c].classList.remove('matrix-cell-band--active'); hideTooltip(); });
+        text.addEventListener('mouseleave', () => { labelColBands[c].classList.remove('matrix-cell-band--active'); hideTooltip(); });
         text.addEventListener('click', activate);
         text.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') activate(ev); });
         labelLayer.appendChild(text);
@@ -352,6 +401,8 @@ function renderMatrix(containers, data, focusUri) {
     // Marche, raggruppate per cella
     const markLayer = el('g');
     svg.appendChild(markLayer);
+    const ringLayer = el('g'); // sopra le marche: l'anello di selezione non deve restare coperto
+    svg.appendChild(ringLayer);
     const byCell = new Map();
     data.marks.forEach((mark, i) => {
         const key = mark.r + ':' + mark.c;
@@ -360,6 +411,89 @@ function renderMatrix(containers, data, focusUri) {
     });
 
     const focusIndices = new Set((focusUri && data.index[focusUri]) || []);
+
+    // IDENTITÀ (la marca della scheda corrente, .matrix-mark--focus) è
+    // permanente e già gestita sopra via focusIndices. SELEZIONE è un secondo
+    // stato indipendente, temporaneo: fissato da un clic su una marca con più
+    // costrizioni, sostituito dal clic successivo. ANTEPRIMA è un terzo stato,
+    // ancora più leggero e transitorio: segue il passaggio del mouse e si
+    // spegne solo uscendo dall'intera matrice (mai per il solo passaggio da
+    // una marca all'altra, altrimenti il pannello sfarfalla).
+    const markGeometry = new Map();
+    let fixedMark = null;
+    let selectionRing = null;
+    let previewRow = null;
+    let previewCol = null;
+
+    function ringGeometry(mark, cx, cy, side) {
+        const shape = originShape(mark.origin);
+        if (shape === 'circle') {
+            return { tag: 'circle', attrs: { cx, cy, r: (side * CIRCLE_RATIO) / 2 + 3 } };
+        }
+        if (shape === 'square') {
+            const s = side + 6;
+            return { tag: 'rect', attrs: { x: cx - s / 2, y: cy - s / 2, width: s, height: s } };
+        }
+        const half = (side * CIRCLE_RATIO) / 2 + 3;
+        return {
+            tag: 'polygon',
+            attrs: { points: [`${cx},${cy - half}`, `${cx + half},${cy}`, `${cx},${cy + half}`, `${cx - half},${cy}`].join(' ') },
+        };
+    }
+
+    function clearRing() {
+        if (selectionRing) { selectionRing.remove(); selectionRing = null; }
+    }
+
+    function setFixedSelection(mark) {
+        fixedMark = mark;
+        selectionRowBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === mark.r));
+        selectionColBands.forEach((b, i) => b.classList.toggle('matrix-cell-band--active', i === mark.c));
+        clearRing();
+        const geo = markGeometry.get(mark.index);
+        if (geo) {
+            const g = ringGeometry(mark, geo.cx, geo.cy, geo.side);
+            const node = el(g.tag, g.attrs);
+            node.classList.add('matrix-selection-ring');
+            ringLayer.appendChild(node);
+            selectionRing = node;
+        }
+        renderResults(null, 'Clicca un\'altra forma per esplorare le altre costrizioni', mark.constraints);
+    }
+
+    function clearPreviewBands() {
+        if (previewRow !== null) previewRowBands[previewRow].classList.remove('matrix-cell-band--preview');
+        if (previewCol !== null) previewColBands[previewCol].classList.remove('matrix-cell-band--preview');
+        previewRow = null;
+        previewCol = null;
+    }
+
+    function showPreview(mark) {
+        clearPreviewBands();
+        previewRow = mark.r;
+        previewCol = mark.c;
+        previewRowBands[mark.r].classList.add('matrix-cell-band--preview');
+        previewColBands[mark.c].classList.add('matrix-cell-band--preview');
+        renderResults(null, 'Clicca per fissare la selezione, o un nome per aprirlo', mark.constraints);
+    }
+
+    // Uscita dall'intera matrice (non da una singola marca): il pannello torna
+    // alla selezione fissata, o allo stato iniziale se non ce n'è ancora una.
+    function restoreFixedState() {
+        clearPreviewBands();
+        if (fixedMark) {
+            renderResults(null, 'Clicca un\'altra forma per esplorare le altre costrizioni', fixedMark.constraints);
+        } else if (focusUri) {
+            renderResults(
+                'Questa scheda non è collocata nella matrice',
+                'Il modello non le associa alcuna unità linguistica: clicca una cella per esplorare il sistema.',
+                null,
+            );
+        } else {
+            renderResults('Seleziona una cella', 'Clicca una forma nella matrice, o un\'etichetta per la sua definizione.', null);
+        }
+    }
+    svg.addEventListener('mouseleave', restoreFixedState);
 
     byCell.forEach((groups) => {
         groups.sort((a, b) => b.n - a.n);
@@ -371,12 +505,31 @@ function renderMatrix(containers, data, focusUri) {
         sized.forEach(({ mark, side }) => {
             const shapeCx = x + side / 2;
             const node = markElement(mark, shapeCx, cy, side);
+            markGeometry.set(mark.index, { cx: shapeCx, cy, side });
             if (focusIndices.size) {
                 node.classList.add(focusIndices.has(mark.index) ? 'matrix-mark--focus' : 'matrix-mark--dim');
             }
-            node.addEventListener('click', () => selectMark(mark));
-            node.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') selectMark(mark); });
-            markLayer.appendChild(node);
+            node.addEventListener('mouseenter', () => showPreview(mark));
+
+            if (mark.n === 1) {
+                // Destinazione univoca: vero link, niente scelta da fare.
+                const uri = mark.constraints[0].uri;
+                const link = el('a', { href: '/explain?uri=' + encodeURIComponent(uri), role: 'link', tabindex: '0' });
+                link.setAttribute('aria-label', markAriaLabel(mark));
+                link.appendChild(node);
+                markLayer.appendChild(link);
+            } else {
+                // Più costrizioni: il clic fissa la selezione, non naviga mai
+                // da solo (mai la prima in ordine alfabetico o simili).
+                node.classList.add('matrix-mark--group');
+                node.setAttribute('role', 'button');
+                node.setAttribute('tabindex', '0');
+                node.setAttribute('aria-label', markAriaLabel(mark));
+                const select = () => setFixedSelection(mark);
+                node.addEventListener('click', select);
+                node.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') select(); });
+                markLayer.appendChild(node);
+            }
             x += side + MARK_GAP;
         });
     });
@@ -386,24 +539,24 @@ function renderMatrix(containers, data, focusUri) {
     legendSlot.innerHTML = '';
     buildLegend(legendSlot);
 
-    // Colonna risultati: intestazione sticky con la coordinata selezionata,
-    // sotto una lista verticale (una costrizione per riga).
+    // Colonna risultati: senza intestazione di coordinata, direttamente i nomi
+    // delle costrizioni in linea; la nota d'istruzione va sotto, fra parentesi.
     function renderResults(headerText, hintText, constraints) {
         resultsEl.innerHTML = '';
 
-        const header = document.createElement('div');
-        header.className = 'matrix-results-header';
-        header.textContent = headerText;
-        resultsEl.appendChild(header);
-
-        if (hintText) {
-            const hint = document.createElement('p');
-            hint.className = 'matrix-results-hint';
-            hint.textContent = hintText;
-            resultsEl.appendChild(hint);
+        if (!constraints) {
+            const header = document.createElement('div');
+            header.className = 'matrix-results-header';
+            header.textContent = headerText;
+            resultsEl.appendChild(header);
+            if (hintText) {
+                const hint = document.createElement('p');
+                hint.className = 'matrix-results-hint';
+                hint.textContent = hintText;
+                resultsEl.appendChild(hint);
+            }
+            return;
         }
-
-        if (!constraints) return;
 
         if (!constraints.length) {
             const p = document.createElement('p');
@@ -413,42 +566,42 @@ function renderMatrix(containers, data, focusUri) {
             return;
         }
 
-        const list = document.createElement('ul');
-        list.className = 'matrix-results-list';
-        constraints.forEach((c) => {
-            const li = document.createElement('li');
-            if (c.uri === focusUri) li.classList.add('matrix-results-current');
-            const a = document.createElement('a');
-            a.href = '/explain?uri=' + encodeURIComponent(c.uri);
-            a.className = 'internal-link';
-            a.textContent = c.label;
-            li.appendChild(a);
-            list.appendChild(li);
+        const flow = document.createElement('p');
+        flow.className = 'matrix-results-flow';
+        constraints.forEach((c, i) => {
+            if (c.uri === focusUri) {
+                const span = document.createElement('span');
+                span.className = 'matrix-results-current';
+                span.textContent = c.label;
+                flow.appendChild(span);
+            } else {
+                const a = document.createElement('a');
+                a.href = '/explain?uri=' + encodeURIComponent(c.uri);
+                a.className = 'internal-link';
+                a.textContent = c.label;
+                flow.appendChild(a);
+            }
+            if (i < constraints.length - 1) flow.appendChild(document.createTextNode(', '));
         });
-        resultsEl.appendChild(list);
+        resultsEl.appendChild(flow);
+
+        if (hintText) {
+            const hint = document.createElement('p');
+            hint.className = 'matrix-results-hint';
+            hint.textContent = `(${hintText})`;
+            resultsEl.appendChild(hint);
+        }
     }
 
-    function selectMark(mark) {
-        const rowLabel = rows[mark.r].label;
-        const colLabel = cols[mark.c].label;
-        const originLabel = (mark.origin || 'origine non specificata').toLowerCase();
-        const classLabel = (CLASS_LABELS[mark.cls] || mark.cls).toLowerCase();
-        const header = `${rowLabel} × ${colLabel} · ${classLabel} · ${originLabel} · `
-            + `${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`;
-        renderResults(header, 'Clicca un\'altra cella della matrice per esplorare le altre costrizioni.', mark.constraints);
-    }
-
+    // Stato iniziale: se la scheda corrente è collocata nella matrice, la sua
+    // cella parte già selezionata (coincide con l'identità: contorno scuro +
+    // anello, secondo la regola "entrambe le rese" quando le due coincidono).
     const focusMarks = focusUri && data.index[focusUri];
     if (focusMarks && focusMarks.length) {
-        selectMark(data.marks[focusMarks[0]]);
-    } else if (focusUri) {
-        renderResults(
-            'Questa scheda non è collocata nella matrice',
-            'Il modello non le associa alcuna unità linguistica: clicca una cella per esplorare il sistema.',
-            null,
-        );
+        const idx = focusMarks[0];
+        setFixedSelection({ ...data.marks[idx], index: idx });
     } else {
-        renderResults('Seleziona una cella', 'Clicca una forma nella matrice, o un\'etichetta per la sua definizione.', null);
+        restoreFixedState();
     }
 }
 
