@@ -487,6 +487,33 @@ def _external_source_abbr(link):
     return 'WEB'
 
 
+# Nome leggibile della fonte e formula del collegamento (skos:exactMatch /
+# skos:closeMatch) per il blocco "Corrispondenza esterna" sotto la definizione
+# di una costrizione: derivati dal dominio della URI, non dal testo libero
+# della fonte. 'scheda' per i siti che catalogano le costrizioni con una
+# pagina dedicata (Oulipo, Oplepo); 'voce' per i vocabolari di autorità e i
+# thesaurus, dove il collegamento è una corrispondenza, non una scheda scritta
+# per questa costrizione.
+_EXTERNAL_MATCH_SOURCES = (
+    ('oulipo.net', 'Oulipo', 'scheda'),
+    ('oplepo.com', 'Oplepo', 'scheda'),
+    ('wikidata.org', 'Wikidata', 'voce'),
+    ('id.loc.gov', 'Library of Congress', 'voce'),
+    ('thes.bncf.firenze.sbn.it', 'Nuovo Soggettario', 'voce'),
+    ('viaf.org', 'VIAF', 'voce'),
+    ('id.sbn.it', 'SBN', 'voce'),
+)
+
+
+def _external_match_label(link):
+    for needle, name, kind in _EXTERNAL_MATCH_SOURCES:
+        if needle in link:
+            if kind == 'scheda':
+                return f'Scheda della costrizione nel sito {name}'
+            return f'Voce corrispondente in {name}'
+    return 'Voce corrispondente in fonte esterna'
+
+
 @app.route('/explain')
 def explain():
     raw_uri = request.args.get('uri', '').strip()
@@ -633,7 +660,7 @@ def explain():
             for m in rel_row.get('exactMatches', {}).get('value', '').split('||') if m
         ]
         info['close_matches'] = [
-            {'uri': m, 'source': _external_source_abbr(m)}
+            {'uri': m, 'label': _external_match_label(m)}
             for m in rel_row.get('closeMatches', {}).get('value', '').split('||') if m
         ]
 
@@ -642,22 +669,21 @@ def explain():
     PREFIX lrmoo:   <http://iflastandards.info/ns/lrm/lrmoo/>
     PREFIX crm:     <http://www.cidoc-crm.org/cidoc-crm/>
     PREFIX dcterms: <http://purl.org/dc/terms/>
+    PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 
-    SELECT DISTINCT ?expr ?title ?year ?visible
+    SELECT ?expr (SAMPLE(?title) AS ?title) (SAMPLE(?year) AS ?year)
+           (GROUP_CONCAT(DISTINCT ?authorName; separator=", ") AS ?authors)
     WHERE {{
       ?creation desmos:usedConstraint <{uri}> ;
                 lrmoo:R17_created ?expr .
       OPTIONAL {{ ?expr dcterms:title ?title }}
       OPTIONAL {{ ?creation dcterms:created ?year }}
       OPTIONAL {{
-        ?feat desmos:revealsConstraint <{uri}> ;
-              desmos:isFeatureOf ?featTarget .
-        {{ BIND(?expr AS ?featTarget) }}
-        UNION
-        {{ ?expr crm:P148_has_component ?featTarget }}
+        ?creation crm:P14_carried_out_by ?author .
+        ?author rdfs:label ?authorName .
       }}
-      BIND(BOUND(?feat) AS ?visible)
     }}
+    GROUP BY ?expr
     ORDER BY ?year ?title
     """
     occ_result = execute_sparql_query(occurrences_query)
@@ -668,7 +694,7 @@ def explain():
                 'uri': b.get('expr', {}).get('value', ''),
                 'title': b.get('title', {}).get('value', ''),
                 'year': b.get('year', {}).get('value', ''),
-                'visible': b.get('visible', {}).get('value', '') == 'true',
+                'author': b.get('authors', {}).get('value', ''),
             })
     info['occurrences'] = occurrences
 
@@ -1295,6 +1321,15 @@ MATRIX_OP_ORDER = [
 ]
 MATRIX_NO_OPERATION = '__no_operation__'
 
+# Etichette di colonna abbreviate per il disegno della matrice: a 45° l'ingombro
+# verticale è lunghezza * 0,707, quindi le tre più lunghe eccedono COL_LABEL_H.
+# skos:prefLabel per intero resta nel tooltip (v. constraint_matrix.js).
+MATRIX_UNIT_SHORT = {
+    'fictional_setting': 'Ambientaz.',
+    'fictional_time': 'Tempo finz.',
+    'addressee': 'Destinat.',
+}
+
 
 def _local_name(uri):
     return uri.rsplit('/', 1)[-1]
@@ -1403,7 +1438,8 @@ def _fetch_constraint_matrix():
     for unit_local in MATRIX_UNIT_ORDER:
         meta = unit_meta[unit_local]
         cols.append({
-            'uri': meta['uri'], 'label': meta['label'], 'short': meta['label'],
+            'uri': meta['uri'], 'label': meta['label'],
+            'short': MATRIX_UNIT_SHORT.get(unit_local, meta['label']),
             'definition': meta['definition'], 'kind': meta['kind'],
         })
 

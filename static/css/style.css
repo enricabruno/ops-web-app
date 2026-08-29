@@ -1225,34 +1225,11 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .explain-occurrences-list { margin: 0; padding: 0; }
 
 .explain-occurrence-item {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
     padding: 0.4rem 0;
     border-bottom: 1px solid var(--color-border);
 }
 
 .explain-occurrence-item:last-child { border-bottom: none; }
-
-.explain-occurrence-marker {
-    display: inline-block;
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-accent);
-    flex: 0 0 auto;
-}
-
-.explain-occurrence-marker--visible { background-color: var(--color-accent); }
-.explain-occurrence-marker--hidden  { background-color: transparent; }
-
-.explain-legend {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 1rem;
-}
 
 @media (max-width: 400px) {
     .metadata-grid .metadata-label { flex-basis: 40%; padding: 0.8rem; font-size: 0.7rem; }
@@ -1810,6 +1787,39 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     margin: -0.75rem 24px 0.5rem;
 }
 
+.matrix-page__occurrences {
+    flex: none;
+    margin: 0 24px 0.5rem;
+    text-align: center;
+}
+
+.occurrences-toggle {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.matrix-page__occurrences .badge-scope {
+    background-color: transparent;
+    color: var(--color-text);
+    padding: 0;
+}
+
+.occurrences-toggle:hover .badge-scope { opacity: 0.75; }
+.occurrences-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.occurrences-toggle .chevron { font-size: 0.65rem; margin-left: 0; color: var(--color-text); }
+.occurrences-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+.matrix-page__occurrences-panel {
+    max-height: 180px;
+    overflow-y: auto;
+    padding-top: 0.6rem;
+    text-align: left;
+}
+
 .matrix-screen {
     --matrix-formal:   #0077b6;
     --matrix-semantic: #fb8500;
@@ -1828,25 +1838,80 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-screen__id,
 .matrix-screen__out {
     min-height: 0;
+    min-width: 0;
     overflow-y: auto;
 }
 
 .matrix-screen__out {
-    border-left: .5px solid var(--color-border);
     padding-left: 16px;
     display: flex;
     flex-direction: column;
 }
 
+.matrix-screen__out h6 {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    margin: 0 0 0.6rem;
+}
+
+.matrix-screen__out p {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    line-height: 1.5;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.matrix-screen__out .matrix-screen__note { margin-top: 1rem; }
+
+.matrix-screen__out .metadata-section-label { font-weight: 700; }
+
+.matrix-external-link {
+    display: block;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+}
+
+.matrix-external-link + .matrix-external-link { margin-top: 0.4rem; }
+
+/* Solo l'icona segnala il link al passaggio del mouse: la dicitura resta
+   color-text, non è lei l'elemento su cui si clicca concettualmente. */
+.matrix-external-link:hover { color: var(--color-text) !important; }
+
+.matrix-external-link__icon {
+    width: 0.75em;
+    height: 0.75em;
+    vertical-align: -0.05em;
+    fill: currentColor;
+}
+
+.matrix-external-link__icon:hover { color: var(--color-accent); }
+
 .matrix-screen__viz {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     min-width: 0;
     min-height: 0;
 }
 
-.matrix-screen__viz svg { width: 100%; height: 100%; }
+.matrix-screen__viz-chart {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.matrix-screen__viz-chart svg { width: 100%; height: 100%; }
+
+.matrix-screen__viz-results {
+    flex: none;
+    max-height: 190px;
+    overflow-y: auto;
+    margin-top: 12px;
+    padding-top: 12px;
+}
 
 .matrix-screen__badges {
     display: flex;
@@ -1863,7 +1928,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-screen__howto {
     margin-top: 1rem;
     padding-top: 0.9rem;
-    border-top: 1px solid var(--color-border);
     font-size: 0.82rem;
 }
 
@@ -1887,9 +1951,9 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 /* Legenda: solo campioni, senza bordo né sfondo (vive nella colonna identità) */
 .matrix-screen__legend h6 {
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 0.72rem;
-    text-transform: uppercase;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.75rem;
+    text-transform: none;
     letter-spacing: 0.05em;
     color: var(--color-text);
     margin: 0.9rem 0 0.4rem;
@@ -1912,6 +1976,17 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     height: 14px;
 }
 
+.constraint-matrix-legend-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+}
+
+.constraint-matrix-legend-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
 .constraint-matrix-loading,
 .constraint-matrix-error {
     font-size: 0.9rem;
@@ -1927,6 +2002,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     transition: opacity 0.12s ease;
 }
 
+.matrix-cell-band--preview { opacity: 0.05; }
 .matrix-cell-band--active { opacity: 0.08; }
 
 .matrix-axis-label {
@@ -1945,9 +2021,10 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-axis-label--muted:focus { fill: var(--color-accent); }
 
 .matrix-separator {
-    stroke: var(--color-border);
+    stroke: var(--color-text);
     stroke-width: 1;
     stroke-dasharray: 3 3;
+    opacity: 0.35;
 }
 
 .matrix-mark {
@@ -1966,9 +2043,21 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     stroke-width: 1.4;
 }
 
+/* Marche con una sola costrizione: veri link, cursore a puntatore.
+   Marche con due o più: aprono l'elenco nel pannello, cursore a cella. */
+.matrix-mark--group { cursor: cell; }
+
 .matrix-mark--formal   { fill: var(--matrix-formal); }
 .matrix-mark--semantic { fill: var(--matrix-semantic); }
 .matrix-mark--visual   { fill: var(--matrix-visual); }
+
+/* Anello di selezione: elemento separato dalla marca, non ne altera l'area */
+.matrix-selection-ring {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    pointer-events: none;
+}
 
 .constraint-matrix-tooltip {
     position: fixed;
@@ -2000,10 +2089,10 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-results-hint {
-    font-size: 0.78rem;
+    font-size: 12px;
     color: var(--color-text);
-    font-style: italic;
-    margin: 0 0 0.75rem;
+    font-style: normal;
+    margin: 0.5rem 0 0;
 }
 
 .matrix-results-empty {
@@ -2012,26 +2101,21 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     font-size: 0.9rem;
 }
 
-.matrix-results-list {
-    list-style: none;
+.matrix-results-flow {
     margin: 0;
-    padding: 0;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--color-text);
 }
 
-.matrix-results-list li {
-    display: block;
-    border-bottom: 1px solid var(--color-border);
-    padding: 0.4rem 0;
+.matrix-results-flow .internal-link {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
-.matrix-results-list li:last-child { border-bottom: none; }
-
-.matrix-results-list li a {
-    display: block;
-    font-size: 0.88rem;
-}
-
-.matrix-results-list li.matrix-results-current a { font-weight: 700; }
+.matrix-results-current { font-weight: 700; }
 
 /* Fallback 1: viewport troppo basso per una schermata compressa senza scroll */
 @media (max-height: 700px) {
@@ -2073,8 +2157,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     .matrix-screen__out {
         order: 2;
         overflow-y: visible;
-        border-left: none;
-        border-top: 1px solid var(--color-border);
         padding-left: 0;
         padding-top: 16px;
     }
