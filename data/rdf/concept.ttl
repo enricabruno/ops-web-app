@@ -668,6 +668,14 @@ desmos:fixed_fictional_setting a skos:Concept ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:SemanticConstraintScheme .
 
+desmos:fixed_fictional_time a skos:Concept ;
+    skos:inScheme desmos:SemanticConstraintScheme ;
+    skos:prefLabel "Tempo finzionale fisso"@it ,
+                   "Fixed fictional time"@en ;
+    skos:definition "Costrizione semantica che fissa la collocazione temporale della narrazione, identica per tutti i testi che vi si sottopongono."@it ,
+                    "Semantic constraint requiring the temporal setting of the narrative to be fixed in advance."@en ;
+    skos:example "Esempio segnaposto"@it , "Placeholder example."@en .
+
 desmos:figured_alphabet a skos:Concept ;
     skos:prefLabel "Figured Alphabet"@en , "Alfabeto raffigurato"@it ;
     skos:definition "Formal constraint consisting of the composition of a text within a literary grid, understood as a defined geometric space, where the arrangement of letters is designed to visually reproduce the shape of the letter itself, effectively turning the script into a figurative geometry."@en , "Costrizione formale che consiste nel comporre un testo all'interno di una griglia letteraria intesa come spazio geometrico delimitato, dove la disposizione delle lettere è finalizzata a riprodurre visivamente il disegno della lettera stessa."@it ;

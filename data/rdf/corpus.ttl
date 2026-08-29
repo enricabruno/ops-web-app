@@ -481,7 +481,12 @@ desmos:fixed_fictional_character a desmos:SemanticConstraint ;
 desmos:fixed_fictional_setting a desmos:SemanticConstraint ;
 	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsSemanticUnit desmos:fixed_fictional_setting .
+	desmos:constrainsSemanticUnit desmos:fictional_setting .
+
+desmos:fixed_fictional_time a desmos:SemanticConstraint ;
+	rdfs:label "Tempo finzionale fisso"^^xsd:string ;
+	desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsSemanticUnit desmos:fictional_time .
 
 desmos:figured_alphabet a desmos:VisualConstraint ;
 	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
@@ -1298,6 +1303,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:typographic_constraints ,
 		desmos:fixed_fictional_character ,
 		desmos:fixed_fictional_setting ,
+		desmos:fictional_time ,
 		desmos:mandatory_theme ,
 		desmos:mandatory_genre ,
 		desmos:fixed_title_length ;
