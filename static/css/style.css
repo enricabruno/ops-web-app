@@ -8,9 +8,12 @@
     --color-surface: #faf9f7;
     --color-text:    #011c21;
     --color-border:  #dee2e6;
-    --color-formali:    #0077b6;
+    --color-formali:    #0089b6;
     --color-semantiche: #fb8500;
     --color-visuali:    #679436;
+    --matrix-formal:    #0089b6;
+    --matrix-semantic:  #fb8500;
+    --matrix-visual:    #679436;
 }
 
 /* ============================================
@@ -1760,36 +1763,29 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .expr-card > .expr-meta-dl > dd:last-of-type { margin-bottom: 0; }
 
 /* ===== Matrice operazione x unità (explain.html) ===== */
-/* Struttura a tre fasce a piena altezza di viewport (rif. impianto: "Topography
-   of Violence", Jewish Museum Berlin): la pagina non scorre all'apertura della
-   scheda, solo la colonna dei risultati scorre al suo interno. */
+/* La pagina scorre normalmente; solo la colonna dei risultati (altezza
+   fissa) scorre al proprio interno. */
 
-:root { --header-h: 82px; } /* altezza reale di nav.navbar, misurata */
-
-/* Titolo centrato sopra la matrice (come nella scheda originale), e griglia
-   sotto: insieme occupano l'intera altezza disponibile senza scroll. */
-.matrix-page {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - var(--header-h));
-    min-height: 560px;
-    box-sizing: border-box;
-    overflow: hidden;
+/* Unico contenitore che governa larghezza e margini laterali della pagina:
+   nessun figlio ridefinisce max-width, margin-inline o padding-inline. */
+.explain-page {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 32px;
 }
 
+.explain-page > section { margin-top: 40px; }
+
 .matrix-page__title {
-    flex: none;
-    margin: 20px 24px 0;
+    margin: 20px 0 0;
 }
 
 .matrix-page__alt-labels {
-    flex: none;
-    margin: -0.75rem 24px 0.5rem;
+    margin: -0.75rem 0 0.5rem;
 }
 
 .matrix-page__occurrences {
-    flex: none;
-    margin: 0 24px 0.5rem;
+    margin: 0 0 0.5rem;
     text-align: center;
 }
 
@@ -1806,6 +1802,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     background-color: transparent;
     color: var(--color-text);
     padding: 0;
+    font-size: 15px;
 }
 
 .occurrences-toggle:hover .badge-scope { opacity: 0.75; }
@@ -1821,52 +1818,19 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-screen {
-    --matrix-formal:   #0077b6;
-    --matrix-semantic: #fb8500;
-    --matrix-visual:   #679436;
     display: grid;
-    grid-template-columns: 260px minmax(0, 1fr) 320px;
-    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: 260px minmax(0, 1fr);
     gap: 24px;
-    flex: 1 1 auto;
-    min-height: 0;
-    padding: 20px 24px;
+    padding: 20px 0;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-.matrix-screen__id,
-.matrix-screen__out {
-    min-height: 0;
+.matrix-screen__id {
     min-width: 0;
-    overflow-y: auto;
-}
-
-.matrix-screen__out {
-    padding-left: 16px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
-
-.matrix-screen__out h6 {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.75rem;
-    text-transform: none;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    margin: 0 0 0.6rem;
-}
-
-.matrix-screen__out p {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    line-height: 1.5;
-    color: var(--color-text);
-    margin: 0;
-}
-
-.matrix-screen__out .matrix-screen__note { margin-top: 1rem; }
-
-.matrix-screen__out .metadata-section-label { font-weight: 700; }
 
 .matrix-external-link {
     display: block;
@@ -1888,6 +1852,77 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .matrix-external-link__icon:hover { color: var(--color-accent); }
 
+.explain-page__lead-label {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--color-text);
+    margin-bottom: 40px;
+    margin: 0 0 6px;
+}
+
+.explain-page__lead-text {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 68ch;
+    text-align: center;
+    color: var(--color-text);
+    margin: 0 auto;
+}
+
+.explain-page__lead {
+    margin-top: 24px;
+}
+
+/* Nota storica / Ambito: al massimo due colonne, MAI più (auto-fit su un
+   contenitore largo ne genera quattro o più). Una colonna sola quando un solo
+   campo è presente (.explain-page__notes--single, impostata in Jinja), o
+   sotto gli 800px anche con entrambi: in entrambi i casi il blocco resta
+   largo quanto UNA colonna e centrato nella pagina, non teso a piena riga. La
+   sezione stessa non viene resa quando non c'è alcun campo (vedi Jinja),
+   quindi non lascia margine residuo fra matrice e rete concettuale. */
+.explain-page__notes {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-inline: auto;
+    gap: 48px;
+    padding-top: 20px;
+    border-top: .5px solid var(--color-border);
+    box-sizing: border-box;
+}
+
+@media (min-width: 800.02px) {
+    .explain-page__notes:not(.explain-page__notes--single) {
+        grid-template-columns: 1fr 1fr;
+        max-width: 900px;
+    }
+}
+
+.explain-page__note { min-width: 0; }
+
+/* Dentro le colonne delle note il testo resta allineato a sinistra (lettura
+   continua): è il BLOCCO a essere centrato nella pagina, non le righe al suo
+   interno - diversamente da Definizione, dove .explain-page__lead-text
+   centra anche il testo. */
+.explain-page__notes .explain-page__lead-label,
+.explain-page__notes .explain-page__lead-text {
+    text-align: left;
+}
+
+.explain-page__notes .explain-page__lead-text {
+    margin: 0;
+}
+
+/* Il rimando a Oulipo sta ora dentro la colonna della nota storica, subito
+   sotto il suo paragrafo (anche quando la nota manca ed è l'unico contenuto
+   della colonna: cfr. il caso limite in explain.html). */
+.explain-page__external { margin-top: 16px; }
+
 .matrix-screen__viz {
     display: flex;
     flex-direction: column;
@@ -1896,21 +1931,45 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-screen__viz-chart {
-    flex: 1 1 auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
-.matrix-screen__viz-chart svg { width: 100%; height: 100%; }
+/* Un SVG può rimpicciolirsi, mai ingrandirsi: il tetto è il viewBox stesso
+   (869px per la matrice), impostato via --vb-w/--vb-h dal JS. */
+.explain-page svg.viz {
+    display: block;
+    width: min(100%, calc(var(--vb-w) * 1px));
+    aspect-ratio: var(--vb-w) / var(--vb-h);
+    height: auto;
+}
 
 .matrix-screen__viz-results {
     flex: none;
-    max-height: 190px;
+    max-width: 869px;
+    /* rem, non em: la riga sotto fissa qui font-size per l'intestazione e
+       l'elenco (che lo ereditano), e non deve intaccare queste soglie. */
+    min-height: 5.5rem;
+    max-height: 9rem;
     overflow-y: auto;
     margin-top: 12px;
     padding-top: 12px;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 15px;
+}
+
+.matrix-screen__viz-hint {
+    max-width: 869px;
+}
+
+/* La griglia della matrice comincia a x = 96 nel viewBox (largo 869): lo
+   stesso rapporto sposta l'elenco sotto la prima colonna della griglia,
+   non sotto le etichette di riga. */
+.matrix-screen__viz-results > *,
+.matrix-screen__viz-hint > * {
+    padding-left: 11.047%;
+    box-sizing: border-box;
 }
 
 .matrix-screen__badges {
@@ -1928,7 +1987,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-screen__howto {
     margin-top: 1rem;
     padding-top: 0.9rem;
-    font-size: 0.82rem;
+    font-size: 13px;
 }
 
 .matrix-screen__howto summary {
@@ -1949,10 +2008,30 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     margin: 0.6rem 0 0;
 }
 
-/* Legenda: solo campioni, senza bordo né sfondo (vive nella colonna identità) */
+/* Legenda: card di riferimento permanente con bordo di accento, distinta
+   dal <details> "come leggere" che resta un'azione fuori dal riquadro. */
+.matrix-legend-card {
+    width: 200px;
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+    padding: 18px 20px;
+    background: transparent;
+    align-self: flex-start;
+    margin-top: 12px; /* allinea il bordo superiore al bordo superiore della griglia (MARGIN.top = 12 dell'SVG) */
+    box-sizing: border-box;
+}
+
+.matrix-legend-card__title {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 15px;
+    color: var(--color-accent);
+    margin: 0 0 10px;
+    font-weight: normal;
+}
+
 .matrix-screen__legend h6 {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 0.75rem;
+    font-size: 14px;
     text-transform: none;
     letter-spacing: 0.05em;
     color: var(--color-text);
@@ -1965,15 +2044,16 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.35rem;
-    font-size: 0.8rem;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.5;
     color: var(--color-text);
 }
 
 .constraint-matrix-legend-swatch {
     flex: none;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
 }
 
 .constraint-matrix-legend-icon {
@@ -2007,7 +2087,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .matrix-axis-label {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 10.5px;
+    font-size: 12px;
     fill: var(--color-text);
     cursor: pointer;
 }
@@ -2089,7 +2169,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-results-hint {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text);
     font-style: normal;
     margin: 0.5rem 0 0;
@@ -2101,11 +2181,24 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     font-size: 0.9rem;
 }
 
+/* Intestazione del gruppo, sopra l'elenco: stesso font/dimensione
+   dell'elenco (letti per eredità da .matrix-screen__viz-results, non
+   ripetuti qui). Peso normale: il grassetto è già usato nell'elenco per la
+   costrizione della scheda corrente, e riusarlo qui con un altro significato
+   confonderebbe. */
+.matrix-results-heading {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--color-text);
+    margin: 0 0 8px;
+    font-weight: normal;
+}
+
 .matrix-results-flow {
     margin: 0;
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 13px;
-    line-height: 1.7;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.75;
     color: var(--color-text);
 }
 
@@ -2117,52 +2210,114 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .matrix-results-current { font-weight: 700; }
 
-/* Fallback 1: viewport troppo basso per una schermata compressa senza scroll */
-@media (max-height: 700px) {
-    .matrix-page {
-        height: auto;
-        min-height: 0;
-        overflow: visible;
-    }
-    .matrix-screen {
-        height: auto;
-        min-height: 0;
-        overflow: visible;
-    }
-    .matrix-screen__id,
-    .matrix-screen__out {
-        overflow-y: visible;
-    }
+/* ===== Rete concettuale: grafo a tre livelli (explain.html) ===== */
+.explain-page__network {
+    padding: 20px 0 32px;
+    border-top: .5px solid var(--color-border);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
-/* Fallback 2: viewport troppo stretto per tre colonne affiancate */
-@media (max-width: 1099.98px) {
-    .matrix-page {
-        height: auto;
-        min-height: 0;
-        overflow: visible;
-    }
+/* .explain-page svg.viz già impone width/aspect-ratio dal viewBox: qui solo
+   la centratura, che quella regola non tocca. Senza margin-inline: auto, un
+   grafo più stretto del proprio contenitore (es. il pavimento a 680 unità)
+   resta ancorato a sinistra invece di cadere a metà pagina. */
+.explain-page__network svg {
+    margin-inline: auto;
+}
+
+.concept-graph-reset {
+    all: unset;
+    display: block;
+    width: fit-content;
+    margin: 10px auto 0;
+    cursor: pointer;
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 12px;
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.concept-graph-reset:hover { opacity: 0.75; }
+
+/* Tratto identico per tutti gli archi: la distinzione fra i tipi di
+   relazione è affidata all'etichetta, non allo stile del segno. */
+.concept-graph-edge {
+    fill: none;
+    stroke: var(--color-text);
+}
+
+.concept-graph-edge--parent,
+.concept-graph-edge--related { stroke-width: 1; }
+.concept-graph-edge--child { stroke-width: 0.9; }
+
+.concept-graph-node-group { cursor: grab; touch-action: none; }
+.concept-graph-node { cursor: inherit; }
+.concept-graph-node--focus { cursor: default; }
+
+.concept-graph-node--focus .matrix-mark {
+    stroke: var(--color-text);
+    /* Stessa costante usata in concept_graph.js (FOCUS_STROKE_WIDTH) per
+       calcolare lo stacco delle frecce che arrivano al fuoco - non un
+       secondo 1.6 tenuto a mano in sincronia col JS. */
+    stroke-width: var(--focus-stroke-width, 1.6);
+    opacity: 1;
+}
+
+.concept-graph-label {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    fill: var(--color-text);
+    text-anchor: middle;
+}
+
+.concept-graph-label--focus { font-weight: 700; font-size: 14px; }
+.concept-graph-label--parent,
+.concept-graph-label--related { font-size: 12px; }
+.concept-graph-label--child { font-size: 12px; }
+
+.concept-graph-edge-label {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 11px;
+    fill: var(--color-text);
+}
+
+.concept-graph-edge-label--broader { text-anchor: start; }
+.concept-graph-edge-label--narrower,
+.concept-graph-edge-label--related { text-anchor: middle; }
+
+.concept-graph-edge-label-bg { fill: var(--color-bg); }
+
+/* Evidenziazione al passaggio del mouse/focus, pilotata via JS (non solo
+   :hover, perché deve coinvolgere anche l'arco e l'etichetta del nodo,
+   elementi separati e non discendenti l'uno dell'altro). */
+.concept-graph-node-group.is-active .matrix-mark,
+.concept-graph-node--focus.is-active .matrix-mark {
+    fill: var(--color-accent);
+}
+
+.concept-graph-edge.is-active { stroke: var(--color-accent); }
+.concept-graph-label.is-active { fill: var(--color-accent); }
+
+.concept-graph-node-group.is-dimmed,
+.concept-graph-node--focus.is-dimmed,
+.concept-graph-edge.is-dimmed,
+.concept-graph-label.is-dimmed {
+    opacity: .35;
+}
+
+/* Viewport troppo stretto per due colonne affiancate: la matrice va sopra,
+   la colonna id/legenda sotto. */
+@media (max-width: 991.98px) {
     .matrix-screen {
         grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        height: auto;
-        min-height: 0;
-        overflow: visible;
     }
     .matrix-screen__viz {
         order: 1;
-        height: 60vh;
-        min-height: 320px;
-    }
-    .matrix-screen__out {
-        order: 2;
-        overflow-y: visible;
-        padding-left: 0;
-        padding-top: 16px;
     }
     .matrix-screen__id {
-        order: 3;
-        overflow-y: visible;
+        order: 2;
     }
     .matrix-results-header { position: static; }
 }
