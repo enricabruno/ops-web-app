@@ -347,7 +347,7 @@ desmos:alliteration a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:alphabetic_set_constraint a skos:Concept ;
-    skos:prefLabel "Alphabetic-set constraint"@en , "Vincolo sul set alfabetico"@it ;
+    skos:prefLabel "Alphabetic-set constraint"@en , "Costrizione sul set alfabetico"@it ;
     skos:narrower desmos:lipogram ,
         desmos:beau_present ,
         desmos:prisoner_constraint ;
@@ -410,7 +410,7 @@ desmos:beau_present a skos:Concept ;
     skos:broader desmos:alphabetic_set_constraint;
     skos:related desmos:acrobistic ;
     skos:definition "Oulipian formal constraint where each line of a poem dedicated to a person is written using only the letters found in the recipient's name."@en ,"Costrizione formale oulipiana in cui ogni verso di un componimento dedicato a una persona è scritto utilizzando esclusivamente le lettere che compongono il nome del destinatario."@it ;
-    skos:scopeNote "The constraint is based on inclusion and, for this reason, the generative mechanism is inverse to that of a lipogram or an alphabetic set constraint."@en , "La costrizione è basata sull'inclusione e, per questo motivo, il meccanismo generativo è inverso a quello del lipogramma o del vincolo sul set alfabetico."@it ;
+    skos:scopeNote "The constraint is based on inclusion and, for this reason, the generative mechanism is inverse to that of a lipogram or an alphabetic set constraint."@en , "La costrizione è basata sull'inclusione e, per questo motivo, il meccanismo generativo è inverso a quello del lipogramma o della costrizione sul set alfabetico."@it ;
     skos:historyNote "The constraint was invented by the Oulipo."@en , "La costrizione è stata inventata dall'Oulipo."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/beau-present> ;
     skos:example "Sono ammesse le sole dodici lettere che compongono i nomi degli sposi (A D E G I L M N O R U Z)."@it , "Only the twelve letters forming the spouses' names are admitted (A D E G I L M N O R U Z)."@en ;
@@ -888,7 +888,7 @@ desmos:lexical_gap a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:lexicographic_marker_constraint a skos:Concept ;
-    skos:prefLabel "Lexicographic-marker constraint"@en , "Vincolo sul marcatore lessicografico"@it ;
+    skos:prefLabel "Lexicographic-marker constraint"@en , "Costrizione sul marcatore lessicografico"@it ;
     skos:narrower desmos:loanword_lexicon ,
         desmos:diatopic_lexicon ,
         desmos:register_lexicon ,
@@ -1163,7 +1163,7 @@ desmos:octave a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:page_format a skos:Concept ;
-    skos:prefLabel "Page format constraint"@en , "Vincolo quantitativo di supporto"@it ;
+    skos:prefLabel "Page format constraint"@en , "Costrizione quantitativa di supporto"@it ;
     skos:definition "Formal constraint requiring the text to be written within a predefined spatial structure."@en , "Costrizione formale che impone la scrittura in uno spazio prestabilito a priori, dettato dalla contingenza del supporto."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -1382,7 +1382,7 @@ desmos:sestina a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:syllabic_set_constraint a skos:Concept ;
-    skos:prefLabel "Syllabic-set constraint"@en , "Vincolo sul set sillabico"@it ;
+    skos:prefLabel "Syllabic-set constraint"@en , "Costrizione sul set sillabico"@it ;
     skos:related desmos:tautogram ;
     skos:definition "Formal constraint requiring every word of the text to begin with one of a closed set of syllables (typically the syllables composing a reference title), each syllable being represented at least once."@en , "Costrizione formale che impone a ogni parola del testo di iniziare con un insieme chiuso di sillabe (tipicamente le sillabe che compongono un titolo di riferimento), con ciascuna sillaba rappresentata almeno una volta."@it ;
     skos:scopeNote "Generalises the tautogram from a single initial letter to a finite set of initial syllables."@en , "Generalizza il tautogramma da una singola lettera iniziale a un insieme finito di sillabe iniziali."@it ;
