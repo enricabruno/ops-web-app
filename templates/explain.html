@@ -12,138 +12,106 @@
 </div>
 
 {% elif info %}
-<section class="matrix-page">
-    <h1 class="fw-bold constraint-title matrix-page__title">{{ info.label }}</h1>
-    {% if info.alt_labels %}
-    <p class="text-center text-muted fst-italic explain-alt-labels matrix-page__alt-labels">
-        {{ info.alt_labels | join(' · ') }}
-    </p>
-    {% endif %}
-    {% if info.occurrences %}
-    <div class="matrix-page__occurrences">
-        <button class="occurrences-toggle" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapse-occurrences" aria-expanded="false"
-                aria-controls="collapse-occurrences">
-            <span class="badge-scope">{{ info.occurrences | length }} {{ 'occorrenza' if info.occurrences | length == 1 else 'occorrenze' }}</span>
-            <span class="chevron" aria-hidden="true">&#x25BE;</span>
-        </button>
-        <div id="collapse-occurrences" class="collapse matrix-page__occurrences-panel">
-            <ul class="explain-occurrences-list list-unstyled">
-                {% for occ in info.occurrences %}
-                <li class="explain-occurrence-item">
-                    <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
-                </li>
-                {% endfor %}
-            </ul>
+<div class="explain-page">
+    <header class="explain-page__head">
+        <h1 class="fw-bold constraint-title matrix-page__title">{{ info.label }}</h1>
+        {% if info.alt_labels %}
+        <p class="text-center text-muted fst-italic explain-alt-labels matrix-page__alt-labels">
+            {{ info.alt_labels | join(' · ') }}
+        </p>
+        {% endif %}
+        {% if info.occurrences %}
+        <div class="matrix-page__occurrences">
+            <button class="occurrences-toggle" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse-occurrences" aria-expanded="false"
+                    aria-controls="collapse-occurrences">
+                <span class="badge-scope">{{ info.occurrences | length }} {{ 'occorrenza' if info.occurrences | length == 1 else 'occorrenze' }}</span>
+                <span class="chevron" aria-hidden="true">&#x25BE;</span>
+            </button>
+            <div id="collapse-occurrences" class="collapse matrix-page__occurrences-panel">
+                <ul class="explain-occurrences-list list-unstyled">
+                    {% for occ in info.occurrences %}
+                    <li class="explain-occurrence-item">
+                        <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </div>
-    {% endif %}
-
-    <div class="matrix-screen">
-        <aside class="matrix-screen__id">
-            <div id="constraint-matrix-legend" class="matrix-screen__legend"></div>
-            <details class="matrix-screen__howto">
-                <summary>Come leggere la visualizzazione</summary>
-                <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
-                   raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
-                   la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
-                   piena opacità con contorno scuro sono quelle di questa scheda.</p>
-            </details>
-        </aside>
-
-        <div class="matrix-screen__viz">
-            <div class="matrix-screen__viz-chart" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
-            <div class="matrix-screen__viz-results" id="constraint-matrix-results"></div>
+        {% endif %}
+        <div class="explain-page__lead">
+            <h2 class="explain-page__lead-label">Definizione</h2>
+            <p class="explain-page__lead-text">{{ info.definition }}</p>
         </div>
+    </header>
 
-        <aside class="matrix-screen__out">
-            <h6>Definizione</h6>
-            <p>{{ info.definition }}</p>
+    <section class="explain-page__matrix">
+        <div class="matrix-screen">
+            <aside class="matrix-screen__id">
+                <div class="matrix-legend-card">
+                    <h2 class="matrix-legend-card__title">Legenda</h2>
+                    <div id="constraint-matrix-legend" class="matrix-screen__legend"></div>
+                </div>
+                <details class="matrix-screen__howto">
+                    <summary>Come leggere la visualizzazione</summary>
+                    <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
+                       raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
+                       la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
+                       piena opacità con contorno scuro sono quelle di questa scheda.</p>
+                </details>
+            </aside>
+
+            <div class="matrix-screen__viz">
+                <div class="matrix-screen__viz-chart" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
+                <div class="matrix-screen__viz-results" id="constraint-matrix-results"></div>
+                <div class="matrix-screen__viz-hint" id="constraint-matrix-hint"></div>
+            </div>
+        </div>
+    </section>
+
+    {% set has_notes_left = info.history_note or info.close_matches %}
+    {% set has_notes_right = info.scope_note %}
+    {% if has_notes_left or has_notes_right %}
+    <section class="explain-page__notes{% if not (has_notes_left and has_notes_right) %} explain-page__notes--single{% endif %}">
+        {% if has_notes_left %}
+        <div class="explain-page__note">
             {% if info.history_note %}
-            <p class="matrix-screen__note">
-                <span class="metadata-section-label d-block mb-1">Nota storica</span>
-                {{ info.history_note }}
-            </p>
-            {% endif %}
-            {% if info.scope_note %}
-            <p class="matrix-screen__note">
-                <span class="metadata-section-label d-block mb-1">Ambito di applicazione</span>
-                {{ info.scope_note }}
-            </p>
+            <h2 class="explain-page__lead-label">Nota storica</h2>
+            <p class="explain-page__lead-text">{{ info.history_note }}</p>
             {% endif %}
             {% if info.close_matches %}
-            <div class="matrix-screen__note">
+            <p class="explain-page__external">
                 {% for m in info.close_matches %}
                 <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer"
                    class="internal-link matrix-external-link"
                    aria-label="{{ m.label }} (si apre in una nuova scheda)">{{ m.label }}&nbsp;<svg class="matrix-external-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></a>
                 {% endfor %}
-            </div>
+            </p>
             {% endif %}
-        </aside>
-    </div>
-</section>
-
-<div class="container mt-5 px-3">
-    <div class="explain-column">
-
-        <!-- 6. Rete concettuale -->
-        {% if info.broader or info.narrower or info.related %}
-        <section class="mb-5">
-            <h5 class="section-label">Rete concettuale</h5>
-
-            {% if info.broader %}
-            <div class="explain-network-group">
-                <div class="metadata-section-label mb-2">Termine più generale</div>
-                <div class="d-flex flex-wrap gap-2">
-                    {% for item in info.broader %}
-                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            {% if info.narrower %}
-            <div class="explain-network-group">
-                <div class="metadata-section-label mb-2">Termini più specifici</div>
-                <div class="d-flex flex-wrap gap-2">
-                    {% for item in info.narrower %}
-                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            {% if info.related %}
-            <div class="explain-network-group">
-                <div class="metadata-section-label mb-2">Termini correlati</div>
-                <div class="d-flex flex-wrap gap-2">
-                    {% for item in info.related %}
-                    <a href="/explain?uri={{ item.uri | urlencode }}" class="constraint-tag">{{ item.label }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        </section>
+        </div>
         {% endif %}
-
-        <!-- 7. Allineamenti esterni -->
-        {% if info.exact_matches %}
-        <section class="mb-5">
-            <h5 class="section-label">Allineamenti esterni</h5>
-            <div class="d-flex flex-wrap gap-3">
-                {% for m in info.exact_matches %}
-                <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer" class="link-external-xs text-decoration-none">{{ m.source }}<sup class="external-arrow">&#8599;</sup></a>
-                {% endfor %}
-            </div>
-        </section>
+        {% if has_notes_right %}
+        <div class="explain-page__note">
+            <h2 class="explain-page__lead-label">Ambito di applicazione</h2>
+            <p class="explain-page__lead-text">{{ info.scope_note }}</p>
+        </div>
         {% endif %}
+    </section>
+    {% endif %}
 
-    </div>
+    {% if info.concept_graph %}
+    <section class="explain-page__network">
+        <h2 class="explain-page__lead-label">Rete concettuale</h2>
+        <div id="concept-graph"></div>
+        <button type="button" id="concept-graph-reset" class="concept-graph-reset" hidden>Ripristina disposizione</button>
+        <script type="application/json" id="concept-graph-data">{{ info.concept_graph | tojson }}</script>
+    </section>
+    {% endif %}
 </div>
 {% endif %}
 {% endblock %}
 
 {% block extra_scripts %}
 <script type="module" src="{{ url_for('static', filename='js/constraint_matrix.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/concept_graph.js') }}"></script>
 {% endblock %}
