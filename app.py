@@ -458,10 +458,17 @@ def _parse_lod_items(raw):
 def _parse_relation_items(raw):
     items = []
     for item in [v for v in raw.split('||') if v]:
-        parts = item.split('##', 1)
+        parts = item.split('##')
         uri = parts[0]
         label = parts[1] if len(parts) > 1 and parts[1] else uri
-        items.append({'uri': uri, 'label': label})
+        cls = parts[2] if len(parts) > 2 and parts[2] else None
+        origin = parts[3] if len(parts) > 3 and parts[3] else None
+        entry = {'uri': uri, 'label': label}
+        if cls is not None:
+            entry['cls'] = cls
+        if origin is not None:
+            entry['origin'] = origin
+        items.append(entry)
     return items
 
 
@@ -528,7 +535,7 @@ def explain():
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-    SELECT ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote
+    SELECT ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote ?cls
            (GROUP_CONCAT(DISTINCT ?altLabel; separator="||") AS ?altLabels)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?operationLabel), "##", COALESCE(STR(?opMatch), "")); separator="||") AS ?operations)
            (GROUP_CONCAT(DISTINCT CONCAT(STR(?formalUnitLabel), "##", COALESCE(STR(?fuMatch), "")); separator="||") AS ?formalUnits)
@@ -540,6 +547,13 @@ def explain():
             rdf:type ?type .
         FILTER(lang(?prefLabel) = "it")
         FILTER(?type IN (desmos:FormalConstraint, desmos:SemanticConstraint, desmos:VisualConstraint))
+
+        # Classe più specifica via EXISTS (non dal solo ?type, che con reasoning
+        # RDFS attivo può produrre righe duplicate non deterministiche: vedi
+        # la stessa risoluzione usata per la matrice).
+        BIND(IF(EXISTS {{ ?constraint a desmos:VisualConstraint }},   "visual",
+            IF(EXISTS {{ ?constraint a desmos:SemanticConstraint }}, "semantic",
+                                                                      "formal")) AS ?cls)
 
         OPTIONAL {{ ?constraint skos:definition ?definition . FILTER(lang(?definition) = "it") }}
         OPTIONAL {{ ?constraint skos:example ?example . FILTER(lang(?example) = "it") }}
@@ -577,7 +591,7 @@ def explain():
             BIND(COALESCE(STR(?suExact), STR(?suClose), STR(?suRelated), "") AS ?suMatch)
         }}
     }}
-    GROUP BY ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote
+    GROUP BY ?prefLabel ?definition ?example ?originLabel ?type ?scopeNote ?historyNote ?cls
     """
     result = execute_sparql_query(query)
 
@@ -604,6 +618,7 @@ def explain():
         'example': row.get('example', {}).get('value', None),
         'class_type': class_name,
         'display_type': display_type,
+        'graph_cls': row.get('cls', {}).get('value', 'formal'),
         'origin': row.get('originLabel', {}).get('value', None),
         'scope_note': row.get('scopeNote', {}).get('value', None),
         'history_note': row.get('historyNote', {}).get('value', None),
@@ -613,14 +628,17 @@ def explain():
         'semantic_units': _parse_lod_items(row.get('semanticUnits', {}).get('value', '')),
     }
 
+    # cls e origin dei nodi collegati (broader/narrower/related) sono impacchettati
+    # nello stesso GROUP_CONCAT di uri+label: stessa risoluzione EXISTS della
+    # matrice, per non colorare un nodo visuale come formale (rdfs:subClassOf).
     relations_query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
     SELECT
-           (GROUP_CONCAT(DISTINCT CONCAT(STR(?broader), "##", ?broaderLabel); separator="||") AS ?broaderData)
-           (GROUP_CONCAT(DISTINCT CONCAT(STR(?narrower), "##", ?narrowerLabel); separator="||") AS ?narrowerData)
-           (GROUP_CONCAT(DISTINCT CONCAT(STR(?related), "##", ?relatedLabel); separator="||") AS ?relatedData)
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?broader), "##", ?broaderLabel, "##", ?broaderCls, "##", COALESCE(?broaderOrigin, "")); separator="||") AS ?broaderData)
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?narrower), "##", ?narrowerLabel, "##", ?narrowerCls, "##", COALESCE(?narrowerOrigin, "")); separator="||") AS ?narrowerData)
+           (GROUP_CONCAT(DISTINCT CONCAT(STR(?related), "##", ?relatedLabel, "##", ?relatedCls, "##", COALESCE(?relatedOrigin, "")); separator="||") AS ?relatedData)
            (GROUP_CONCAT(DISTINCT STR(?exactMatch); separator="||") AS ?exactMatches)
            (GROUP_CONCAT(DISTINCT STR(?closeMatch); separator="||") AS ?closeMatches)
     WHERE {{
@@ -629,16 +647,40 @@ def explain():
             ?constraint skos:broader ?broader .
             ?broader skos:prefLabel ?broaderLabel .
             FILTER(lang(?broaderLabel) = "it")
+            BIND(IF(EXISTS {{ ?broader a desmos:VisualConstraint }},   "visual",
+                IF(EXISTS {{ ?broader a desmos:SemanticConstraint }}, "semantic",
+                                                                       "formal")) AS ?broaderCls)
+            OPTIONAL {{
+                ?broader desmos:constraintOrigin ?broaderOriginC .
+                ?broaderOriginC skos:prefLabel ?broaderOrigin .
+                FILTER(lang(?broaderOrigin) = "it")
+            }}
         }}
         OPTIONAL {{
             ?constraint skos:narrower ?narrower .
             ?narrower skos:prefLabel ?narrowerLabel .
             FILTER(lang(?narrowerLabel) = "it")
+            BIND(IF(EXISTS {{ ?narrower a desmos:VisualConstraint }},   "visual",
+                IF(EXISTS {{ ?narrower a desmos:SemanticConstraint }}, "semantic",
+                                                                        "formal")) AS ?narrowerCls)
+            OPTIONAL {{
+                ?narrower desmos:constraintOrigin ?narrowerOriginC .
+                ?narrowerOriginC skos:prefLabel ?narrowerOrigin .
+                FILTER(lang(?narrowerOrigin) = "it")
+            }}
         }}
         OPTIONAL {{
             ?constraint skos:related ?related .
             ?related skos:prefLabel ?relatedLabel .
             FILTER(lang(?relatedLabel) = "it")
+            BIND(IF(EXISTS {{ ?related a desmos:VisualConstraint }},   "visual",
+                IF(EXISTS {{ ?related a desmos:SemanticConstraint }}, "semantic",
+                                                                       "formal")) AS ?relatedCls)
+            OPTIONAL {{
+                ?related desmos:constraintOrigin ?relatedOriginC .
+                ?relatedOriginC skos:prefLabel ?relatedOrigin .
+                FILTER(lang(?relatedOrigin) = "it")
+            }}
         }}
         OPTIONAL {{ ?constraint skos:exactMatch ?exactMatch }}
         OPTIONAL {{ ?constraint skos:closeMatch ?closeMatch }}
@@ -663,6 +705,20 @@ def explain():
             {'uri': m, 'label': _external_match_label(m)}
             for m in rel_row.get('closeMatches', {}).get('value', '').split('||') if m
         ]
+
+    # Grafo della rete concettuale: nessuna relazione su nessuno dei tre assi
+    # per 37 costrizioni su 164 (vedi sezione 7 della spec) -> None, la
+    # riga esplicativa la rende il template.
+    if info['broader'] or info['narrower'] or info['related']:
+        info['concept_graph'] = {
+            'focus': {'uri': info['uri'], 'label': info['label'],
+                      'cls': info['graph_cls'], 'origin': info['origin']},
+            'parent': info['broader'][0] if info['broader'] else None,
+            'children': info['narrower'],
+            'related': info['related'],
+        }
+    else:
+        info['concept_graph'] = None
 
     occurrences_query = f"""
     PREFIX desmos:  <https://w3id.org/desmos/>
