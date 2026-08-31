@@ -2,21 +2,18 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-const CELL_W = 51;
-const CELL_H = 34;
-const ROW_LABEL_W = 96;
-const COL_LABEL_H = 58; // fascia SOTTO la griglia per le etichette di colonna ruotate
+const CELL_W = 64;
+const CELL_H = 44;
+const ROW_LABEL_W = 110;
+const COL_LABEL_H = 66; // fascia SOTTO la griglia per le etichette di colonna ruotate
 const COL_LABEL_TICK = 10; // distanza fra il bordo inferiore della griglia e l'ancora dell'etichetta
-const MARGIN = { top: 12, right: 8 };
-
-const ROW_SEPARATOR_AFTER = 7;
-const COL_SEPARATOR_AFTER = 8;
+const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
 const SIZE_CUTOFFS = [1, 3, 6, 12]; // classi: 1 | 2-3 | 4-6 | 7-12 | 13+
 const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22];
 const CIRCLE_RATIO = 1.1284; // d = s * 2/sqrt(pi): cerchio di area pari al quadrato della stessa classe
-const MARK_GAP = 3;
+const MARK_GAP = 4;
 
 const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visuale' };
 
@@ -219,14 +216,6 @@ function renderMatrix(containers, data, focusUri) {
         + `${cols.length} unità formali/semantiche (colonne). Ogni forma rappresenta un gruppo di costrizioni `
         + 'che condividono cella, classe e origine.';
     svg.appendChild(desc);
-    const stripeLayer = el('g');
-    svg.appendChild(stripeLayer);
-    for (let r = 0; r < rows.length; r += 2) {
-        stripeLayer.appendChild(el('rect', {
-            x: gridX0, y: gridY0 + r * CELL_H, width: cols.length * CELL_W, height: CELL_H,
-            fill: '#011c21', opacity: 0.035, 'pointer-events': 'none',
-        }));
-    }
 
     const bandLayer = el('g');
     svg.appendChild(bandLayer);
@@ -255,26 +244,6 @@ function renderMatrix(containers, data, focusUri) {
     const { rowBands: selectionRowBands, colBands: selectionColBands } = makeBandSet();
     // Anteprima al passaggio del mouse su una marca: più leggera, transitoria
     const { rowBands: previewRowBands, colBands: previewColBands } = makeBandSet();
-
-    const gridLayer = el('g');
-    svg.appendChild(gridLayer);
-    for (let c = 1; c < cols.length; c++) {
-        gridLayer.appendChild(el('line', {
-            x1: gridX0 + c * CELL_W, x2: gridX0 + c * CELL_W,
-            y1: gridY0, y2: gridY0 + rows.length * CELL_H,
-            stroke: '#edf0f2', 'stroke-width': 0.5,
-        }));
-    }
-
-    // Separatori tratteggiati
-    const sepY = gridY0 + (ROW_SEPARATOR_AFTER + 1) * CELL_H;
-    gridLayer.appendChild(el('line', {
-        class: 'matrix-separator', x1: gridX0, x2: gridX0 + cols.length * CELL_W, y1: sepY, y2: sepY,
-    }));
-    const sepX = gridX0 + (COL_SEPARATOR_AFTER + 1) * CELL_W;
-    gridLayer.appendChild(el('line', {
-        class: 'matrix-separator', x1: sepX, x2: sepX, y1: gridY0, y2: gridY0 + rows.length * CELL_H,
-    }));
 
     // Tooltip (fuori dall'SVG)
     const tooltip = document.createElement('div');
@@ -344,10 +313,13 @@ function renderMatrix(containers, data, focusUri) {
         text.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') activate(ev); });
         labelLayer.appendChild(text);
     });
+    // Trattini fra il bordo inferiore della griglia e le etichette di colonna ruotate
+    const tickLayer = el('g');
+    svg.appendChild(tickLayer);
     cols.forEach((col, c) => {
         const x = gridX0 + c * CELL_W + CELL_W / 2;
         const y = gridBottom + COL_LABEL_TICK;
-        gridLayer.appendChild(el('line', {
+        tickLayer.appendChild(el('line', {
             x1: x, x2: x, y1: gridBottom, y2: y - 4,
             stroke: 'var(--color-border)', 'stroke-width': 0.5,
         }));
