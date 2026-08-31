@@ -619,6 +619,12 @@ function initDrawer() {
         return drawer.dataset.open === 'true';
     }
 
+    let callingTimer = null;
+    function stopCalling() {
+        handle.classList.remove('matrix-drawer--calling');
+        if (callingTimer) { clearTimeout(callingTimer); callingTimer = null; }
+    }
+
     function setOpen(open) {
         drawer.dataset.open = open ? 'true' : 'false';
         handle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -627,6 +633,7 @@ function initDrawer() {
         } else {
             panel.setAttribute('inert', '');
         }
+        stopCalling();
     }
 
     // Stato iniziale: chiuso e non raggiungibile da tastiera/screen reader.
@@ -638,6 +645,24 @@ function initDrawer() {
     });
     if (backdrop) {
         backdrop.addEventListener('click', () => setOpen(false));
+    }
+
+    // Richiamo all'arrivo: una sola volta per sessione di navigazione, non a
+    // ogni scheda - l'utente che passa da una costrizione all'altra in
+    // sequenza non deve rivederlo a ripetizione. sessionStorage (non
+    // localStorage) perché al ritorno dopo giorni il promemoria torna utile.
+    let alreadySeen = false;
+    try {
+        alreadySeen = sessionStorage.getItem('ops.drawerSeen') === '1';
+    } catch (e) {
+        // storage non disponibile (modalità privata, cookie bloccati): niente
+        // richiamo, ma il drawer resta pienamente funzionante.
+    }
+    if (!alreadySeen) {
+        handle.classList.add('matrix-drawer--calling');
+        callingTimer = setTimeout(stopCalling, 6000);
+        handle.addEventListener('focus', stopCalling, { once: true });
+        try { sessionStorage.setItem('ops.drawerSeen', '1'); } catch (e) { /* ignore */ }
     }
 }
 

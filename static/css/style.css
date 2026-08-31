@@ -2067,6 +2067,47 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     }
 }
 
+/* Richiamo all'arrivo (una sola volta per sessione, gestito in JS): la
+   differenza cromatica sull'handle è SEMPRE presente mentre il richiamo è
+   attivo, a prescindere dalle preferenze di movimento - è lei sola a dover
+   bastare per chi ha chiesto meno animazioni. L'apertura parziale che vi si
+   aggiunge sotto è solo un rinforzo, mai l'unico segnale. */
+.matrix-drawer__handle.matrix-drawer--calling {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
+.matrix-drawer__handle.matrix-drawer--calling .matrix-drawer__handle-count {
+    background: var(--color-bg);
+    color: var(--color-accent);
+}
+
+@keyframes matrix-drawer-nudge-overlay {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(calc(-100% + 24px)); }
+}
+
+@keyframes matrix-drawer-nudge-push {
+    0%, 100% { width: 0; }
+    50% { width: 24px; }
+}
+
+/* Due volte, poi stop: MAI un pulse infinito, competerebbe con la matrice
+   che è il contenuto principale della pagina (rimosso comunque al primo
+   clic o focus, gestito in JS). Guardato da no-preference: chi ha chiesto
+   meno movimento vede solo la differenza cromatica statica sopra. */
+@media (prefers-reduced-motion: no-preference) {
+    .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
+        animation: matrix-drawer-nudge-overlay 1s ease-in-out 2;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 1220.02px) {
+    .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
+        animation: matrix-drawer-nudge-push 1s ease-in-out 2;
+    }
+}
+
 .matrix-screen__viz {
     position: relative;
     display: flex;
