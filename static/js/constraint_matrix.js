@@ -189,9 +189,30 @@ function markAriaLabel(mark) {
     return `${CLASS_LABELS[mark.cls] || mark.cls}, ${originLabel}, ${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`;
 }
 
+/* Singleton a livello di modulo: un solo nodo per l'intera vita della pagina,
+   creato pigramente al primo utilizzo. Un renderMatrix() che ne creasse uno
+   proprio a ogni chiamata lascerebbe nodi orfani agganciati a document.body
+   a ogni re-render (es. al cambio di preset su resize, intervento 4). */
+let _tooltip = null;
+function getTooltip() {
+    if (!_tooltip) {
+        _tooltip = document.createElement('div');
+        _tooltip.className = 'constraint-matrix-tooltip';
+        _tooltip.style.display = 'none';
+        _tooltip.setAttribute('role', 'tooltip');
+        document.body.appendChild(_tooltip);
+    }
+    return _tooltip;
+}
+
 function renderMatrix(containers, data, focusUri) {
     const { viz, legendSlot, resultsEl, hintEl } = containers;
     viz.innerHTML = '';
+
+    // Il tooltip è condiviso fra i render: se uno precedente lo aveva
+    // lasciato visibile su una marca ora distrutta, va nascosto subito.
+    const tooltip = getTooltip();
+    hideTooltip();
 
     const rows = data.rows;
     const cols = data.cols;
@@ -244,13 +265,6 @@ function renderMatrix(containers, data, focusUri) {
     const { rowBands: selectionRowBands, colBands: selectionColBands } = makeBandSet();
     // Anteprima al passaggio del mouse su una marca: più leggera, transitoria
     const { rowBands: previewRowBands, colBands: previewColBands } = makeBandSet();
-
-    // Tooltip (fuori dall'SVG)
-    const tooltip = document.createElement('div');
-    tooltip.className = 'constraint-matrix-tooltip';
-    tooltip.style.display = 'none';
-    tooltip.setAttribute('role', 'tooltip');
-    document.body.appendChild(tooltip);
 
     function showTooltip(target, label, definition) {
         tooltip.innerHTML = '';
