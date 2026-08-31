@@ -1818,18 +1818,8 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-screen {
-    display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    gap: 24px;
     padding: 20px 0;
     box-sizing: border-box;
-}
-
-.matrix-screen__id {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .matrix-external-link {
@@ -1878,57 +1868,133 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     margin-top: 24px;
 }
 
-/* Nota storica / Ambito: al massimo due colonne, MAI più (auto-fit su un
-   contenitore largo ne genera quattro o più). Una colonna sola quando un solo
-   campo è presente (.explain-page__notes--single, impostata in Jinja), o
-   sotto gli 800px anche con entrambi: in entrambi i casi il blocco resta
-   largo quanto UNA colonna e centrato nella pagina, non teso a piena riga. La
-   sezione stessa non viene resa quando non c'è alcun campo (vedi Jinja),
-   quindi non lascia margine residuo fra matrice e rete concettuale. */
-.explain-page__notes {
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 420px;
-    margin-inline: auto;
-    gap: 48px;
-    padding-top: 20px;
-    border-top: .5px solid var(--color-border);
-    box-sizing: border-box;
-}
-
-@media (min-width: 800.02px) {
-    .explain-page__notes:not(.explain-page__notes--single) {
-        grid-template-columns: 1fr 1fr;
-        max-width: 900px;
-    }
-}
-
 .explain-page__note { min-width: 0; }
+.explain-page__note + .explain-page__note { margin-top: 40px; }
 
-/* Dentro le colonne delle note il testo resta allineato a sinistra (lettura
-   continua): è il BLOCCO a essere centrato nella pagina, non le righe al suo
-   interno - diversamente da Definizione, dove .explain-page__lead-text
-   centra anche il testo. */
-.explain-page__notes .explain-page__lead-label,
-.explain-page__notes .explain-page__lead-text {
+/* Dentro la sidebar il testo resta allineato a sinistra (lettura continua),
+   diversamente da Definizione, dove .explain-page__lead-text centra anche il
+   testo. */
+.explain-sidebar .explain-page__lead-label,
+.explain-sidebar .explain-page__lead-text {
     text-align: left;
 }
 
-.explain-page__notes .explain-page__lead-text {
-    margin: 0;
-}
+.explain-sidebar .explain-page__lead-text { margin: 0; }
 
-/* Il rimando a Oulipo sta ora dentro la colonna della nota storica, subito
-   sotto il suo paragrafo (anche quando la nota manca ed è l'unico contenuto
-   della colonna: cfr. il caso limite in explain.html). */
+/* Il rimando a Oulipo sta dentro la colonna della nota storica, subito sotto
+   il suo paragrafo. */
 .explain-page__external { margin-top: 16px; }
 
+/* ===== Sidebar note (nota storica / ambito di applicazione) =====
+   Pannello fisso ad apertura orizzontale (Bootstrap .collapse-horizontal),
+   ancorato al bordo sinistro del viewport: aperto di default, richiudibile
+   dalla linguetta per liberare spazio in pagina. */
+.explain-sidebar-toggle {
+    all: unset;
+    position: fixed;
+    left: min(320px, 85vw);
+    top: 132px;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 56px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.15);
+    transition: left 0.35s ease;
+}
+
+.explain-sidebar-toggle:hover { opacity: 0.9; }
+.explain-sidebar-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.explain-sidebar-toggle .chevron {
+    font-size: 0.8rem;
+    line-height: 1;
+    transform: rotate(180deg);
+    transition: transform 0.35s ease;
+}
+
+.explain-sidebar-toggle[aria-expanded="false"] {
+    left: 0;
+}
+
+.explain-sidebar-toggle[aria-expanded="false"] .chevron {
+    transform: rotate(0deg);
+}
+
+.explain-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    box-shadow: 2px 0 14px rgba(1, 28, 33, 0.08);
+    z-index: 890;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.explain-sidebar__inner {
+    width: min(320px, 85vw);
+    padding: 100px 28px 40px;
+    box-sizing: border-box;
+}
+
 .matrix-screen__viz {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     min-height: 0;
 }
+
+/* Legenda a comparsa: in alto a destra della visualizzazione, aperta di
+   default, richiudibile per liberare spazio nella pagina. Sopra la griglia
+   (in flusso) finché lo schermo è troppo stretto per lo spazio vuoto a
+   destra della matrice (largo al massimo 869px, il viewBox dell'SVG); da lì
+   in su, sovrapposta in quello spazio così non spinge giù il grafico. */
+.matrix-legend-flyout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: flex-end;
+    margin-bottom: 16px;
+}
+
+@media (min-width: 1100.02px) {
+    .matrix-legend-flyout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-bottom: 0;
+        z-index: 3;
+    }
+}
+
+.matrix-legend-flyout__toggle {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+    padding: 8px 14px;
+}
+
+.matrix-legend-flyout__toggle:hover { opacity: 0.8; }
+.matrix-legend-flyout__toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.matrix-legend-flyout__toggle .chevron { font-size: 0.65rem; color: var(--color-accent); transition: transform 0.15s ease; }
+.matrix-legend-flyout__toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
 .matrix-screen__viz-chart {
     display: flex;
@@ -1936,18 +2002,19 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     justify-content: flex-start;
 }
 
-/* Un SVG può rimpicciolirsi, mai ingrandirsi: il tetto è il viewBox stesso
-   (869px per la matrice), impostato via --vb-w/--vb-h dal JS. */
+/* Il grafico riempie tutta la larghezza del contenitore (fino al tetto
+   dettato da .explain-page, ~1176px): non è più il viewBox stesso a fissare
+   un limite massimo, così su desktop largo la matrice si ingrandisce oltre
+   la propria dimensione nativa invece di restare ancorata a --vb-w. */
 .explain-page svg.viz {
     display: block;
-    width: min(100%, calc(var(--vb-w) * 1px));
+    width: 100%;
     aspect-ratio: var(--vb-w) / var(--vb-h);
     height: auto;
 }
 
 .matrix-screen__viz-results {
     flex: none;
-    max-width: 869px;
     /* rem, non em: la riga sotto fissa qui font-size per l'intestazione e
        l'elenco (che lo ereditano), e non deve intaccare queste soglie. */
     min-height: 5.5rem;
@@ -1959,16 +2026,12 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     font-size: 15px;
 }
 
-.matrix-screen__viz-hint {
-    max-width: 869px;
-}
-
-/* La griglia della matrice comincia a x = 96 nel viewBox (largo 869): lo
+/* La griglia della matrice comincia a x = 110 nel viewBox (largo 1078): lo
    stesso rapporto sposta l'elenco sotto la prima colonna della griglia,
    non sotto le etichette di riga. */
 .matrix-screen__viz-results > *,
 .matrix-screen__viz-hint > * {
-    padding-left: 11.047%;
+    padding-left: 10.204%;
     box-sizing: border-box;
 }
 
@@ -2008,25 +2071,17 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     margin: 0.6rem 0 0;
 }
 
-/* Legenda: card di riferimento permanente con bordo di accento, distinta
-   dal <details> "come leggere" che resta un'azione fuori dal riquadro. */
+/* Legenda: pannello a comparsa sotto la linguetta di apertura, ancorato
+   all'angolo in alto a destra della visualizzazione. */
 .matrix-legend-card {
     width: 200px;
     border: 1px solid var(--color-accent);
     border-radius: 8px;
     padding: 18px 20px;
-    background: transparent;
-    align-self: flex-start;
-    margin-top: 12px; /* allinea il bordo superiore al bordo superiore della griglia (MARGIN.top = 12 dell'SVG) */
+    background: var(--color-bg);
+    box-shadow: 0 4px 16px rgba(1, 28, 33, 0.1);
+    margin-top: 8px;
     box-sizing: border-box;
-}
-
-.matrix-legend-card__title {
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 15px;
-    color: var(--color-accent);
-    margin: 0 0 10px;
-    font-weight: normal;
 }
 
 .matrix-screen__legend h6 {
@@ -2099,13 +2154,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-axis-label--muted { fill: var(--color-text); }
 .matrix-axis-label--muted:hover,
 .matrix-axis-label--muted:focus { fill: var(--color-accent); }
-
-.matrix-separator {
-    stroke: var(--color-text);
-    stroke-width: 1;
-    stroke-dasharray: 3 3;
-    opacity: 0.35;
-}
 
 .matrix-mark {
     cursor: pointer;
@@ -2192,6 +2240,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     color: var(--color-text);
     margin: 0 0 8px;
     font-weight: normal;
+    font-style: italic;
 }
 
 .matrix-results-flow {
@@ -2307,17 +2356,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     opacity: .35;
 }
 
-/* Viewport troppo stretto per due colonne affiancate: la matrice va sopra,
-   la colonna id/legenda sotto. */
 @media (max-width: 991.98px) {
-    .matrix-screen {
-        grid-template-columns: 1fr;
-    }
-    .matrix-screen__viz {
-        order: 1;
-    }
-    .matrix-screen__id {
-        order: 2;
-    }
     .matrix-results-header { position: static; }
 }
