@@ -2,20 +2,49 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-const CELL_W = 64;
-const CELL_H = 44;
-const ROW_LABEL_W = 110;
-const COL_LABEL_H = 66; // fascia SOTTO la griglia per le etichette di colonna ruotate
+// CELL_W, CELL_H, ROW_LABEL_W e COL_LABEL_H non sono più costanti fisse:
+// dipendono dallo spazio disponibile (vedi layoutFor più sotto), perché il
+// drawer di approfondimento può restringere la matrice in regime push.
 const COL_LABEL_TICK = 10; // distanza fra il bordo inferiore della griglia e l'ancora dell'etichetta
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
 const SIZE_CUTOFFS = [1, 3, 6, 12]; // classi: 1 | 2-3 | 4-6 | 7-12 | 13+
-const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22];
+const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22]; // riferimento "comodo": usato anche dalla legenda
 const CIRCLE_RATIO = 1.1284; // d = s * 2/sqrt(pi): cerchio di area pari al quadrato della stessa classe
 const MARK_GAP = 4;
 
 const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visuale' };
+
+/* Due preset di layout, scelti in base alla larghezza disponibile per il
+   grafico (non del viewport: quella del contenitore #constraint-matrix-viz,
+   che si restringe quando il drawer è aperto in regime push). L'SVG usa
+   preserveAspectRatio="xMidYMid meet" e si scala uniformemente: sotto la
+   soglia "comodo" le etichette rimpicciolirebbero sotto la leggibilità
+   recuperata ingrandendo il grafico, quindi si passa a un preset con una
+   griglia nativamente più stretta invece di lasciar rimpicciolire quella
+   larga.
+   Il preset "compatto" scala anche SQUARE_SIDE (fattore 0,74, non lo 0,78
+   "di massima"): con CELL_W: 48 il caso peggiore - 3 marche delle classi più
+   grandi nella stessa cella, che sommano 22 + 18 + 13,5 unità - sborderebbe
+   anche solo rimpicciolendo la griglia. 0,74 è il fattore più alto che fa
+   rientrare quel caso: 53,5 × 0,74 + 2 × MARK_GAP(4) = 47,59 <= 48 (0,78
+   darebbe 49,73, sopra il limite). */
+function layoutFor(availableWidth) {
+    if (availableWidth >= 1080) {
+        return {
+            name: 'comodo',
+            CELL_W: 64, CELL_H: 44, ROW_LABEL_W: 110, COL_LABEL_H: 66,
+            SQUARE_SIDE,
+        };
+    }
+    const COMPACT_FACTOR = 0.74;
+    return {
+        name: 'compatto',
+        CELL_W: 48, CELL_H: 36, ROW_LABEL_W: 92, COL_LABEL_H: 56,
+        SQUARE_SIDE: SQUARE_SIDE.map(s => Math.round(s * COMPACT_FACTOR * 100) / 100),
+    };
+}
 
 const PALETTE_ICON_SVG = `
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -205,8 +234,9 @@ function getTooltip() {
     return _tooltip;
 }
 
-function renderMatrix(containers, data, focusUri) {
+function renderMatrix(containers, data, focusUri, layout) {
     const { viz, legendSlot, resultsEl, hintEl } = containers;
+    const { CELL_W, CELL_H, ROW_LABEL_W, COL_LABEL_H, SQUARE_SIDE } = layout;
     viz.innerHTML = '';
 
     // Il tooltip è condiviso fra i render: se uno precedente lo aveva
@@ -564,9 +594,56 @@ function renderMatrix(containers, data, focusUri) {
     } else {
         restoreFixedState();
     }
+
+    // Esposto a chi chiama: un re-render (cambio di preset su resize) deve
+    // poter leggere la selezione fissata corrente e riapplicarla dopo aver
+    // ricostruito l'SVG, così l'utente non la perde.
+    return {
+        setFixedSelection,
+        getFixedMark: () => fixedMark,
+    };
+}
+
+/* Drawer di approfondimento: apertura/chiusura, backdrop, Esc, e la marca
+   che indica "c'è altro da aprire qui" tramite inert sul pannello chiuso
+   (non solo opacity/transform, altrimenti resterebbe raggiungibile da
+   tastiera e screen reader a pannello nascosto). */
+function initDrawer() {
+    const drawer = document.getElementById('matrix-drawer');
+    if (!drawer) return;
+    const handle = document.getElementById('matrix-drawer-handle');
+    const panel = document.getElementById('matrix-drawer-panel');
+    const backdrop = document.getElementById('matrix-drawer-backdrop');
+
+    function isOpen() {
+        return drawer.dataset.open === 'true';
+    }
+
+    function setOpen(open) {
+        drawer.dataset.open = open ? 'true' : 'false';
+        handle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+            panel.removeAttribute('inert');
+        } else {
+            panel.setAttribute('inert', '');
+        }
+    }
+
+    // Stato iniziale: chiuso e non raggiungibile da tastiera/screen reader.
+    panel.setAttribute('inert', '');
+
+    handle.addEventListener('click', () => setOpen(!isOpen()));
+    document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape' && isOpen()) setOpen(false);
+    });
+    if (backdrop) {
+        backdrop.addEventListener('click', () => setOpen(false));
+    }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    initDrawer();
+
     const viz = document.getElementById('constraint-matrix-viz');
     if (!viz) return;
     const legendSlot = document.getElementById('constraint-matrix-legend');
@@ -575,9 +652,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const focusUri = viz.dataset.focusUri || '';
 
     viz.innerHTML = '<p class="constraint-matrix-loading">Caricamento della matrice…</p>';
+    let data;
     try {
-        const data = await loadData();
-        renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri);
+        data = await loadData();
     } catch (err) {
         viz.innerHTML = '';
         const p = document.createElement('p');
@@ -585,5 +662,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         p.textContent = 'Impossibile caricare la matrice delle costrizioni.';
         viz.appendChild(p);
         console.error(err);
+        return;
     }
+
+    let matrixApi = null;
+    let currentPreset = null;
+
+    // Ri-renderizza SOLO quando cambia il NOME del preset (comodo/compatto),
+    // non a ogni pixel di variazione durante il trascinamento o l'animazione
+    // del drawer: un re-render per frame su una matrice da ~90 nodi SVG
+    // sarebbe inaccettabile. La selezione fissata sopravvive al cambio.
+    function applyLayout(availableWidth) {
+        const layout = layoutFor(availableWidth);
+        if (layout.name === currentPreset) return;
+        currentPreset = layout.name;
+        const previousFixedMark = matrixApi ? matrixApi.getFixedMark() : null;
+        matrixApi = renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri, layout);
+        if (previousFixedMark) matrixApi.setFixedSelection(previousFixedMark);
+    }
+
+    applyLayout(viz.getBoundingClientRect().width);
+
+    let resizeTimer = null;
+    const observer = new ResizeObserver((entries) => {
+        const width = entries[entries.length - 1].contentRect.width;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => applyLayout(width), 150);
+    });
+    observer.observe(viz);
 });

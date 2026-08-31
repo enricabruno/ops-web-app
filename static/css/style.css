@@ -1817,7 +1817,18 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     text-align: left;
 }
 
+/* Riga che affianca il drawer di approfondimento alla matrice: in regime
+   overlay il drawer è fuori flusso (position: fixed), quindi .matrix-screen
+   resta l'unico figlio "reale" e prende il 100% della riga; in regime push
+   (vedi sotto, >=1220px) condivide lo spazio col drawer aperto. */
+.matrix-layout {
+    display: flex;
+    align-items: flex-start;
+}
+
 .matrix-screen {
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 20px 0;
     box-sizing: border-box;
 }
@@ -1871,79 +1882,189 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .explain-page__note { min-width: 0; }
 .explain-page__note + .explain-page__note { margin-top: 40px; }
 
-/* Dentro la sidebar il testo resta allineato a sinistra (lettura continua),
+/* Dentro il drawer il testo resta allineato a sinistra (lettura continua),
    diversamente da Definizione, dove .explain-page__lead-text centra anche il
    testo. */
-.explain-sidebar .explain-page__lead-label,
-.explain-sidebar .explain-page__lead-text {
+.matrix-drawer__panel .explain-page__lead-label,
+.matrix-drawer__panel .explain-page__lead-text {
     text-align: left;
 }
 
-.explain-sidebar .explain-page__lead-text { margin: 0; }
+.matrix-drawer__panel .explain-page__lead-text { margin: 0; }
 
 /* Il rimando a Oulipo sta dentro la colonna della nota storica, subito sotto
    il suo paragrafo. */
 .explain-page__external { margin-top: 16px; }
 
-/* ===== Sidebar note (nota storica / ambito di applicazione) =====
-   Pannello fisso ad apertura orizzontale (Bootstrap .collapse-horizontal),
-   ancorato al bordo sinistro del viewport: aperto di default, richiudibile
-   dalla linguetta per liberare spazio in pagina. */
-.explain-sidebar-toggle {
-    all: unset;
-    position: fixed;
-    left: min(320px, 85vw);
-    top: 132px;
-    z-index: 900;
+/* ===== Drawer di approfondimento (nota storica / ambito di applicazione) =====
+   Affiancato alla matrice sul lato SINISTRO: a destra c'è già la legenda
+   (.matrix-legend-flyout, sovrapposta all'angolo in alto a destra della
+   visualizzazione), quindi due pannelli sullo stesso lato si coprirebbero a
+   vicenda proprio mentre si confrontano le forme con la legenda.
+
+   Due regimi:
+   - OVERLAY (di default, sotto i 1220px): position fixed, ancorato al bordo
+     sinistro del viewport, scorre SOPRA il contenuto (con backdrop) senza
+     restringere .matrix-screen.
+   - PUSH (>=1220px, vedi media query sotto): torna in flusso e restringe
+     .matrix-screen quando aperto.
+   La soglia non è 1440 "di libro": è calcolata sui vincoli REALI di questa
+   pagina. .explain-page ha un tetto proprio di 1176px di contenuto (non
+   1440: max-width:1240px meno il padding), quindi anche al più il grafico
+   spinto non supera mai 1176 - 340 (drawer) - 24 (gutter) = 812px. Sotto ai
+   1220px di viewport il contenuto disponibile scende sotto quella soglia
+   già PRIMA di sottrarre il drawer, portando il fattore di scala del preset
+   compatto (viewBox nativo 824px) sotto 0,95: da qui la scelta di passare
+   a overlay, che lascia il grafico intatto. */
+.matrix-drawer {
     display: flex;
+    align-items: stretch;
+    position: fixed;
+    left: 0;
+    top: 82px; /* subito sotto la navbar (altezza reale ~81px) */
+    bottom: 16px;
+    z-index: 950;
+}
+
+.matrix-drawer__handle {
+    all: unset;
+    box-sizing: border-box;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 40px;
+    padding: 18px 0;
+    cursor: pointer;
+    background: var(--color-bg);
+    border: 1px solid var(--color-accent);
+    border-radius: 0 8px 8px 0;
+    color: var(--color-accent);
+    box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
+}
+
+.matrix-drawer__handle:hover { opacity: 0.85; }
+.matrix-drawer__handle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.matrix-drawer__handle-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+}
+
+.matrix-drawer__handle-count {
+    flex: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 56px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 4px;
+    border-radius: 999px;
     background: var(--color-accent);
     color: var(--color-bg);
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
-    box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.15);
-    transition: left 0.35s ease;
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 11px;
+    box-sizing: border-box;
 }
 
-.explain-sidebar-toggle:hover { opacity: 0.9; }
-.explain-sidebar-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.matrix-drawer__handle-arrow {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
 
-.explain-sidebar-toggle .chevron {
-    font-size: 0.8rem;
-    line-height: 1;
+.matrix-drawer[data-open="true"] .matrix-drawer__handle-arrow {
     transform: rotate(180deg);
-    transition: transform 0.35s ease;
 }
 
-.explain-sidebar-toggle[aria-expanded="false"] {
-    left: 0;
-}
-
-.explain-sidebar-toggle[aria-expanded="false"] .chevron {
-    transform: rotate(0deg);
-}
-
-.explain-sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: min(320px, 85vw);
-    background: var(--color-surface);
-    border-right: 1px solid var(--color-border);
-    box-shadow: 2px 0 14px rgba(1, 28, 33, 0.08);
-    z-index: 890;
+.matrix-drawer__panel {
+    width: 340px;
+    max-width: 82vw;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    box-sizing: border-box;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: none;
+    box-shadow: 4px 0 16px rgba(1, 28, 33, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
 }
 
-.explain-sidebar__inner {
-    width: min(320px, 85vw);
-    padding: 100px 28px 40px;
-    box-sizing: border-box;
+.matrix-drawer[data-open="true"] .matrix-drawer__panel {
+    transform: translateX(0);
+}
+
+.matrix-drawer__panel-inner {
+    padding: 28px 26px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.matrix-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 940;
+    background: rgba(1, 28, 33, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.matrix-drawer[data-open="true"] ~ .matrix-drawer-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (min-width: 1220.02px) {
+    .matrix-drawer {
+        position: static;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        z-index: auto;
+        align-items: stretch;
+    }
+    .matrix-drawer__handle {
+        border-radius: 8px 0 0 8px;
+    }
+    .matrix-drawer__panel {
+        width: 0;
+        max-width: none;
+        border: none;
+        box-shadow: none;
+        transform: none;
+        transition: width 0.3s ease;
+    }
+    .matrix-drawer[data-open="true"] .matrix-drawer__panel {
+        width: 340px;
+        border: 1px solid var(--color-border);
+        border-left: none;
+        box-shadow: inset 4px 0 10px -8px rgba(1, 28, 33, 0.3);
+    }
+    .matrix-drawer__panel-inner {
+        width: 340px;
+    }
+    .matrix-drawer-backdrop {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .matrix-drawer__panel {
+        transition: none;
+    }
+    .matrix-drawer-backdrop {
+        transition: none;
+    }
 }
 
 .matrix-screen__viz {
