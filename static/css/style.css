@@ -8,6 +8,12 @@
     --color-surface: #faf9f7;
     --color-text:    #011c21;
     --color-border:  #dee2e6;
+    /* Doppia dichiarazione voluta: la prima fa da fallback per browser
+       senza color-mix. Non --color-muted (#6c757d, grigio freddo estraneo
+       alla palette): questo è --color-text schiarito sul fondo, stessa
+       famiglia cromatica del titolo. */
+    --color-text-soft: #3c4f54;
+    --color-text-soft: color-mix(in srgb, var(--color-text) 74%, var(--color-bg));
     --color-formali:    #0089b6;
     --color-semantiche: #fb8500;
     --color-visuali:    #679436;
@@ -1096,9 +1102,6 @@ tbody tr:last-child td { border-bottom: none; }
    PAGE: EXPLAIN
    ============================================ */
 
-.constraint-title { color: var(--color-text); text-align: center; 
-font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
-
 .metadata-grid {
     border: 1px solid var(--color-border);
     border-radius: 4px;
@@ -1188,8 +1191,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 /* ============================================
    EXPLAIN — GERARCHIE
    ============================================ */
-
-.explain-alt-labels { font-size: 0.95rem; }
 
 .explain-note {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
@@ -1776,18 +1777,31 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
 .explain-page > section { margin-top: 40px; }
 
-.matrix-page__title {
-    margin: 20px 0 0;
+/* Intestazione a voce di dizionario: lemma (titolo + occorrenze) a
+   sinistra, definizione a destra - non più centrati e impilati. */
+.matrix-head {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.35fr);
+    column-gap: 3.5rem;
+    align-items: start;
+    padding-bottom: 2.25rem;
 }
 
-.matrix-page__alt-labels {
-    margin: -0.75rem 0 0.5rem;
+.matrix-head__lemma { min-width: 0; }
+
+.matrix-head__title {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 3.6vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+    margin: 0;
+    padding-top: 0.05em;
+    text-align: left;
 }
 
-.matrix-page__occurrences {
-    margin: 0 0 0.5rem;
-    text-align: center;
-}
+.matrix-head__occurrences { margin-top: 0.9rem; }
 
 .occurrences-toggle {
     all: unset;
@@ -1798,7 +1812,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     border-radius: 4px;
 }
 
-.matrix-page__occurrences .badge-scope {
+.matrix-head__occurrences .badge-scope {
     background-color: transparent;
     color: var(--color-text);
     padding: 0;
@@ -1815,6 +1829,142 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     overflow-y: auto;
     padding-top: 0.6rem;
     text-align: left;
+}
+
+/* Senza l'etichetta "Definizione" il blocco va riallineato a mano: il
+   padding-top porta la prima linea di base del testo sulla stessa quota
+   della prima linea di base del titolo. */
+.matrix-head__definition { min-width: 0; padding-top: 0.75rem; }
+
+.matrix-head__definition-text {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.62;
+    color: var(--color-text-soft);
+    max-width: 46ch; /* misura di riga leggibile: non lasciare che si allunghi su viewport larghe */
+    text-align: justify;
+    /* La giustificazione senza sillabazione produce spaziature irregolari:
+       hyphens richiede lang sull'elemento radice per funzionare (verificato:
+       <html lang="it"> in base.html). */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: pretty;
+}
+
+/* Varianti denominative (skos:altLabel): non più sotto il titolo, ma in
+   fondo alla pagina - dato reale del vocabolario, non soppresso, solo
+   spostato fuori dalla lettura primaria. */
+.matrix-head__variants {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-soft);
+}
+
+/* ===== Barra della legenda, collassabile, in testa alla pagina =====
+   Sostituisce .matrix-legend-flyout (popover assoluto sovrapposto al
+   grafico, che copriva le ultime colonne della matrice al caricamento).
+   Due filetti a --color-border, non una card: separa la barra dal lemma
+   sopra e dalla matrice sotto senza reintrodurre un contenitore, coerente
+   con la scelta di sfondo bianco senza griglie di un intervento precedente. */
+.matrix-legend-bar {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 0;
+}
+
+.matrix-legend-bar__toggle {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    color: var(--color-accent);
+}
+
+.matrix-legend-bar__toggle:hover { opacity: 0.8; }
+.matrix-legend-bar__toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.matrix-legend-bar__toggle .chevron { font-size: 0.65rem; color: var(--color-accent); transition: transform 0.15s ease; }
+.matrix-legend-bar__toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+.matrix-legend-bar__panel {
+    padding: 1.1rem 0 1.4rem;
+}
+
+/* Le prime due colonne sono a larghezza di contenuto, la terza (i cinque
+   campioni di numerosità) prende lo spazio residuo: con tre colonne 1fr
+   uguali la terza andrebbe a capo su schermi medi mentre le prime due
+   sprecherebbero spazio. */
+.matrix-legend-bar__groups {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    column-gap: 4rem;
+    row-gap: 1.75rem;
+}
+
+.matrix-legend-group { min-width: 0; }
+
+.matrix-legend-group__title {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+    margin: 0 0 0.85rem;
+}
+
+.matrix-legend-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1.6rem;
+}
+
+.matrix-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.92rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.matrix-legend-item__swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+}
+.matrix-legend-item__swatch svg { display: block; }
+
+/* Gruppo 3 (numero di costrizioni): ogni campione ha larghezza propria
+   (lato + luce fissa + diametro, vedi buildLegend in constraint_matrix.js),
+   altezza uniforme così i cinque campioni restano centrati sulla stessa
+   mediana nonostante le larghezze diverse. */
+.matrix-legend-item--size { gap: 0.55rem; }
+.matrix-legend-item--size .matrix-legend-item__swatch { height: 30px; }
+
+/* "Come leggere la visualizzazione": si sposta qui dal vecchio flyout,
+   invariato nel contenuto - solo allineato a destra nel pannello. */
+.matrix-legend-bar__panel .matrix-screen__howto {
+    margin-left: auto;
+    width: fit-content;
+    max-width: 30rem;
+}
+
+@media (max-width: 1100px) {
+    .matrix-legend-bar__groups { grid-template-columns: auto auto; column-gap: 3rem; }
+    .matrix-legend-group--size { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+    .matrix-head { grid-template-columns: 1fr; row-gap: 1.5rem; }
+    .matrix-legend-bar__groups { grid-template-columns: 1fr; }
+    .matrix-legend-group--size { grid-column: auto; }
 }
 
 /* Riga che affianca il drawer di approfondimento alla matrice: in regime
@@ -1876,10 +2026,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     margin: 0 auto;
 }
 
-.explain-page__lead {
-    margin-top: 24px;
-}
-
 .explain-page__note { min-width: 0; }
 .explain-page__note + .explain-page__note { margin-top: 40px; }
 
@@ -1898,10 +2044,11 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .explain-page__external { margin-top: 16px; }
 
 /* ===== Drawer di approfondimento (nota storica / ambito di applicazione) =====
-   Affiancato alla matrice sul lato SINISTRO: a destra c'è già la legenda
-   (.matrix-legend-flyout, sovrapposta all'angolo in alto a destra della
-   visualizzazione), quindi due pannelli sullo stesso lato si coprirebbero a
-   vicenda proprio mentre si confrontano le forme con la legenda.
+   Affiancato alla matrice sul lato SINISTRO (di default: vedi .matrix-drawer--left
+   / --right più sotto per il lato commutabile). La legenda non è più un
+   popover sovrapposto alla visualizzazione (era .matrix-legend-flyout,
+   rimossa: vedi .matrix-legend-bar in testa alla pagina), quindi non c'è
+   più un vincolo di lato dettato da lei.
 
    Due regimi, che ora differiscono SOLO per il pannello (l'handle si
    comporta allo stesso modo in entrambi, vedi sotto):
@@ -2196,54 +2343,11 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 }
 
 .matrix-screen__viz {
-    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     min-height: 0;
 }
-
-/* Legenda a comparsa: in alto a destra della visualizzazione, aperta di
-   default, richiudibile per liberare spazio nella pagina. Sopra la griglia
-   (in flusso) finché lo schermo è troppo stretto per lo spazio vuoto a
-   destra della matrice (largo al massimo 869px, il viewBox dell'SVG); da lì
-   in su, sovrapposta in quello spazio così non spinge giù il grafico. */
-.matrix-legend-flyout {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    align-self: flex-end;
-    margin-bottom: 16px;
-}
-
-@media (min-width: 1100.02px) {
-    .matrix-legend-flyout {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin-bottom: 0;
-        z-index: 3;
-    }
-}
-
-.matrix-legend-flyout__toggle {
-    all: unset;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 14px;
-    color: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    border-radius: 8px;
-    padding: 8px 14px;
-}
-
-.matrix-legend-flyout__toggle:hover { opacity: 0.8; }
-.matrix-legend-flyout__toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-.matrix-legend-flyout__toggle .chevron { font-size: 0.65rem; color: var(--color-accent); transition: transform 0.15s ease; }
-.matrix-legend-flyout__toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 
 .matrix-screen__viz-chart {
     display: flex;
@@ -2318,57 +2422,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     line-height: 1.45;
     color: var(--color-text);
     margin: 0.6rem 0 0;
-}
-
-/* Legenda: pannello a comparsa sotto la linguetta di apertura, ancorato
-   all'angolo in alto a destra della visualizzazione. */
-.matrix-legend-card {
-    width: 200px;
-    border: 1px solid var(--color-accent);
-    border-radius: 8px;
-    padding: 18px 20px;
-    background: var(--color-bg);
-    box-shadow: 0 4px 16px rgba(1, 28, 33, 0.1);
-    margin-top: 8px;
-    box-sizing: border-box;
-}
-
-.matrix-screen__legend h6 {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 14px;
-    text-transform: none;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    margin: 0.9rem 0 0.4rem;
-}
-
-.matrix-screen__legend h6:first-of-type { margin-top: 0; }
-
-.constraint-matrix-legend-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 6px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text);
-}
-
-.constraint-matrix-legend-swatch {
-    flex: none;
-    width: 18px;
-    height: 18px;
-}
-
-.constraint-matrix-legend-icon {
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-}
-
-.constraint-matrix-legend-icon svg {
-    width: 100%;
-    height: 100%;
 }
 
 .constraint-matrix-loading,
