@@ -25,9 +25,6 @@ desmos:ConstraintOriginScheme a skos:ConceptScheme ;
 desmos:FormalConstraintScheme a skos:ConceptScheme ;
     skos:prefLabel "Formal constraint scheme"@en , "Schema delle costrizioni formali"@it ;
     skos:definition "A scheme defining the formal constraints, namely those constraints that intervene primarily on the signifier."@en , "Schema che definisce le costrizioni formali, ovvero quelle costrizioni che intervengono primariamente sul significante."@it ;
-    # Radici di alberi non banali (>=1 figlio). Le altre 78 radici dello schema
-    # sono concetti isolati non ancora collocati in una gerarchia, non top
-    # concept: v. reports/orphan_concepts.md (Task 6).
     skos:hasTopConcept
         desmos:alphabetic_set_constraint ,
         desmos:lexicographic_marker_constraint ,
