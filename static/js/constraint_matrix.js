@@ -2,78 +2,18 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-// CELL_W, CELL_H, ROW_LABEL_W e COL_LABEL_H non sono più costanti fisse:
-// dipendono dallo spazio disponibile (vedi layoutFor più sotto), perché il
-// drawer di approfondimento può restringere la matrice in regime push.
-const COL_LABEL_TICK = 10; // distanza fra il bordo inferiore della griglia e l'ancora dell'etichetta
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
-const SIZE_CUTOFFS = [1, 3, 6, 12]; // classi: 1 | 2-3 | 4-6 | 7-12 | 13+
-const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22]; // riferimento "comodo": usato anche dalla legenda
-const CIRCLE_RATIO = 1.1284; // d = s * 2/sqrt(pi): cerchio di area pari al quadrato della stessa classe
+const SIZE_CUTOFFS = [1, 3, 6, 12]; 
+const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22]; 
+const CIRCLE_RATIO = 1.1284; 
 const MARK_GAP = 4;
 
 const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visuale' };
 
-// Soglia pura usata da layoutFor(). L'isteresi che la circonda (comodo -> compatto
-// solo sotto questa soglia, compatto -> comodo solo molto più sopra) vive in
-// applyLayout(), non qui: vedi LAYOUT_SWITCH_UP e il commento su applyLayout.
 const LAYOUT_SWITCH_DOWN = 1080;
 
-/* Due preset di layout, scelti in base alla larghezza disponibile per il
-   grafico (non del viewport: quella del contenitore #constraint-matrix-viz,
-   che si restringe quando il drawer è aperto in regime push). L'SVG usa
-   preserveAspectRatio="xMidYMid meet" e si scala uniformemente: sotto la
-   soglia "comodo" le etichette rimpicciolirebbero sotto la leggibilità
-   recuperata ingrandendo il grafico, quindi si passa a un preset con una
-   griglia nativamente più stretta invece di lasciar rimpicciolire quella
-   larga.
-   Il preset "compatto" scala anche SQUARE_SIDE, ma non con un fattore unico
-   per tutte e cinque le classi: le tre classi più grandi (indici 2-4: 4-6,
-   7-12, 13+) restano al fattore 0,74, non lo 0,78 "di massima", perché con
-   CELL_W: 48 il caso peggiore - 3 marche delle classi più grandi nella
-   stessa cella (Senza operazione × Lettera), che sommano 22 + 18 + 13,5
-   unità - sborderebbe anche solo rimpicciolendo la griglia. 0,74 è il
-   fattore più alto che fa rientrare quel caso: 53,5 × 0,74 + 2 ×
-   MARK_GAP(4) = 47,59 <= 48 (0,78 darebbe 49,73, sopra il limite).
-
-   Le due classi più piccole (indici 0-1: 1, 2-3) NON seguono lo stesso
-   fattore: 0,74 le porterebbe a 5,92 e 7,77 unità di viewBox (~6px resi),
-   sotto la soglia di percettibilità per una marca al 20% di opacità (resa
-   delle marche non evidenziate) - e sono le celle più frequenti della
-   matrice, quelle con una sola costrizione. Il vincolo che ha determinato
-   0,74 dipende SOLO dalle tre classi più grandi (il caso peggiore sopra
-   non usa mai le classi 1 o 2-3 insieme alle altre due più grandi in
-   numero sufficiente da sommarsi a un quarto elemento), quindi le due
-   classi piccole possono essere alzate a un pavimento di leggibilità (7 e 9
-   unità) senza toccarlo. Verifica dei tre vincoli (MARK_GAP = 4, CELL_W
-   compatto = 48):
-     a) sequenza strettamente crescente: 7 < 9 < 9,99 < 13,32 < 16,28
-     b) caso peggiore (16,28 + 13,32 + 9,99) + 2×4 = 47,59 <= 48 (invariato)
-     c) tre marche tutte della classe minima: 3×7 + 2×4 = 29 <= 48
-
-   Trade-off: comprimere la scala riduce la distanza percettiva fra classi
-   contigue nella parte bassa (1 vs 2-3). Accettabile perché quella
-   distinzione si legge comunque dal tooltip al passaggio del mouse, mentre
-   la percettibilità della marca è una condizione di esistenza - una marca
-   invisibile non comunica nulla, a prescindere da quanto accuratamente
-   distingua 1 da 3 costrizioni.
-
-   CELL_H (comodo: 44 -> 32, compatto: 36 -> 30) è stato abbassato per far
-   entrare la matrice nella prima schermata su portatili da 13": con
-   CELL_H: 32 le celle comodo rendono 70 x 35px, doppie in larghezza
-   rispetto all'altezza - la griglia si appiattisce. È deliberato, non un
-   residuo di calcolo: CELL_W, ROW_LABEL_W e COL_LABEL_H non cambiano,
-   solo l'asse verticale.
-   Vincolo non negoziabile sul comodo: la marca più grande (22 unità) più
-   l'anello di selezione (+3 unità per lato) richiede 28 unità di altezza
-   utile in cella; CELL_H: 32 lascia 4 unità d'aria. Non scendere sotto 30.
-   Il compatto è stato riportato da 36 a 30 per la STESSA ragione per cui
-   non può restare più alto del comodo dopo questo taglio (sarebbe
-   incoerente avere il preset "più stretto" anche più alto): le marche
-   compatte sono più piccole (max 16,28 unità, +3 per lato = 22,28), quindi
-   30 unità bastano con margine. */
 function layoutFor(availableWidth) {
     if (availableWidth >= LAYOUT_SWITCH_DOWN) {
         return {
@@ -161,14 +101,7 @@ async function loadData() {
     return res.json();
 }
 
-/* Legenda: tre gruppi ORIZZONTALI (classe, origine, numero di costrizioni),
-   dentro la barra collassabile in testa alla pagina (.matrix-legend-bar).
-   I campioni del gruppo 3 usano sempre SQUARE_SIDE e CIRCLE_RATIO del
-   modulo (mai numeri riscritti a mano), quindi restano geometricamente
-   identici alle marche della matrice se quelle costanti cambiano. Nota:
-   SQUARE_SIDE è il riferimento "comodo" - la legenda mostra sempre quello,
-   anche a matrice in preset compatto. È corretto: descrive la codifica
-   dimensionale, non la resa contingente del preset corrente. */
+/* Legenda: tre gruppi ORIZZONTALI (classe, origine, numero di costrizioni) */
 function legendGroup(titleText, extraClass) {
     const group = document.createElement('div');
     group.className = 'matrix-legend-group' + (extraClass ? ' ' + extraClass : '');
@@ -227,14 +160,6 @@ function buildLegend(container) {
 
     const { group: sizeGroup, items: sizeItems } = legendGroup('Numero di costrizioni', 'matrix-legend-group--size');
     const sizeLabels = ['1', '2–3', '4–6', '7–12', '13+'];
-    // Luce ESPLICITA fra quadrato e cerchio (non un box a larghezza
-    // costante coi centri fissi: il cerchio di area equivalente è più
-    // largo del quadrato di un fattore CIRCLE_RATIO, quindi con centri
-    // fissi la luce si sarebbe ristretta al crescere della classe, fino a
-    // toccarsi se SQUARE_SIDE venisse alzato). Box a larghezza variabile
-    // per campione, altezza uniforme: in flex con align-items:center i
-    // cinque campioni restano centrati sulla stessa mediana nonostante le
-    // larghezze diverse.
     const SWATCH_GAP = 6;
     const SWATCH_PAD = 1.5;
     const SWATCH_H = 30;
@@ -284,10 +209,6 @@ function markAriaLabel(mark) {
     return `${CLASS_LABELS[mark.cls] || mark.cls}, ${originLabel}, ${mark.n} costrizion${mark.n === 1 ? 'e' : 'i'}`;
 }
 
-/* Singleton a livello di modulo: un solo nodo per l'intera vita della pagina,
-   creato pigramente al primo utilizzo. Un renderMatrix() che ne creasse uno
-   proprio a ogni chiamata lascerebbe nodi orfani agganciati a document.body
-   a ogni re-render (es. al cambio di preset su resize, intervento 4). */
 let _tooltip = null;
 function getTooltip() {
     if (!_tooltip) {
@@ -305,8 +226,6 @@ function renderMatrix(containers, data, focusUri, layout) {
     const { CELL_W, CELL_H, ROW_LABEL_W, COL_LABEL_H, SQUARE_SIDE } = layout;
     viz.innerHTML = '';
 
-    // Il tooltip è condiviso fra i render: se uno precedente lo aveva
-    // lasciato visibile su una marca ora distrutta, va nascosto subito.
     const tooltip = getTooltip();
     hideTooltip();
 
@@ -355,11 +274,8 @@ function renderMatrix(containers, data, focusUri, layout) {
         });
         return { rowBands, colBands };
     }
-    // Etichette: tooltip di definizione riga/colonna (comportamento invariato)
     const { rowBands: labelRowBands, colBands: labelColBands } = makeBandSet();
-    // Selezione fissata su una marca (clic): persiste fino alla prossima selezione
     const { rowBands: selectionRowBands, colBands: selectionColBands } = makeBandSet();
-    // Anteprima al passaggio del mouse su una marca: più leggera, transitoria
     const { rowBands: previewRowBands, colBands: previewColBands } = makeBandSet();
 
     function showTooltip(target, label, definition) {
@@ -388,7 +304,6 @@ function renderMatrix(containers, data, focusUri, layout) {
         }
     });
 
-    // Etichette di riga
     const labelLayer = el('g');
     svg.appendChild(labelLayer);
     rows.forEach((row, r) => {
@@ -451,10 +366,9 @@ function renderMatrix(containers, data, focusUri, layout) {
         labelLayer.appendChild(text);
     });
 
-    // Marche, raggruppate per cella
     const markLayer = el('g');
     svg.appendChild(markLayer);
-    const ringLayer = el('g'); // sopra le marche: l'anello di selezione non deve restare coperto
+    const ringLayer = el('g');
     svg.appendChild(ringLayer);
     const byCell = new Map();
     data.marks.forEach((mark, i) => {
@@ -555,7 +469,6 @@ function renderMatrix(containers, data, focusUri, layout) {
             node.addEventListener('mouseenter', () => showPreview(mark));
 
             if (mark.n === 1) {
-                // Destinazione univoca: vero link, niente scelta da fare.
                 const uri = mark.constraints[0].uri;
                 const link = el('a', { href: '/explain?uri=' + encodeURIComponent(uri), role: 'link', tabindex: '0' });
                 link.setAttribute('aria-label', markAriaLabel(mark));
@@ -661,19 +574,13 @@ function renderMatrix(containers, data, focusUri, layout) {
         restoreFixedState();
     }
 
-    // Esposto a chi chiama: un re-render (cambio di preset su resize) deve
-    // poter leggere la selezione fissata corrente e riapplicarla dopo aver
-    // ricostruito l'SVG, così l'utente non la perde.
     return {
         setFixedSelection,
         getFixedMark: () => fixedMark,
     };
 }
 
-/* Drawer di approfondimento: apertura/chiusura, backdrop, Esc, e la marca
-   che indica "c'è altro da aprire qui" tramite inert sul pannello chiuso
-   (non solo opacity/transform, altrimenti resterebbe raggiungibile da
-   tastiera e screen reader a pannello nascosto). */
+/* Drawer di approfondimento */
 function initDrawer() {
     const drawer = document.getElementById('matrix-drawer');
     if (!drawer) return;
@@ -702,7 +609,6 @@ function initDrawer() {
         stopCalling();
     }
 
-    // Stato iniziale: chiuso e non raggiungibile da tastiera/screen reader.
     panel.setAttribute('inert', '');
 
     handle.addEventListener('click', () => setOpen(!isOpen()));
@@ -713,16 +619,11 @@ function initDrawer() {
         backdrop.addEventListener('click', () => setOpen(false));
     }
 
-    // Richiamo all'arrivo: una sola volta per sessione di navigazione, non a
-    // ogni scheda - l'utente che passa da una costrizione all'altra in
-    // sequenza non deve rivederlo a ripetizione. sessionStorage (non
-    // localStorage) perché al ritorno dopo giorni il promemoria torna utile.
     let alreadySeen = false;
     try {
         alreadySeen = sessionStorage.getItem('ops.drawerSeen') === '1';
     } catch (e) {
-        // storage non disponibile (modalità privata, cookie bloccati): niente
-        // richiamo, ma il drawer resta pienamente funzionante.
+
     }
     if (!alreadySeen) {
         handle.classList.add('matrix-drawer--calling');
@@ -732,13 +633,7 @@ function initDrawer() {
     }
 }
 
-/* Barra della legenda: toggle in JS puro (non Bootstrap collapse) per
-   gestire hidden + aria-expanded + persistenza in un punto solo. Chiusa di
-   default (markup: hidden sul pannello) - la matrice usa una codifica a
-   tre canali che nessuno ricorda a memoria, quindi chi apre la legenda una
-   volta se la ritrova aperta sulle schede successive della sessione.
-   sessionStorage, non localStorage: al ritorno dopo giorni il default
-   chiuso torna ragionevole. */
+/* Barra della legenda */
 function initLegendBar() {
     const toggle = document.getElementById('matrix-legend-toggle');
     const panel = document.getElementById('matrix-legend-panel');
@@ -754,8 +649,7 @@ function initLegendBar() {
     try {
         startOpen = sessionStorage.getItem('ops.legendOpen') === '1';
     } catch (e) {
-        // storage non disponibile: la legenda resta chiusa di default, ma
-        // pienamente funzionante.
+
     }
     if (startOpen) setOpen(true);
 
@@ -790,13 +684,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let matrixApi = null;
     let currentPreset = null;
 
-    // Isteresi sulla soglia di layoutFor(): comodo -> compatto sotto
-    // LAYOUT_SWITCH_DOWN (soglia unica, già in layoutFor), compatto -> comodo
-    // solo sopra LAYOUT_SWITCH_UP. Una soglia secca sola farebbe oscillare il
-    // preset - e quindi un re-render completo - a ogni piccola variazione
-    // della larghezza disponibile attorno ad essa (un resize lento, la
-    // comparsa di una scrollbar). La banda morta [1080, 1120] vive qui, non
-    // in layoutFor(), che resta pura e testabile con la sua sola soglia.
     const LAYOUT_SWITCH_UP = 1120;
 
     function shouldSwitchPreset(nextName, availableWidth) {
@@ -807,11 +694,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return true;
     }
 
-    // Ri-renderizza SOLO quando l'isteresi accetta il cambio di preset
-    // (comodo/compatto), non a ogni pixel di variazione durante il
-    // trascinamento o l'animazione del drawer: un re-render per frame su una
-    // matrice da ~90 nodi SVG sarebbe inaccettabile. La selezione fissata
-    // sopravvive al cambio.
     function applyLayout(availableWidth) {
         const layout = layoutFor(availableWidth);
         if (!shouldSwitchPreset(layout.name, availableWidth)) return;
@@ -822,15 +704,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         syncHandleCenter();
     }
 
-    // La linguetta del drawer si centra sul CENTRO DEL GRAFICO, non su quello
-    // del suo contenitore CSS: .matrix-drawer, privato dell'handle (fuori dal
-    // flusso) e col pannello a larghezza fissa 340px dentro un guscio a
-    // larghezza 0 (per non far reimpaginare il testo durante la transizione),
-    // ha un'altezza intrinseca legata alla lunghezza della nota storica, non
-    // all'altezza della matrice - le due possono differire parecchio. Il
-    // centro va quindi calcolato dal rettangolo REALE di #constraint-matrix-viz,
-    // non da un top:50% percentuale contro un antenato la cui altezza non ha
-    // relazione garantita con quella del grafico.
     function syncHandleCenter() {
         const layoutEl = document.querySelector('.matrix-layout');
         if (!layoutEl || !viz) return;
