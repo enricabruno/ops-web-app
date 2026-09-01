@@ -1824,6 +1824,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-layout {
     display: flex;
     align-items: flex-start;
+    position: relative;
 }
 
 .matrix-screen {
@@ -1911,11 +1912,12 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
    La soglia non è 1440 "di libro": è calcolata sui vincoli REALI di questa
    pagina. .explain-page ha un tetto proprio di 1176px di contenuto (non
    1440: max-width:1240px meno il padding), quindi anche al più il grafico
-   spinto non supera mai 1176 - 340 (drawer) - 24 (gutter) = 812px. Sotto ai
-   1220px di viewport il contenuto disponibile scende sotto quella soglia
-   già PRIMA di sottrarre il drawer, portando il fattore di scala del preset
-   compatto (viewBox nativo 824px) sotto 0,95: da qui la scelta di passare
-   a overlay, che lascia il grafico intatto. */
+   spinto non supera mai 1176 - 340 (solo il pannello: l'handle non
+   riserva spazio, vedi sotto) = 836px. Sotto ai 1220px di viewport il
+   contenuto disponibile scende sotto quella soglia già PRIMA di sottrarre
+   il drawer, portando il fattore di scala del preset compatto (viewBox
+   nativo 824px) sotto 0,95: da qui la scelta di passare a overlay, che
+   lascia il grafico intatto. */
 .matrix-drawer {
     display: flex;
     align-items: stretch;
@@ -1926,23 +1928,32 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     z-index: 950;
 }
 
+/* Fuori dal flusso: il contenitore della matrice non deve riservargli
+   spazio a drawer chiuso (vedi commento sopra .matrix-drawer). Ancorato al
+   bordo sinistro di .matrix-drawer, che resta a x=0 di .matrix-layout sia
+   aperto che chiuso - quindi la sua posizione non si sposta quando il
+   pannello appare, come una linguetta fissata al margine della pagina. */
 .matrix-drawer__handle {
     all: unset;
     box-sizing: border-box;
-    flex: none;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
+    justify-content: center;
+    gap: 10px;
     width: 40px;
-    padding: 18px 0;
+    padding: 16px 0;
     cursor: pointer;
     background: var(--color-bg);
     border: 1px solid var(--color-accent);
     border-radius: 0 8px 8px 0;
     color: var(--color-accent);
     box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
+    z-index: 2;
 }
 
 .matrix-drawer__handle:hover { opacity: 0.85; }
@@ -2034,7 +2045,11 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
         align-items: stretch;
     }
     .matrix-drawer__handle {
-        border-radius: 8px 0 0 8px;
+        /* -32px: esce dal contenuto per quanto lo consente il gutter di
+           .explain-page (padding-inline: 32px), restando comunque dentro il
+           bordo esterno della pagina anche alla soglia minima di 1220.02px
+           (dove margin-inline: auto è già 0) - niente overflow orizzontale. */
+        left: -32px;
     }
     .matrix-drawer__panel {
         width: 0;
