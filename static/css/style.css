@@ -1773,9 +1773,10 @@ tbody tr:last-child td { border-bottom: none; }
     max-width: 1240px;
     margin-inline: auto;
     padding-inline: 32px;
+    padding-top: 2.5rem;
 }
 
-.explain-page > section { margin-top: 40px; }
+.explain-page > section { margin-top: 24px; }
 
 /* Intestazione a voce di dizionario: lemma (titolo + occorrenze) a
    sinistra, definizione a destra - non più centrati e impilati. */
@@ -1784,7 +1785,7 @@ tbody tr:last-child td { border-bottom: none; }
     grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.35fr);
     column-gap: 3.5rem;
     align-items: start;
-    padding-bottom: 2.25rem;
+    padding-bottom: 1.4rem;
 }
 
 .matrix-head__lemma { min-width: 0; }
@@ -1792,7 +1793,11 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-head__title {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
     font-weight: 700;
-    font-size: clamp(2.4rem, 3.6vw, 3.4rem);
+    /* In una voce di dizionario il lemma sta al testo in un rapporto fra
+       1,8 e 2,3: 2,4-3,4rem rendeva 44,1px a 1225px contro i 16,3px della
+       definizione (rapporto 2,7) - il titolo smetteva di essere
+       un'intestazione e diventava un'insegna. */
+    font-size: clamp(1.9rem, 2.6vw, 2.4rem);
     line-height: 1.02;
     letter-spacing: -0.015em;
     color: var(--color-text);
@@ -1871,7 +1876,7 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-legend-bar {
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding: 0.5rem 0;
+    padding: 0.35rem 0;
 }
 
 .matrix-legend-bar__toggle {
@@ -1980,7 +1985,7 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-screen {
     flex: 1 1 auto;
     min-width: 0;
-    padding: 20px 0;
+    padding: 8px 0;
     box-sizing: border-box;
 }
 
