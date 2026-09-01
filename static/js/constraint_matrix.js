@@ -16,6 +16,11 @@ const MARK_GAP = 4;
 
 const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visuale' };
 
+// Soglia pura usata da layoutFor(). L'isteresi che la circonda (comodo -> compatto
+// solo sotto questa soglia, compatto -> comodo solo molto più sopra) vive in
+// applyLayout(), non qui: vedi LAYOUT_SWITCH_UP e il commento su applyLayout.
+const LAYOUT_SWITCH_DOWN = 1080;
+
 /* Due preset di layout, scelti in base alla larghezza disponibile per il
    grafico (non del viewport: quella del contenitore #constraint-matrix-viz,
    che si restringe quando il drawer è aperto in regime push). L'SVG usa
@@ -55,7 +60,7 @@ const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visual
    invisibile non comunica nulla, a prescindere da quanto accuratamente
    distingua 1 da 3 costrizioni. */
 function layoutFor(availableWidth) {
-    if (availableWidth >= 1080) {
+    if (availableWidth >= LAYOUT_SWITCH_DOWN) {
         return {
             name: 'comodo',
             CELL_W: 64, CELL_H: 44, ROW_LABEL_W: 110, COL_LABEL_H: 66,
@@ -720,13 +725,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     let matrixApi = null;
     let currentPreset = null;
 
-    // Ri-renderizza SOLO quando cambia il NOME del preset (comodo/compatto),
-    // non a ogni pixel di variazione durante il trascinamento o l'animazione
-    // del drawer: un re-render per frame su una matrice da ~90 nodi SVG
-    // sarebbe inaccettabile. La selezione fissata sopravvive al cambio.
+    // Isteresi sulla soglia di layoutFor(): comodo -> compatto sotto
+    // LAYOUT_SWITCH_DOWN (soglia unica, già in layoutFor), compatto -> comodo
+    // solo sopra LAYOUT_SWITCH_UP. Una soglia secca sola farebbe oscillare il
+    // preset - e quindi un re-render completo - a ogni piccola variazione
+    // della larghezza disponibile attorno ad essa (un resize lento, la
+    // comparsa di una scrollbar). La banda morta [1080, 1120] vive qui, non
+    // in layoutFor(), che resta pura e testabile con la sua sola soglia.
+    const LAYOUT_SWITCH_UP = 1120;
+
+    function shouldSwitchPreset(nextName, availableWidth) {
+        if (nextName === currentPreset) return false;
+        if (currentPreset === 'compatto' && nextName === 'comodo') {
+            return availableWidth > LAYOUT_SWITCH_UP;
+        }
+        return true;
+    }
+
+    // Ri-renderizza SOLO quando l'isteresi accetta il cambio di preset
+    // (comodo/compatto), non a ogni pixel di variazione durante il
+    // trascinamento o l'animazione del drawer: un re-render per frame su una
+    // matrice da ~90 nodi SVG sarebbe inaccettabile. La selezione fissata
+    // sopravvive al cambio.
     function applyLayout(availableWidth) {
         const layout = layoutFor(availableWidth);
-        if (layout.name === currentPreset) return;
+        if (!shouldSwitchPreset(layout.name, availableWidth)) return;
         currentPreset = layout.name;
         const previousFixedMark = matrixApi ? matrixApi.getFixedMark() : null;
         matrixApi = renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri, layout);
