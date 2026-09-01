@@ -1932,7 +1932,12 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
    spazio a drawer chiuso (vedi commento sopra .matrix-drawer). Ancorato al
    bordo sinistro di .matrix-drawer, che resta a x=0 di .matrix-layout sia
    aperto che chiuso - quindi la sua posizione non si sposta quando il
-   pannello appare, come una linguetta fissata al margine della pagina. */
+   pannello appare, come una linguetta fissata al margine della pagina.
+   Altezza intrinseca (testo verticale + padding), non più stirata a
+   coprire l'intera colonna: un bottone alto quanto la matrice comunica
+   "sono un bordo", non "clicca qui". Bordo assente sul lato sinistro,
+   verso il margine da cui la linguetta "esce" - resta sui tre lati
+   esposti, con l'angolo arrotondato solo dove il bordo è continuo. */
 .matrix-drawer__handle {
     all: unset;
     box-sizing: border-box;
@@ -1946,10 +1951,12 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     justify-content: center;
     gap: 10px;
     width: 40px;
-    padding: 16px 0;
+    padding: 40px 0;
     cursor: pointer;
     background: var(--color-bg);
-    border: 1px solid var(--color-accent);
+    border-top: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+    border-bottom: 1px solid var(--color-accent);
     border-radius: 0 8px 8px 0;
     color: var(--color-accent);
     box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
@@ -1965,22 +1972,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
     font-size: 13px;
     letter-spacing: 0.03em;
-}
-
-.matrix-drawer__handle-count {
-    flex: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 4px;
-    border-radius: 999px;
-    background: var(--color-accent);
-    color: var(--color-bg);
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 11px;
-    box-sizing: border-box;
 }
 
 .matrix-drawer__handle-arrow {
@@ -2090,11 +2081,6 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 .matrix-drawer__handle.matrix-drawer--calling {
     background: var(--color-accent);
     color: var(--color-bg);
-}
-
-.matrix-drawer__handle.matrix-drawer--calling .matrix-drawer__handle-count {
-    background: var(--color-bg);
-    color: var(--color-accent);
 }
 
 @keyframes matrix-drawer-nudge-overlay {
