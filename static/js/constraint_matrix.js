@@ -754,15 +754,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         const previousFixedMark = matrixApi ? matrixApi.getFixedMark() : null;
         matrixApi = renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri, layout);
         if (previousFixedMark) matrixApi.setFixedSelection(previousFixedMark);
+        syncHandleCenter();
+    }
+
+    // La linguetta del drawer si centra sul CENTRO DEL GRAFICO, non su quello
+    // del suo contenitore CSS: .matrix-drawer, privato dell'handle (fuori dal
+    // flusso) e col pannello a larghezza fissa 340px dentro un guscio a
+    // larghezza 0 (per non far reimpaginare il testo durante la transizione),
+    // ha un'altezza intrinseca legata alla lunghezza della nota storica, non
+    // all'altezza della matrice - le due possono differire parecchio. Il
+    // centro va quindi calcolato dal rettangolo REALE di #constraint-matrix-viz,
+    // non da un top:50% percentuale contro un antenato la cui altezza non ha
+    // relazione garantita con quella del grafico.
+    function syncHandleCenter() {
+        const layoutEl = document.querySelector('.matrix-layout');
+        if (!layoutEl || !viz) return;
+        const layoutBox = layoutEl.getBoundingClientRect();
+        const chartBox = viz.getBoundingClientRect();
+        const center = (chartBox.top + chartBox.height / 2) - layoutBox.top;
+        layoutEl.style.setProperty('--handle-center', center + 'px');
     }
 
     applyLayout(viz.getBoundingClientRect().width);
+    syncHandleCenter();
+
+    const panel = document.querySelector('.matrix-drawer__panel');
+    if (panel) {
+        panel.addEventListener('transitionend', syncHandleCenter);
+    }
 
     let resizeTimer = null;
     const observer = new ResizeObserver((entries) => {
         const width = entries[entries.length - 1].contentRect.width;
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => applyLayout(width), 150);
+        resizeTimer = setTimeout(() => {
+            applyLayout(width);
+            syncHandleCenter();
+        }, 150);
     });
     observer.observe(viz);
 });
