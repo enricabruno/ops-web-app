@@ -1905,7 +1905,7 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 
    Due regimi:
    - OVERLAY (di default, sotto i 1220px): position fixed, ancorato al bordo
-     sinistro del viewport, scorre SOPRA il contenuto (con backdrop) senza
+     esterno del viewport, scorre SOPRA il contenuto (con backdrop) senza
      restringere .matrix-screen.
    - PUSH (>=1220px, vedi media query sotto): torna in flusso e restringe
      .matrix-screen quando aperto.
@@ -1917,32 +1917,49 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
    contenuto disponibile scende sotto quella soglia già PRIMA di sottrarre
    il drawer, portando il fattore di scala del preset compatto (viewBox
    nativo 824px) sotto 0,95: da qui la scelta di passare a overlay, che
-   lascia il grafico intatto. */
+   lascia il grafico intatto.
+
+   Lato commutabile (oggi sinistra, .matrix-drawer--left; --right è pronto e
+   testato per un eventuale passaggio a destra) - vedi i blocchi
+   .matrix-drawer--left / .matrix-drawer--right sotto ogni regola che
+   dipende dal verso: ancoraggio del drawer, offset dell'handle, i suoi
+   bordi/angoli, la freccia, il transform di apertura del pannello e il suo
+   bordo/ombra soppressi sul lato che tocca il margine. Passare da un lato
+   all'altro deve costare solo lo scambio della classe nel template. */
 .matrix-drawer {
     display: flex;
     align-items: stretch;
     position: fixed;
-    left: 0;
     top: 82px; /* subito sotto la navbar (altezza reale ~81px) */
     bottom: 16px;
     z-index: 950;
 }
 
+.matrix-drawer--left { inset-inline-start: 0; }
+.matrix-drawer--right { inset-inline-end: 0; }
+
+/* Sul lato destro l'ordine visivo dei due figli di .matrix-layout si
+   inverte (la matrice torna ad essere adiacente al margine sinistro): il
+   markup non cambia, solo l'ordine di rendering via flexbox. */
+.matrix-drawer--right ~ .matrix-screen {
+    order: -1;
+}
+
 /* Fuori dal flusso: il contenitore della matrice non deve riservargli
    spazio a drawer chiuso (vedi commento sopra .matrix-drawer). Ancorato al
-   bordo sinistro di .matrix-drawer, che resta a x=0 di .matrix-layout sia
-   aperto che chiuso - quindi la sua posizione non si sposta quando il
-   pannello appare, come una linguetta fissata al margine della pagina.
-   Altezza intrinseca (testo verticale + padding), non più stirata a
-   coprire l'intera colonna: un bottone alto quanto la matrice comunica
-   "sono un bordo", non "clicca qui". Bordo assente sul lato sinistro,
-   verso il margine da cui la linguetta "esce" - resta sui tre lati
-   esposti, con l'angolo arrotondato solo dove il bordo è continuo. */
+   bordo di .matrix-drawer verso il margine di pagina, che resta a x=0 (o
+   simmetricamente all'estremità opposta) di .matrix-layout sia aperto che
+   chiuso - quindi la sua posizione non si sposta quando il pannello
+   appare, come una linguetta fissata al margine della pagina. Altezza
+   intrinseca (testo verticale + padding), non più stirata a coprire
+   l'intera colonna: un bottone alto quanto la matrice comunica "sono un
+   bordo", non "clicca qui". Bordo assente sul lato verso il margine da cui
+   la linguetta "esce" - resta sui tre lati esposti, con l'angolo
+   arrotondato solo dove il bordo è continuo. */
 .matrix-drawer__handle {
     all: unset;
     box-sizing: border-box;
     position: absolute;
-    left: 0;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -1954,13 +1971,24 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     padding: 40px 0;
     cursor: pointer;
     background: var(--color-bg);
-    border-top: 1px solid var(--color-accent);
-    border-right: 1px solid var(--color-accent);
-    border-bottom: 1px solid var(--color-accent);
-    border-radius: 0 8px 8px 0;
+    border-block: 1px solid var(--color-accent);
     color: var(--color-accent);
     box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
     z-index: 2;
+}
+
+.matrix-drawer--left .matrix-drawer__handle {
+    inset-inline-start: 0;
+    border-inline-end: 1px solid var(--color-accent);
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+}
+
+.matrix-drawer--right .matrix-drawer__handle {
+    inset-inline-end: 0;
+    border-inline-start: 1px solid var(--color-accent);
+    border-start-start-radius: 8px;
+    border-end-start-radius: 8px;
 }
 
 .matrix-drawer__handle:hover { opacity: 0.85; }
@@ -1981,8 +2009,19 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     transition: transform 0.2s ease;
 }
 
-.matrix-drawer[data-open="true"] .matrix-drawer__handle-arrow {
+/* Chiusa punta verso il contenuto (verso cui il pannello si apre), aperta
+   punta verso il margine (verso cui si richiude): il verso si specchia fra
+   i due lati, non solo la rotazione a schermo aperto. */
+.matrix-drawer--left[data-open="true"] .matrix-drawer__handle-arrow {
     transform: rotate(180deg);
+}
+
+.matrix-drawer--right .matrix-drawer__handle-arrow {
+    transform: rotate(180deg);
+}
+
+.matrix-drawer--right[data-open="true"] .matrix-drawer__handle-arrow {
+    transform: rotate(0deg);
 }
 
 .matrix-drawer__panel {
@@ -1994,10 +2033,19 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     box-sizing: border-box;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-left: none;
+    transition: transform 0.3s ease;
+}
+
+.matrix-drawer--left .matrix-drawer__panel {
+    border-inline-start: none;
     box-shadow: 4px 0 16px rgba(1, 28, 33, 0.1);
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+}
+
+.matrix-drawer--right .matrix-drawer__panel {
+    border-inline-end: none;
+    box-shadow: -4px 0 16px rgba(1, 28, 33, 0.1);
+    transform: translateX(100%);
 }
 
 .matrix-drawer[data-open="true"] .matrix-drawer__panel {
@@ -2031,16 +2079,19 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
         position: static;
         top: auto;
         bottom: auto;
-        left: auto;
+        inset-inline: auto;
         z-index: auto;
         align-items: stretch;
     }
-    .matrix-drawer__handle {
+    .matrix-drawer--left .matrix-drawer__handle {
         /* -32px: esce dal contenuto per quanto lo consente il gutter di
            .explain-page (padding-inline: 32px), restando comunque dentro il
            bordo esterno della pagina anche alla soglia minima di 1220.02px
            (dove margin-inline: auto è già 0) - niente overflow orizzontale. */
-        left: -32px;
+        inset-inline-start: -32px;
+    }
+    .matrix-drawer--right .matrix-drawer__handle {
+        inset-inline-end: -32px;
     }
     .matrix-drawer__panel {
         width: 0;
@@ -2050,11 +2101,17 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
         transform: none;
         transition: width 0.3s ease;
     }
-    .matrix-drawer[data-open="true"] .matrix-drawer__panel {
+    .matrix-drawer--left[data-open="true"] .matrix-drawer__panel {
         width: 340px;
         border: 1px solid var(--color-border);
-        border-left: none;
+        border-inline-start: none;
         box-shadow: inset 4px 0 10px -8px rgba(1, 28, 33, 0.3);
+    }
+    .matrix-drawer--right[data-open="true"] .matrix-drawer__panel {
+        width: 340px;
+        border: 1px solid var(--color-border);
+        border-inline-end: none;
+        box-shadow: inset -4px 0 10px -8px rgba(1, 28, 33, 0.3);
     }
     .matrix-drawer__panel-inner {
         width: 340px;
@@ -2083,9 +2140,14 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
     color: var(--color-bg);
 }
 
-@keyframes matrix-drawer-nudge-overlay {
+@keyframes matrix-drawer-nudge-overlay-left {
     0%, 100% { transform: translateX(-100%); }
     50% { transform: translateX(calc(-100% + 24px)); }
+}
+
+@keyframes matrix-drawer-nudge-overlay-right {
+    0%, 100% { transform: translateX(100%); }
+    50% { transform: translateX(calc(100% - 24px)); }
 }
 
 @keyframes matrix-drawer-nudge-push {
@@ -2096,10 +2158,16 @@ font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;}
 /* Due volte, poi stop: MAI un pulse infinito, competerebbe con la matrice
    che è il contenuto principale della pagina (rimosso comunque al primo
    clic o focus, gestito in JS). Guardato da no-preference: chi ha chiesto
-   meno movimento vede solo la differenza cromatica statica sopra. */
+   meno movimento vede solo la differenza cromatica statica sopra. La
+   larghezza del nudge in regime push è simmetrica (cresce e basta) e non
+   ha bisogno di una variante per lato, a differenza dello scorrimento in
+   overlay che deve muoversi verso il lato giusto. */
 @media (prefers-reduced-motion: no-preference) {
-    .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
-        animation: matrix-drawer-nudge-overlay 1s ease-in-out 2;
+    .matrix-drawer--left .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
+        animation: matrix-drawer-nudge-overlay-left 1s ease-in-out 2;
+    }
+    .matrix-drawer--right .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
+        animation: matrix-drawer-nudge-overlay-right 1s ease-in-out 2;
     }
 }
 
