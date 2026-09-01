@@ -14,23 +14,47 @@ const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visual
 
 const LAYOUT_SWITCH_DOWN = 1080;
 
-function layoutFor(availableWidth) {
+// marca max 22 + anello 3+3 = 28, più 2 di aria. Coincide col valore fisso
+// che il preset compatto usa oggi: non è una coincidenza, è lo stesso
+// vincolo geometrico.
+const CELL_H_MIN = 30;
+// oltre, le celle si allungano in verticale e la matrice si sfilaccia
+const CELL_H_MAX = 48;
+
+function layoutFor(availableWidth, availableHeight, rowCount, colCount) {
+    let base;
     if (availableWidth >= LAYOUT_SWITCH_DOWN) {
-        return {
+        base = {
             name: 'comodo',
             CELL_W: 64, CELL_H: 32, ROW_LABEL_W: 110, COL_LABEL_H: 66,
             SQUARE_SIDE,
         };
+    } else {
+        const COMPACT_FACTOR = 0.74;
+        const COMPACT_FLOOR = [7, 9]; // indici 0 (classe 1) e 1 (classe 2-3)
+        base = {
+            name: 'compatto',
+            CELL_W: 48, CELL_H: 30, ROW_LABEL_W: 92, COL_LABEL_H: 56,
+            SQUARE_SIDE: SQUARE_SIDE.map((s, i) => (
+                i < COMPACT_FLOOR.length ? COMPACT_FLOOR[i] : Math.round(s * COMPACT_FACTOR * 100) / 100
+            )),
+        };
     }
-    const COMPACT_FACTOR = 0.74;
-    const COMPACT_FLOOR = [7, 9]; // indici 0 (classe 1) e 1 (classe 2-3)
-    return {
-        name: 'compatto',
-        CELL_W: 48, CELL_H: 30, ROW_LABEL_W: 92, COL_LABEL_H: 56,
-        SQUARE_SIDE: SQUARE_SIDE.map((s, i) => (
-            i < COMPACT_FLOOR.length ? COMPACT_FLOOR[i] : Math.round(s * COMPACT_FACTOR * 100) / 100
-        )),
-    };
+
+    if (Number.isFinite(availableHeight) && Number.isFinite(rowCount) && rowCount > 0 && Number.isFinite(colCount)) {
+        // La scala è imposta dalla larghezza: preserveAspectRatio="meet" e il
+        // viewBox è più largo che alto, quindi il vincolo attivo è orizzontale.
+        const viewBoxW = base.ROW_LABEL_W + colCount * base.CELL_W + MARGIN.right;
+        const scale = availableWidth / viewBoxW;
+        // altezza di viewBox che riempie esattamente lo spazio verticale
+        const targetViewBoxH = availableHeight / scale;
+        let cellH = (targetViewBoxH - MARGIN.top - base.COL_LABEL_H) / rowCount;
+        cellH = Math.max(CELL_H_MIN, Math.min(CELL_H_MAX, cellH));
+        cellH = Math.round(cellH * 2) / 2; // a 0,5 unità: evita re-render sub-pixel
+        base.CELL_H = cellH;
+    }
+
+    return base;
 }
 
 const PALETTE_ICON_SVG = `
@@ -339,6 +363,7 @@ function renderMatrix(containers, data, focusUri, layout) {
         labelLayer.appendChild(text);
     });
     // Trattini fra il bordo inferiore della griglia e le etichette di colonna ruotate
+    const COL_LABEL_TICK = 12;
     const tickLayer = el('g');
     svg.appendChild(tickLayer);
     cols.forEach((col, c) => {
@@ -634,7 +659,7 @@ function initDrawer() {
 }
 
 /* Barra della legenda */
-function initLegendBar() {
+function initLegendBar(onChange) {
     const toggle = document.getElementById('matrix-legend-toggle');
     const panel = document.getElementById('matrix-legend-panel');
     if (!toggle || !panel) return;
@@ -643,6 +668,9 @@ function initLegendBar() {
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         panel.hidden = !open;
         try { sessionStorage.setItem('ops.legendOpen', open ? '1' : '0'); } catch (e) { /* ignore */ }
+        // Aprire/chiudere la legenda sposta la sezione della matrice sotto:
+        // il grafico deve ricalcolare cellH sulla nuova altezza disponibile.
+        if (onChange) onChange();
     }
 
     let startOpen = false;
@@ -658,7 +686,12 @@ function initLegendBar() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     initDrawer();
-    initLegendBar();
+    // initLegendBar() gira prima che triggerLayoutUpdate esista: il
+    // wrapper cattura la variabile per riferimento, così la chiamata dal
+    // toggle della legenda usa sempre la versione definitiva assegnata più
+    // sotto, invece di restare legata a un no-op.
+    let triggerLayoutUpdate = () => {};
+    initLegendBar(() => triggerLayoutUpdate());
 
     const viz = document.getElementById('constraint-matrix-viz');
     if (!viz) return;
@@ -683,6 +716,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let matrixApi = null;
     let currentPreset = null;
+    let lastCellH = null;
 
     const LAYOUT_SWITCH_UP = 1120;
 
@@ -695,9 +729,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function applyLayout(availableWidth) {
-        const layout = layoutFor(availableWidth);
-        if (!shouldSwitchPreset(layout.name, availableWidth)) return;
+        // vizTop misurato una volta sola, prima del render: cellH dipende da
+        // vizTop, e un ricalcolo a render avvenuto potrebbe innescare un
+        // anello di retroazione.
+        const vizTop = viz.getBoundingClientRect().top;
+        const BOTTOM_MARGIN = 24; // aria sotto le etichette
+        const availableHeight = window.innerHeight - vizTop - BOTTOM_MARGIN;
+        const rowCount = data.rows.length;
+        const colCount = data.cols.length;
+        const layout = layoutFor(availableWidth, availableHeight, rowCount, colCount);
+
+        const presetChanged = shouldSwitchPreset(layout.name, availableWidth);
+        const cellHChanged = lastCellH === null || Math.abs(layout.CELL_H - lastCellH) >= 1;
+        if (!presetChanged && !cellHChanged) return;
+        lastCellH = layout.CELL_H;
         currentPreset = layout.name;
+
         const previousFixedMark = matrixApi ? matrixApi.getFixedMark() : null;
         matrixApi = renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri, layout);
         if (previousFixedMark) matrixApi.setFixedSelection(previousFixedMark);
@@ -713,22 +760,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         layoutEl.style.setProperty('--handle-center', center + 'px');
     }
 
-    applyLayout(viz.getBoundingClientRect().width);
-    syncHandleCenter();
+    triggerLayoutUpdate = () => {
+        applyLayout(viz.getBoundingClientRect().width);
+        syncHandleCenter();
+    };
+
+    triggerLayoutUpdate();
 
     const panel = document.querySelector('.matrix-drawer__panel');
     if (panel) {
-        panel.addEventListener('transitionend', syncHandleCenter);
+        panel.addEventListener('transitionend', triggerLayoutUpdate);
     }
 
     let resizeTimer = null;
-    const observer = new ResizeObserver((entries) => {
-        const width = entries[entries.length - 1].contentRect.width;
+    function scheduleLayout(width) {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
             applyLayout(width);
             syncHandleCenter();
         }, 150);
+    }
+
+    const observer = new ResizeObserver((entries) => {
+        const width = entries[entries.length - 1].contentRect.width;
+        scheduleLayout(width);
     });
     observer.observe(viz);
+
+    // Il ResizeObserver osserva solo la larghezza del contenitore: un
+    // ridimensionamento SOLO verticale della finestra non la cambia e non
+    // farebbe scattare il ricalcolo di cellH.
+    window.addEventListener('resize', () => {
+        scheduleLayout(viz.getBoundingClientRect().width);
+    });
 });

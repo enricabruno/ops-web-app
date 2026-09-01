@@ -1846,7 +1846,7 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 1.02rem;
     line-height: 1.62;
     color: var(--color-text-soft);
-    max-width: 46ch; /* misura di riga leggibile: non lasciare che si allunghi su viewport larghe */
+    max-width: 62ch; /* misura di riga leggibile: non lasciare che si allunghi su viewport larghe */
     text-align: justify;
     /* La giustificazione senza sillabazione produce spaziature irregolari:
        hyphens richiede lang sull'elemento radice per funzionare (verificato:
@@ -1854,6 +1854,17 @@ tbody tr:last-child td { border-bottom: none; }
     hyphens: auto;
     -webkit-hyphens: auto;
     text-wrap: pretty;
+}
+
+/* Definizioni oltre le ~5 righe (>300 caratteri, p90 del corpus): il
+   blocco a colonna singola diventa alto e stretto e spinge giù il
+   grafico. Due colonne, come nei dizionari cartacei per le voci estese,
+   dimezzano l'altezza mantenendo la misura di riga leggibile. */
+.matrix-head__definition-text--split {
+    max-width: none;
+    columns: 2;
+    column-gap: 2.5rem;
+    column-fill: balance;
 }
 
 /* Varianti denominative (skos:altLabel): non più sotto il titolo, ma in
@@ -1870,13 +1881,21 @@ tbody tr:last-child td { border-bottom: none; }
 /* ===== Barra della legenda, collassabile, in testa alla pagina =====
    Sostituisce .matrix-legend-flyout (popover assoluto sovrapposto al
    grafico, che copriva le ultime colonne della matrice al caricamento).
-   Due filetti a --color-border, non una card: separa la barra dal lemma
-   sopra e dalla matrice sotto senza reintrodurre un contenitore, coerente
-   con la scelta di sfondo bianco senza griglie di un intervento precedente. */
+   Niente filetti né padding verticale: incoerenti con lo sfondo bianco
+   senza griglie scelto in un intervento precedente, e il bottone
+   "Legenda" non ha bisogno di una fascia propria per essere riconoscibile. */
+/* flex-wrap + flex-basis sul pannello: senza, il pannello (block, secondo
+   figlio del contenitore flex) si affiancherebbe al bottone sulla stessa
+   riga invece di andare a capo sotto - display:flex da solo sposta anche
+   il layout del pannello aperto, non solo la posizione del bottone. */
 .matrix-legend-bar {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding: 0.35rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.matrix-legend-bar__panel {
+    flex-basis: 100%;
 }
 
 .matrix-legend-bar__toggle {
@@ -1913,12 +1932,10 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-legend-group { min-width: 0; }
 
 .matrix-legend-group__title {
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 0.68rem;
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-text-soft);
+    color: var(--color-text);
     margin: 0 0 0.85rem;
 }
 
@@ -1990,11 +2007,14 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .matrix-external-link {
-    display: block;
+    display: inline;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap; /* l'icona non va mai a capo da sola */
 }
-
-.matrix-external-link + .matrix-external-link { margin-top: 0.4rem; }
 
 /* Solo l'icona segnala il link al passaggio del mouse: la dicitura resta
    color-text, non è lei l'elemento su cui si clicca concettualmente. */
@@ -2003,11 +2023,12 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-external-link__icon {
     width: 0.75em;
     height: 0.75em;
+    margin-inline-start: 0.25em;
     vertical-align: -0.05em;
     fill: currentColor;
 }
 
-.matrix-external-link__icon:hover { color: var(--color-accent); }
+.matrix-external-link:hover .matrix-external-link__icon { fill: var(--color-accent); }
 
 .explain-page__lead-label {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
@@ -2047,9 +2068,21 @@ tbody tr:last-child td { border-bottom: none; }
     text-align: left;
 }
 
-/* Il rimando a Oulipo sta dentro la colonna della nota storica, subito sotto
-   il suo paragrafo. */
-.matrix-drawer__external { margin-top: 16px; }
+/* Il rimando è l'ultimo blocco del pannello, dopo nota storica e ambito:
+   niente margin-top, il gap del contenitore flex (.matrix-drawer__panel-inner)
+   già lo distanzia dal blocco precedente. */
+.matrix-drawer__external {
+    margin: 0;
+}
+
+/* :not(:first-child) e non incondizionato: esistono costrizioni con
+   close_match e nessuna nota (es. desmos:homosyntaxism) - il rimando è
+   l'unico contenuto del pannello, e un filetto in cima a un pannello
+   altrimenti vuoto si leggerebbe come un errore di impaginazione. */
+.matrix-drawer__external:not(:first-child) {
+    border-top: 1px solid var(--color-border);
+    padding-top: 18px;
+}
 
 /* ===== Drawer di approfondimento (nota storica / ambito di applicazione) =====
    Affiancato alla matrice sul lato SINISTRO (di default: vedi .matrix-drawer--left
@@ -2215,7 +2248,7 @@ tbody tr:last-child td { border-bottom: none; }
     overflow-x: hidden;
     box-sizing: border-box;
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-accent);
     z-index: 950;
     transition: transform 0.3s ease;
 }
@@ -2276,13 +2309,13 @@ tbody tr:last-child td { border-bottom: none; }
     }
     .matrix-drawer--left[data-open="true"] .matrix-drawer__panel {
         width: 340px;
-        border: 1px solid var(--color-border);
+        border: 1px solid var(--color-accent);
         border-inline-start: none;
         box-shadow: inset 4px 0 10px -8px rgba(1, 28, 33, 0.3);
     }
     .matrix-drawer--right[data-open="true"] .matrix-drawer__panel {
         width: 340px;
-        border: 1px solid var(--color-border);
+        border: 1px solid var(--color-accent);
         border-inline-end: none;
         box-shadow: inset -4px 0 10px -8px rgba(1, 28, 33, 0.3);
     }
@@ -2291,6 +2324,14 @@ tbody tr:last-child td { border-bottom: none; }
     }
     .matrix-drawer-backdrop {
         display: none;
+    }
+    /* Solo a pannello aperto e solo in regime push: a pannello chiuso la
+       larghezza è 0 e il margine si applicherebbe comunque; come gap su
+       .matrix-layout si applicherebbe anche a pannello chiuso, sottraendo
+       spazio al grafico in permanenza. margin-inline-end si specchia da
+       solo quando il drawer passa a .matrix-drawer--right. */
+    .matrix-drawer[data-open="true"] .matrix-drawer__panel {
+        margin-inline-end: 18px;
     }
 }
 
