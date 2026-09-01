@@ -2021,32 +2021,35 @@ tbody tr:last-child td { border-bottom: none; }
     margin: 0 0 6px;
 }
 
-.explain-page__lead-text {
-    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    font-size: 17px;
-    line-height: 1.6;
-    max-width: 68ch;
-    text-align: center;
+.explain-page__note { min-width: 0; }
+
+/* Registro tipografico proprio del drawer, indipendente da quello della
+   definizione in testa alla pagina (.matrix-head__definition-text): sono
+   due colonne di larghezza diversa (296px di testo utile qui contro i
+   46ch della definizione) e un ritocco all'una non deve propagarsi
+   all'altro. Testo allineato a sinistra (lettura continua), non centrato
+   come la definizione. */
+.matrix-drawer__title {
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--color-text);
-    margin: 0 auto;
+    margin: 0 0 0.5rem;
 }
 
-.explain-page__note { min-width: 0; }
-.explain-page__note + .explain-page__note { margin-top: 40px; }
-
-/* Dentro il drawer il testo resta allineato a sinistra (lettura continua),
-   diversamente da Definizione, dove .explain-page__lead-text centra anche il
-   testo. */
-.matrix-drawer__panel .explain-page__lead-label,
-.matrix-drawer__panel .explain-page__lead-text {
+.matrix-drawer__text {
+    font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-text);
+    margin: 0;
     text-align: left;
 }
 
-.matrix-drawer__panel .explain-page__lead-text { margin: 0; }
-
 /* Il rimando a Oulipo sta dentro la colonna della nota storica, subito sotto
    il suo paragrafo. */
-.explain-page__external { margin-top: 16px; }
+.matrix-drawer__external { margin-top: 16px; }
 
 /* ===== Drawer di approfondimento (nota storica / ambito di applicazione) =====
    Affiancato alla matrice sul lato SINISTRO (di default: vedi .matrix-drawer--left
@@ -2236,10 +2239,10 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .matrix-drawer__panel-inner {
-    padding: 28px 26px 40px;
+    padding: 24px 22px 28px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 28px;
 }
 
 .matrix-drawer-backdrop {

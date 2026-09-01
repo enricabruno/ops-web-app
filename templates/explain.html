@@ -85,11 +85,11 @@
                         {% if has_notes_left %}
                         <div class="explain-page__note">
                             {% if info.history_note %}
-                            <h2 class="explain-page__lead-label">Nota storica</h2>
-                            <p class="explain-page__lead-text">{{ info.history_note }}</p>
+                            <h2 class="matrix-drawer__title">Nota storica</h2>
+                            <p class="matrix-drawer__text">{{ info.history_note }}</p>
                             {% endif %}
                             {% if info.close_matches %}
-                            <p class="explain-page__external">
+                            <p class="matrix-drawer__external">
                                 {% for m in info.close_matches %}
                                 <a href="{{ m.uri }}" target="_blank" rel="noopener noreferrer"
                                    class="internal-link matrix-external-link"
@@ -101,8 +101,8 @@
                         {% endif %}
                         {% if has_notes_right %}
                         <div class="explain-page__note">
-                            <h2 class="explain-page__lead-label">Ambito di applicazione</h2>
-                            <p class="explain-page__lead-text">{{ info.scope_note }}</p>
+                            <h2 class="matrix-drawer__title">Ambito di applicazione</h2>
+                            <p class="matrix-drawer__text">{{ info.scope_note }}</p>
                         </div>
                         {% endif %}
                     </div>
