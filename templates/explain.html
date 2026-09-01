@@ -19,34 +19,51 @@
                  + (1 if info.close_matches else 0) %}
 <div class="explain-page">
     <header class="explain-page__head">
-        <h1 class="fw-bold constraint-title matrix-page__title">{{ info.label }}</h1>
-        {% if info.alt_labels %}
-        <p class="text-center text-muted fst-italic explain-alt-labels matrix-page__alt-labels">
-            {{ info.alt_labels | join(' · ') }}
-        </p>
-        {% endif %}
-        {% if info.occurrences %}
-        <div class="matrix-page__occurrences">
-            <button class="occurrences-toggle" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse-occurrences" aria-expanded="false"
-                    aria-controls="collapse-occurrences">
-                <span class="badge-scope">{{ info.occurrences | length }} {{ 'occorrenza' if info.occurrences | length == 1 else 'occorrenze' }}</span>
-                <span class="chevron" aria-hidden="true">&#x25BE;</span>
-            </button>
-            <div id="collapse-occurrences" class="collapse matrix-page__occurrences-panel">
-                <ul class="explain-occurrences-list list-unstyled">
-                    {% for occ in info.occurrences %}
-                    <li class="explain-occurrence-item">
-                        <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
+        <div class="matrix-head">
+            <div class="matrix-head__lemma">
+                <h1 class="matrix-head__title">{{ info.label }}</h1>
+                {% if info.occurrences %}
+                <div class="matrix-head__occurrences">
+                    <button class="occurrences-toggle" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse-occurrences" aria-expanded="false"
+                            aria-controls="collapse-occurrences">
+                        <span class="badge-scope">{{ info.occurrences | length }} {{ 'occorrenza' if info.occurrences | length == 1 else 'occorrenze' }}</span>
+                        <span class="chevron" aria-hidden="true">&#x25BE;</span>
+                    </button>
+                    <div id="collapse-occurrences" class="collapse matrix-page__occurrences-panel">
+                        <ul class="explain-occurrences-list list-unstyled">
+                            {% for occ in info.occurrences %}
+                            <li class="explain-occurrence-item">
+                                <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="matrix-head__definition">
+                <p class="matrix-head__definition-text">{{ info.definition }}</p>
             </div>
         </div>
-        {% endif %}
-        <div class="explain-page__lead">
-            <h2 class="explain-page__lead-label">Definizione</h2>
-            <p class="explain-page__lead-text">{{ info.definition }}</p>
+
+        <div class="matrix-legend-bar" id="matrix-legend-bar">
+            <button class="matrix-legend-bar__toggle" type="button"
+                    id="matrix-legend-toggle"
+                    aria-expanded="false" aria-controls="matrix-legend-panel">
+                <span>Legenda</span>
+                <span class="chevron" aria-hidden="true">&#x25BE;</span>
+            </button>
+            <div id="matrix-legend-panel" class="matrix-legend-bar__panel" hidden>
+                <div id="constraint-matrix-legend" class="matrix-legend-bar__groups"></div>
+                <details class="matrix-screen__howto">
+                    <summary>Come leggere la visualizzazione</summary>
+                    <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
+                       raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
+                       la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
+                       piena opacità con contorno scuro sono quelle di questa scheda.</p>
+                </details>
+            </div>
         </div>
     </header>
 
@@ -95,24 +112,6 @@
             {% endif %}
             <div class="matrix-screen">
                 <div class="matrix-screen__viz">
-                    <div class="matrix-legend-flyout">
-                        <button class="matrix-legend-flyout__toggle" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#matrix-legend-panel" aria-expanded="true"
-                                aria-controls="matrix-legend-panel">
-                            <span>Legenda</span>
-                            <span class="chevron" aria-hidden="true">&#x25BE;</span>
-                        </button>
-                        <div id="matrix-legend-panel" class="collapse show matrix-legend-card">
-                            <div id="constraint-matrix-legend" class="matrix-screen__legend"></div>
-                            <details class="matrix-screen__howto">
-                                <summary>Come leggere la visualizzazione</summary>
-                                <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
-                                   raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
-                                   la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
-                                   piena opacità con contorno scuro sono quelle di questa scheda.</p>
-                            </details>
-                        </div>
-                    </div>
                     <div class="matrix-screen__viz-chart" id="constraint-matrix-viz" data-focus-uri="{{ info.uri }}"></div>
                     <div class="matrix-screen__viz-results" id="constraint-matrix-results"></div>
                     <div class="matrix-screen__viz-hint" id="constraint-matrix-hint"></div>
@@ -128,6 +127,10 @@
         <button type="button" id="concept-graph-reset" class="concept-graph-reset" hidden>Ripristina disposizione</button>
         <script type="application/json" id="concept-graph-data">{{ info.concept_graph | tojson }}</script>
     </section>
+    {% endif %}
+
+    {% if info.alt_labels %}
+    <p class="matrix-head__variants">Varianti denominative: <em>{{ info.alt_labels | join(' · ') }}</em></p>
     {% endif %}
 </div>
 {% endif %}

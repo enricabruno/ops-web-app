@@ -146,79 +146,98 @@ async function loadData() {
     return res.json();
 }
 
-/* Legenda: solo i campioni (classe / origine / numerosità) */
+/* Legenda: tre gruppi ORIZZONTALI (classe, origine, numero di costrizioni),
+   dentro la barra collassabile in testa alla pagina (.matrix-legend-bar).
+   I campioni del gruppo 3 usano sempre SQUARE_SIDE e CIRCLE_RATIO del
+   modulo (mai numeri riscritti a mano), quindi restano geometricamente
+   identici alle marche della matrice se quelle costanti cambiano. Nota:
+   SQUARE_SIDE è il riferimento "comodo" - la legenda mostra sempre quello,
+   anche a matrice in preset compatto. È corretto: descrive la codifica
+   dimensionale, non la resa contingente del preset corrente. */
+function legendGroup(titleText, extraClass) {
+    const group = document.createElement('div');
+    group.className = 'matrix-legend-group' + (extraClass ? ' ' + extraClass : '');
+    const title = document.createElement('h2');
+    title.className = 'matrix-legend-group__title';
+    title.textContent = titleText;
+    group.appendChild(title);
+    const items = document.createElement('div');
+    items.className = 'matrix-legend-group__items';
+    group.appendChild(items);
+    return { group, items };
+}
+
+function legendItem(swatchNode, labelText, extraClass) {
+    const item = document.createElement('span');
+    item.className = 'matrix-legend-item' + (extraClass ? ' ' + extraClass : '');
+    const swatch = document.createElement('span');
+    swatch.className = 'matrix-legend-item__swatch';
+    swatch.appendChild(swatchNode);
+    item.appendChild(swatch);
+    const lbl = document.createElement('span');
+    lbl.textContent = labelText;
+    item.appendChild(lbl);
+    return item;
+}
+
 function buildLegend(container) {
     const classes = [
         { key: 'formal', label: 'Formale' },
         { key: 'semantic', label: 'Semantica' },
         { key: 'visual', label: 'Visuale' },
     ];
-    const h1 = document.createElement('h6');
-    h1.textContent = 'Classe';
-    container.appendChild(h1);
+    const { group: classGroup, items: classItems } = legendGroup('Classe');
     classes.forEach(c => {
-        const row = document.createElement('div');
-        row.className = 'constraint-matrix-legend-row';
         const sw = document.createElement('span');
-        sw.className = 'constraint-matrix-legend-swatch constraint-matrix-legend-icon';
         sw.style.color = `var(--matrix-${c.key})`;
+        sw.style.display = 'inline-flex';
+        sw.style.width = '19px';
+        sw.style.height = '19px';
         sw.innerHTML = PALETTE_ICON_SVG;
-        row.appendChild(sw);
-        const lbl = document.createElement('span');
-        lbl.textContent = c.label;
-        row.appendChild(lbl);
-        container.appendChild(row);
+        classItems.appendChild(legendItem(sw, c.label));
     });
+    container.appendChild(classGroup);
 
-    const h2 = document.createElement('h6');
-    h2.textContent = 'Origine';
-    container.appendChild(h2);
+    const { group: originGroup, items: originItems } = legendGroup('Origine');
     [['square', 'Originale'], ['circle', 'Storica']].forEach(([shape, label]) => {
-        const row = document.createElement('div');
-        row.className = 'constraint-matrix-legend-row';
-        const svg = el('svg', { width: 18, height: 18, viewBox: '0 0 18 18' });
-        svg.classList.add('constraint-matrix-legend-swatch');
+        const svg = el('svg', { width: 17, height: 17, viewBox: '0 0 18 18' });
         if (shape === 'square') {
             svg.appendChild(el('rect', { x: 2.6, y: 2.6, width: 12.9, height: 12.9, fill: 'var(--color-text)' }));
         } else {
             svg.appendChild(el('circle', { cx: 9, cy: 9, r: 7.2, fill: 'var(--color-text)' }));
         }
-        row.appendChild(svg);
-        const lbl = document.createElement('span');
-        lbl.textContent = label;
-        row.appendChild(lbl);
-        container.appendChild(row);
+        originItems.appendChild(legendItem(svg, label));
     });
+    container.appendChild(originGroup);
 
-    const h3 = document.createElement('h6');
-    h3.textContent = 'Numero di costrizioni';
-    container.appendChild(h3);
+    const { group: sizeGroup, items: sizeItems } = legendGroup('Numero di costrizioni', 'matrix-legend-group--size');
     const sizeLabels = ['1', '2–3', '4–6', '7–12', '13+'];
-    const sizeBox = 28;
-    const sizeGap = 8;
+    // Luce ESPLICITA fra quadrato e cerchio (non un box a larghezza
+    // costante coi centri fissi: il cerchio di area equivalente è più
+    // largo del quadrato di un fattore CIRCLE_RATIO, quindi con centri
+    // fissi la luce si sarebbe ristretta al crescere della classe, fino a
+    // toccarsi se SQUARE_SIDE venisse alzato). Box a larghezza variabile
+    // per campione, altezza uniforme: in flex con align-items:center i
+    // cinque campioni restano centrati sulla stessa mediana nonostante le
+    // larghezze diverse.
+    const SWATCH_GAP = 6;
+    const SWATCH_PAD = 1.5;
+    const SWATCH_H = 30;
     sizeLabels.forEach((label, i) => {
-        const row = document.createElement('div');
-        row.className = 'constraint-matrix-legend-row';
         const s = SQUARE_SIDE[i];
         const d = s * CIRCLE_RATIO;
-        const svgW = sizeBox * 2 + sizeGap;
-        const svg = el('svg', { width: svgW, height: sizeBox, viewBox: `0 0 ${svgW} ${sizeBox}` });
-        svg.classList.add('constraint-matrix-legend-swatch');
-        svg.style.width = svgW + 'px';
-        svg.style.height = sizeBox + 'px';
-        const cx1 = sizeBox / 2;
-        const cx2 = sizeBox + sizeGap + sizeBox / 2;
-        const cy = sizeBox / 2;
+        const w = SWATCH_PAD + s + SWATCH_GAP + d + SWATCH_PAD;
+        const cx = SWATCH_PAD + s + SWATCH_GAP + d / 2;
+        console.assert((cx - d / 2) - (SWATCH_PAD + s) >= SWATCH_GAP - 0.01,
+            'campione legenda: forme troppo vicine, classe ' + label);
+        const svg = el('svg', { width: w, height: SWATCH_H, viewBox: `0 0 ${w} ${SWATCH_H}` });
         svg.appendChild(el('rect', {
-            x: cx1 - s / 2, y: cy - s / 2, width: s, height: s, fill: 'var(--color-text)',
+            x: SWATCH_PAD, y: SWATCH_H / 2 - s / 2, width: s, height: s, fill: 'var(--color-text)',
         }));
-        svg.appendChild(el('circle', { cx: cx2, cy, r: d / 2, fill: 'var(--color-text)' }));
-        row.appendChild(svg);
-        const lbl = document.createElement('span');
-        lbl.textContent = label;
-        row.appendChild(lbl);
-        container.appendChild(row);
+        svg.appendChild(el('circle', { cx, cy: SWATCH_H / 2, r: d / 2, fill: 'var(--color-text)' }));
+        sizeItems.appendChild(legendItem(svg, label, 'matrix-legend-item--size'));
     });
+    container.appendChild(sizeGroup);
 }
 
 export function markElement(mark, cx, cy, side) {
@@ -698,8 +717,39 @@ function initDrawer() {
     }
 }
 
+/* Barra della legenda: toggle in JS puro (non Bootstrap collapse) per
+   gestire hidden + aria-expanded + persistenza in un punto solo. Chiusa di
+   default (markup: hidden sul pannello) - la matrice usa una codifica a
+   tre canali che nessuno ricorda a memoria, quindi chi apre la legenda una
+   volta se la ritrova aperta sulle schede successive della sessione.
+   sessionStorage, non localStorage: al ritorno dopo giorni il default
+   chiuso torna ragionevole. */
+function initLegendBar() {
+    const toggle = document.getElementById('matrix-legend-toggle');
+    const panel = document.getElementById('matrix-legend-panel');
+    if (!toggle || !panel) return;
+
+    function setOpen(open) {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.hidden = !open;
+        try { sessionStorage.setItem('ops.legendOpen', open ? '1' : '0'); } catch (e) { /* ignore */ }
+    }
+
+    let startOpen = false;
+    try {
+        startOpen = sessionStorage.getItem('ops.legendOpen') === '1';
+    } catch (e) {
+        // storage non disponibile: la legenda resta chiusa di default, ma
+        // pienamente funzionante.
+    }
+    if (startOpen) setOpen(true);
+
+    toggle.addEventListener('click', () => setOpen(panel.hidden));
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     initDrawer();
+    initLegendBar();
 
     const viz = document.getElementById('constraint-matrix-viz');
     if (!viz) return;
