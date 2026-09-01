@@ -24,12 +24,36 @@ const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visual
    recuperata ingrandendo il grafico, quindi si passa a un preset con una
    griglia nativamente più stretta invece di lasciar rimpicciolire quella
    larga.
-   Il preset "compatto" scala anche SQUARE_SIDE (fattore 0,74, non lo 0,78
-   "di massima"): con CELL_W: 48 il caso peggiore - 3 marche delle classi più
-   grandi nella stessa cella, che sommano 22 + 18 + 13,5 unità - sborderebbe
-   anche solo rimpicciolendo la griglia. 0,74 è il fattore più alto che fa
-   rientrare quel caso: 53,5 × 0,74 + 2 × MARK_GAP(4) = 47,59 <= 48 (0,78
-   darebbe 49,73, sopra il limite). */
+   Il preset "compatto" scala anche SQUARE_SIDE, ma non con un fattore unico
+   per tutte e cinque le classi: le tre classi più grandi (indici 2-4: 4-6,
+   7-12, 13+) restano al fattore 0,74, non lo 0,78 "di massima", perché con
+   CELL_W: 48 il caso peggiore - 3 marche delle classi più grandi nella
+   stessa cella (Senza operazione × Lettera), che sommano 22 + 18 + 13,5
+   unità - sborderebbe anche solo rimpicciolendo la griglia. 0,74 è il
+   fattore più alto che fa rientrare quel caso: 53,5 × 0,74 + 2 ×
+   MARK_GAP(4) = 47,59 <= 48 (0,78 darebbe 49,73, sopra il limite).
+
+   Le due classi più piccole (indici 0-1: 1, 2-3) NON seguono lo stesso
+   fattore: 0,74 le porterebbe a 5,92 e 7,77 unità di viewBox (~6px resi),
+   sotto la soglia di percettibilità per una marca al 20% di opacità (resa
+   delle marche non evidenziate) - e sono le celle più frequenti della
+   matrice, quelle con una sola costrizione. Il vincolo che ha determinato
+   0,74 dipende SOLO dalle tre classi più grandi (il caso peggiore sopra
+   non usa mai le classi 1 o 2-3 insieme alle altre due più grandi in
+   numero sufficiente da sommarsi a un quarto elemento), quindi le due
+   classi piccole possono essere alzate a un pavimento di leggibilità (7 e 9
+   unità) senza toccarlo. Verifica dei tre vincoli (MARK_GAP = 4, CELL_W
+   compatto = 48):
+     a) sequenza strettamente crescente: 7 < 9 < 9,99 < 13,32 < 16,28
+     b) caso peggiore (16,28 + 13,32 + 9,99) + 2×4 = 47,59 <= 48 (invariato)
+     c) tre marche tutte della classe minima: 3×7 + 2×4 = 29 <= 48
+
+   Trade-off: comprimere la scala riduce la distanza percettiva fra classi
+   contigue nella parte bassa (1 vs 2-3). Accettabile perché quella
+   distinzione si legge comunque dal tooltip al passaggio del mouse, mentre
+   la percettibilità della marca è una condizione di esistenza - una marca
+   invisibile non comunica nulla, a prescindere da quanto accuratamente
+   distingua 1 da 3 costrizioni. */
 function layoutFor(availableWidth) {
     if (availableWidth >= 1080) {
         return {
@@ -39,10 +63,13 @@ function layoutFor(availableWidth) {
         };
     }
     const COMPACT_FACTOR = 0.74;
+    const COMPACT_FLOOR = [7, 9]; // indici 0 (classe 1) e 1 (classe 2-3)
     return {
         name: 'compatto',
         CELL_W: 48, CELL_H: 36, ROW_LABEL_W: 92, COL_LABEL_H: 56,
-        SQUARE_SIDE: SQUARE_SIDE.map(s => Math.round(s * COMPACT_FACTOR * 100) / 100),
+        SQUARE_SIDE: SQUARE_SIDE.map((s, i) => (
+            i < COMPACT_FLOOR.length ? COMPACT_FLOOR[i] : Math.round(s * COMPACT_FACTOR * 100) / 100
+        )),
     };
 }
 
