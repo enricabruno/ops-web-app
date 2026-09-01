@@ -58,12 +58,27 @@ const LAYOUT_SWITCH_DOWN = 1080;
    distinzione si legge comunque dal tooltip al passaggio del mouse, mentre
    la percettibilità della marca è una condizione di esistenza - una marca
    invisibile non comunica nulla, a prescindere da quanto accuratamente
-   distingua 1 da 3 costrizioni. */
+   distingua 1 da 3 costrizioni.
+
+   CELL_H (comodo: 44 -> 32, compatto: 36 -> 30) è stato abbassato per far
+   entrare la matrice nella prima schermata su portatili da 13": con
+   CELL_H: 32 le celle comodo rendono 70 x 35px, doppie in larghezza
+   rispetto all'altezza - la griglia si appiattisce. È deliberato, non un
+   residuo di calcolo: CELL_W, ROW_LABEL_W e COL_LABEL_H non cambiano,
+   solo l'asse verticale.
+   Vincolo non negoziabile sul comodo: la marca più grande (22 unità) più
+   l'anello di selezione (+3 unità per lato) richiede 28 unità di altezza
+   utile in cella; CELL_H: 32 lascia 4 unità d'aria. Non scendere sotto 30.
+   Il compatto è stato riportato da 36 a 30 per la STESSA ragione per cui
+   non può restare più alto del comodo dopo questo taglio (sarebbe
+   incoerente avere il preset "più stretto" anche più alto): le marche
+   compatte sono più piccole (max 16,28 unità, +3 per lato = 22,28), quindi
+   30 unità bastano con margine. */
 function layoutFor(availableWidth) {
     if (availableWidth >= LAYOUT_SWITCH_DOWN) {
         return {
             name: 'comodo',
-            CELL_W: 64, CELL_H: 44, ROW_LABEL_W: 110, COL_LABEL_H: 66,
+            CELL_W: 64, CELL_H: 32, ROW_LABEL_W: 110, COL_LABEL_H: 66,
             SQUARE_SIDE,
         };
     }
@@ -71,7 +86,7 @@ function layoutFor(availableWidth) {
     const COMPACT_FLOOR = [7, 9]; // indici 0 (classe 1) e 1 (classe 2-3)
     return {
         name: 'compatto',
-        CELL_W: 48, CELL_H: 36, ROW_LABEL_W: 92, COL_LABEL_H: 56,
+        CELL_W: 48, CELL_H: 30, ROW_LABEL_W: 92, COL_LABEL_H: 56,
         SQUARE_SIDE: SQUARE_SIDE.map((s, i) => (
             i < COMPACT_FLOOR.length ? COMPACT_FLOOR[i] : Math.round(s * COMPACT_FACTOR * 100) / 100
         )),
