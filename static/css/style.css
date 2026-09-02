@@ -1313,6 +1313,17 @@ tbody tr:last-child td { border-bottom: none; }
 
 .visual-query-select:focus { box-shadow: none; border-bottom: 2px solid var(--color-accent); outline: none; }
 
+.qraken-chat-card {
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.qraken-chat-container {
+    height: 560px;
+}
+
 /* ============================================
    PAGE: SPARQL
    ============================================ */
@@ -2679,15 +2690,17 @@ tbody tr:last-child td { border-bottom: none; }
 
 .concept-graph-edge-label {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 11px;
-    fill: var(--color-text);
+    font-size: 9.5px;
+    fill: var(--color-text-soft);
+    paint-order: stroke fill;
+    stroke: var(--color-bg);
+    stroke-width: 3px;
+    stroke-linejoin: round;
 }
 
 .concept-graph-edge-label--broader { text-anchor: start; }
 .concept-graph-edge-label--narrower,
 .concept-graph-edge-label--related { text-anchor: middle; }
-
-.concept-graph-edge-label-bg { fill: var(--color-bg); }
 
 /* Evidenziazione al passaggio del mouse/focus, pilotata via JS (non solo
    :hover, perché deve coinvolgere anche l'arco e l'etichetta del nodo,
