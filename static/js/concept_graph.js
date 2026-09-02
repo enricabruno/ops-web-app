@@ -13,7 +13,7 @@ const OUTER_SIDE = sideFor(OUTER_R);
 const CHILD_SIDE = sideFor(CHILD_R);
 
 const LABEL_FONT_FAMILY = '"Futura", "Century Gothic", "Trebuchet MS", sans-serif';
-const EDGE_LABEL_FONT = '11px Futura, "Century Gothic", "Trebuchet MS", sans-serif';
+const EDGE_LABEL_FONT = '9.5px Futura, "Century Gothic", "Trebuchet MS", sans-serif';
 
 const H_MARGIN = 26;
 const CHILD_SLOT_W = 78;
@@ -203,18 +203,8 @@ function textEl(x, y, cls, content) {
     return t;
 }
 
-function edgeLabelWithKnockout(cx, cy, cls, text, anchor) {
-    const g = el('g', { class: 'concept-graph-edge-label-group' });
-    const tw = measureText(text, EDGE_LABEL_FONT);
-    const pad = 6;
-    const rectW = tw + pad * 2;
-    const rectX = anchor === 'start' ? cx - pad : cx - rectW / 2;
-    g.appendChild(el('rect', {
-        x: rectX, y: cy - 7, width: rectW, height: 14,
-        class: 'concept-graph-edge-label-bg',
-    }));
-    g.appendChild(textEl(cx, cy + 3.5, cls, text));
-    return g;
+function edgeLabel(cx, cy, cls, text) {
+    return textEl(cx, cy + 3.5, cls, text);
 }
 
 function multilineChildLabel(x, y, lines) {
@@ -405,9 +395,9 @@ function renderConceptGraph(container, data) {
             'marker-end': 'url(#concept-graph-arrow)',
         });
         edgesLayer.appendChild(edge);
-        labelsLayer.appendChild(edgeLabelWithKnockout(
+        labelsLayer.appendChild(edgeLabel(
             focusX + 10, (start0.y + seg0.end.y) / 2,
-            'concept-graph-edge-label concept-graph-edge-label--broader', 'termine più generale', 'start',
+            'concept-graph-edge-label concept-graph-edge-label--broader', 'termine più generale',
         ));
 
         const { group, label } = buildDraggableNode(
@@ -438,9 +428,9 @@ function renderConceptGraph(container, data) {
         edgesLayer.appendChild(edge);
 
         const labelX = focusX + side * labelMid;
-        labelsLayer.appendChild(edgeLabelWithKnockout(
-            labelX, focusCy - 8,
-            'concept-graph-edge-label concept-graph-edge-label--related', 'correlato a', 'middle',
+        labelsLayer.appendChild(edgeLabel(
+            labelX, focusCy - 13,
+            'concept-graph-edge-label concept-graph-edge-label--related', 'correlato a',
         ));
 
         const { group, label } = buildDraggableNode(
@@ -461,9 +451,9 @@ function renderConceptGraph(container, data) {
         const n = data.children.length;
         const startX = focusX - (n * CHILD_SLOT_W) / 2 + CHILD_SLOT_W / 2;
 
-        labelsLayer.appendChild(edgeLabelWithKnockout(
+        labelsLayer.appendChild(edgeLabel(
             focusX, narrowerLabelCy,
-            'concept-graph-edge-label concept-graph-edge-label--narrower', 'termini più specifici', 'middle',
+            'concept-graph-edge-label concept-graph-edge-label--narrower', 'termini più specifici',
         ));
 
         data.children.forEach((child, i) => {
