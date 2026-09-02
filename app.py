@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from urllib.parse import quote, unquote
 from collections import defaultdict
 from functools import lru_cache
+from qraken_remote_chatbot import QrakenConfig, create_blueprint
 import os
 import re
 
@@ -44,6 +45,17 @@ def _get_tokens(text):
     return normalized
 
 app = Flask(__name__)
+
+app.register_blueprint(
+    create_blueprint(QrakenConfig.from_env(
+        title="Chatbot",
+        subtitle="Poni le tue domande in linguaggio naturale.",
+        accent_color="#0397B2",
+        display="inline",
+        show_sparql=True,
+    )),
+    url_prefix="/qraken",
+)
 
 @app.template_filter('urlencode')
 def urlencode_filter(s):
@@ -117,9 +129,9 @@ def sparql():
 def query_hub():
     return render_template('query_hub.html')
 
-@app.route('/visual_query')
-def visual_endpoint():
-    return render_template('visual_query.html')
+@app.route('/chatbot')
+def chatbot():
+    return render_template('chatbot.html')
 
 @app.route('/query', methods=['POST'])
 def query():
