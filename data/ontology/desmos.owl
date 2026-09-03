@@ -1116,6 +1116,7 @@
 
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E73_Information_Object"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
         <rdfs:comment xml:lang="it">Questa classe comprende espressioni identificabili, in forma scritta o parlata, che utilizzano un linguaggio umano per comunicare un contenuto. In DeSMòS, definisce la natura testuale delle espressioni e dei passaggi analizzati.</rdfs:comment>
         <rdfs:comment xml:lang="en">This class comprises identifiable expressions in written or spoken form that use a human language to communicate content. In DeSMòS, it defines the textual nature of the analyzed expressions and passages.</rdfs:comment>
         <rdfs:label xml:lang="en">E33 Linguistic Object</rdfs:label>
@@ -1223,6 +1224,7 @@
 
     <owl:Class rdf:about="https://w3id.org/desmos/LiteraryConstraint">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E29_Design_or_Procedure"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/> 
         <rdfs:comment xml:lang="en">A formal or semantic procedure intervening in the process of textual generation (F28 Expression Creation), whose presence is detectable through objective evidence (TextualFeature) independently of the explicit statement of authorial intent.</rdfs:comment>
         <rdfs:comment xml:lang="it">Procedura formale o semantica che interviene nel processo di generazione testuale (F28 Expression Creation), la cui presenza può essere rilevabile attraverso evidenze oggettive (TextualFeature) indipendentemente dall'esplicitazione dell'intento autoriale.</rdfs:comment>
         <rdfs:label xml:lang="it">Costrizione letteraria</rdfs:label>
