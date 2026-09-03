@@ -14,214 +14,221 @@
 
 ### Authority File ###
 <https://w3id.org/desmos/oplepiana/author/campagnoli> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Ruggero Campagnoli"^^xsd:string ;
+	rdfs:label "Ruggero Campagnoli" ;
 	owl:sameAs <https://viaf.org/viaf/46879675/> .
 
 <https://w3id.org/desmos/oplepiana/author/spinelli> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Aldo Spinelli"^^xsd:string ;
+	rdfs:label "Aldo Spinelli" ;
 	owl:sameAs <https://viaf.org/viaf/245219518/> .
 
 <https://w3id.org/desmos/oplepiana/author/varaldo> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Giuseppe Varaldo"^^xsd:string ;
+	rdfs:label "Giuseppe Varaldo" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/CFIV018313> .
 
 <https://w3id.org/desmos/oplepiana/author/falchetta> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Piero Falchetta"^^xsd:string ;
+	rdfs:label "Piero Falchetta" ;
 	owl:sameAs <https://viaf.org/viaf/12445112/> .
 
 <https://w3id.org/desmos/oplepiana/author/addomine> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Elena Addòmine"^^xsd:string ;
+	rdfs:label "Elena Addòmine" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/BRIV004408> .
 
 <https://w3id.org/desmos/oplepiana/author/albani> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Paolo Albani"^^xsd:string ;
+	rdfs:label "Paolo Albani" ;
 	owl:sameAs <https://viaf.org/viaf/41919639/> .
 
 <https://w3id.org/desmos/oplepiana/author/oplepo> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Oplepo"^^xsd:string ;
+	rdfs:label "Oplepo" ;
 	owl:sameAs <https://viaf.org/viaf/148099167/> .
 
 <https://w3id.org/desmos/oplepiana/author/chiti> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Luca Chiti"^^xsd:string ;
+	rdfs:label "Luca Chiti" ;
 	owl:sameAs <http://id.sbn.it/bid/VIAV092089> .
 
 <https://w3id.org/desmos/oplepiana/author/odifreddi> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Piergiorgio Odifreddi"^^xsd:string ;
+	rdfs:label "Piergiorgio Odifreddi" ;
 	owl:sameAs <https://viaf.org/viaf/27127695/> .
 
 <https://w3id.org/desmos/oplepiana/author/chierchia> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Salvatore Chierchia"^^xsd:string ;
+	rdfs:label "Salvatore Chierchia" ;
 	skos:altLabel "Sal Kierkia"^^xsd:string ;
 	owl:sameAs <https://viaf.org/viaf/305314863> .
 
 <https://w3id.org/desmos/oplepiana/author/perec> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Georges Perec"^^xsd:string ;
+	rdfs:label "Georges Perec" ;
 	owl:sameAs <https://viaf.org/viaf/66472103> .
 
 <https://w3id.org/desmos/oplepiana/author/grimal> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Pierre Grimal"^^xsd:string ;
+	rdfs:label "Pierre Grimal" ;
 	owl:sameAs <https://viaf.org/viaf/66468194> .
 
 <https://w3id.org/desmos/oplepiana/author/alighieri> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Dante Alighieri"^^xsd:string ;
+	rdfs:label "Dante Alighieri" ;
 	owl:sameAs <https://viaf.org/viaf/97105654> .
 
 <https://w3id.org/desmos/oplepiana/author/petrarca> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Francesco Petrarca"^^xsd:string ;
+	rdfs:label "Francesco Petrarca" ;
 	owl:sameAs <https://viaf.org/viaf/39382430> .
 
 <https://w3id.org/desmos/oplepiana/author/eco> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Umberto Eco"^^xsd:string ;
+	rdfs:label "Umberto Eco" ;
 	owl:sameAs <https://viaf.org/viaf/108299403> .
 
 <https://w3id.org/desmos/oplepiana/author/aragona> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Raffaele Aragona"^^xsd:string ;
+	rdfs:label "Raffaele Aragona" ;
 	owl:sameAs <https://viaf.org/viaf/41978016> .
 
 <https://w3id.org/desmos/oplepiana/author/cavazzoni> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Ermanno Cavazzoni"^^xsd:string ;
+	rdfs:label "Ermanno Cavazzoni" ;
 	owl:sameAs <https://viaf.org/viaf/59892487> .
 
 <https://w3id.org/desmos/oplepiana/author/serra> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Màrius Serra"^^xsd:string ;
+	rdfs:label "Màrius Serra" ;
 	owl:sameAs <https://viaf.org/viaf/34748332> .
 
 <https://w3id.org/desmos/oplepiana/author/sanguineti> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Edoardo Sanguineti"^^xsd:string ;
+	rdfs:label "Edoardo Sanguineti" ;
 	owl:sameAs <https://viaf.org/viaf/66478877> .
 
 <https://w3id.org/desmos/oplepiana/author/weiss> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Giorgio Weiss"^^xsd:string ;
+	rdfs:label "Giorgio Weiss" ;
 	owl:sameAs <https://viaf.org/viaf/180157098575272552661> .
 
 <https://w3id.org/desmos/oplepiana/author/eruli> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Brunella Eruli"^^xsd:string ;
+	rdfs:label "Brunella Eruli" ;
 	owl:sameAs <https://viaf.org/viaf/5035675> .
 
 <https://w3id.org/desmos/oplepiana/author/artusi> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Pellegrino Artusi"^^xsd:string ;
+	rdfs:label "Pellegrino Artusi" ;
 	owl:sameAs <https://viaf.org/viaf/17212280> .
 
 <https://w3id.org/desmos/oplepiana/author/eliot> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "T. S. Eliot"^^xsd:string ;
+	rdfs:label "T. S. Eliot" ;
 	owl:sameAs <https://viaf.org/viaf/56609282> .
 
 <https://w3id.org/desmos/oplepiana/author/pergola> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Paolo Pergola"^^xsd:string ;
+	rdfs:label "Paolo Pergola" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/LEKV000705> .
 
 <https://w3id.org/desmos/oplepiana/author/sebregondi> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Maria Sebregondi"^^xsd:string ;
+	rdfs:label "Maria Sebregondi" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/CFIV079611> .
 
 <https://w3id.org/desmos/oplepiana/author/tonietto> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Stefano Tonietto"^^xsd:string ;
+	rdfs:label "Stefano Tonietto" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/VEAV313927> .
 
 <https://w3id.org/desmos/oplepiana/author/manzoni> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Alessandro Manzoni"^^xsd:string ;
+	rdfs:label "Alessandro Manzoni" ;
 	owl:sameAs <https://viaf.org/viaf/14356> .
 
 <https://w3id.org/desmos/oplepiana/author/quartu> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Monica Quartu"^^xsd:string ;
+	rdfs:label "Monica Quartu" ;
 	owl:sameAs <https://viaf.org/viaf/32028688> .
 
 <https://w3id.org/desmos/oplepiana/author/chopin> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Fryderyk Chopin"^^xsd:string ;
+	rdfs:label "Fryderyk Chopin" ;
 	owl:sameAs <https://viaf.org/viaf/71319254> .
 
 <https://w3id.org/desmos/oplepiana/author/anna-vicari> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Anna Regina Busetto Vicari"^^xsd:string ;
+    rdfs:label "Anna Regina Busetto Vicari" ;
 	owl:sameAs <https://viaf.org/viaf/24821209> .
 
 <https://w3id.org/desmos/oplepiana/author/doria> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Domenico D'Oria"^^xsd:string ;
+    rdfs:label "Domenico D'Oria" ;
 	owl:sameAs <https://viaf.org/viaf/164902329> .
 
 <https://w3id.org/desmos/oplepiana/author/berardi> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Alessandra Berardi"^^xsd:string ;
+    rdfs:label "Alessandra Berardi" ;
 	owl:sameAs <https://viaf.org/viaf/160882946> .
 
 <https://w3id.org/desmos/oplepiana/author/bizzarri> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Giulio Bizzarri"^^xsd:string ;
+    rdfs:label "Giulio Bizzarri" ;
 	owl:sameAs <https://viaf.org/viaf/53225477> .
 
 <https://w3id.org/desmos/oplepiana/author/fabrizi> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Daniela Fabrizi"^^xsd:string ;
+    rdfs:label "Daniela Fabrizi" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/TO0V155453> .
 
 <https://w3id.org/desmos/oplepiana/author/enriques> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Lorenzo Enriques"^^xsd:string ;
+    rdfs:label "Lorenzo Enriques" ;
 	rdfs:seeAlso <http://id.sbn.it/bid/DDSV314960> .
 
 <https://w3id.org/desmos/oplepiana/author/carrese> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Massimo Gerardo Carrese"^^xsd:string ;
+    rdfs:label "Massimo Gerardo Carrese" ;
 	owl:sameAs <https://viaf.org/viaf/107365706> .
 
 <https://w3id.org/desmos/oplepiana/author/poier-bernhard> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Astrid Poier-Bernhard"^^xsd:string ;
+    rdfs:label "Astrid Poier-Bernhard" ;
 	owl:sameAs <https://viaf.org/viaf/56768035> .
 
 <https://w3id.org/desmos/oplepiana/author/eliana-vicari> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Eliana Vicari"^^xsd:string ;
+    rdfs:label "Eliana Vicari" ;
 	owl:sameAs <https://viaf.org/viaf/292950830> .
 
 <https://w3id.org/desmos/oplepiana/author/brignoli> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Laura Brignoli"^^xsd:string ;
+    rdfs:label "Laura Brignoli" ;
 	owl:sameAs <https://viaf.org/viaf/37084083> .
 
 <https://w3id.org/desmos/oplepiana/author/ciasullo> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Cesare Ciasullo"^^xsd:string ;
+    rdfs:label "Cesare Ciasullo" ;
 	owl:sameAs <https://viaf.org/viaf/109156563646323242947> .
 
 <https://w3id.org/desmos/oplepiana/author/narros> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Jacopo Narros"^^xsd:string ;
+	rdfs:label "Jacopo Narros" ;
 	owl:sameAs <https://viaf.org/viaf/8168733509365260801> .
 
 <https://w3id.org/desmos/oplepiana/author/berti> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Eduardo Berti"^^xsd:string ;
+	rdfs:label "Eduardo Berti" ;
 	owl:sameAs <https://viaf.org/viaf/116548081> .
 
 <https://w3id.org/desmos/oplepiana/author/jouet> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Jacques Jouet"^^xsd:string ;
+	rdfs:label "Jacques Jouet" ;
 	owl:sameAs <https://viaf.org/viaf/61547538> .
 
 <https://w3id.org/desmos/oplepiana/author/benabou> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Marcel Bénabou"^^xsd:string ;
+	rdfs:label "Marcel Bénabou" ;
 	owl:sameAs <https://viaf.org/viaf/27060829> .
 
 <https://w3id.org/desmos/oplepiana/author/baudelaire> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Charles Baudelaire"^^xsd:string ;
+	rdfs:label "Charles Baudelaire" ;
 	owl:sameAs <https://viaf.org/viaf/17218730> .
 
 <https://w3id.org/desmos/oplepiana/author/pelliti> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Matteo Pelliti"^^xsd:string ;
+	rdfs:label "Matteo Pelliti" ;
 	owl:sameAs <https://viaf.org/viaf/315181683> .
 
 <https://w3id.org/desmos/oplepiana/author/bloomfield> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Camille Bloomfield"^^xsd:string ;
+	rdfs:label "Camille Bloomfield" ;
 	owl:sameAs <https://viaf.org/viaf/264955822> .
 
 <https://w3id.org/desmos/oplepiana/author/babic> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Joshua Babic"^^xsd:string ;
+	rdfs:label "Joshua Babic" ;
 	rdfs:seeAlso <https://www.joshuababic.ch/about> .
  
 <https://w3id.org/desmos/oplepiana/author/sampieri> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Jean Talon Sampieri"^^xsd:string ;
+	rdfs:label "Jean Talon Sampieri" ;
 	rdfs:seeAlso <https://www.autorinprestito.it/autori/jean-talon/> .
 
 <https://w3id.org/desmos/oplepiana/author/leopardi> a crm:E39_Actor , prov:Agent ;
-	rdfs:label "Giacomo Leopardi"^^xsd:string ;
+	rdfs:label "Giacomo Leopardi" ;
 	owl:sameAs <https://viaf.org/viaf/12311353> .
 
 <https://w3id.org/desmos/oplepiana/author/giuliani> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Marco Giuliani"^^xsd:string ;
+    rdfs:label "Marco Giuliani" ;
     skos:altLabel "Triton"^^xsd:string ;
     rdfs:seeAlso <https://www.rebussisti.it/2025/06/29/il-trofeo-ari> .
 
 <https://w3id.org/desmos/oplepiana/author/montalto> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Sandro Montalto"^^xsd:string ;
+    rdfs:label "Sandro Montalto" ;
     rdfs:seeAlso <http://id.sbn.it/bid/BIAV086030> .
+
+### Literary and Artistic Forms ####
+desmos:poetry        a crm:E55_Type .
+desmos:prose         a crm:E55_Type .
+desmos:visual_poetry a crm:E55_Type .
+desmos:visual_art    a crm:E55_Type .
+desmos:music         a crm:E55_Type .
 
 ### Constraint ###
 desmos:acrobistic a desmos:FormalConstraint ;
@@ -232,19 +239,19 @@ desmos:acrobistic a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:multiplication .
 
 desmos:acronym a desmos:FormalConstraint ;
-	rdfs:label "Acronimo"^^xsd:string ;
+	rdfs:label "Acronimo"@it , "Acronym"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:acrostic a desmos:FormalConstraint ;
-	rdfs:label "Acrostico"^^xsd:string ;
+	rdfs:label "Acrostico"@it , "Acrostic"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:alliteration a desmos:FormalConstraint ;
-	rdfs:label "Allitterazione"^^xsd:string ;
+	rdfs:label "Allitterazione"@it , "Alliteration"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ,
 	desmos:syllable .
@@ -256,50 +263,50 @@ desmos:alphabetic_set_constraint a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:alphabetical_acrostic a desmos:FormalConstraint ;
-	rdfs:label "Acrostico alfabetico"^^xsd:string ;
+	rdfs:label "Acrostico alfabetico"@it , "Alphabetical acrostic"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:alternating_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima alternata"^^xsd:string ;
+	rdfs:label "Rima alternata"@it , "Alternating rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
 desmos:anagram a desmos:FormalConstraint ;
-	rdfs:label "Anagramma"^^xsd:string ;
+	rdfs:label "Anagramma"@it , "Anagram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:anagraphy a desmos:FormalConstraint ;
-	rdfs:label "Anagrafia"^^xsd:string ;
+	rdfs:label "Anagrafia"@it , "Anagraphy"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:antonymic_rewriting a desmos:FormalConstraint ;
-	rdfs:label "Riscrittura antonimica"^^xsd:string ;
+	rdfs:label "Riscrittura antonimica"@it , "Antonymic rewriting"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:apocryphal_pentimento a desmos:SemanticConstraint ;
-	rdfs:label "Pentimento apocrifo"^^xsd:string ;
+	rdfs:label "Pentimento apocrifo"@it , "Apocryphal pentimento"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsSemanticUnit desmos:theme ;
 	desmos:involvesOperation desmos:subtraction ,
 		desmos:substitution .
 
 desmos:beau_present a desmos:FormalConstraint ;
-	rdfs:label "Beau présent"^^xsd:string ;
+	rdfs:label "Beau présent"@it , "Beau présent"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:bisenso a desmos:FormalConstraint ;
-	rdfs:label "Bisenso"^^xsd:string ;
+	rdfs:label "Bisenso"@it , "Double meaning"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:word .
 
@@ -309,91 +316,91 @@ desmos:bisyllabic_text a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable .
 
 desmos:boule_de_neige a desmos:VisualConstraint ;
-    rdfs:label "Boule de neige"^^xsd:string ;
+    rdfs:label "Boule de neige"@it , "Snowball"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:letter ,
         desmos:word ,
         desmos:line .
 
 desmos:brivadois_acrostiche a desmos:FormalConstraint ;
-	rdfs:label "Acrostico brivadois"^^xsd:string ;
+	rdfs:label "Acrostico brivadois"@it , "Acrostic brivadois"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:buried_word a desmos:FormalConstraint ;
-	rdfs:label "Parola contenuta"^^xsd:string ;
+	rdfs:label "Parola contenuta"@it , "Buried word"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:calligram a desmos:VisualConstraint ;
-    rdfs:label "Calligramma"^^xsd:string ;
+    rdfs:label "Calligramma"@it , "Calligram"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:typography ,
         desmos:image .
 
 desmos:cento a desmos:FormalConstraint ;
-	rdfs:label "Centone"^^xsd:string ;
+	rdfs:label "Centone"@it , "Cento"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:classical_sonnet a desmos:FormalConstraint ;
-    rdfs:label "Sonetto classico"^^xsd:string ;
+    rdfs:label "Sonetto classico"@it , "Classical sonnet"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:stanza ,
         desmos:line ,
         desmos:syllable .
     
 desmos:colloquial_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico colloquiale"^^xsd:string ;
+	rdfs:label "Lessico colloquiale"@it , "Colloquial-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:combinatorial_lottery a desmos:FormalConstraint ;
-	rdfs:label "Lottomatica combinatoria"^^xsd:string ;
+	rdfs:label "Lottomatica combinatoria"@it , "Combinatorial lottery procedure"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:subtraction .
 
 desmos:compound_noun_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di nomi composti"^^xsd:string ;
+	rdfs:label "Lessico di nomi composti"@it , "Compound-noun lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:contraction .
 
 desmos:crown_of_sonnets a desmos:FormalConstraint ;
-	rdfs:label "Corona di sonetti"^^xsd:string ;
+	rdfs:label "Corona di sonetti"@it , "Crown of sonnets"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
 desmos:datation_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico per datazione"^^xsd:string ;
+	rdfs:label "Lessico per datazione"@it , "Datation-restricted lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
 desmos:date_indexed_word_length a desmos:FormalConstraint ;
-	rdfs:label "Lunghezza di parola indicizzata alla data"^^xsd:string ;
+	rdfs:label "Lunghezza di parola indicizzata alla data"@it , "Date-indexed word length"@en ;
 	desmos:constraintOrigin desmos:original ;          
 	desmos:constrainsFormalUnit desmos:word ;  
 	desmos:involvesOperation desmos:extraction .
 
 desmos:datation_1621_1640_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico datato 1621-1640"^^xsd:string ;
+	rdfs:label "Lessico datato 1621-1640"@it , "Lexicon dated 1621-1640"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:datation_1827_1842_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico datato 1827-1842"^^xsd:string ;
+	rdfs:label "Lessico datato 1827-1842"@it , "Lexicon dated 1827-1842"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:defective_verb_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di verbi difettivi"^^xsd:string ;
+	rdfs:label "Lessico di verbi difettivi"@it , "Defective-verb lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
@@ -403,48 +410,48 @@ desmos:derogatory_register_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:diatopic_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico diatopico"^^xsd:string ;
+	rdfs:label "Lessico diatopico"@it , "Diatopic lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
 desmos:dispersed_name a desmos:FormalConstraint ;
-	rdfs:label "Nome disperso"^^xsd:string ;
+	rdfs:label "Nome disperso"@it , "Dispersed name"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:distich a desmos:FormalConstraint ;
-	rdfs:label "Distico"^^xsd:string ;
+	rdfs:label "Distico"@it , "Distich"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
 desmos:divergent_captions a desmos:SemanticConstraint ;
-    rdfs:label "Didascalie divergenti"^^xsd:string ;
+    rdfs:label "Didascalie divergenti"@it , "Divergent captions"@en ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsSemanticUnit desmos:theme .
 
 desmos:embedded_proverb a desmos:FormalConstraint ;
-	rdfs:label "Proverbio incastonato"^^xsd:string ;
+	rdfs:label "Proverbio incastonato"@it , "Embedded proverb"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:embedded_numeral_calculus a desmos:FormalConstraint ;
-	rdfs:label "Calcolo dei numeri incorporati"^^xsd:string ;
+	rdfs:label "Calcolo dei numeri incorporati"@it , "Embedded numeral calculus"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:addition .
 
 desmos:enclosed_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima incrociata"^^xsd:string ;
+	rdfs:label "Rima incrociata"@it , "Enclosed rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
 desmos:english_loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti inglesi"^^xsd:string ;
+	rdfs:label "Lessico di prestiti inglesi"@it , "English-loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
@@ -458,12 +465,12 @@ desmos:enigmatic_transformation_chain a desmos:FormalConstraint ;
 		desmos:subtraction .
 
 desmos:enumerating_text a desmos:FormalConstraint ;
-	rdfs:label "Testo autodescrittivo numerico"^^xsd:string ;
+	rdfs:label "Testo autodescrittivo numerico"@it , "Self-enumerating text"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter .
 
 desmos:familiar_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico familiare"^^xsd:string ;
+	rdfs:label "Lessico familiare"@it , "Familiar-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
@@ -479,24 +486,24 @@ desmos:fixed_fictional_character a desmos:SemanticConstraint ;
 	desmos:constrainsSemanticUnit desmos:fictional_character .
 
 desmos:fixed_fictional_setting a desmos:SemanticConstraint ;
-	rdfs:label "Ambientazione finzionale fissa"^^xsd:string ;
+	rdfs:label "Ambientazione finzionale fissa"@it , "Fixed fictional setting"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_setting .
 
 desmos:fixed_fictional_time a desmos:SemanticConstraint ;
-	rdfs:label "Tempo finzionale fisso"^^xsd:string ;
+	rdfs:label "Tempo finzionale fisso"@it , "Fixed fictional time"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_time .
 
 desmos:figured_alphabet a desmos:VisualConstraint ;
-	rdfs:label "Alfabeto raffigurato"^^xsd:string ;
+	rdfs:label "Alfabeto raffigurato"@it , "Figured Alphabet"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ,
 		desmos:typography ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:figure_bounded_text a desmos:VisualConstraint ;
-    rdfs:label "Testo perimetrato in figura"^^xsd:string ;
+    rdfs:label "Testo perimetrato in figura"@it , "Figure-bounded text"@en ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsFormalUnit desmos:typography ,
         desmos:image ,
@@ -504,34 +511,34 @@ desmos:figure_bounded_text a desmos:VisualConstraint ;
     desmos:involvesOperation desmos:displacement .
 
 desmos:fixed_text_length a desmos:FormalConstraint;
-	rdfs:label "Lunghezza del testo fissa"^^xsd:string ;
+	rdfs:label "Lunghezza del testo fissa"@it , "Fixed text length constraint"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:page .
 
 desmos:fixed_title_length a desmos:FormalConstraint ;
-	rdfs:label "Lunghezza del titolo fissa"^^xsd:string ;
+	rdfs:label "Lunghezza del titolo fissa"@it , "Fixed title length constraint"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:line .
 
 desmos:fragmentation a desmos:FormalConstraint ;
-	rdfs:label "Frammentazione"^^xsd:string ;
+	rdfs:label "Frammentazione"@it , "Fragmentation"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:image ;
 	desmos:involvesOperation desmos:division ,
 		desmos:extraction .
 
 desmos:french_loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti francesi"^^xsd:string ;
+	rdfs:label "Lessico di prestiti francesi"@it , "French-loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:german_loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti tedeschi"^^xsd:string ;
+	rdfs:label "Lessico di prestiti tedeschi"@it , "German-loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:grammatical_category_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico per categoria grammaticale"^^xsd:string ;
+	rdfs:label "Lessico per categoria grammaticale"@it , "Grammatical-category lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
@@ -543,12 +550,12 @@ desmos:grammatical_category_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:handwritten_realization a desmos:FormalConstraint ;
-    rdfs:label "Realizzazione autografa"^^xsd:string ;
+    rdfs:label "Realizzazione autografa"@it , "Handwritten realization constraint"@en ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsFormalUnit desmos:typography .
 
 desmos:hendecasyllable a desmos:FormalConstraint ;
-	rdfs:label "Endecasillabo"^^xsd:string ;
+	rdfs:label "Endecasillabo"@it , "Hendecasyllable"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
@@ -559,61 +566,61 @@ desmos:heterogeneous_register_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:heterogram a desmos:FormalConstraint ;
-	rdfs:label "Eterogramma"^^xsd:string ;
+	rdfs:label "Eterogramma"@it , "Heterogram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:heterolexical_writing a desmos:FormalConstraint ;
-	rdfs:label "Scrittura eterolessicale"^^xsd:string ;
+	rdfs:label "Scrittura eterolessicale"@it , "Heterolexical writing"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:hyperbolic_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico iperbolico"^^xsd:string ;
+	rdfs:label "Lessico iperbolico"@it , "Hyperbolic-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:hypogram a desmos:FormalConstraint ;
-	rdfs:label "Ipogramma"^^xsd:string ;
+	rdfs:label "Ipogramma"@it , "Hypogram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:homographic_translation a desmos:FormalConstraint ;
-	rdfs:label "Traduzione omografica"^^xsd:string ;
+	rdfs:label "Traduzione omografica"@it , "Homographic translation"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:division .
 
 desmos:homophony a desmos:FormalConstraint ;
-    rdfs:label "Omofonia"^^xsd:string ;
+    rdfs:label "Omofonia"@it , "Homophony"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:syllable ,
         desmos:word ;
     desmos:involvesOperation desmos:substitution .
 
 desmos:homonymy a desmos:FormalConstraint ;
-	rdfs:label "Omonimia"^^xsd:string ;
+	rdfs:label "Omonimia"@it , "Homonymy"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:homosyntaxism a desmos:FormalConstraint ;
-	rdfs:label "Omosintattismo"^^xsd:string ;
+	rdfs:label "Omosintattismo"@it , "Homosyntaxism"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:iambic_hendecasyllable a desmos:FormalConstraint ;
-	rdfs:label "Endecasillabo giambico"^^xsd:string ;
+	rdfs:label "Endecasillabo giambico"@it , "Iambic hendecasyllable"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:line ,
         desmos:syllable .
 
 	desmos:inverted_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima invertita"^^xsd:string ;
+	rdfs:label "Rima invertita"@it , "Inverted rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ,
@@ -621,19 +628,19 @@ desmos:iambic_hendecasyllable a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:ironic_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico ironico"^^xsd:string ;
+	rdfs:label "Lessico ironico"@it , "Ironic-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:isosyllabic_words a desmos:FormalConstraint ;
-	rdfs:label "Parole isosillabiche"^^xsd:string ;
+	rdfs:label "Parole isosillabiche"@it , "Isosyllabic words"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:isovocalism a desmos:FormalConstraint ;
-	rdfs:label "Isovocalismo"^^xsd:string ;
+	rdfs:label "Isovocalismo"@it , "Isovocalism"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ,
 		desmos:word .
@@ -655,12 +662,12 @@ desmos:latin_noun_lexicon a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:latin_locution_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di locuzioni latine"^^xsd:string ;
+	rdfs:label "Lessico di locuzioni latine"@it , "Latin-locution lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:lexical_gap a desmos:FormalConstraint ;
-	rdfs:label "Lacuna lessicale"^^xsd:string ;
+	rdfs:label "Lacuna lessicale"@it , "Lexical gap"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
@@ -673,73 +680,73 @@ desmos:lexicographic_marker_constraint a desmos:FormalConstraint ;
 		desmos:substitution .
 
 desmos:lipogram a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma"^^xsd:string ;
+	rdfs:label "Lipogramma"@it , "Lipogram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_A a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in A"^^xsd:string ;
+	rdfs:label "Lipogramma in A"@it , "Lipogram in A"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_B a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in B"^^xsd:string ;
+	rdfs:label "Lipogramma in B"@it , "Lipogram in B"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_E a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in E"^^xsd:string ;
+	rdfs:label "Lipogramma in E"@it , "Lipogram in E"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_I a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in I"^^xsd:string ;
+	rdfs:label "Lipogramma in I"@it , "Lipogram in I"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_O a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in O"^^xsd:string ;
+	rdfs:label "Lipogramma in O"@it , "Lipogram in O"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_U a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in U"^^xsd:string ;
+	rdfs:label "Lipogramma in U"@it , "Lipogram in U"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:lipogram_S a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma in S"^^xsd:string ;
+	rdfs:label "Lipogramma in S"@it , "Lipogram in S"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti"^^xsd:string ;
+	rdfs:label "Lessico di prestiti"@it , "Loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
 desmos:LS_method a desmos:FormalConstraint ;
-	rdfs:label "Metodo LS (Letteratura Semidefinizionale)"^^xsd:string ;
+	rdfs:label "Metodo LS (Letteratura Semidefinizionale)"@it , "LS Method (Semidefinitional Literature)"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:mandatory_dedication a desmos:SemanticConstraint ;
-    rdfs:label "Dedica obbligata"^^xsd:string ;
+    rdfs:label "Dedica obbligata"@it , "Mandatory dedication"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsSemanticUnit desmos:addressee .
 
 desmos:mandatory_genre a desmos:SemanticConstraint ;
-	rdfs:label "Costrizione del genere letterario"^^xsd:string ;
+	rdfs:label "Costrizione del genere letterario"@it , "Mandatory genre constraint"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:literary_genre .
 
@@ -750,48 +757,48 @@ desmos:mandatory_sentence a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:addition .
 
 desmos:mandatory_theme a desmos:SemanticConstraint ;
-	rdfs:label "Tema obbligato"^^xsd:string ;
+	rdfs:label "Tema obbligato"@it , "Mandatory theme constraint"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:theme .
 
 desmos:martellian_verse a desmos:FormalConstraint ;
-	rdfs:label "Verso martelliano"^^xsd:string ;
+	rdfs:label "Verso martelliano"@it , "Martellian verse"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:multiplication .
 
 desmos:mathematical_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico matematico"^^xsd:string ;
+	rdfs:label "Lessico matematico"@it , "Mathematical lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:metagram a desmos:FormalConstraint ;
-	rdfs:label "Metagramma"^^xsd:string ;
+	rdfs:label "Metagramma"@it , "Metagram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:metric_liposyllabism a desmos:FormalConstraint ;
-	rdfs:label "Liposillabismo metrico"^^xsd:string ;
+	rdfs:label "Liposillabismo metrico"@it , "Metric liposyllabism"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:syllable ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:mnemonic_encoding a desmos:FormalConstraint ;
-	rdfs:label "Codifica mnemonica"^^xsd:string ;
+	rdfs:label "Codifica mnemonica"@it , "Mnemonic encoding"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:addition ,
 		desmos:substitution .
 
 desmos:mnemonic_fragment a desmos:FormalConstraint ;
-	rdfs:label "Ricostruzione di frammenti mnemonici"^^xsd:string ;
+	rdfs:label "Ricostruzione di frammenti mnemonici"@it , "Mnemonic fragment reconstruction"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:monorhyme a desmos:FormalConstraint ;
-	rdfs:label "Monorima"^^xsd:string ;
+	rdfs:label "Monorima"@it , "Monorhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ;
@@ -803,49 +810,49 @@ desmos:monosyllabic_text a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable .
 
 desmos:monovocalism a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo"^^xsd:string ;
+	rdfs:label "Monovocalismo"@it , "Monovocalism"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:monovocalism_A a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo in A"^^xsd:string ;
+	rdfs:label "Monovocalismo in A"@it , "Monovocalism in A"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:monovocalism_E a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo in E"^^xsd:string ;
+	rdfs:label "Monovocalismo in E"@it , "Monovocalism in E"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:monovocalism_I a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo in I"^^xsd:string ;
+	rdfs:label "Monovocalismo in I"@it , "Monovocalism in I"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:monovocalism_O a desmos:FormalConstraint ;
-	rdfs:label "Monovocalismo in O"^^xsd:string ;
+	rdfs:label "Monovocalismo in O"@it , "Monovocalism in O"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:morale_elementaire a desmos:FormalConstraint ;
-	rdfs:label "Morale elementare"^^xsd:string ;
+	rdfs:label "Morale elementare"@it , "Elementary morality"@en ;
 	desmos:constraintOrigin desmos:historical ;         
 	desmos:constrainsFormalUnit desmos:word ,       
 		desmos:stanza .
 
 desmos:mythographic_units a desmos:FormalConstraint ;
-	rdfs:label "Mitografemi"^^xsd:string ;
+	rdfs:label "Mitografemi"@it , "Mythographic units"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:division .
 
 desmos:non_repeating_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima non ripetuta"^^xsd:string ;
+	rdfs:label "Rima non ripetuta"@it , "Non-repeating rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
@@ -859,7 +866,7 @@ desmos:numeric_based_homosyntaxism a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:octave a desmos:FormalConstraint ;
-	rdfs:label "Ottava"^^xsd:string ;
+	rdfs:label "Ottava"@it , "Octave"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:stanza .
 
@@ -869,19 +876,19 @@ desmos:page_format a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:page .
 
 desmos:palindrome a desmos:FormalConstraint ;
-	rdfs:label "Palindromo"^^xsd:string ;
+	rdfs:label "Palindromo"@it , "Palindrome"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:panvocalism a desmos:FormalConstraint ;
-	rdfs:label "Panvocalismo"^^xsd:string ;
+	rdfs:label "Panvocalismo"@it , "Panvocalism"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:addition .
 
 desmos:paronomasia a desmos:FormalConstraint ;
-	rdfs:label "Paronomasia"^^xsd:string ;
+	rdfs:label "Paronomasia"@it , "Paronomasia"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:word ;
@@ -894,7 +901,7 @@ desmos:pentomino_segmentation a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:division .
 
 desmos:permutation a desmos:FormalConstraint ;
-	rdfs:label "Permutazione"^^xsd:string ;
+	rdfs:label "Permutazione"@it , "Permutation"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ,
 		desmos:word ,
@@ -902,135 +909,135 @@ desmos:permutation a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:poliacrostic a desmos:FormalConstraint ;
-	rdfs:label "Poliacrostico"^^xsd:string ;
+	rdfs:label "Poliacrostico"@it , "Polyacrostic"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:polyglot_loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti poliglotti"^^xsd:string ;
+	rdfs:label "Lessico di prestiti poliglotti"@it , "Polyglot-loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:popular_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico popolare"^^xsd:string ;
+	rdfs:label "Lessico popolare"@it , "Popular-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:postal_code_acrostic a desmos:FormalConstraint ;
-	rdfs:label "Acrostico dei codici postali"^^xsd:string ;
+	rdfs:label "Acrostico dei codici postali"@it , "Postal-code acrostic"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ,
 		desmos:line ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:post_1989_lexicon a desmos:FormalConstraint ;
-    rdfs:label "Lessico del dopo-muro"^^xsd:string ;
+    rdfs:label "Lessico del dopo-muro"@it , "Post-1989 lexicon"@en ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsFormalUnit desmos:word .
 
 desmos:prescribed_line_frame a desmos:FormalConstraint ;
-	rdfs:label "Verso condizionato"^^xsd:string ;
+	rdfs:label "Verso condizionato"@it , "Prescribed line frame"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:line .
 
 desmos:preventive_review a desmos:FormalConstraint ;
-	rdfs:label "Recensione preventiva"^^xsd:string ;
+	rdfs:label "Recensione preventiva"@it , "Preventive review"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:line ,
 		desmos:word .
 
 desmos:prisoner_constraint a desmos:FormalConstraint ;
-	rdfs:label "Contrainte du prisonnier"^^xsd:string ;
+	rdfs:label "Contrainte du prisonnier"@it , "Contrainte du prisonnier"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:procomplementary_verb_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di verbi procomplementari"^^xsd:string ;
+	rdfs:label "Lessico di verbi procomplementari"@it , "Procomplementary-verb lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:progressive_alphabetical_lipogram a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma alfabetico"^^xsd:string ;
+	rdfs:label "Lipogramma alfabetico"@it , "Alphabetical lipogram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:progressive_century_datation a desmos:FormalConstraint ;
-	rdfs:label "Lessico a datazione secolare progressiva"^^xsd:string ;
+	rdfs:label "Lessico a datazione secolare progressiva"@it , "Progressive-century datation lexicon"@en ;
 	desmos:constraintOrigin desmos:original;
 	desmos:constrainsFormalUnit desmos:word.
 
 desmos:progressive_vocalic_lipogram a desmos:FormalConstraint ;
-	rdfs:label "Lipogramma vocalico progressivo"^^xsd:string ;
+	rdfs:label "Lipogramma vocalico progressivo"@it , "Progressive vocalic lipogram"@en ;
 	desmos:constraintOrigin desmos:historical;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:proverbial_shift a desmos:FormalConstraint ;
-	rdfs:label "Slittamento proverbiale"^^xsd:string ;
+	rdfs:label "Slittamento proverbiale"@it , "Proverbial shift"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:substitution .
 
 desmos:quatrain a desmos:FormalConstraint ;
-	rdfs:label "Quartina"^^xsd:string ;
+	rdfs:label "Quartina"@it , "Quatrain"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
 desmos:rebus a desmos:FormalConstraint ;
-	rdfs:label "Rebus"^^xsd:string ;
+	rdfs:label "Rebus"@it , "Rebus"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:regraphing a desmos:FormalConstraint ;
-	rdfs:label "Rigrafia"^^xsd:string ;
+	rdfs:label "Rigrafia"@it , "Regraphing"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico per registro espressivo"^^xsd:string ;
+	rdfs:label "Lessico per registro espressivo"@it , "Register-restricted lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
 desmos:sdrucciola_hendecasyllable a desmos:FormalConstraint ;
-    rdfs:label "Endecasillabo sdrucciolo"^^xsd:string ;
+    rdfs:label "Endecasillabo sdrucciolo"@it , "Sdrucciolo hendecasyllable"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:line ,
         desmos:syllable .
 
 desmos:sdrucciola_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima sdrucciola"^^xsd:string ;
+	rdfs:label "Rima sdrucciola"@it , "Sdrucciola rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
 desmos:semi_automatic_locutionary_text a desmos:FormalConstraint ;
-	rdfs:label "Testo locuzionale semiautomatico"^^xsd:string ;
+	rdfs:label "Testo locuzionale semiautomatico"@it , "Semi-automatic locutionary text"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:substitution .
 
 desmos:septenary a desmos:FormalConstraint ;
-	rdfs:label "Settenario"^^xsd:string ;
+	rdfs:label "Settenario"@it , "Septenary"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
 desmos:septenary_double a desmos:FormalConstraint ;
-	rdfs:label "Settenario doppio"^^xsd:string ;
+	rdfs:label "Settenario doppio"@it , "Double septenary"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
 
 desmos:sestina a desmos:FormalConstraint ;
-	rdfs:label "Sestina"^^xsd:string ;
+	rdfs:label "Sestina"@it , "Sestina"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
@@ -1041,18 +1048,18 @@ desmos:syllabic_set_constraint a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:multiplication .
 
 desmos:slang_register_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico gergale"^^xsd:string ;
+	rdfs:label "Lessico gergale"@it , "Slang-register lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:solfeix a desmos:FormalConstraint ;
-	rdfs:label "Solfeix"^^xsd:string ;
+	rdfs:label "Solfeix"@it , "Solfeix"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:syllable ;
 	desmos:involvesOperation desmos:addition .
 
 desmos:spanish_loanword_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico di prestiti spagnoli"^^xsd:string ;
+	rdfs:label "Lessico di prestiti spagnoli"@it , "Spanish-loanword lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
@@ -1064,21 +1071,21 @@ desmos:statistical_bound a desmos:FormalConstraint ;
         desmos:displacement .
 
 desmos:statistical_bound_in_E a desmos:FormalConstraint ;
-	rdfs:label "Rimbalzo statistico in E"^^xsd:string ;
+	rdfs:label "Rimbalzo statistico in E"@it , "Statistical bound in E"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:multiplication ,
 		desmos:displacement .
 
 desmos:stolen_letters a desmos:FormalConstraint ;
-	rdfs:label "Lettere rubate"^^xsd:string ;
+	rdfs:label "Lettere rubate"@it , "Stolen letters"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ,
 		desmos:word ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:syllable_expansion a desmos:FormalConstraint ;
-	rdfs:label "Espansioni sillabiche"^^xsd:string ;
+	rdfs:label "Espansioni sillabiche"@it , "Syllable expansion"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ;
@@ -1086,29 +1093,29 @@ desmos:syllable_expansion a desmos:FormalConstraint ;
 		desmos:multiplication .
 
 desmos:tanka a desmos:FormalConstraint ;
-	rdfs:label "Tanka"^^xsd:string ;
+	rdfs:label "Tanka"@it , "Tanka"@en ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:syllable ,
 	desmos:line .
 
 desmos:tautogram a desmos:FormalConstraint ;
-	rdfs:label "Tautogramma"^^xsd:string ;
+	rdfs:label "Tautogramma"@it , "Tautogram"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:multiplication .
 
 desmos:temporal_constraint a desmos:FormalConstraint ;
-	rdfs:label "Tempo obbligato"^^xsd:string ;
+	rdfs:label "Tempo obbligato"@it , "Temporal constraint"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:line .
 
 desmos:tercet a desmos:FormalConstraint ;
-	rdfs:label "Terzina"^^xsd:string ;
+	rdfs:label "Terzina"@it , "Tercet"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
 desmos:terminal_word_series a desmos:FormalConstraint ;
-	rdfs:label "Serie di parole terminali"^^xsd:string ;
+	rdfs:label "Serie di parole terminali"@it , "Terminal-word series"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word ;
 	desmos:involvesOperation desmos:extraction .
@@ -1125,30 +1132,30 @@ desmos:trisyllabic_text a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:syllable .
 
 desmos:truncated_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima tronca"^^xsd:string ;
+	rdfs:label "Rima tronca"@it , "Truncated rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:tuscan_lexicon a desmos:FormalConstraint ;
-	rdfs:label "Lessico toscano"^^xsd:string ;
+	rdfs:label "Lessico toscano"@it , "Tuscan lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:word .
 
 desmos:typographic_constraints a desmos:FormalConstraint ;
-	rdfs:label "Norme tipografiche"^^xsd:string ;
+	rdfs:label "Norme tipografiche"@it , "Typographic constraints"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:typography .
 
 desmos:value_inversion a desmos:SemanticConstraint ;
-    rdfs:label "Rovesciamento di valori"^^xsd:string ;
+    rdfs:label "Rovesciamento di valori"@it , "Value inversion"@en ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsSemanticUnit desmos:theme ;
     desmos:involvesOperation desmos:substitution .
 
 desmos:visual_anaphora a desmos:FormalConstraint ;
-	rdfs:label "Anafora visiva"^^xsd:string ;
+	rdfs:label "Anafora visiva"@it , "Visual anaphora"@en ;
 	desmos:constraintOrigin desmos:original ;      
 	desmos:constrainsFormalUnit desmos:image ;       
 	desmos:involvesOperation desmos:multiplication .
@@ -1162,39 +1169,39 @@ desmos:word_length_oscillation a desmos:FormalConstraint ;
 		desmos:subtraction .
 
 desmos:vowel_alternation a desmos:FormalConstraint ;
-	rdfs:label "Alternanza vocalica"^^xsd:string ;
+	rdfs:label "Alternanza vocalica"@it , "Vowel alternation"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:substitution ,
 		desmos:displacement .
 
 desmos:vowel_alternation_AI a desmos:FormalConstraint ;
-	rdfs:label "Alternanza vocalica A/I"^^xsd:string ;
+	rdfs:label "Alternanza vocalica A/I"@it , "Vowel alternation A/I"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:vowel_alternation_EO a desmos:FormalConstraint ;
-	rdfs:label "Alternanza vocalica E/O"^^xsd:string ;
+	rdfs:label "Alternanza vocalica E/O"@it , "Vowel alternation E/O"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
 desmos:vowel_slide a desmos:FormalConstraint ;
-	rdfs:label "Slittamento vocalico"^^xsd:string ;
+	rdfs:label "Slittamento vocalico"@it , "Vowel slide"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:substitution ,
 		desmos:displacement .
 
 desmos:vowel_slide_direct a desmos:FormalConstraint ;
-	rdfs:label "Slittamento vocalico diretto"^^xsd:string ;
+	rdfs:label "Slittamento vocalico diretto"@it , "Direct vowel slide"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:displacement .
 
 desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
-	rdfs:label "Slittamento vocalico inverso"^^xsd:string ;
+	rdfs:label "Slittamento vocalico inverso"@it , "Retrograde vowel slide"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:displacement .
