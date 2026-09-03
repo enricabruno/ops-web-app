@@ -1544,7 +1544,7 @@ tbody tr:last-child td { border-bottom: none; }
     gap: 14px;
     margin-bottom: 0.75rem;
 }
-.evidence-header-col { flex: 1 1 0; }
+.evidence-header-col { flex: 1 1 0; max-width: calc(50% - 124px); }
 .evidence-header-decl { text-align: left; }
 .evidence-header-feat { text-align: right; }
 .evidence-header-label {
@@ -1560,8 +1560,11 @@ tbody tr:last-child td { border-bottom: none; }
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     font-size: 0.8rem;
     color: var(--color-text);
-    opacity: 0.65;
+    text-align: justify;
+    hyphens: auto;
 }
+.evidence-header-decl .evidence-header-def { text-align-last: left; }
+.evidence-header-feat .evidence-header-def { text-align-last: right; }
 
 .evidence-axis {
     position: relative;
@@ -1665,7 +1668,7 @@ tbody tr:last-child td { border-bottom: none; }
     max-width: 320px;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
 }
-.evidence-popover .popover-body { font-size: 0.8rem; }
+.evidence-popover .popover-body { font-size: 0.95rem; }
 .evidence-popover .popover-body p { margin-bottom: 0.5rem; }
 .evidence-popover .popover-body p:last-child { margin-bottom: 0; }
 .evidence-popover code { font-size: 0.7rem; word-break: break-all; }
@@ -1936,7 +1939,7 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-legend-bar__groups {
     display: grid;
     grid-template-columns: auto auto 1fr;
-    column-gap: 4rem;
+    column-gap: 3rem;
     row-gap: 1.75rem;
 }
 
@@ -1954,7 +1957,7 @@ tbody tr:last-child td { border-bottom: none; }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem 1.6rem;
+    gap: 0.4rem 1.2rem;
 }
 
 .matrix-legend-item {
@@ -1982,9 +1985,10 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-legend-item--size .matrix-legend-item__swatch { height: 30px; }
 
 /* "Come leggere la visualizzazione": si sposta qui dal vecchio flyout,
-   invariato nel contenuto - solo allineato a destra nel pannello. */
+   invariato nel contenuto - centrato nel pannello, in asse con "Legenda"
+   nel toggle sopra (anch'esso centrato, vedi .matrix-legend-bar). */
 .matrix-legend-bar__panel .matrix-screen__howto {
-    margin-left: auto;
+    margin: 0 auto;
     width: fit-content;
     max-width: 30rem;
 }
