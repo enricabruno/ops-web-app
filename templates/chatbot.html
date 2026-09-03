@@ -23,4 +23,37 @@
 
 {% block extra_scripts %}
 <script src="/qraken/widget.js" data-base="/qraken" data-display="inline" defer></script>
+<script defer>
+    // Il widget qraken vive in uno shadow DOM isolato e adotta i colori scuri
+    // quando il sistema/browser dell'utente è in dark mode. Forziamo qui lo
+    // sfondo chiaro, perché il CSS della pagina non può raggiungere lo shadow root.
+    (function () {
+        function forceLightTheme() {
+            var host = document.getElementById('qraken-chat');
+            if (!host || !host.shadowRoot) return false;
+            if (host.shadowRoot.getElementById('qraken-force-light')) return true;
+            var style = document.createElement('style');
+            style.id = 'qraken-force-light';
+            style.textContent =
+                '.qraken {' +
+                '  --qk-surface: #ffffff !important;' +
+                '  --qk-surface-2: #f4f4f2 !important;' +
+                '  --qk-ink: #14140f !important;' +
+                '  --qk-ink-2: #52514e !important;' +
+                '  --qk-muted: #898781 !important;' +
+                '  --qk-border: rgba(20, 20, 15, 0.12) !important;' +
+                '}';
+            host.shadowRoot.appendChild(style);
+            return true;
+        }
+
+        if (!forceLightTheme()) {
+            var attempts = 0;
+            var timer = setInterval(function () {
+                attempts += 1;
+                if (forceLightTheme() || attempts > 40) clearInterval(timer);
+            }, 100);
+        }
+    })();
+</script>
 {% endblock %}
