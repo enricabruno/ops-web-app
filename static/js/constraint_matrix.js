@@ -57,16 +57,14 @@ function layoutFor(availableWidth, availableHeight, rowCount, colCount) {
     return base;
 }
 
-const PALETTE_ICON_SVG = `
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2.5C6.8 2.5 2.5 6.4 2.5 11.4c0 3.6 2.6 6.3 6 6.3.9 0 1.6-.7 1.6-1.6 0-.4-.2-.7-.4-1-.2-.3-.4-.6-.4-1 0-.8.7-1.4 1.5-1.4h1.8c2.9 0 5.1-2.1 5.1-4.7 0-3-3-5.1-6.7-5.1Z"/>
-    <circle cx="7.6" cy="10.3" r="0.9" fill="currentColor" stroke="none"/>
-    <circle cx="9.8" cy="6.9" r="0.9" fill="currentColor" stroke="none"/>
-    <circle cx="13.6" cy="6.6" r="0.9" fill="currentColor" stroke="none"/>
-    <circle cx="15.4" cy="9.9" r="0.9" fill="currentColor" stroke="none"/>
-    <path d="M13.3 9.2c1.7-1.6 4.6-4.4 5.9-5.7.7-.7 1.9-.7 2.6.1.7.7.6 1.9-.1 2.6-1.3 1.3-4.1 4.1-5.7 5.8" stroke-width="1.3"/>
-    <path d="M12.6 8.4c-1.4 1.4-3 3.7-3.6 5.2-.2.6.3 1.1.9.9 1.5-.6 3.8-2.2 5.2-3.6.9-.9.9-2.5-.1-3.4-.9-.9-2.5-1-3.4-.1z" fill="currentColor" stroke="none"/>
-</svg>`.trim();
+/* Campione "Classe": stessa coppia quadrato+cerchio del gruppo Origine, così
+   la legenda usa un solo linguaggio di forme; qui il colore (non la forma)
+   porta l'informazione, quindi le due forme sono affiancate per chiarire che
+   il colore vale a prescindere dalla forma/origine. */
+const CLASS_SWATCH_SQUARE = 12.9;
+const CLASS_SWATCH_CIRCLE_D = CLASS_SWATCH_SQUARE * CIRCLE_RATIO;
+const CLASS_SWATCH_GAP = 6;
+const CLASS_SWATCH_PAD = 1.5;
 
 function sizeClassIndex(n) {
     let idx = 0;
@@ -159,14 +157,19 @@ function buildLegend(container) {
         { key: 'visual', label: 'Visuale' },
     ];
     const { group: classGroup, items: classItems } = legendGroup('Classe');
+    const classW = CLASS_SWATCH_PAD + CLASS_SWATCH_SQUARE + CLASS_SWATCH_GAP + CLASS_SWATCH_CIRCLE_D + CLASS_SWATCH_PAD;
+    const classH = Math.max(CLASS_SWATCH_SQUARE, CLASS_SWATCH_CIRCLE_D) + CLASS_SWATCH_PAD * 2;
     classes.forEach(c => {
-        const sw = document.createElement('span');
-        sw.style.color = `var(--matrix-${c.key})`;
-        sw.style.display = 'inline-flex';
-        sw.style.width = '19px';
-        sw.style.height = '19px';
-        sw.innerHTML = PALETTE_ICON_SVG;
-        classItems.appendChild(legendItem(sw, c.label));
+        const svg = el('svg', { width: classW, height: classH, viewBox: `0 0 ${classW} ${classH}` });
+        svg.appendChild(el('rect', {
+            x: CLASS_SWATCH_PAD, y: classH / 2 - CLASS_SWATCH_SQUARE / 2,
+            width: CLASS_SWATCH_SQUARE, height: CLASS_SWATCH_SQUARE, fill: `var(--matrix-${c.key})`,
+        }));
+        svg.appendChild(el('circle', {
+            cx: CLASS_SWATCH_PAD + CLASS_SWATCH_SQUARE + CLASS_SWATCH_GAP + CLASS_SWATCH_CIRCLE_D / 2,
+            cy: classH / 2, r: CLASS_SWATCH_CIRCLE_D / 2, fill: `var(--matrix-${c.key})`,
+        }));
+        classItems.appendChild(legendItem(svg, c.label, 'matrix-legend-item--size'));
     });
     container.appendChild(classGroup);
 
