@@ -16,6 +16,7 @@
                  + (1 if info.scope_note else 0)
                  + (1 if info.close_matches else 0) %}
 <div class="explain-page">
+    <div class="explain-page__fold">
     <header class="explain-page__head">
         <div class="matrix-head">
             <div class="matrix-head__lemma">
@@ -58,8 +59,9 @@
                     <summary>Come leggere la visualizzazione</summary>
                     <p>Le righe sono le operazioni procedurali, le colonne le unità formali o semantiche. Ogni forma
                        raggruppa le costrizioni di una cella che condividono classe e origine: il colore indica
-                       la classe, la forma l’origine, la dimensione quante costrizioni comprende. Le forme a
-                       piena opacità con contorno scuro sono quelle di questa scheda.</p>
+                       la classe a prescindere dalla forma (quadrato o cerchio), la forma l’origine, la dimensione
+                       quante costrizioni comprende. Le forme a piena opacità con contorno scuro sono quelle di
+                       questa scheda.</p>
                 </details>
             </div>
         </div>
@@ -80,6 +82,13 @@
                 <div class="matrix-drawer__panel" id="matrix-drawer-panel" role="region"
                      aria-label="Nota storica e ambito di applicazione">
                     <div class="matrix-drawer__panel-inner">
+                        <button type="button" class="matrix-drawer__panel-close"
+                                id="matrix-drawer-close" aria-label="Chiudi">
+                            <svg viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor"
+                                      stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                        </button>
                         {% if info.history_note %}
                         <div class="explain-page__note">
                             <h2 class="matrix-drawer__title">Nota storica</h2>
@@ -120,6 +129,7 @@
             </div>
         </div>
     </section>
+    </div>
 
     {% if info.concept_graph %}
     <section class="explain-page__network">

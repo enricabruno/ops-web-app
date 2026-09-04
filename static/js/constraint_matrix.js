@@ -57,15 +57,6 @@ function layoutFor(availableWidth, availableHeight, rowCount, colCount) {
     return base;
 }
 
-/* Campione "Classe": stessa coppia quadrato+cerchio del gruppo Origine, così
-   la legenda usa un solo linguaggio di forme; qui il colore (non la forma)
-   porta l'informazione, quindi le due forme sono affiancate per chiarire che
-   il colore vale a prescindere dalla forma/origine. */
-const CLASS_SWATCH_SQUARE = 12.9;
-const CLASS_SWATCH_CIRCLE_D = CLASS_SWATCH_SQUARE * CIRCLE_RATIO;
-const CLASS_SWATCH_GAP = 6;
-const CLASS_SWATCH_PAD = 1.5;
-
 function sizeClassIndex(n) {
     let idx = 0;
     for (const cutoff of SIZE_CUTOFFS) {
@@ -157,19 +148,23 @@ function buildLegend(container) {
         { key: 'visual', label: 'Visuale' },
     ];
     const { group: classGroup, items: classItems } = legendGroup('Classe');
-    const classW = CLASS_SWATCH_PAD + CLASS_SWATCH_SQUARE + CLASS_SWATCH_GAP + CLASS_SWATCH_CIRCLE_D + CLASS_SWATCH_PAD;
-    const classH = Math.max(CLASS_SWATCH_SQUARE, CLASS_SWATCH_CIRCLE_D) + CLASS_SWATCH_PAD * 2;
+    // Icona a pennello (non più quadrato+cerchio affiancati): un tratto
+    // diagonale + testa a goccia, in viewBox 512x512. Un'unica forma per
+    // classe, colorata da --matrix-<key> - la compensazione semantica
+    // (il colore vale a prescindere dalla forma della marca in matrice,
+    // quadrato o cerchio) è nel testo di "Come leggere la visualizzazione"
+    // (explain.html), non più affidata alla forma del campione stesso.
+    const BRUSH_D = 'M218.2 289.4L443.2 51.4a30 30 0 0 1 43.6 41.2L261.8 330.6Z'
+                  + 'M172 292c-48 0-89 27-108 66-16 33-42 54-64 60 26 43 92 74 172 74'
+                  + ' 66 0 120-45 120-100s-54-100-120-100z';
+    const BRUSH_SIZE = 18;
     classes.forEach(c => {
-        const svg = el('svg', { width: classW, height: classH, viewBox: `0 0 ${classW} ${classH}` });
-        svg.appendChild(el('rect', {
-            x: CLASS_SWATCH_PAD, y: classH / 2 - CLASS_SWATCH_SQUARE / 2,
-            width: CLASS_SWATCH_SQUARE, height: CLASS_SWATCH_SQUARE, fill: `var(--matrix-${c.key})`,
-        }));
-        svg.appendChild(el('circle', {
-            cx: CLASS_SWATCH_PAD + CLASS_SWATCH_SQUARE + CLASS_SWATCH_GAP + CLASS_SWATCH_CIRCLE_D / 2,
-            cy: classH / 2, r: CLASS_SWATCH_CIRCLE_D / 2, fill: `var(--matrix-${c.key})`,
-        }));
-        classItems.appendChild(legendItem(svg, c.label, 'matrix-legend-item--size'));
+        const svg = el('svg', {
+            width: BRUSH_SIZE, height: BRUSH_SIZE, viewBox: '0 0 512 512',
+            'aria-hidden': 'true', focusable: 'false',
+        });
+        svg.appendChild(el('path', { d: BRUSH_D, fill: `var(--matrix-${c.key})` }));
+        classItems.appendChild(legendItem(svg, c.label));
     });
     container.appendChild(classGroup);
 
@@ -267,13 +262,18 @@ function renderMatrix(containers, data, focusUri, layout) {
 
     const svg = el('svg', {
         viewBox: `0 0 ${width} ${height}`,
-        preserveAspectRatio: 'xMinYMin meet',
+        preserveAspectRatio: 'xMidYMid meet',
         class: 'viz',
         role: 'img',
         'aria-label': 'Matrice operazione per unità delle costrizioni del corpus DeSMòS',
     });
     svg.style.setProperty('--vb-w', width);
     svg.style.setProperty('--vb-h', height);
+    // STEP3: il rapporto ROW_LABEL_W/width varia per preset (110/1078 in
+    // comodo, 92/824 in compatto) - un valore fisso in CSS disallineava
+    // l'elenco costrizioni dalla prima colonna della griglia in compatto.
+    viz.closest('.matrix-screen__viz')
+        .style.setProperty('--vb-label-ratio', (ROW_LABEL_W / width * 100) + '%');
     const desc = el('desc');
     desc.textContent = `${rows.length} operazioni (righe, inclusa la riga senza operazione) per `
         + `${cols.length} unità formali/semantiche (colonne). Ogni forma rappresenta un gruppo di costrizioni `
@@ -494,7 +494,11 @@ function renderMatrix(containers, data, focusUri, layout) {
             if (focusIndices.size) {
                 node.classList.add(focusIndices.has(mark.index) ? 'matrix-mark--focus' : 'matrix-mark--dim');
             }
-            node.addEventListener('mouseenter', () => showPreview(mark));
+            node.addEventListener('mouseenter', () => {
+                showPreview(mark);
+                showTooltip(node, 'Clicca per scoprire questo gruppo di costrizioni');
+            });
+            node.addEventListener('mouseleave', hideTooltip);
 
             if (mark.n === 1) {
                 const uri = mark.constraints[0].uri;
@@ -517,6 +521,16 @@ function renderMatrix(containers, data, focusUri, layout) {
     });
 
     viz.appendChild(svg);
+
+    // STEP8: con preserveAspectRatio="meet" l'SVG può avere letterboxing
+    // orizzontale dentro la propria scatola (xMidYMid centra il contenuto,
+    // non lo stira): --vb-label-ratio da solo non basta più ad allineare
+    // l'elenco costrizioni alla prima colonna della griglia, serve sommare
+    // anche questo margine reale.
+    const vizBox = viz.getBoundingClientRect();
+    const svgBox = svg.getBoundingClientRect();
+    const padX = Math.max(0, (vizBox.width - svgBox.width) / 2);
+    viz.closest('.matrix-screen__viz').style.setProperty('--vb-pad-x', padX + 'px');
 
     legendSlot.innerHTML = '';
     buildLegend(legendSlot);
@@ -615,6 +629,7 @@ function initDrawer() {
     const handle = document.getElementById('matrix-drawer-handle');
     const panel = document.getElementById('matrix-drawer-panel');
     const backdrop = document.getElementById('matrix-drawer-backdrop');
+    const closeBtn = document.getElementById('matrix-drawer-close');
 
     function isOpen() {
         return drawer.dataset.open === 'true';
@@ -646,6 +661,13 @@ function initDrawer() {
     if (backdrop) {
         backdrop.addEventListener('click', () => setOpen(false));
     }
+    // Ridondanza di affordance voluta: da aperto l'handle si sposta al
+    // bordo esterno del pannello (vedi CSS) e resta la chiusura primaria,
+    // ma un pulsante dentro il pannello stesso costa poco ed è dove
+    // l'utente guarda per prima cosa dopo aver letto il contenuto.
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => setOpen(false));
+    }
 
     let alreadySeen = false;
     try {
@@ -661,46 +683,132 @@ function initDrawer() {
     }
 }
 
-/* Barra della legenda */
-function initLegendBar(onChange) {
+/* Barra della legenda: overlay verso l'ALTO (vedi il commento sopra
+   .matrix-legend-bar in style.css - mai verso il basso, coprirebbe la
+   matrice). Aprirla/chiuderla non sposta più .matrix-screen (il pannello è
+   fuori dal flusso), quindi a differenza del vecchio pannello in flusso
+   non serve più avvertire il layout della matrice di un cambiamento. */
+function initLegendBar() {
+    const bar = document.getElementById('matrix-legend-bar');
     const toggle = document.getElementById('matrix-legend-toggle');
     const panel = document.getElementById('matrix-legend-panel');
-    if (!toggle || !panel) return;
+    if (!bar || !toggle || !panel) return;
 
-    function setOpen(open) {
+    // Tetto d'altezza CALCOLATO, non stimato: il pannello aperto misura
+    // circa quanto il testo che contiene, lo spazio libero sopra dipende
+    // dalla navbar (sticky, il pannello le scorre sotto se troppo alto) e
+    // dalla posizione del toggle nella pagina - entrambi variabili, non
+    // un valore fisso da indovinare. Sottrae anche il margin-bottom del
+    // pannello stesso (style.css): con bottom:100%, quel margine sposta
+    // ULTERIORMENTE il bordo superiore lontano dal toggle, quindi consuma
+    // dello stesso budget verticale di --legend-max-h - ometterlo fa
+    // risultare più spazio di quanto ce ne sia davvero.
+    //
+    // NON Math.max(120, room): con un header basso (titolo/definizione
+    // corti) room resta sotto i 120px A QUALUNQUE altezza di finestra,
+    // dato che non dipende dall'altezza del viewport ma solo da quanta
+    // pagina c'è sopra il toggle - un floor che IGNORA room forzerebbe il
+    // pannello oltre lo spazio realmente disponibile, facendolo scivolare
+    // sotto la navbar esattamente nel caso che doveva evitare (criterio di
+    // accettazione: "il pannello non finisce mai sotto la navbar"). Il
+    // pannello può quindi rendere più basso di 120px e scrollare di più:
+    // è il fallback voluto, non un difetto - ma il tetto reale è room,
+    // mai un valore che lo superi.
+    function syncMaxHeight() {
+        const nav = document.querySelector('.navbar');
+        if (!nav) return;
+        const navH = parseFloat(getComputedStyle(document.documentElement)
+            .getPropertyValue('--navbar-h')) || nav.offsetHeight;
+        const marginBottom = parseFloat(getComputedStyle(panel).marginBottom) || 0;
+        const room = bar.getBoundingClientRect().top - navH - marginBottom - 12;
+        panel.style.setProperty('--legend-max-h', Math.max(40, Math.round(room)) + 'px');
+    }
+
+    function setOpen(open, opts) {
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         panel.hidden = !open;
-        try { sessionStorage.setItem('ops.legendOpen', open ? '1' : '0'); } catch (e) { /* ignore */ }
-        // Aprire/chiudere la legenda sposta la sezione della matrice sotto:
-        // il grafico deve ricalcolare cellH sulla nuova altezza disponibile.
-        if (onChange) onChange();
+        // silent: l'apertura automatica alla prima scheda (vedi sotto) non
+        // deve scriversi in sessionStorage come se fosse una scelta
+        // esplicita dell'utente - solo un click sul toggle, o la
+        // chiusura/apertura manuale, contano come tali.
+        if (!opts || !opts.silent) {
+            try { sessionStorage.setItem('ops.legendOpen', open ? '1' : '0'); } catch (e) { /* ignore */ }
+        }
     }
 
-    let startOpen = false;
+    toggle.addEventListener('click', () => {
+        const opening = panel.hidden;
+        if (opening) syncMaxHeight();
+        setOpen(opening);
+    });
+
+    // Overlay consultivo, non modale: si chiude con Escape (il focus torna
+    // al toggle, come per il drawer - vedi initDrawer) o con un click fuori
+    // dal pannello e dal toggle. Niente backdrop: coprirebbe l'intera
+    // pagina per un contenuto che non blocca nulla sotto di sé.
+    document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
+    });
+    document.addEventListener('click', (ev) => {
+        if (panel.hidden) return;
+        if (panel.contains(ev.target) || toggle.contains(ev.target)) return;
+        setOpen(false);
+    });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+        if (panel.hidden) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(syncMaxHeight, 150);
+    });
+
+    // Aperta di default alla prima /explain della sessione (chiave GLOBALE,
+    // non per URI: la scelta dell'utente vale su tutte le schede
+    // successive, non si riapre navigando fra costrizioni correlate), poi
+    // rispetta sempre la sua scelta. La scrittura in sessionStorage avviene
+    // una sola volta, nel ramo stored === null.
+    let startOpen;
     try {
-        startOpen = sessionStorage.getItem('ops.legendOpen') === '1';
+        const stored = sessionStorage.getItem('ops.legendOpen');
+        startOpen = stored === null ? true : stored === '1';
+        if (stored === null) sessionStorage.setItem('ops.legendOpen', '1');
     } catch (e) {
-
+        startOpen = true;
     }
-    if (startOpen) setOpen(true);
+    if (startOpen) {
+        syncMaxHeight();
+        setOpen(true, { silent: true });
+    }
+}
 
-    toggle.addEventListener('click', () => setOpen(panel.hidden));
+/* Il pannello del drawer (position: fixed) e l'handle (max-height) devono
+   passare esattamente sotto la navbar sticky: 82px era un valore fisso
+   che si sarebbe disallineato a qualunque ritocco della navbar. Misurata
+   a runtime invece di dedotta in CSS, che non ha accesso al DOM di un
+   elemento estraneo (.navbar vive in base.html, sola lettura qui). */
+function syncNavbarHeight() {
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        document.documentElement.style.setProperty('--navbar-h', navbar.offsetHeight + 'px');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    syncNavbarHeight();
     initDrawer();
-    // initLegendBar() gira prima che triggerLayoutUpdate esista: il
-    // wrapper cattura la variabile per riferimento, così la chiamata dal
-    // toggle della legenda usa sempre la versione definitiva assegnata più
-    // sotto, invece di restare legata a un no-op.
-    let triggerLayoutUpdate = () => {};
-    initLegendBar(() => triggerLayoutUpdate());
+    initLegendBar();
 
     const viz = document.getElementById('constraint-matrix-viz');
     if (!viz) return;
     const legendSlot = document.getElementById('constraint-matrix-legend');
     const resultsEl = document.getElementById('constraint-matrix-results');
     const hintEl = document.getElementById('constraint-matrix-hint');
+    // .matrix-screen (colonna di grid): misura la larghezza reale
+    // disponibile per il grafico, usata per scegliere il preset e il CELL_H
+    // adattivo in layoutFor. Il fit finale è strutturale (CSS flex + SVG
+    // preserveAspectRatio="meet", vedi applyLayout sotto), quindi qui non
+    // c'è più nessun valore auto-riferito da cui guardarsi.
+    const screenEl = document.querySelector('.matrix-screen');
     const focusUri = viz.dataset.focusUri || '';
 
     viz.innerHTML = '<p class="constraint-matrix-loading">Caricamento della matrice…</p>';
@@ -731,16 +839,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         return true;
     }
 
+    // STEP8/STEP9: il letterboxing orizzontale (preserveAspectRatio="meet",
+    // xMidYMid) dipende dalla scatola CORRENTE del grafico, non solo
+    // dall'ultimo renderMatrix: un resize che allarga o restringe il
+    // contenitore senza cambiare preset/CELL_H (guardia in applyLayout)
+    // ridimensiona comunque l'SVG già in pagina via CSS (width/height:100%),
+    // quindi va ricalcolato ad ogni chiamata di applyLayout, non solo dopo
+    // un nuovo render.
+    function syncLetterboxPad() {
+        const svg = viz.querySelector('svg.viz');
+        const wrap = viz.closest('.matrix-screen__viz');
+        if (!svg || !wrap) return;
+        const vizBox = viz.getBoundingClientRect();
+        const svgBox = svg.getBoundingClientRect();
+        const padX = Math.max(0, (vizBox.width - svgBox.width) / 2);
+        wrap.style.setProperty('--vb-pad-x', padX + 'px');
+    }
+
     function applyLayout(availableWidth) {
         // vizTop misurato una volta sola, prima del render: cellH dipende da
         // vizTop, e un ricalcolo a render avvenuto potrebbe innescare un
         // anello di retroazione.
         const vizTop = viz.getBoundingClientRect().top;
-        const BOTTOM_MARGIN = 24; // aria sotto le etichette
-        const availableHeight = window.innerHeight - vizTop - BOTTOM_MARGIN;
+        const RESERVE = resultsEl.offsetHeight + hintEl.offsetHeight + 16; // 8 margin + 8 padding
+        const BOTTOM_MARGIN = 12;
+        const availableHeight = window.innerHeight - vizTop - RESERVE - BOTTOM_MARGIN;
         const rowCount = data.rows.length;
         const colCount = data.cols.length;
         const layout = layoutFor(availableWidth, availableHeight, rowCount, colCount);
+
+        // STEP9: va scritta PRIMA della guardia di uscita anticipata sotto -
+        // altrimenti un resize che non cambia preset/CELL_H la lascerebbe
+        // stantia.
+        syncLetterboxPad();
 
         const presetChanged = shouldSwitchPreset(layout.name, availableWidth);
         const cellHChanged = lastCellH === null || Math.abs(layout.CELL_H - lastCellH) >= 1;
@@ -752,6 +883,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         matrixApi = renderMatrix({ viz, legendSlot, resultsEl, hintEl }, data, focusUri, layout);
         if (previousFixedMark) matrixApi.setFixedSelection(previousFixedMark);
         syncHandleCenter();
+        syncLetterboxPad();
     }
 
     function syncHandleCenter() {
@@ -761,10 +893,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const chartBox = viz.getBoundingClientRect();
         const center = (chartBox.top + chartBox.height / 2) - layoutBox.top;
         layoutEl.style.setProperty('--handle-center', center + 'px');
+        // STEP3: da drawer aperto l'handle passa a position:fixed (ancorato
+        // al bordo esterno del pannello, non più alla colonna del grafico -
+        // vedi CSS), quindi la sua quota verticale va espressa in coordinate
+        // di VIEWPORT, non relative a .matrix-layout come --handle-center.
+        layoutEl.style.setProperty('--handle-center-vp', (chartBox.top + chartBox.height / 2) + 'px');
     }
 
-    triggerLayoutUpdate = () => {
-        applyLayout(viz.getBoundingClientRect().width);
+    const triggerLayoutUpdate = () => {
+        applyLayout(screenEl.getBoundingClientRect().width);
         syncHandleCenter();
     };
 
@@ -788,12 +925,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const width = entries[entries.length - 1].contentRect.width;
         scheduleLayout(width);
     });
-    observer.observe(viz);
+    observer.observe(screenEl);
 
     // Il ResizeObserver osserva solo la larghezza del contenitore: un
     // ridimensionamento SOLO verticale della finestra non la cambia e non
     // farebbe scattare il ricalcolo di cellH.
     window.addEventListener('resize', () => {
-        scheduleLayout(viz.getBoundingClientRect().width);
+        syncNavbarHeight();
+        scheduleLayout(screenEl.getBoundingClientRect().width);
     });
 });
