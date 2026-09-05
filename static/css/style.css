@@ -492,19 +492,19 @@ tbody tr:last-child td { border-bottom: none; }
 .constraint-tag:hover { color: var(--color-accent) !important; }
 
 .constraint-badge {
-    color: var(--color-text) !important;
+    color: var(--color-accent) !important;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
     text-decoration: none !important;
     font-weight: 500;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
+    transition: opacity 0.2s ease;
     border: none !important;
     background: transparent !important;
     padding: 0;
 }
 
 .constraint-badge:hover {
-    color: var(--color-accent) !important;
+    opacity: 0.8;
     text-decoration: none !important;
     background-color: transparent !important;
 }
@@ -525,7 +525,7 @@ tbody tr:last-child td { border-bottom: none; }
 .badge-vincolo {
     display: inline-block;
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
-    color: var(--color-text);
+    color: var(--color-accent) !important;
     font-size: 0.85rem;
     font-weight: 500;
     border: none !important;
@@ -534,7 +534,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .badge-vincolo:hover {
-    color: var(--color-accent) !important;
+    opacity: 0.8;
     background-color: transparent !important;
 }
 
@@ -1528,9 +1528,12 @@ tbody tr:last-child td { border-bottom: none; }
 .child-item {
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--color-border);
+    font-size: 1.05rem;
 }
 
 .child-item:last-child { border-bottom: none; }
+
+.child-item .internal-link { font-size: inherit; }
 
 .constraint-link { text-decoration: none; color: inherit; cursor: pointer; }
 .constraint-link:hover,
@@ -2172,7 +2175,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .explain-page__lead-label {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     text-align: center;
     font-weight: normal;
     text-transform: none;
@@ -2803,6 +2806,11 @@ tbody tr:last-child td { border-bottom: none; }
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
+    color: var(--color-accent) !important;
+}
+
+.matrix-results-flow .internal-link:hover {
+    opacity: 0.8;
 }
 
 .matrix-results-current { font-weight: 700; }
@@ -2822,6 +2830,7 @@ tbody tr:last-child td { border-bottom: none; }
    grafo più stretto del proprio contenitore (es. il pavimento a 680 unità)
    resta ancorato a sinistra invece di cadere a metà pagina. */
 .explain-page__network svg {
+    max-width: 60rem;
     margin-inline: auto;
 }
 
