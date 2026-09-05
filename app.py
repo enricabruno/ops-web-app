@@ -856,8 +856,9 @@ def expression():
                 ?chCr lrmoo:R17_created ?child ;
                       crm:P14_carried_out_by ?chA .
                 ?chA rdfs:label ?childAuthor .
+                OPTIONAL { ?chCr dct:created ?childYear }
             }
-            BIND(CONCAT(STR(?child), "##", STR(?childTitle), "##", COALESCE(STR(?childAuthor), "")) AS ?childData)
+            BIND(CONCAT(STR(?child), "##", STR(?childTitle), "##", COALESCE(STR(?childAuthor), ""), "##", COALESCE(STR(?childYear), "")) AS ?childData)
         }
 
         # 2. Costrizioni
@@ -1025,7 +1026,8 @@ def expression():
         bits = item.split('##')
         if len(bits) >= 2 and bits[0]:
             children.append({'uri': bits[0], 'title': bits[1],
-                             'author': bits[2] if len(bits) > 2 else ''})
+                             'author': bits[2] if len(bits) > 2 else '',
+                             'year': bits[3] if len(bits) > 3 else ''})
     children.sort(key=lambda c: c['title'])
 
     # Statuto della costrizione: tassonomia 2×2 su dichiarazione paratestuale e

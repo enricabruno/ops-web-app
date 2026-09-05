@@ -277,8 +277,7 @@
             <div class="col-lg-8">
                 {% for child in expr.children %}
                 <div class="child-item">
-                    <a href="/expression?uri={{ child.uri | urlencode }}" class="link-source-sm link-intra"><i>{{ child.title }}</i></a>
-                    {% if child.author %}<span class="text-muted small ms-2">{{ child.author }}</span>{% endif %}
+                    <a href="/expression?uri={{ child.uri | urlencode }}" class="internal-link">{{ child.title }}</a>{% if child.author %} di {{ child.author }}{% endif %}{% if child.year %} <span class="text-muted small">({{ child.year }})</span>{% endif %}
                 </div>
                 {% endfor %}
             </div>
