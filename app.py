@@ -53,6 +53,8 @@ app.register_blueprint(
         accent_color="#0397B2",
         display="inline",
         show_sparql=True,
+        language="it",
+        icebreaker="Ciao! Sono Qraken, il tuo assistente per esplorare questo knowledge graph. Chiedimi pure quello che vuoi sapere.",
     )),
     url_prefix="/qraken",
 )
