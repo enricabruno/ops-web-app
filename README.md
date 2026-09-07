@@ -1,6 +1,6 @@
 # ops-web-app
 
-## Cos'è
+## OPS - Opificio Potenziale Semantico
 
 **ops-web-app** è un'interfaccia web (Flask) per esplorare **DeSMòS**
 (*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 che
