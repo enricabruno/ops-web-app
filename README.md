@@ -10,16 +10,16 @@ L'app si collega direttamente ad un triplestore
 **GraphDB** e recupera tutti i dati tramite query SPARQL. 
 Espone:
 
-- **Corpus browser** — navigazione a faccette delle espressioni vincolate
+- **Corpus browser**: navigazione a faccette delle espressioni vincolate
   (autore, tipo di costrizione, tradizione, operazioni, unità formali/semantiche)
-- **Scheda espressione** — dettaglio di una singola opera con costrizioni, 
+- **Scheda espressione**: dettaglio di una singola opera con costrizioni, 
   frammenti sorgente e provenienza bibliografica;
-- **Spiegazione delle costrizioni** — definizione, esempio e annotazioni LOD per ogni concetto SKOS;
-- **Anagrafia** — visualizzazione a livello di token dell'allineamento
+- **Spiegazione delle costrizioni**: definizione, esempio e annotazioni LOD per ogni concetto SKOS;
+- **Anagrafia**: visualizzazione a livello di token dell'allineamento
   intertestuale tra un'espressione vincolata e il suo testo sorgente;
-- **Accesso SPARQL** — editor libero, hub di query predefinite e query builder
+- **Accesso SPARQL**: editor libero, hub di query predefinite e query builder
   visuale;
-- **Chatbot (QRAKEN)** — assistente in linguaggio naturale per interrogare il
+- **Chatbot (QRAKEN)**: assistente in linguaggio naturale per interrogare il
   knowledge graph.
 
 ---
@@ -73,8 +73,8 @@ Avvia GraphDB (desktop app, standalone server o Docker) e assicurati che
 esista un repository `desmos`. Poi carica i tre file RDF:
 
 ```bash
-# Opzione A — GraphDB Workbench: Import → RDF → carica ciascun file
-# Opzione B — script bulk_load.py:
+# Opzione A: GraphDB Workbench: Import → RDF → carica ciascun file
+# Opzione B: script bulk_load.py:
 python scripts/bulk_load.py --file data/ontology/desmos.owl --format rdfxml
 python scripts/bulk_load.py --file data/rdf/corpus.ttl --format turtle
 python scripts/bulk_load.py --file data/rdf/concept.ttl --format turtle
