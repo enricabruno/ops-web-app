@@ -724,16 +724,9 @@ function initLegendBar() {
         panel.style.setProperty('--legend-max-h', Math.max(40, Math.round(room)) + 'px');
     }
 
-    function setOpen(open, opts) {
+    function setOpen(open) {
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         panel.hidden = !open;
-        // silent: l'apertura automatica alla prima scheda (vedi sotto) non
-        // deve scriversi in sessionStorage come se fosse una scelta
-        // esplicita dell'utente - solo un click sul toggle, o la
-        // chiusura/apertura manuale, contano come tali.
-        if (!opts || !opts.silent) {
-            try { sessionStorage.setItem('ops.legendOpen', open ? '1' : '0'); } catch (e) { /* ignore */ }
-        }
     }
 
     toggle.addEventListener('click', () => {
@@ -762,23 +755,10 @@ function initLegendBar() {
         resizeTimer = setTimeout(syncMaxHeight, 150);
     });
 
-    // Aperta di default alla prima /explain della sessione (chiave GLOBALE,
-    // non per URI: la scelta dell'utente vale su tutte le schede
-    // successive, non si riapre navigando fra costrizioni correlate), poi
-    // rispetta sempre la sua scelta. La scrittura in sessionStorage avviene
-    // una sola volta, nel ramo stored === null.
-    let startOpen;
-    try {
-        const stored = sessionStorage.getItem('ops.legendOpen');
-        startOpen = stored === null ? true : stored === '1';
-        if (stored === null) sessionStorage.setItem('ops.legendOpen', '1');
-    } catch (e) {
-        startOpen = true;
-    }
-    if (startOpen) {
-        syncMaxHeight();
-        setOpen(true, { silent: true });
-    }
+    // Chiusa di default a ogni caricamento di /explain, per qualunque
+    // costrizione: nessuna persistenza tra pagine, solo apertura/chiusura
+    // manuale finché si resta su questa pagina.
+    setOpen(false);
 }
 
 /* Il pannello del drawer (position: fixed) e l'handle (max-height) devono
