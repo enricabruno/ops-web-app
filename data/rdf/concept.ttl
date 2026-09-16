@@ -160,6 +160,18 @@ desmos:FormalUnitScheme a skos:ConceptScheme ;
         desmos:typography ,
         desmos:word .
 
+desmos:VisualConstraintScheme a skos:ConceptScheme ;
+    skos:prefLabel "Visual constraint scheme"@en , "Schema delle costrizioni visive"@it ;
+    skos:definition "A scheme defining the visual constraints, namely those constraints that intervene primarily on the visual arrangement of elements in space."@en , "Schema che definisce le costrizioni visive, ovvero quelle costrizioni che intervengono primariamente sulla disposizione visiva degli elementi nello spazio."@it ;
+    skos:hasTopConcept
+        desmos:calligram ,
+        desmos:figure_bounded_text ,
+        desmos:figure_derived_count ,
+        desmos:figured_alphabet ,
+        desmos:page_format ,
+        desmos:typographic_constraints ,
+        desmos:visual_anaphora .
+
 desmos:SemanticUnitScheme a skos:ConceptScheme ;
     skos:prefLabel "Semantic unit scheme"@en , "Schema delle unità semantiche"@it ;
     skos:definition "A scheme defining the discrete units that constitute the object of the semantic constraint."@en , "Schema che definisce le unità discrete che costituiscono l'oggetto della costrizione di tipo semantico."@it ;
