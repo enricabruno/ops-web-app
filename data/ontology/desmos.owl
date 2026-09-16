@@ -282,7 +282,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P2_has_type">
         <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P2i_is_type_of"/>
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E55_Type"/>
         <rdfs:label xml:lang="en">P2 has type</rdfs:label>
         <rdfs:label xml:lang="it">P2 ha tipo</rdfs:label>
@@ -295,7 +294,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P2i_is_type_of">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E55_Type"/>
-        <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
         <rdfs:label xml:lang="en">P2i is type of</rdfs:label>
         <rdfs:label xml:lang="it">P2i è tipo di</rdfs:label>
         <rdfs:comment xml:lang="it">Relazione inversa di P2_has_type. Collega un CRM E55 Type alle entità CRM che sono sub-tipizzate da esso.</rdfs:comment>
@@ -308,7 +306,6 @@
     <owl:ObjectProperty rdf:about="http://iflastandards.info/ns/lrm/lrmoo/R15_has_fragment">
         <owl:inverseOf rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/R15i_is_fragment_of"/>
         <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
         <rdfs:comment xml:lang="it">Questa proprietà associa un'istanza di LRMoo Expression con un'altra istanza di LRMoo Expression che ne è parte integrante.</rdfs:comment>
         <rdfs:comment xml:lang="en">This property associates an instance of LRMoo Expression with another instance of LRMoo Expression that is an integral part of it.</rdfs:comment>
         <rdfs:label xml:lang="it">R15 has fragment</rdfs:label>
@@ -319,7 +316,6 @@
     <!-- http://iflastandards.info/ns/lrm/lrmoo/R15i_is_fragment_of -->
 
     <owl:ObjectProperty rdf:about="http://iflastandards.info/ns/lrm/lrmoo/R15i_is_fragment_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
         <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
         <rdfs:comment xml:lang="en">Inverse relationship of R15_has_fragment. Relates a fragment to the expression it belongs to.</rdfs:comment>
         <rdfs:comment xml:lang="it">Relazione inversa di R15_has_fragment. Collega un frammento all'espressione a cui appartiene.</rdfs:comment>
@@ -434,8 +430,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P129_is_about">
         <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
-        <rdfs:range rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
         <rdfs:comment xml:lang="en">In DeSMòS, this property documents that an instance of E33 Linguistic Object has as its subject an instance of desmos:LiteraryConstraint.</rdfs:comment>
         <rdfs:comment xml:lang="it">Questa proprietà documenta che un'istanza di E33 Linguistic Object ha come soggetto un'istanza di desmos:LiteraryConstraint.</rdfs:comment>
         <rdfs:label xml:lang="en">P129 is about</rdfs:label>
@@ -446,8 +440,6 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of -->
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of">
-        <rdfs:domain rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
         <rdfs:comment xml:lang="en">Inverse property of P129 is about.</rdfs:comment>
         <rdfs:comment xml:lang="it">Proprietà inversa di P129 verte su.</rdfs:comment>
         <rdfs:label xml:lang="en">P129i is subject of</rdfs:label>
@@ -512,7 +504,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P14_carried_out_by">
         <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P14i_performed"/>
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
         <rdfs:comment xml:lang="it">Questa proprietà descrive la partecipazione attiva di un'istanza di E39 Actor a un'istanza di E7 Activity.</rdfs:comment>
         <rdfs:comment xml:lang="en">This property describes the active participation of an instance of E39 Actor in an instance of E7 Activity.</rdfs:comment>
@@ -525,7 +516,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P14i_performed">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
-        <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
         <rdfs:comment xml:lang="en">Inverse relationship of P14_carried_out_by. Associates an instance of E39 Actor with an instance of E7 Activity that it performed.</rdfs:comment>
         <rdfs:comment xml:lang="it">Relazione inversa di P14_carried_out_by. Associa un'istanza di E39 Actor con un'istanza di E7 Activity che ha eseguito.</rdfs:comment>
         <rdfs:label xml:lang="it">P14i ha eseguito</rdfs:label>
@@ -537,7 +527,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P33_used_specific_technique">
         <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P33i_was_used_by"/>
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E29_Design_or_Procedure"/>
         <rdfs:comment xml:lang="it">Questa proprietà identifica un'istanza specifica di E29 Design or Procedure per caratterizzare un'istanza di E7 Activity.</rdfs:comment>
         <rdfs:comment xml:lang="en">This property identifies a specific instance of E29 Design or Procedure in order to characterize an instance of E7 Activity.</rdfs:comment>
@@ -550,7 +539,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P33i_was_used_by">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E29_Design_or_Procedure"/>
-        <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
         <rdfs:comment xml:lang="en">Inverse relationship of P33_used_specific_technique. Associates an instance of E29 Design or Procedure with an instance of E7 Activity that used it.</rdfs:comment>
         <rdfs:comment xml:lang="it">Relazione inversa di P33_used_specific_technique. Associa un'istanza di E29 Design or Procedure con un'istanza di E7 Activity che l'ha usata.</rdfs:comment>
         <rdfs:label xml:lang="en">P33i was used by</rdfs:label>
@@ -562,8 +550,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P67_refers_to">
         <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P67i_is_referred_to_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
-        <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
         <rdfs:comment xml:lang="it">Questa proprietà documenta che un'istanza di E1 CRM Entity ha come soggetto un'altra istanza di E1 CRM Entity.</rdfs:comment>
         <rdfs:comment xml:lang="en">This property documents that an instance of E1 CRM Entity has as its subject another instance of E1 CRM Entity.</rdfs:comment>
         <rdfs:label xml:lang="en">P67 refers to</rdfs:label>
@@ -574,8 +560,6 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P67i_is_referred_to_by -->
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P67i_is_referred_to_by">
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
         <rdfs:comment xml:lang="en">Inverse relationship of P67_refers_to.</rdfs:comment>
         <rdfs:comment xml:lang="it">Relazione inversa di P67_refers_to.</rdfs:comment>
         <rdfs:label xml:lang="en">P67i is referred to by</rdfs:label>
@@ -904,7 +888,6 @@
     <owl:ObjectProperty rdf:about="https://w3id.org/lso/intro/beta202506#R19_hasType">
         <owl:inverseOf rdf:resource="https://w3id.org/lso/intro/beta202506#R19i_isTypeOf"/>
         <rdfs:domain rdf:resource="https://w3id.org/lso/intro/beta202506#INT31_IntertextualRelation"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E55_Type"/>
         <rdfs:comment xml:lang="it">Collega un'INT31 IntertextualRelation al suo tipo.</rdfs:comment>
         <rdfs:comment xml:lang="en">Links an INT31 IntertextualRelation to its type.</rdfs:comment>
         <rdfs:label xml:lang="it">R19 ha tipo</rdfs:label>
@@ -965,8 +948,6 @@
     <!-- http://purl.org/dc/terms/created -->
 
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/created">
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
         <rdfs:comment xml:lang="it">Indica la data o l'intervallo temporale in cui la risorsa è stata generata.</rdfs:comment>
         <rdfs:comment xml:lang="en">Represents the date or time interval when the resource was generated.</rdfs:comment>
         <rdfs:label xml:lang="en">created</rdfs:label>
@@ -979,8 +960,6 @@
     <!-- http://purl.org/dc/terms/issued -->
 
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/issued">
-        <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F3_Manifestation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
         <rdfs:comment xml:lang="it">Data di emissione formale (es. pubblicazione) della risorsa.</rdfs:comment>
         <rdfs:comment xml:lang="en">Date of formal issuance (e.g., publication) of the resource.</rdfs:comment>
         <rdfs:label xml:lang="it">data di emissione</rdfs:label>
@@ -1003,15 +982,6 @@
     <!-- http://schema.org/pagination -->
 
     <owl:DatatypeProperty rdf:about="http://schema.org/pagination">
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object"/>
-                    <rdf:Description rdf:about="https://w3id.org/desmos/TextualFeature"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment xml:lang="it">Il numero di pagina o l'intervallo di pagine. Corrisponde alla proprietà standard di schema.org.</rdfs:comment>
         <rdfs:comment xml:lang="en">The page number or range of pages. Corresponds to the standard schema.org property.</rdfs:comment>
         <rdfs:label xml:lang="en">pagination</rdfs:label>
@@ -1030,7 +1000,6 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
-        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
         <rdfs:comment xml:lang="it">Questa proprietà associa un'istanza di E33 Linguistic Object o una Caratteristica testuale ad uno o più testi che forniscono informazioni aggiuntive, modellati come letterali.</rdfs:comment>
         <rdfs:comment xml:lang="en">This property associates an instance of E33 or a Textual Feature with one or more textual strings (literals) that provide additional information.</rdfs:comment>
         <rdfs:label xml:lang="it">ha nota</rdfs:label>
@@ -1116,7 +1085,6 @@
 
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E33_Linguistic_Object">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E73_Information_Object"/>
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
         <rdfs:comment xml:lang="it">Questa classe comprende espressioni identificabili, in forma scritta o parlata, che utilizzano un linguaggio umano per comunicare un contenuto. In DeSMòS, definisce la natura testuale delle espressioni e dei passaggi analizzati.</rdfs:comment>
         <rdfs:comment xml:lang="en">This class comprises identifiable expressions in written or spoken form that use a human language to communicate content. In DeSMòS, it defines the textual nature of the analyzed expressions and passages.</rdfs:comment>
         <rdfs:label xml:lang="en">E33 Linguistic Object</rdfs:label>
@@ -1127,7 +1095,6 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/E39_Actor -->
 
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E39_Actor">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
         <rdfs:comment xml:lang="it">Questa classe comprende persone, singole o in gruppo, che hanno la capacità di agire e di avere una responsabilità legale o intenzionale per le loro azioni. In DeSMòS, identifica gli autori, i curatori e i collettivi coinvolti nella produzione letteraria.</rdfs:comment>
         <rdfs:comment xml:lang="en">This class comprises people, individually or as groups, who have the potential to perform actions and for whom a legal or intentional responsibility can be attributed. In DeSMòS, it identifies authors, curators, and literary collectives involved in literary production.</rdfs:comment>
         <rdfs:label xml:lang="en">E39 Actor</rdfs:label>
@@ -1397,6 +1364,17 @@
         <rdfs:comment xml:lang="it">Schema concettuale che definisce la forma testuale dell'opera (prosa, poesia, forma visuale). Utilizzato per qualificare istanze di lrmoo:F2_Expression tramite crm:P2_has_type.</rdfs:comment>
         <rdfs:label xml:lang="en">Literary Form Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle forme letterarie</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+    </owl:NamedIndividual>
+
+        <!-- https://w3id.org/desmos/ArtisticFormScheme -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/desmos/ArtisticFormScheme">
+        <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+        <rdfs:comment xml:lang="en">Concept scheme defining the artistic form of non-linguistic expressions (visual art, music). Used to qualify lrmoo:F2_Expression instances via crm:P2_has_type, complementing desmos:LiteraryFormScheme where the source expression is not a text.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Schema concettuale che definisce la forma artistica di espressioni non linguistiche (arte visuale, musica). Utilizzato per qualificare istanze di lrmoo:F2_Expression tramite crm:P2_has_type, in complemento a desmos:LiteraryFormScheme nei casi in cui l'espressione non sia un testo.</rdfs:comment>
+        <rdfs:label xml:lang="en">Artistic Form Scheme</rdfs:label>
+        <rdfs:label xml:lang="it">Schema delle forme artistiche</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
     </owl:NamedIndividual>
 
