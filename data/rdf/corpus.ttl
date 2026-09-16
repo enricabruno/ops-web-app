@@ -1310,7 +1310,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 		desmos:typographic_constraints ,
 		desmos:fixed_fictional_character ,
 		desmos:fixed_fictional_setting ,
-		desmos:fictional_time ,
+		desmos:fixed_fictional_time ,
 		desmos:mandatory_theme ,
 		desmos:mandatory_genre ,
 		desmos:fixed_title_length ;
@@ -2092,7 +2092,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> a lrmoo:F2_Expression ;
 	dcterms:title "Morti fortunati"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_21> ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi> ;
+	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p25-1> ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_21> .
