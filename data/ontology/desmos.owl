@@ -1349,6 +1349,16 @@
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
     </owl:NamedIndividual>
 
+    <!-- https://w3id.org/desmos/VisualConstraintScheme -->
+    <owl:NamedIndividual rdf:about="https://w3id.org/desmos/VisualConstraintScheme">
+        <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+        <rdfs:comment xml:lang="en">Concept scheme classifying visual constraints (constraints intervening primarily on the signifier). Used to type instances of desmos:VisualConstraint.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Schema concettuale che classifica le costrizioni visive (operanti prioritariamente sul significante). Utilizzato per tipizzare istanze di desmos:VisualConstraint.</rdfs:comment>
+        <rdfs:label xml:lang="en">Visual Constraint Scheme</rdfs:label>
+        <rdfs:label xml:lang="it">Schema delle costrizioni visive</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+    </owl:NamedIndividual>
+
     <!-- https://w3id.org/desmos/SemanticConstraintScheme -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/desmos/SemanticConstraintScheme">
