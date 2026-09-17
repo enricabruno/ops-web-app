@@ -975,9 +975,9 @@
 
     <owl:DatatypeProperty rdf:about="https://w3id.org/desmos/hasExcerpt">
         <rdfs:domain rdf:resource="https://w3id.org/desmos/TextualFeature"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <rdfs:comment xml:lang="it">Collega una caratteristica testuale (Textual Feature) ad un estratto dell'espressione, nel quale  la traccia della costrizione è visibile. La proprieta è facoltativa: una caratteristica testuale può sussistere senza estratto quando la traccia non è verbalizzabile (disposizione grafica, apparato iconografico, impaginazione).</rdfs:comment>
-        <rdfs:comment xml:lang="en">Links a Textual Feature to a data string providing an excerpt of the expression where the trace of the constraint is visible. The property is OPTIONAL: a Textual Feature may exist without an excerpt when the trace is not verbalisable (graphic layout, iconographic apparatus, pagination).</rdfs:comment>
+        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+        <rdfs:comment xml:lang="it">Associa una caratteristica testuale al passo dell'espressione in cui la traccia della costrizione è riportata verbatim. La proprietà non è obbligatoria: la traccia può non essere citabile come testo quando risiede nella disposizione grafica, nell'apparato iconografico o nell'impaginazione.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a textual feature to the passage of the expression in which the trace of the constraint appears verbatim. It differs from crm:P3_has_note, which records the analytical description of the feature instead. The property is not mandatory: the trace may not be quotable as text when it resides in graphic arrangement, iconographic apparatus or page layout.</rdfs:comment>
         <rdfs:label xml:lang="it">ha estratto </rdfs:label>
         <rdfs:label xml:lang="en">has excerpt</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
