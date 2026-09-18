@@ -11,6 +11,7 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:intro="https://w3id.org/lso/intro/beta202506#"
      xmlns:lrmoo="http://iflastandards.info/ns/lrm/lrmoo/"
+     xmlns:if="http://schema.org/"
      xmlns:desmos="https://w3id.org/desmos/"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/desmos/">
@@ -20,8 +21,8 @@
         <dcterms:title xml:lang="it">DeSMòS (Descriptive Semantic Model for Structured Texts)</dcterms:title>
         <rdfs:label xml:lang="en">DeSMòS</rdfs:label>
         <rdfs:label xml:lang="it">DeSMòS</rdfs:label>
-        <dcterms:description xml:lang="en">DeSMòS, Descriptive Semantic Model for Structured Texts, is an OWL 2 ontology for the formal description of literary constraints as text-generative procedures, with particular reference to the Oulipian tradition and its continuation in the Oplepo. The model distinguishes the constraint from the bibliographic entities of the work and its manifestations, represented through LRMoo, and asserts its conceptual autonomy, rather than reducing it to an a posteriori stylistic descriptor attributed to the text. The constraint is linked to the textual production event, in which it guides the creative process; this active role finds a characterizing manifestation in constrained rewriting, where the relationships between source text and resulting text are qualified alongside the textual passages involved. The procedure is characterized according to its formal, semantic, or visual nature, the constrained units, the procedural operations, and its origin, by means of SKOS controlled vocabularies. Its application in the work is documented through intratextual evidence represented via DeSMòS and Genettian paratextual statements, whether epitextual or peritextual, represented through CIDOC CRM and attributable to their authors via PROV-O. DeSMòS supports the documentation, comparative analysis, and SPARQL querying of constrained writing practices across heterogeneous corpora and is aligned with CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO, and Dublin Core Terms.</dcterms:description>
-        <dcterms:description xml:lang="it">DeSMòS, Descriptive Semantic Model for Structured Texts, è un'ontologia OWL 2 per la descrizione formale delle costrizioni letterarie come procedure generative del testo, con particolare riferimento alla tradizione oulipiana e alla sua prosecuzione nell'Oplepo. Il modello distingue la costrizione dalle entità bibliografiche dell'opera e delle sue realizzazioni, rappresentate mediante LRMoo, e ne afferma l'autonomia concettuale, non riducendola ad un descrittore stilistico attribuito a posteriori al testo. La costrizione è collegata all'evento di produzione testuale, nel quale orienta il processo creativo; questo ruolo attivo trova una manifestazione caratterizzante nella riscrittura vincolata, in cui i rapporti fra testo sorgente e testo risultante sono qualificati insieme ai passaggi testuali coinvolti. La procedura è caratterizzata secondo la natura formale, semantica o visiva, le unità vincolate, le operazioni procedurali e l'origine, mediante vocabolari controllati SKOS. Il suo impiego nell'opera è documentato attraverso evidenze intratestuali rappresentate mediante DeSMòS e dichiarazioni paratestuali genettiane, epitestuali o peritestuali, rappresentate mediante CIDOC CRM e attribuibili ai loro autori attraverso PROV-O. DeSMòS supporta la documentazione, l'analisi comparativa e l'interrogazione SPARQL delle pratiche di scrittura vincolata su corpora eterogenei ed è allineata con CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO e Dublin Core Terms.</dcterms:description>
+        <dcterms:description xml:lang="en">DeSMòS, Descriptive Semantic Model for Structured Texts, is an OWL 2 ontology for the formal description of literary constraints as text-generative procedures, with particular reference to the Oulipian tradition and its continuation in the Oplepo. The model distinguishes the constraint from the bibliographic entities of the work and its manifestations, represented through LRMoo, and asserts its conceptual autonomy, rather than reducing it to an a posteriori stylistic descriptor attributed to the text. The constraint is linked to the textual production event, in which it guides the creative process; this active role finds a characterizing manifestation in constrained rewriting, where the relationships between source text and resulting text are qualified alongside the textual passages involved. The procedure is characterized according to its formal, semantic, or visual nature, the constrained units, the procedural operations, and its origin, by means of SKOS controlled vocabularies. Its application in the work is documented through intratextual evidence represented via DeSMòS and Genettian paratextual statements, whether epitextual or peritextual, represented through CIDOC CRM and attributable to their authors via PROV-O. DeSMòS supports the documentation, comparative analysis, and SPARQL querying of constrained writing practices across heterogeneous corpora and is aligned with CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO, Dublin Core Terms and Schema.org</dcterms:description>
+        <dcterms:description xml:lang="it">DeSMòS, Descriptive Semantic Model for Structured Texts, è un'ontologia OWL 2 per la descrizione formale delle costrizioni letterarie come procedure generative del testo, con particolare riferimento alla tradizione oulipiana e alla sua prosecuzione nell'Oplepo. Il modello distingue la costrizione dalle entità bibliografiche dell'opera e delle sue realizzazioni, rappresentate mediante LRMoo, e ne afferma l'autonomia concettuale, non riducendola ad un descrittore stilistico attribuito a posteriori al testo. La costrizione è collegata all'evento di produzione testuale, nel quale orienta il processo creativo; questo ruolo attivo trova una manifestazione caratterizzante nella riscrittura vincolata, in cui i rapporti fra testo sorgente e testo risultante sono qualificati insieme ai passaggi testuali coinvolti. La procedura è caratterizzata secondo la natura formale, semantica o visiva, le unità vincolate, le operazioni procedurali e l'origine, mediante vocabolari controllati SKOS. Il suo impiego nell'opera è documentato attraverso evidenze intratestuali rappresentate mediante DeSMòS e dichiarazioni paratestuali genettiane, epitestuali o peritestuali, rappresentate mediante CIDOC CRM e attribuibili ai loro autori attraverso PROV-O. DeSMòS supporta la documentazione, l'analisi comparativa e l'interrogazione SPARQL delle pratiche di scrittura vincolata su corpora eterogenei ed è allineata con CIDOC CRM, LRMoo, PROV-O, SKOS, INTRO, Dublin Core Terms e Schema.org</dcterms:description>
         <rdfs:comment xml:lang="en">DeSMòS adopts an "alignment-by-reference" pattern to keep the ontology lightweight and reasoner-friendly.</rdfs:comment>
          <rdfs:comment xml:lang="it">DeSMòS adotta un pattern di "allineamento per riferimento" per mantenere l'ontologia leggera e compatibile con i reasoner.</rdfs:comment>
         <dcterms:hasVersion>2.0.0</dcterms:hasVersion>
@@ -33,7 +34,9 @@
         <dcterms:source rdf:resource="http://www.w3.org/ns/prov#"/>
         <dcterms:source rdf:resource="https://cidoc-crm.org/extensions/lrmoo/"/>
         <dcterms:source rdf:resource="https://schema.org/"/>
+        <dcterms:source rdf:resource="http://if/"/>
         <dcterms:source rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
+        <dcterms:source rdf:resource="http://schema.org/"/>
         <owl:priorVersion rdf:resource="https://w3id.org/desmos/v1.1.0"/>
         <owl:versionInfo xml:lang="en">Version 2.0.0</owl:versionInfo>
         <owl:versionInfo xml:lang="it">Versione 2.0.0</owl:versionInfo>
@@ -737,7 +740,7 @@
         <owl:inverseOf rdf:resource="https://w3id.org/desmos/hasFeature"/>
         <rdfs:domain rdf:resource="https://w3id.org/desmos/TextualFeature"/>
         <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
-        <rdfs:comment xml:lang="en">Inverse relationship of hasFeature. Relates a textual feature (TextualFeature) to the textual expression (F2) that reveals its constrained structure.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Inverse relationship of hasFeature. Relates a piece of textual evidence of the constraint (TextualFeature) to the textual expression (F2) in which it is manifest.</rdfs:comment>
         <rdfs:comment xml:lang="it">Relazione inversa di hasFeature. Collega un'evidenza testuale della costrizione (TextualFeature) all'espressione testuale (F2) in cui è manifesta.</rdfs:comment>
         <rdfs:label xml:lang="it">è caratteristica di</rdfs:label>
         <rdfs:label xml:lang="en">is feature of</rdfs:label>
@@ -1342,8 +1345,8 @@
 
     <owl:NamedIndividual rdf:about="https://w3id.org/desmos/FormalConstraintScheme">
         <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
-        <rdfs:comment xml:lang="en">Concept scheme classifying formal constraints (constraints intervening primarily on the signifier). Used to type instances of desmos:FormalConstraint.</rdfs:comment>
-        <rdfs:comment xml:lang="it">Schema concettuale che classifica le costrizioni formali (operanti prioritariamente sul significante). Utilizzato per tipizzare istanze di desmos:FormalConstraint.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Schema concettuale che raccoglie le costrizioni formali, che intervengono prioritariamente sul significante del testo.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Concept scheme collecting formal constraints, which intervene primarily on the signifier of the text.</rdfs:comment>
         <rdfs:label xml:lang="en">Formal Constraint Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle costrizioni formali</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
@@ -1363,8 +1366,8 @@
 
     <owl:NamedIndividual rdf:about="https://w3id.org/desmos/SemanticConstraintScheme">
         <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
-        <rdfs:comment xml:lang="en">Concept scheme classifying semantic constraints (constraints intervening primarily on the signified). Used to type instances of desmos:SemanticConstraint.</rdfs:comment>
-        <rdfs:comment xml:lang="it">Schema concettuale che classifica le costrizioni semantiche (operanti prioritariamente sul significato). Utilizzato per tipizzare istanze di desmos:SemanticConstraint.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Schema concettuale che raccoglie le costrizioni semantiche, che intervengono prioritariamente sul significato del testo.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Concept scheme collecting semantic constraints, which intervene primarily on the signified of the text.</rdfs:comment>
         <rdfs:label xml:lang="en">Semantic Constraint Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle costrizioni semantiche</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
