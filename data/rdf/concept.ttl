@@ -141,7 +141,7 @@ desmos:LiteraryFormScheme a skos:ConceptScheme ;
 
 desmos:ArtisticFormScheme a skos:ConceptScheme ;
     skos:prefLabel "Artistic form scheme"@en , "Schema delle forme artistiche"@it ;
-    skos:definition "A scheme defining the artistic form of a work (i.e. visual poetry and visual art)."@en , "Schema che definisce la forma artistica di un'opera (poesia visuale e arte visuale)."@it ;
+    skos:definition "A scheme defining the artistic form of a work (i.e. visual art and music)."@en , "Schema che definisce la forma artistica di un'opera (arte visuale e musica)."@it ;
     skos:hasTopConcept
         desmos:music ,
         desmos:visual_art .
