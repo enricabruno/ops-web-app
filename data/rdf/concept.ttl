@@ -40,6 +40,7 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:buried_word ,
         desmos:calligram ,
         desmos:cento ,
+        desmos:chained_rhyme ,
         desmos:classical_sonnet ,
         desmos:combinatorial_lottery ,
         desmos:crown_of_sonnets ,
@@ -557,6 +558,13 @@ desmos:cento a skos:Concept ;
         desmos:terminal_word_series ;
     skos:definition "Formal constraint consisting in composing a text by stitching together pre-existing lines or fragments from one or more sources/authors, with minimal alteration."@en , "Costrizione formale che consiste nel comporre un testo assemblando versi o frammenti preesistenti tratti da uno o più testi/autori, con interventi minimi."@it ;
     skos:example "I due versi, di Dante e di Petrarca, sono accostati perché condividono la rima in -ita."@it , "The two lines, by Dante and by Petrarch, are juxtaposed because they share the rhyme in -ita."@en ;
+    skos:inScheme desmos:FormalConstraintScheme .
+
+desmos:chained_rhyme a skos:Concept ;
+    skos:prefLabel "Chained rhyme"@en , "Rima incatenata"@it ;
+    skos:definition "Formal constraint requiring a rhyme pattern linking successive tercets, in which the middle line of each tercet rhymes with the first and third lines of the following one (ABA BCB CDC…), so that each stanza is chained to the next."@en , "Costrizione formale che impone uno schema rimico che collega terzine successive, in cui il verso centrale di ciascuna terzina rima con il primo e il terzo della terzina seguente (ABA BCB CDC…), così che ogni strofa risulti incatenata alla successiva."@it ;
+    skos:related desmos:tercet ;
+    skos:example "Placeholder example."@en , "Esempio segnaposto."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:classical_sonnet a skos:Concept ;

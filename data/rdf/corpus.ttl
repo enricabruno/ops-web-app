@@ -346,6 +346,11 @@ desmos:cento a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:line ;
 	desmos:involvesOperation desmos:extraction .
 
+desmos:chained_rhyme a desmos:FormalConstraint ;
+    desmos:constraintOrigin desmos:historical ;
+	desmos:constrainsFormalUnit desmos:syllable ,
+		desmos:line .
+
 desmos:classical_sonnet a desmos:FormalConstraint ;
     rdfs:label "Sonetto classico"@it , "Classical sonnet"@en ;
     desmos:constraintOrigin desmos:historical ;
@@ -1262,8 +1267,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_09> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il testo non solo rispetta rigidamente la [...] frequenza delle 'e' ma anche il loro posizionamento costante: nell'arco di tutto il testo dopo ogni 'e' ci sono infatti otto lettere e poi ancora una 'e' e così via in un più che regolare rimbalzo statistico."@it ;
-	crm:P129_is_about desmos:statistical_bound ,
-		desmos:statistical_bound_in_E ;
+	crm:P129_is_about desmos:statistical_bound_in_E ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_09> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/spinelli> .
 
@@ -1646,6 +1650,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_37> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il meccanismo ludolinguistico, in sé molto semplice, di questo testo è il seguente: l'uno (il sottoscritto) s'inventa una recensione per una poesia inesistente, l'altro (Cesare) compone una poesia proprio sulla base di quella recensione."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37> ;
+	crm:P129_is_about desmos:preventive_review ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> ,
 		<https://w3id.org/desmos/oplepiana/author/ciasullo> .
 
@@ -1689,7 +1694,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_40_sebregondi> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il Tanka è un’antica forma di poesia giapponese, da cui pure deriva il più noto Haiku. Altrove, il suo nome suona anche come un breve ‘Grazie’. [...] Ciascuno dei 6 Tanka celebra in successione una lettera della parola OPLEPO, formando così un 'macroacronimo'."@it ;
 	crm:P129_is_about desmos:tanka ,
-		desmos:acrostic ;
+		desmos:acronym ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_40_text_sebregondi> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1727,7 +1732,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_42> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Questa plaquette nasce dall'idea di scrivere un testo costruito sui numeri delle estrazioni del Lotto. [...] Ho pensato di usare l''Enciclopedia del Lotto' al contrario: invece che introdurre delle parole per ottenerne in risposta dei numeri, ho cercato nell''Enciclopedia' dei numeri per ottenerne di rimando delle parole che potessero formare un testo."@it ;
-	crm:P129_is_about desmos:heterolexical_writing ;
+	crm:P129_is_about desmos:combinatorial_lottery ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_42> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/narros> .
 
@@ -1767,20 +1772,26 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_46> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Il rebus è un gioco illustrato composto da una o più vignette, nelle quali alcuni soggetti (persone, animali, cose) sono contrassegnati da lettere, denominate grafemi, o piiù raramente da asterischi. Procedendo da sinistra verso destra e abbinando opportunamente i grafemi con gli elementi da essi indicati, o nel caso degli asterischi specificando tout court ciò che gli elementi marcati sono o fanno, si otterrà una frase ('prima lettura'), la quale, mantenendo le lettere nel medesimo ordine ma ripartendole diversamente, verrà convertita in un'altra frase, di senso compiuto ('seconda lettura'), corrispondente alla soluzione del rebus. Il doppio diagramma numerico indica la lunghezza delle parole costituenti le due letture."@it ;
-	crm:P129_is_about desmos:lipogram_A ,
-		desmos:tercet ,
-		desmos:hendecasyllable ,
-		desmos:enclosed_rhyme ;
+	crm:P129_is_about desmos:rebus ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_47> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Le 'Cartoline di città' (dove l'acronimo CAP viene reinterpretato in 'Codici di Avviamento Poetico') sono brevi poesie geografico-sintetiche derivate dai vari Codici di Avviamento Postale italiani (o esteri) di altrettante città. le lettere iniziali dei versi corrispondonon al numero che compone il CAP secondo la corrispondenza A=0 e 1 (due numeri attribuiti alla stessa lettera A per mantenere la sequenza alfabetica più intuitiva, dove B è la seconda lettera dell'alfabeto), quindi B=2, C=3, ecc. I testi sono composti di due quartine e un distico (con rima ABAB ABAB CC) che ripartiscono i 10 numeri dei due CAP nei qali ogni verso inizia con la lettera corrispondente alla sequenza dei deu CAP cittadini."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
+	crm:P129_is_about desmos:acronym ,
+		desmos:postal_code_acrostic ,
+		desmos:quatrain ,
+		desmos:distich ,
+		desmos:alternating_rhyme ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/pelliti> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_48> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "L'Inferno di Dante è stato interamente riscritto in forma di lipogramma in A, omettendo cioè sistematicamente quella vocale. [...] Aggiungiamo che il presente lipogramma rispetta la metrica (terzine di endecasillabi in rima incatenata) e si tiene il più possibile fedele al senso, se non alla lettera, del poema"@it ;
+	crm:P129_is_about desmos:lipogram_A ,
+		desmos:tercet ,
+		desmos:hendecasyllable ,
+		desmos:chained_rhyme ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/tonietto> .
 
@@ -1858,11 +1869,13 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Sulla base degli esercizi qui raccolti, ispirati a Kafka nel centenario della nascita [...], si potrà pur dire che esiste anche un Kafka dell'Oplepo, piccolo, sparuto gruppo di anomali sperimentatori che si diverte a esplorare i misteriori meandri del linguaggio."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> ;
+	crm:P129_is_about desmos:mandatory_dedication ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/albani> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_55_albani> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "In questo metagramma, gioco inventato da Lewis Carroll, dove si passa da una parola all'altra con un solo cambiamento di lettera e dove ogni parola mantiene sempre almeno una 'k', in omaggio alle due del cognome dello scrittore boemo, Franz Kafka si trasforma alla fine, non in un «parassita» o «insetto infestante», tipo scarafaggio, ma in una mosca, restando pur sempre nel regno degli animali, e forse, nella metamorfosi, guadagnandoci in leggerezza."@it ;
-	crm:P129_is_about desmos:metagram ;
+	crm:P129_is_about desmos:metagram ,
+		desmos:mandatory_dedication ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
@@ -1882,6 +1895,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "In questa plaquette, ricca di esperimenti giocosi e acrobazie di ludolinguistica, l'Oplpepo ha voluto omaggiare le Olimpiadi di Parigi 2024, ormai già conclusesi."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> ;
+	crm:P129_is_about desmos:mandatory_theme ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/babic> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56_aragona> a crm:E33_Linguistic_Object ;
@@ -3442,6 +3456,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
         desmos:typographic_constraints ,
         desmos:fixed_fictional_character ,
         desmos:fixed_fictional_setting ,
+		desmos:fixed_fictional_time ,
         desmos:mandatory_theme ,
         desmos:mandatory_genre ,
         desmos:fixed_title_length ;
@@ -3647,9 +3662,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28_text_weiss> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_weiss> ;
-	desmos:usedConstraint desmos:martellian_verse ,
-		desmos:prisoner_constraint ,
-		desmos:mandatory_theme ;
+	desmos:usedConstraint desmos:acrostic ,
+		desmos:tautogram ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/weiss> ;
 	dcterms:created "2008"^^xsd:gYear .
 
@@ -3767,7 +3781,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_32_text_spinelli> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_32_text_spinelli> ;
-	desmos:usedConstraint desmos:fixed_text_length ,
+	desmos:usedConstraint desmos:enumerating_text ,
+	desmos:fixed_text_length ,
 		desmos:mandatory_theme ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/spinelli> ;
 	dcterms:created "2011"^^xsd:gYear .
@@ -4064,7 +4079,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	desmos:usedConstraint desmos:lipogram_A ,
 		desmos:tercet ,
 		desmos:hendecasyllable ,
-		desmos:enclosed_rhyme ;
+		desmos:chained_rhyme ;
 	dcterms:created "2021"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_49> a lrmoo:F28_Expression_Creation ;
