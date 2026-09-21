@@ -11,7 +11,7 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:intro="https://w3id.org/lso/intro/beta202506#"
      xmlns:lrmoo="http://iflastandards.info/ns/lrm/lrmoo/"
-     xmlns:if="http://schema.org/"
+     xmlns:schema="http://schema.org/"
      xmlns:desmos="https://w3id.org/desmos/"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/desmos/">
@@ -34,7 +34,6 @@
         <dcterms:source rdf:resource="http://www.w3.org/ns/prov#"/>
         <dcterms:source rdf:resource="https://cidoc-crm.org/extensions/lrmoo/"/>
         <dcterms:source rdf:resource="https://schema.org/"/>
-        <dcterms:source rdf:resource="http://if/"/>
         <dcterms:source rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
         <dcterms:source rdf:resource="http://schema.org/"/>
         <owl:priorVersion rdf:resource="https://w3id.org/desmos/v1.1.0"/>
@@ -803,8 +802,8 @@
         <owl:inverseOf rdf:resource="https://w3id.org/desmos/revealsConstraint"/>
         <rdfs:domain rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
         <rdfs:range rdf:resource="https://w3id.org/desmos/TextualFeature"/>
-        <rdfs:comment xml:lang="en">Relates a literary constraint to the evidence (authorial declaration or textual feature) that makes it identifiable.</rdfs:comment>
-        <rdfs:comment xml:lang="it">Relaziona una costrizione letteraria all'evidenza (dichiarazione autoriale o caratteristica testuale) che ne permette l'identificazione.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a literary constraint to a textual feature that makes it identifiable.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Relaziona una costrizione letteraria ad una caratteristica testuale che ne permette l'identificazione.</rdfs:comment>
         <rdfs:label xml:lang="en">is revealed by</rdfs:label>
         <rdfs:label xml:lang="it">è rivelata da</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
@@ -815,8 +814,8 @@
     <owl:ObjectProperty rdf:about="https://w3id.org/desmos/revealsConstraint">
         <rdfs:domain rdf:resource="https://w3id.org/desmos/TextualFeature"/>
         <rdfs:range rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
-        <rdfs:comment xml:lang="it">Collega un'evidenza (dichiarazione autoriale o caratteristica testuale) alla costrizione letteraria che essa rende identificabile.</rdfs:comment>
-        <rdfs:comment xml:lang="en">Relates evidence (intratextual or paratextual) to the LiteraryConstraint it makes identifiable.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Collega una caratteristica testuale alla costrizione letteraria che essa rende identificabile.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a textual feature to the LiteraryConstraint it makes identifiable.</rdfs:comment>
         <rdfs:label xml:lang="en">reveals constraint</rdfs:label>
         <rdfs:label xml:lang="it">rivela costrizione</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
@@ -1400,7 +1399,7 @@
     <owl:NamedIndividual rdf:about="https://w3id.org/desmos/FormalUnitScheme">
         <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
         <rdfs:comment xml:lang="en">Concept scheme defining the discrete units of the writing system (e.g., letter, syllable, word) on which a formal constraint operates. Expected as the range value of desmos:constrainsFormalUnit.</rdfs:comment>
-        <rdfs:comment xml:lang="it">Schema concettuale che definisce le unità discrete del sistema di scrittura (lettera, sillaba, parola) su cui opera una costrizione di tipo formale. Atteso come valore del range di desmos:constrainsFormalUnit.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Schema concettuale che definisce le unità discrete del sistema di scrittura (ad esempio lettera, sillaba, parola) su cui opera una costrizione di tipo formale. Atteso come valore del range di desmos:constrainsFormalUnit.</rdfs:comment>
         <rdfs:label xml:lang="en">Formal Unit Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle unità formali</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
