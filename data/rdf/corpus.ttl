@@ -1159,7 +1159,7 @@ desmos:value_inversion a desmos:SemanticConstraint ;
     desmos:constrainsSemanticUnit desmos:theme ;
     desmos:involvesOperation desmos:substitution .
 
-desmos:visual_anaphora a desmos:FormalConstraint ;
+desmos:visual_anaphora a desmos:VisualConstraint ;
 	rdfs:label "Anafora visiva"@it , "Visual anaphora"@en ;
 	desmos:constraintOrigin desmos:original ;      
 	desmos:constrainsFormalUnit desmos:image ;       

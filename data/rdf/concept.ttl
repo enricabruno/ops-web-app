@@ -36,9 +36,7 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:anagraphy ,
         desmos:antonymic_rewriting ,
         desmos:bisenso ,
-        desmos:boule_de_neige ,
         desmos:buried_word ,
-        desmos:calligram ,
         desmos:cento ,
         desmos:chained_rhyme ,
         desmos:classical_sonnet ,
@@ -51,9 +49,7 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:enclosed_rhyme ,
         desmos:enigmatic_transformation_chain ,
         desmos:enumerating_text ,
-        desmos:figure_bounded_text ,
         desmos:figure_derived_count ,
-        desmos:figured_alphabet ,
         desmos:fixed_text_length ,
         desmos:fixed_title_length ,
         desmos:fragmentation ,
@@ -113,10 +109,20 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:triple_letter_cluster ,
         desmos:truncated_rhyme ,
         desmos:typographic_constraints ,
-        desmos:visual_anaphora ,
         desmos:vowel_alternation ,
         desmos:vowel_slide ,
         desmos:word_length_oscillation .
+
+    desmos:VisualConstraintScheme a skos:ConceptScheme ;
+    skos:prefLabel "Visual constraint scheme"@en , "Schema delle costrizioni visive"@it ;
+    skos:definition "A scheme defining the visual constraints, namely those constraints that intervene primarily on the visual arrangement of elements in space."@en , "Schema che definisce le costrizioni visive, ovvero quelle costrizioni che intervengono primariamente sulla disposizione visiva degli elementi nello spazio."@it ;
+    skos:hasTopConcept
+        desmos:calligram ,
+        desmos:boule_de_neige ,
+        desmos:figure_bounded_text ,
+        desmos:figured_alphabet ,
+        desmos:page_format ,
+        desmos:visual_anaphora .
 
 desmos:SemanticConstraintScheme a skos:ConceptScheme ;
     skos:prefLabel "Semantic constraint scheme"@en , "Schema delle costrizioni semantiche"@it ;
@@ -160,18 +166,6 @@ desmos:FormalUnitScheme a skos:ConceptScheme ;
         desmos:syllable ,
         desmos:typography ,
         desmos:word .
-
-desmos:VisualConstraintScheme a skos:ConceptScheme ;
-    skos:prefLabel "Visual constraint scheme"@en , "Schema delle costrizioni visive"@it ;
-    skos:definition "A scheme defining the visual constraints, namely those constraints that intervene primarily on the visual arrangement of elements in space."@en , "Schema che definisce le costrizioni visive, ovvero quelle costrizioni che intervengono primariamente sulla disposizione visiva degli elementi nello spazio."@it ;
-    skos:hasTopConcept
-        desmos:calligram ,
-        desmos:figure_bounded_text ,
-        desmos:figure_derived_count ,
-        desmos:figured_alphabet ,
-        desmos:page_format ,
-        desmos:typographic_constraints ,
-        desmos:visual_anaphora .
 
 desmos:SemanticUnitScheme a skos:ConceptScheme ;
     skos:prefLabel "Semantic unit scheme"@en , "Schema delle unità semantiche"@it ;
@@ -431,7 +425,7 @@ desmos:alliteration a skos:Concept ;
         desmos:paronomasia ,
         desmos:triple_letter_cluster ,
         desmos:visual_anaphora ;
-    skos:definition "Formal constraint requiring the repetition of one or more consonantal or vocalic phonemes in the initial or stressed position of phonetically proximate words within a text or section."@en , "Costrizione formale che impone la ripetizione di uno o più fonemi consonantici o vocalici in posizione iniziale o accentuata di parole foneticamente prossime all'interno di un testo o di una sezione."@it ;
+    skos:definition "Visual constraint requiring the repetition of one or more consonantal or vocalic phonemes in the initial or stressed position of phonetically proximate words within a text or section."@en , "Costrizione formale che impone la ripetizione di uno o più fonemi consonantici o vocalici in posizione iniziale o accentuata di parole foneticamente prossime all'interno di un testo o di una sezione."@it ;
     skos:example "Ciascuno dei sei componimenti della serie fa risuonare per allitterazione la lettera del proprio titolo, secondo l'acronimo OPLEPO: qui la /l/, in posizione iniziale o accentuata."@it , "Each of the six poems in the series makes the letter of its own title resound through alliteration, following the acronym OPLEPO: here /l/, in initial or stressed position."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -471,7 +465,7 @@ desmos:anagram a skos:Concept ;
 desmos:anagraphy a skos:Concept ;
     skos:prefLabel "Anagraphy"@en , "Anagrafia"@it ;
     skos:definition "Formal constraint consisting in reconstructing a given text by reusing the exact same words and punctuation marks, but rearranged in a different order to create a new meaning."@en , "Costrizione formale che consiste nel ricomporre un testo preesistente riutilizzandone integralmente le parole e i segni di interpunzione, ma disponendoli in un ordine differente per generare un nuovo significato."@it ;
-    skos:historyNote "The term 'anagraphy' was coined by Salvatore Chierchia in 'L'isola teletrasportata' (1995), 'La Biblioteca Oplepiana' n. 11."@en , "Il termine 'anagrafia' è stato coniato da Salvatore Chierchia in 'L'isola teletrasportata' (1995), 'La Biblioteca Oplepiana' n. 11."@it ;
+    skos:historyNote "The term 'anagraphy' was coined by Salvatore Chierchia in 'L'isola teletrasportata' (1996), 'La Biblioteca Oplepiana' n. 11."@en , "Il termine 'anagrafia' è stato coniato da Salvatore Chierchia in 'L'isola teletrasportata' (1996), 'La Biblioteca Oplepiana' n. 11."@it ;
     skos:example "Le stesse parole e i medesimi segni d'interpunzione del passo di Eco, ricomposti in ordine differente; la plaquette raccoglie oltre venti riscritture parallele del medesimo inventario lessicale."@it , "The same words and the same punctuation marks as Eco's passage, recomposed in a different order; the plaquette collects more than twenty parallel rewritings of the same lexical inventory."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -520,11 +514,11 @@ desmos:bisyllabic_text a skos:Concept ;
 
 desmos:boule_de_neige a skos:Concept ;
     skos:prefLabel "Snowball"@en , "Boule de neige"@fr , "Boule de neige"@it ;
-    skos:definition "Formal constraint in which each successive line consists of a single word one letter longer than the word in the previous line: the first line has a one-letter word, the second a two-letter word, and so on."@en , "Costrizione formale in cui ogni verso è composto da una singola parola, la cui lunghezza aumenta di una lettera ad ogni verso: il primo verso ha una parola di una lettera, il secondo di due lettere, e così via."@it ;
+    skos:definition "Visual constraint in which each successive line consists of a single word one letter longer than the word in the previous line: the first line has a one-letter word, the second a two-letter word, and so on."@en , "Costrizione visiva in cui ogni verso è composto da una singola parola, la cui lunghezza aumenta di una lettera ad ogni verso: il primo verso ha una parola di una lettera, il secondo di due lettere, e così via."@it ;
     skos:historyNote "Constraint invented by the Oulipians."@en , "Costrizione inventata dagli oulipiani."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/boule-de-neige> ;
     skos:example "Ogni verso è formato da una sola parola, la cui lunghezza cresce di una lettera per volta senza salti; la lettura consecutiva restituisce una dedica."@it , "Each line consists of a single word whose length grows by one letter at a time without gaps; read consecutively, the lines yield a dedication."@en ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:brivadois_acrostiche a skos:Concept ;
     skos:prefLabel "Acrostic brivadois"@en , "Acrostiche brivadois"@fr , "Acrostico brivadois"@it ;
@@ -547,10 +541,10 @@ desmos:buried_word a skos:Concept ;
 desmos:calligram a skos:Concept ;
     skos:prefLabel "Calligram"@en , "Calligramme"@fr , "Calligramma"@it ;
     skos:related desmos:figure_bounded_text ;
-    skos:definition "Formal constraint in which the typographic arrangement of the text on the page forms a visual figure (an image) representing or evoking the subject of the text, so that layout and meaning coincide."@en , "Costrizione formale in cui la disposizione tipografica del testo sulla pagina forma una figura visiva (un'immagine) che rappresenta o evoca il soggetto del testo, facendo coincidere impaginazione e significato."@it ;
+    skos:definition "Visual constraint in which the typographic arrangement of the text on the page forms a visual figure (an image) representing or evoking the subject of the text, so that layout and meaning coincide."@en , "Costrizione visiva in cui la disposizione tipografica del testo sulla pagina forma una figura visiva (un'immagine) che rappresenta o evoca il soggetto del testo, facendo coincidere impaginazione e significato."@it ;
     skos:historyNote "The term was coined by Guillaume Apollinaire (Calligrammes, 1918); the practice descends from the ancient figured poems (technopaegnia)."@en , "Il termine è stato coniato da Guillaume Apollinaire (Calligrammes, 1918); la pratica discende dai carmi figurati antichi (technopaegnia)."@it ;
     skos:example "Il testo è disposto secondo il profilo della Torre Eiffel."@it , "The text is laid out along the outline of the Eiffel Tower."@en ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:cento a skos:Concept ;
     skos:prefLabel "Cento"@en , "Centone"@it ;
@@ -773,15 +767,15 @@ desmos:fixed_fictional_time a skos:Concept ;
 
 desmos:figured_alphabet a skos:Concept ;
     skos:prefLabel "Figured Alphabet"@en , "Alfabeto raffigurato"@it ;
-    skos:definition "Formal constraint consisting of the composition of a text within a literary grid, understood as a defined geometric space, where the arrangement of letters is designed to visually reproduce the shape of the letter itself, effectively turning the script into a figurative geometry."@en , "Costrizione formale che consiste nel comporre un testo all'interno di una griglia letteraria intesa come spazio geometrico delimitato, dove la disposizione delle lettere è finalizzata a riprodurre visivamente il disegno della lettera stessa."@it ;
+    skos:definition "Visual constraint consisting of the composition of a text within a literary grid, understood as a defined geometric space, where the arrangement of letters is designed to visually reproduce the shape of the letter itself, effectively turning the script into a figurative geometry."@en , "Costrizione visiva che consiste nel comporre un testo all'interno di una griglia letteraria intesa come spazio geometrico delimitato, dove la disposizione delle lettere è finalizzata a riprodurre visivamente il disegno della lettera stessa."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:figure_bounded_text a skos:Concept ;
     skos:prefLabel "Figure-bounded text"@en , "Testo perimetrato in figura"@it ;
-    skos:definition "Formal constraint in which the written text must be wholly contained within the outline of a pre-existing drawn figure: the figure is autonomous from the text, so that the layout is bounded by, but does not itself constitute, the depicted image."@en , "Costrizione formale in cui il testo deve essere interamente contenuto entro il profilo di una figura disegnata preesistente e autonoma rispetto al testo: l'impaginazione è delimitata dall'immagine ma non la costituisce."@it ;
+    skos:definition "Visual constraint in which the written text must be wholly contained within the outline of a pre-existing drawn figure: the figure is autonomous from the text, so that the layout is bounded by, but does not itself constitute, the depicted image."@en , "Costrizione visiva in cui il testo deve essere interamente contenuto entro il profilo di una figura disegnata preesistente e autonoma rispetto al testo: l'impaginazione è delimitata dall'immagine ma non la costituisce."@it ;
     skos:related desmos:calligram ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:figure_derived_count a skos:Concept ;
     skos:prefLabel "Figure-derived count"@en , "Numero ricavato dalla figura"@it ;
@@ -1614,10 +1608,10 @@ desmos:value_inversion a skos:Concept ;
 desmos:visual_anaphora a skos:Concept ;
     skos:prefLabel "Visual anaphora"@en , "Anafora visiva"@it ;
     skos:related desmos:alliteration ;
-    skos:definition "Formal constraint that transposes the rhetorical figure of anaphora onto the visual plane: a recurring image or visual element is repeated across the work as the iconic counterpart of textual anaphoric repetition."@en , "Costrizione formale che traspone la figura retorica dell'anafora sul piano visivo: un'immagine o un elemento visivo ricorrente è ripetuto lungo l'opera come corrispettivo iconico della ripetizione anaforica testuale."@it ;
+    skos:definition "Visual constraint that transposes the rhetorical figure of anaphora onto the visual plane: a recurring image or visual element is repeated across the work as the iconic counterpart of textual anaphoric repetition."@en , "Costrizione visiva che traspone la figura retorica dell'anafora sul piano visivo: un'immagine o un elemento visivo ricorrente è ripetuto lungo l'opera come corrispettivo iconico della ripetizione anaforica testuale."@it ;
     skos:historyNote "The constraint was coined by Paolo Albani as «una sorta di anafora visiva»; the repetition admits a single licensed exception (clinamen)."@en , "La costrizione è stata coniata da Paolo Albani come «una sorta di anafora visiva»; la ripetizione ammette un'unica eccezione regolata (clinamen)."@it ;
     skos:example "Esempio segnaposto."@it ,"Placeholder example."@en ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:vowel_alternation a skos:Concept ;
     skos:prefLabel "Vowel alternation"@en , "Alternanza vocalica"@it ;
