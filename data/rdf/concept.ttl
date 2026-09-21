@@ -242,45 +242,45 @@ desmos:letter a skos:Concept ;
     skos:prefLabel "Letter"@en , "Lettera"@it ;
     skos:definition "A formal unit that constitutes the smallest unit of writing."@en , "Unità formale che costituisce l'unità minima della scrittura."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q9788> ;
-    desmos:isLowerOrderUnitThan desmos:syllable ;
+    desmos:finerThan desmos:syllable ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:syllable a skos:Concept ;
     skos:prefLabel "Syllable"@en , "Sillaba"@it ;
     skos:definition "A formal unit consisting of a core sound, usually a vowel, pronounced with a single breath."@en , "Unità formale di tipo fonetico che si raggruppa attorno a un nucleo di sonorità, solitamente una vocale, pronunciata con un'unica emissione di fiato."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q8188> ;
-    desmos:isLowerOrderUnitThan desmos:word ;
-    desmos:isHigherOrderUnitThan desmos:letter ;
+    desmos:finerThan desmos:word ;
+    desmos:coarserThan desmos:letter ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:word a skos:Concept ;
     skos:prefLabel "Word"@en , "Parola"@it ;
     skos:definition "A formal unit endowed with morphosemantic cohesion, understood as a sequence of characters delimited by spaces or punctuation within the textual string."@en , "Unità formale dotata di coesione morfosemantica, intesa come sequenza di caratteri delimitata da spazi o punteggiatura nella catena testuale."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q8171> ;
-    desmos:isLowerOrderUnitThan desmos:line ;
-    desmos:isHigherOrderUnitThan desmos:syllable ;
+    desmos:finerThan desmos:line ;
+    desmos:coarserThan desmos:syllable ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:line a skos:Concept ;
     skos:prefLabel "Line"@en , "Riga"@it ;
     skos:definition "A formal unit organizing the succession of words into a sequence bounded by two points."@en , "Unità formale che organizza la successione delle parole in una sequenza delimitata da due punti."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q166154> ;
-    desmos:isLowerOrderUnitThan desmos:paragraph ,
+    desmos:finerThan desmos:paragraph ,
         desmos:stanza ;
-    desmos:isHigherOrderUnitThan desmos:word ;
+    desmos:coarserThan desmos:word ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:paragraph a skos:Concept ;
     skos:prefLabel "Paragraph"@en , "Paragrafo"@it ;
     skos:definition "A formal unit comprising one or more sentences delimited by typographic breaks, functioning as the primary compositional segment in prose texts."@en , "Unità formale composta da una o più frasi delimitate da interruzioni tipografiche, che costituisce il segmento compositivo primario nei testi in prosa."@it ;
-    desmos:isHigherOrderUnitThan desmos:line ;
+    desmos:coarserThan desmos:line ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:stanza a skos:Concept ;
     skos:prefLabel "Stanza"@en , "Strofa"@it ;
     skos:definition "A formal unit consisting of a set of verses organized according to a shared metrical or rhyming pattern."@en , "Unità formale costituita da un insieme di versi organizzati secondo uno schema metrico o rimico condiviso."@it ;
     skos:exactMatch <https://www.wikidata.org/wiki/Q1756348> ;
-    desmos:isHigherOrderUnitThan desmos:line ;
+    desmos:coarserThan desmos:line ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:page a skos:Concept ;
