@@ -417,6 +417,7 @@
     <!-- http://iflastandards.info/ns/lrm/lrmoo/R76_is_derivative_of -->
 
     <owl:ObjectProperty rdf:about="http://iflastandards.info/ns/lrm/lrmoo/R76_is_derivative_of">
+        <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P130_shows_features_of"/>
         <owl:inverseOf rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/R76i_has_derivative"/>
         <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
         <rdfs:range rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F2_Expression"/>
@@ -462,6 +463,27 @@
         <rdfs:isDefinedBy rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
     </owl:ObjectProperty>
     
+    <!-- http://www.cidoc-crm.org/cidoc-crm/P130_shows_features_of -->
+
+    <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P130_shows_features_of">
+        <owl:inverseOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P130i_features_are_also_found_on"/>
+        <rdfs:comment xml:lang="it">In DeSMòS, P130 shows features of è utilizzata tra espressioni per documentare un legame più blando di R76 is derivative of: l'espressione presenta tratti di una fonte (lessicali, onomastici, fraseologici o, per fonti non testuali, di andamento) senza derivarne il contenuto e senza che si instauri una relazione intertestuale INTRO (es. un componimento costruito con i nomi di un repertorio onomastico o modellato sulle indicazioni di movimento e sulla durata di brani musicali).</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, P130 shows features of is used between expressions to document a looser link than R76 is derivative of: the expression shows features of a source (lexical, onomastic, phraseological or, for non-textual sources, of tempo and pacing) without deriving its content and without establishing an INTRO intertextual relation (e.g., a poem built from the names in an onomastic repertory or modelled on the tempo markings and duration of musical pieces).</rdfs:comment>
+        <rdfs:label xml:lang="it">P130 presenta caratteristiche di</rdfs:label>
+        <rdfs:label xml:lang="en">P130 shows features of</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
+    </owl:ObjectProperty>
+
+    <!-- http://www.cidoc-crm.org/cidoc-crm/P130i_features_are_also_found_on -->
+
+    <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P130i_features_are_also_found_on">
+        <rdfs:comment xml:lang="it">In DeSMòS, P130i features are also found on collega un'espressione assunta come fonte (es. un repertorio onomastico o fraseologico, un'opera musicale) alle espressioni che ne presentano dei tratti senza derivarne il contenuto; è l'inversa di P130 shows features of.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, P130i features are also found on relates an expression used as a source (e.g., an onomastic or phraseological repertory, a musical work) to the expressions that show some of its features without deriving its content; it is the inverse of P130 shows features of.</rdfs:comment>
+        <rdfs:label xml:lang="it">P130i caratteristiche si ritrovano anche in</rdfs:label>
+        <rdfs:label xml:lang="en">P130i features are also found on</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
+    </owl:ObjectProperty>
+
     <!-- http://www.cidoc-crm.org/cidoc-crm/P148_has_component -->
 
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P148_has_component">

@@ -1929,8 +1929,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_03> a lrmoo:F2_Expression ;
 	dcterms:title "Canto tenero"^^xsd:string ;
+	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_miti> ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_03> ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_miti> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p1-1> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_03> .
@@ -1981,8 +1981,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_10> a lrmoo:F2_Expression ;
 	dcterms:title "Sestine per modo di dire"^^xsd:string ;
+	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_diz_modi> ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_10> ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_diz_modi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p8> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_10> .
@@ -2423,7 +2423,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> a lrmoo:F2_Expression ;
 	dcterms:title "I costretti sposi"^^xsd:string ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
+	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p40> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_36> .
