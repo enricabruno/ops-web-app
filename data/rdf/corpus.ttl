@@ -2148,7 +2148,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_24> a lrmoo:F2_Expression ;
 	dcterms:title "Preludi. Tempo obbligato"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_24> ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
+	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p25> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_24> .
@@ -2598,7 +2598,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_48> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p50-1> ;
 	crm:P2_has_type desmos:poetry ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_48> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_49> a lrmoo:F2_Expression ;
@@ -2769,7 +2769,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> a lrmoo:F2_Expression ;
 	dcterms:title "Commedia"^^xsd:string ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_commedia> .
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_commedia> ;
+	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_text_inferno> a lrmoo:F2_Expression ;
+	dcterms:title "Inferno"^^xsd:string ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_inferno> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> a lrmoo:F2_Expression ;
 	dcterms:title "Canzoniere"^^xsd:string ;
@@ -3219,6 +3224,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Commedia"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_text_inferno> a lrmoo:F3_Manifestation ;
+	dcterms:title "Inferno"^^xsd:string ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
+	owl:sameAs <http://id.sbn.it/bid/UBO2333486> .
+
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_canzoniere> a lrmoo:F3_Manifestation ;
 	dcterms:title "Canzoniere"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> ;
@@ -3260,20 +3270,148 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> .
 
 ### Hypertextuality ###
-<https://w3id.org/desmos/oplepiana/hypertextuality/hypertext_04> a intro:INT31_IntertextualRelation ;                                       
-    intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;     
-    intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_02> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_02> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
 	intro:R19_hasType desmos:hypertextuality .
 
-### Hypotext ###
-<https://w3id.org/desmos/oplepiana/passage/hypotext_text_isola> a intro:INT21_TextPassage ;
-    intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;           
-    intro:R44_hasWording "Eppure m'inorgoglisco della mia umiliazione , e poiché a tal privilegio son condannato , quasi godo d' un'aborrita salvezza : sono , credo , a memoria d' uomo , l'unico essere della nostra specie ad aver fatto naufragio su una nave deserta ."^^xsd:string .
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_05_canzoniere> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_05> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_05_commedia> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_05> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_11> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_15> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_15> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_18> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_18> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_21> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_28> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_29> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_48> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
+	intro:R19_hasType desmos:hypertextuality .
+
+<https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_50> a intro:INT31_IntertextualRelation ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
+	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
+	intro:R19_hasType desmos:hypertextuality .
 
 ### Hypertext ###
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_02_r97-98> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_02> ;
+	intro:R44_hasWording "provenienti da un nascondiglio scavato in una delle muraglie di Santa / Sofia. La lista degli oggetti in questione ci è nota per via di una lettera"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_05_I> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_05> ;
+	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / L'ultimo dì, ch'è primo a l'altra vita."^^xsd:string .
+
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_11> a intro:INT21_TextPassage ;
-    intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
-    intro:R44_hasWording "Un'aborrita memoria della nostra , della mia deserta umiliazione , e una specie di credo sono quasi nave di salvezza : poiché godo ad aver l'unico privilegio d' esser uomo , su , m'inorgoglisco a tal fatto , eppure son condannato a naufragio ."^^xsd:string .
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_11> ;
+	intro:R44_hasWording "Un'aborrita memoria della nostra , della mia deserta umiliazione , e una specie di credo sono quasi nave di salvezza : poiché godo ad aver l'unico privilegio d' esser uomo , su , m'inorgoglisco a tal fatto , eppure son condannato a naufragio ."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_15_monosillabi_001-009> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_15> ;
+	intro:R44_hasWording "Mi fu nel cuor / ad or ad or / quel mio bel col / che sta da sol, / e che, con quel / che qui vien su / dal suol, al ciel / là giù là giù / mi fa da vel."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_18_001-003> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_18> ;
+	intro:R44_hasWording "E, come l'uom che di trottare è lasso, / poi fummo fatti soli procedendo / di corno in corno e tra la cima e 'l basso."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_21_incipit> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> ;
+	intro:R44_hasWording "Due scrittori in riva al mare, giocavano con la sabbia e il secchiello. C'era seduto un terzo scrittore nei pressi che scavava con una paletta, e, come assorto, un quarto stava nell'acqua immerso fino ai ginocchi, contemplando le increspature del mare. Tra la sabbia, un quinto scrittore succhiava un gelato. \"Ora di scrivere!\", gridava a quel punto l'assistente sociale che andava suonando una campanella. Al che gli scrittori si alzavano allegri e festosi. Alcuni che erano in mare con il salvagente tornavano a riva, e così pure chi tra gli scogli guardava le alghe. \"Avete fatto le osservazioni?\", chiedeva l'assistente sociale. \"Sì\", rispondevano gli scrittori in coro. Poi entravano dentro la casa. \"I vestiti!\" - diceva l'assistente sociale, - non si scrive senza i vestiti\"."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_28_aragona_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> ;
+	intro:R44_hasWording "Placeholder"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_29_sanguineti_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
+	intro:R44_hasWording "Placeholder"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_48_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> ;
+	intro:R44_hasWording "Nel mezzo giusto dell’esister nostro / Mi colsi perso dentr’un bosco oscuro, / ché il diritto sentier più non fu mostro."^^xsd:string .
+
+
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_50_sebregondi_v01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50_text_sebregondi> ;
+	intro:R44_hasWording "la cultura è un garage dove ci si assorda"^^xsd:string .
+
+### Hypotext ###
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_02_text_istruzioni_p099_r26-27> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
+	intro:R44_hasWording "provenienti da un nascondiglio scavato in una delle muraglie di Santa / Sofia. La lista degli oggetti in questione ci è nota per via di una lettera"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_05_text_commedia_inf_01_001-003> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / mi ritrovai per una selva oscura, / ché la diritta via era smarrita."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_05_text_canzoniere_278_005-008> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> ;
+	intro:R44_hasWording "et viva et bella et nuda al ciel salita: / indi mi signoreggia, indi mi sforza. / Deh perché me del mio mortal non scorza / l'ultimo dí, ch'è primo a l'altra vita?"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_11_text_isola> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
+	intro:R44_hasWording "Eppure m'inorgoglisco della mia umiliazione , e poiché a tal privilegio son condannato , quasi godo d' un'aborrita salvezza : sono , credo , a memoria d' uomo , l'unico essere della nostra specie ad aver fatto naufragio su una nave deserta ."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_15_text_infinito_001-003> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> ;
+	intro:R44_hasWording "Sempre caro mi fu quest'ermo colle, / e questa siepe, che da tanta parte / dell'ultimo orizzonte il guardo esclude."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_18_text_commedia_purg_24_070-072> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	intro:R44_hasWording "E come l'uom che di trottare è lasso, / lascia andar li compagni, e sì passeggia / fin che si sfoghi l'affollar del casso,"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_21_text_promessi_sposi_incipit> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
+	intro:R44_hasWording "Quel ramo del lago di Como, che volge a mezzogiorno, tra due catene non interrotte di monti, tutto a seni e a golfi, a seconda dello sporgere e del rientrare di quelli, vien, quasi a un tratto, a ristringersi, e a prender corso e figura di fiume, tra un promontorio a destra, e un'ampia costiera dall'altra parte; e il ponte, che ivi congiunge le due rive, par che renda ancor più sensibile all'occhio questa trasformazione, e segni il punto in cui il lago cessa, e l'Adda ricomincia, per ripigliar poi nome di lago dove le rive, allontanandosi di nuovo, lascian l'acqua distendersi e rallentarsi in nuovi golfi e in nuovi seni."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_28_text_lovesong_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> ;
+	intro:R44_hasWording "Placeholder"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_29_text_artusi_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> ;
+	intro:R44_hasWording "Placeholder"^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_48_text_inferno_01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
+	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / mi ritrovai per una selva oscura, / ché la diritta via era smarrita."^^xsd:string .
+
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_50_text_correspondances_v01> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
+	intro:R44_hasWording "La Nature est un temple où de vivants piliers"^^xsd:string .
 
 ### Expression Creation ###
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_istruzioni> a lrmoo:F28_Expression_Creation ;
@@ -3288,6 +3426,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_commedia> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/alighieri> ;
+	dcterms:created "1304"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_inferno> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/alighieri> ;
 	dcterms:created "1304"^^xsd:gYear .
 
@@ -4636,6 +4779,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Commedia"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
 	rdfs:seeAlso <https://www.wikidata.org/wiki/Q40185> .
+
+<https://w3id.org/desmos/oplepiana/work/w_text_inferno> a lrmoo:F1_Work ;
+	dcterms:title "Inferno"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_canzoniere> a lrmoo:F1_Work ;
 	dcterms:title "Canzoniere"^^xsd:string ;
