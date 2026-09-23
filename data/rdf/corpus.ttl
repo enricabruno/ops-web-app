@@ -3077,7 +3077,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Plaquette N. 36"@it ;
 	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_2> ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> ;
-	schema:pagination "477-535"^^xsd:string .
+	schema:pagination "471-535"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_37> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 37"@it ;
