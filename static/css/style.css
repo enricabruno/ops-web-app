@@ -8,10 +8,6 @@
     --color-surface: #faf9f7;
     --color-text:    #011c21;
     --color-border:  #dee2e6;
-    /* Doppia dichiarazione voluta: la prima fa da fallback per browser
-       senza color-mix. Non --color-muted (#6c757d, grigio freddo estraneo
-       alla palette): questo è --color-text schiarito sul fondo, stessa
-       famiglia cromatica del titolo. */
     --color-text-soft: #3c4f54;
     --color-text-soft: color-mix(in srgb, var(--color-text) 74%, var(--color-bg));
     --color-formali:    #0089b6;
@@ -1898,9 +1894,6 @@ tbody tr:last-child td { border-bottom: none; }
     column-fill: balance;
 }
 
-/* Varianti denominative (skos:altLabel): non più sotto il titolo, ma in
-   fondo alla pagina - dato reale del vocabolario, non soppresso, solo
-   spostato fuori dalla lettura primaria. */
 .matrix-head__variants {
     margin-top: 40px;
     text-align: center;
@@ -1909,20 +1902,7 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--color-text-soft);
 }
 
-/* ===== Barra della legenda, in overlay verso l'ALTO =====
-   Sostituisce .matrix-legend-flyout (popover assoluto sovrapposto al
-   grafico, che copriva le ultime colonne della matrice al caricamento) e
-   il pannello in flusso che l'aveva rimpiazzato in un secondo tempo
-   (spingeva giù .matrix-screen a ogni apertura, imponendo un ricalcolo di
-   cellH). Il pannello ora esce dal flusso e si apre VERSO L'ALTO
-   (position:absolute; bottom:100%, vedi sotto), coprendo
-   titolo/occorrenze/definizione - testo statico che il lettore ha già
-   percorso - MAI la matrice: non invertire questo verso in nessuna
-   circostanza, è la stessa ragione per cui il vecchio flyout è stato
-   rimosso. Niente filetti né padding verticale sul TOGGLE: incoerenti con
-   lo sfondo bianco senza griglie scelto in un intervento precedente, e il
-   bottone "Legenda" non ha bisogno di una fascia propria per essere
-   riconoscibile. */
+/* ===== Barra della legenda, in overlay verso l'ALTO ===== */
 .matrix-legend-bar {
     display: flex;
     flex-wrap: wrap;
@@ -1946,18 +1926,6 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-legend-bar__toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 .matrix-legend-bar__toggle .chevron { font-size: 0.65rem; color: var(--color-accent); transition: transform 0.15s ease; }
 .matrix-legend-bar__toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-
-/* Fuori dal flusso (position:absolute), ancorato al bordo INFERIORE del
-   proprio contenitore ma con bottom:100%: si apre verso l'alto invece che
-   verso il basso. left:0/right:0 lo stira alla larghezza di
-   .matrix-legend-bar (position:relative), che è quella di .explain-page__head
-   - da qui la centratura sull'SVG (gronde simmetriche, vedi .matrix-layout)
-   arriva gratis. Sfondo opaco (--color-surface) e bordo/ombra coerenti con
-   .matrix-drawer__panel, l'altro pannello della pagina: senza sfondo
-   opaco il testo della testata sottostante (che il pannello copre)
-   traspare. max-height è un tetto CALCOLATO a runtime (--legend-max-h,
-   syncMaxHeight in constraint_matrix.js), non stimato: 60vh è solo il
-   fallback prima che il JS giri. */
 .matrix-legend-bar__panel {
     position: absolute;
     bottom: 100%;
@@ -1975,12 +1943,6 @@ tbody tr:last-child td { border-bottom: none; }
     margin-bottom: 0.5rem;
 }
 
-/* Tre colonne a larghezza di CONTENUTO, non più auto auto 1fr: quel 1fr
-   sulla terza colonna stirava la griglia a piena larghezza e la
-   allineava a sinistra, mentre il toggle sopra è centrato.
-   justify-content:center centra l'intero blocco invece - il caso "la
-   terza colonna andrebbe a capo su schermi medi" resta coperto dalla
-   media query a 1100px sotto, non dal vecchio 1fr. */
 .matrix-legend-bar__groups {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -2023,16 +1985,11 @@ tbody tr:last-child td { border-bottom: none; }
 }
 .matrix-legend-item__swatch svg { display: block; }
 
-/* Gruppo 3 (numero di costrizioni): ogni campione ha larghezza propria
-   (lato + luce fissa + diametro, vedi buildLegend in constraint_matrix.js),
-   altezza uniforme così i cinque campioni restano centrati sulla stessa
-   mediana nonostante le larghezze diverse. */
+/* Gruppo 3 (numero di costrizioni) */
 .matrix-legend-item--size { gap: 0.55rem; }
 .matrix-legend-item--size .matrix-legend-item__swatch { height: 30px; }
 
-/* "Come leggere la visualizzazione": si sposta qui dal vecchio flyout,
-   invariato nel contenuto - centrato nel pannello, in asse con "Legenda"
-   nel toggle sopra (anch'esso centrato, vedi .matrix-legend-bar). */
+/* "Come leggere la visualizzazione" */
 .matrix-legend-bar__panel .matrix-screen__howto {
     margin: 0.6rem auto 0;
     padding-top: 0;
@@ -2053,11 +2010,6 @@ tbody tr:last-child td { border-bottom: none; }
     .matrix-head { grid-template-columns: 1fr; row-gap: 1.5rem; }
     .matrix-legend-bar__groups { grid-template-columns: auto; justify-items: center; }
     .matrix-legend-group--size { grid-column: auto; }
-
-    /* La testata si impila qui sotto (.matrix-head a 1fr, sopra) e la
-       legenda passa a colonna singola: il pannello diventa più alto e lo
-       spazio sopra il toggle non basta più per un overlay verso l'alto -
-       torna in flusso, sotto il toggle, come prima di questa variante. */
     .matrix-legend-bar__panel {
         position: static;
         max-height: none;
@@ -2069,39 +2021,14 @@ tbody tr:last-child td { border-bottom: none; }
         margin-bottom: 0;
     }
 
-    /* Sotto i 760px l'invariante above-the-fold (vedi applyLayout in
-       constraint_matrix.js) non si applica: si torna a una singola
-       colonna e la pagina scorre normalmente. .matrix-screen viene
-       riportato in colonna 1 insieme a .matrix-drawer - restano il solo
-       binario esplicito del grid qui sotto - altrimenti erediterebbe
-       grid-column:2 dalla regola desktop e il grid genererebbe una
-       seconda colonna implicita, affiancando invece di impilare i due
-       blocchi e producendo overflow orizzontale. */
     .explain-page { padding-inline: 16px; --handle-gutter: 0px; }
-    /* Sotto i 760px la pagina scorre normalmente (vedi commento sopra): il
-       fold non deve più riservare l'altezza residua della finestra. */
     .explain-page__fold { min-height: auto; }
     .matrix-layout { grid-template-columns: minmax(0, 1fr); }
     .matrix-drawer,
     .matrix-screen { grid-column: 1; }
     .matrix-drawer { position: static; }
-    /* L'offset dell'handle (-16px) è dichiarato più sotto, subito dopo
-       .matrix-drawer--left/--right .matrix-drawer__handle: stessa
-       specificità (due classi) di quelle regole, quindi deve venire DOPO
-       nel foglio per vincere il pareggio - qui perderebbe sempre, a
-       qualunque larghezza, perché quelle regole non sono racchiuse in una
-       media query. */
 }
 
-/* Piena finestra: .explain-page__fold avvolge testata + matrice (non la
-   rete concettuale, che resta sotto la piega) e riserva loro tutta
-   l'altezza residua sotto la navbar; ogni livello dentro la catena la
-   propaga fino a .matrix-screen__viz-chart, cosicché l'SVG (width/height:
-   100%, vedi svg.viz sotto) riceva una scatola reale in entrambe le
-   dimensioni invece di una larghezza sola. min-height:0 a ogni livello:
-   senza, la dimensione minima automatica di flex/grid (basata sul
-   contenuto) impedirebbe ai livelli di scendere sotto l'altezza
-   intrinseca della matrice, vanificando il fit. */
 .explain-page__fold {
     display: flex;
     flex-direction: column;
@@ -2114,17 +2041,6 @@ tbody tr:last-child td { border-bottom: none; }
     display: flex;
 }
 
-/* Dentro il fold, .matrix-layout è un grid a tre binari: gronda | contenuto
-   | gronda. Le due gronde hanno la STESSA larghezza (--handle-gutter,
-   definita su .explain-page) apposta: è ciò che fa coincidere il centro
-   della colonna 2 col centro pagina, e quindi rende la legenda (centrata
-   sulla pagina) automaticamente centrata sul grafico - non introdurre
-   offset correttivi né gronde asimmetriche. .matrix-drawer occupa la
-   gronda sinistra (di solito vuota a pannello chiuso: il pannello è sempre
-   position:fixed, vedi sotto, e non riserva spazio in nessun regime),
-   .matrix-screen la colonna centrale. align-items:stretch (non più start):
-   .matrix-screen deve riempire tutta l'altezza della riga per proseguire
-   la catena flex verso il basso. */
 .matrix-layout {
     display: grid;
     grid-template-columns: var(--handle-gutter) minmax(0, 1fr) var(--handle-gutter);
@@ -2156,11 +2072,9 @@ tbody tr:last-child td { border-bottom: none; }
     line-height: 1.55;
     color: var(--color-text);
     text-decoration: none;
-    white-space: nowrap; /* l'icona non va mai a capo da sola */
+    white-space: nowrap; 
 }
 
-/* Solo l'icona segnala il link al passaggio del mouse: la dicitura resta
-   color-text, non è lei l'elemento su cui si clicca concettualmente. */
 .matrix-external-link:hover { color: var(--color-text) !important; }
 
 .matrix-external-link__icon {
@@ -2187,12 +2101,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 .explain-page__note { min-width: 0; }
 
-/* Registro tipografico proprio del drawer, indipendente da quello della
-   definizione in testa alla pagina (.matrix-head__definition-text): sono
-   due colonne di larghezza diversa (296px di testo utile qui contro i
-   46ch della definizione) e un ritocco all'una non deve propagarsi
-   all'altro. Testo allineato a sinistra (lettura continua), non centrato
-   come la definizione. */
 .matrix-drawer__title {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
     font-size: 0.95rem;
@@ -2211,60 +2119,16 @@ tbody tr:last-child td { border-bottom: none; }
     text-align: left;
 }
 
-/* Il rimando è l'ultimo blocco del pannello, dopo nota storica e ambito:
-   niente margin-top, il gap del contenitore flex (.matrix-drawer__panel-inner)
-   già lo distanzia dal blocco precedente. */
 .matrix-drawer__external {
     margin: 0;
 }
 
-/* :not(:first-child) e non incondizionato: esistono costrizioni con
-   close_match e nessuna nota (es. desmos:homosyntaxism) - il rimando è
-   l'unico contenuto del pannello, e un filetto in cima a un pannello
-   altrimenti vuoto si leggerebbe come un errore di impaginazione. */
 .matrix-drawer__external:not(:first-child) {
     border-top: 1px solid var(--color-border);
     padding-top: 18px;
 }
 
-/* ===== Drawer di approfondimento (nota storica / ambito di applicazione) =====
-   Affiancato alla matrice sul lato SINISTRO (di default: vedi .matrix-drawer--left
-   / --right più sotto per il lato commutabile). La legenda non è più un
-   popover sovrapposto alla visualizzazione (era .matrix-legend-flyout,
-   rimossa: vedi .matrix-legend-bar in testa alla pagina), quindi non c'è
-   più un vincolo di lato dettato da lei.
-
-   UN SOLO REGIME, a ogni larghezza: il pannello (.matrix-drawer__panel) è
-   sempre position:fixed, ancorato al bordo esterno del viewport, e scorre
-   SOPRA il contenuto (con backdrop) senza mai restringere .matrix-screen -
-   non esiste più un regime "push" che lo rimette in flusso. Il grafico non
-   deve rimpicciolirsi quando il drawer si apre: il suo fit è strutturale
-   (CSS flex + preserveAspectRatio="meet" sull'SVG, vedi svg.viz più sotto),
-   indipendente dallo stato del drawer.
-
-   Da APERTO l'handle non resta nella gronda (vi cadrebbe dentro al
-   pannello, che è largo 340px contro i 56px della gronda): passa a
-   position:fixed e si sposta al bordo esterno del pannello stesso (vedi
-   .matrix-drawer[data-open="true"] .matrix-drawer__handle più sotto), così
-   resta il pulsante di chiusura invece di sparire sotto il testo.
-
-   .matrix-drawer stesso non è più un wrapper che riserva spazio: occupa
-   solo la gronda (--handle-gutter, 56px) della colonna 1 del grid di
-   .matrix-layout (vedi sopra), e serve esclusivamente da contesto per
-   l'handle, che vi resta ancorato con position:absolute a prescindere
-   dallo stato aperto/chiuso del pannello - così l'handle scorre con la
-   pagina e resta visivamente legato alla matrice invece di galleggiare
-   fisso sopra sezioni con cui non ha relazione (intestazione, rete
-   concettuale).
-
-   Lato commutabile (oggi sinistra, .matrix-drawer--left; --right è pronto
-   per un eventuale passaggio a destra, che sposta .matrix-drawer nella
-   gronda di colonna 3 - vedi .matrix-drawer--right sotto) - vedi i blocchi
-   .matrix-drawer--left / .matrix-drawer--right sotto ogni regola che
-   dipende dal verso: offset dell'handle, i suoi bordi/angoli, la freccia,
-   l'ancoraggio e il transform di apertura del pannello, il suo bordo/ombra
-   soppressi sul lato che tocca il margine. Passare da un lato all'altro
-   deve costare solo lo scambio della classe nel template. */
+/* ===== Drawer di approfondimento (nota storica / ambito di applicazione) ===== */
 .matrix-drawer {
     grid-column: 1;
 }
@@ -2273,30 +2137,6 @@ tbody tr:last-child td { border-bottom: none; }
     grid-column: 3;
 }
 
-/* Dentro la gronda (--handle-gutter: 56px, vedi .explain-page): l'handle è
-   largo 40px, quindi inset-inline-start:0 lo àncora al bordo interno della
-   gronda (verso il margine di pagina), lasciando i 16px residui della
-   gronda verso il contenuto - stesso ruolo del vecchio offset negativo, ma
-   la gronda è ora uno spazio riservato dal grid (.matrix-layout) invece
-   che ricavata "a sottrarre" dal padding di .explain-page. Nessun overflow
-   orizzontale, a qualunque larghezza: la gronda esiste sempre, il pannello
-   (sempre position:fixed, vedi sopra) non la occupa mai.
-
-   La posizione VERTICALE (top) non è invece esprimibile in CSS puro: non è
-   un top:50% percentuale (l'altezza di .matrix-layout non ha relazione
-   garantita con quella del grafico - vedi il commento su syncHandleCenter
-   in constraint_matrix.js), ma una variabile calcolata via JS, con 50%
-   come fallback finché il JS non è ancora girato.
-
-   Altezza intrinseca (testo verticale + padding), non più stirata a
-   coprire l'intera colonna: un bottone alto quanto la matrice comunica
-   "sono un bordo", non "clicca qui". Un tetto (max-height, ricavato
-   dall'altezza reale della navbar - vedi --navbar-h in
-   constraint_matrix.js - non da un valore fisso) e un padding elastico la
-   tengono comunque dentro la finestra anche quando questa è bassa. Bordo
-   assente sul lato verso il margine da cui la linguetta "esce" - resta sui
-   tre lati esposti, con l'angolo arrotondato solo dove il bordo è
-   continuo. */
 .matrix-drawer__handle {
     all: unset;
     box-sizing: border-box;
@@ -2316,15 +2156,8 @@ tbody tr:last-child td { border-bottom: none; }
     border-block: 1px solid var(--color-accent);
     color: var(--color-accent);
     box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
-    /* Anima lo spostamento absolute (gronda) -> fixed (bordo del pannello)
-       quando il drawer apre/chiude, in sincronia con il transform:0.3s
-       ease di .matrix-drawer__panel sotto - vedi la guardia
-       prefers-reduced-motion più sotto nel foglio. */
+  
     transition: inset-inline-start 0.3s ease, inset-inline-end 0.3s ease;
-    /* Sopra il pannello (z-index:950, sotto): la linguetta deve restare
-       visibile e cliccabile per richiudere anche quando il pannello è
-       aperto e la copre in parte (l'8-40px di sovrapposizione voluta col
-       margine, vedi sopra). */
     z-index: 951;
 }
 
@@ -2342,13 +2175,6 @@ tbody tr:last-child td { border-bottom: none; }
     border-end-start-radius: 8px;
 }
 
-/* Da APERTO l'handle cadrebbe dentro il pannello (assoluto nella gronda di
-   56px, il pannello è largo 340px): passa a position:fixed e si àncora al
-   bordo ESTERNO del pannello (--drawer-w), in coordinate di viewport
-   (--handle-center-vp, impostata in syncHandleCenter - constraint_matrix.js
-   - a differenza di --handle-center che è relativa a .matrix-layout e vale
-   solo per l'absolute di sotto). transform:translateY(-50%) resta dalla
-   regola base sopra, non va ripetuto. */
 .matrix-drawer--left[data-open="true"] .matrix-drawer__handle,
 .matrix-drawer--right[data-open="true"] .matrix-drawer__handle {
     position: fixed;
@@ -2365,13 +2191,6 @@ tbody tr:last-child td { border-bottom: none; }
     inset-inline-start: auto;
 }
 
-/* Stessa specificità delle regole sopra (compresa quella con [data-open]):
-   deve stare DOPO di loro nel foglio per vincere il pareggio a schermi
-   stretti, dato che quelle non sono racchiuse in una media query e
-   altrimenti vincerebbero sempre per ordine di sorgente, a qualunque
-   larghezza (vale sia per lo stato chiuso che per quello aperto, il cui
-   .matrix-drawer__panel ha comunque max-width:82vw - vedi sotto - quindi
-   l'ancoraggio deve seguire lo stesso min()). */
 @media (max-width: 760px) {
     .matrix-drawer--left .matrix-drawer__handle { inset-inline-start: -16px; }
     .matrix-drawer--right .matrix-drawer__handle { inset-inline-end: -16px; }
@@ -2401,9 +2220,6 @@ tbody tr:last-child td { border-bottom: none; }
     transition: transform 0.2s ease;
 }
 
-/* Chiusa punta verso il contenuto (verso cui il pannello si apre), aperta
-   punta verso il margine (verso cui si richiude): il verso si specchia fra
-   i due lati, non solo la rotazione a schermo aperto. */
 .matrix-drawer--left[data-open="true"] .matrix-drawer__handle-arrow {
     transform: rotate(180deg);
 }
@@ -2416,12 +2232,6 @@ tbody tr:last-child td { border-bottom: none; }
     transform: rotate(0deg);
 }
 
-/* Sempre fixed (un solo regime, vedi il commento sopra .matrix-drawer):
-   copre l'altezza della finestra sotto la navbar, indipendentemente da
-   dove .matrix-layout si trova nella pagina. top usa l'altezza reale
-   della navbar (--navbar-h, impostata in constraint_matrix.js) invece di
-   un valore fisso, perché la navbar è sticky e il pannello le deve
-   passare esattamente sotto. */
 .matrix-drawer__panel {
     position: fixed;
     top: var(--navbar-h, 70px);
@@ -2462,13 +2272,6 @@ tbody tr:last-child td { border-bottom: none; }
     gap: 28px;
 }
 
-/* Ridondanza di affordance rispetto all'handle (che da aperto si sposta al
-   bordo del pannello, vedi sopra): in alto a destra, dove si guarda dopo
-   aver letto il contenuto. align-self:flex-end invece di un secondo
-   contenitore per non rompere il gap:28px verso il primo blocco; il
-   margin-bottom negativo riassorbe solo l'eccesso di quel gap sopra la
-   prima nota, non lo elimina (il pulsante resta comunque staccato dal
-   bordo superiore del pannello). */
 .matrix-drawer__panel-close {
     all: unset;
     box-sizing: border-box;
@@ -2515,11 +2318,6 @@ tbody tr:last-child td { border-bottom: none; }
     }
 }
 
-/* Richiamo all'arrivo (una sola volta per sessione, gestito in JS): la
-   differenza cromatica sull'handle è SEMPRE presente mentre il richiamo è
-   attivo, a prescindere dalle preferenze di movimento - è lei sola a dover
-   bastare per chi ha chiesto meno animazioni. L'apertura parziale che vi si
-   aggiunge sotto è solo un rinforzo, mai l'unico segnale. */
 .matrix-drawer__handle.matrix-drawer--calling {
     background: var(--color-accent);
     color: var(--color-bg);
@@ -2540,13 +2338,6 @@ tbody tr:last-child td { border-bottom: none; }
     50% { width: 24px; }
 }
 
-/* Due volte, poi stop: MAI un pulse infinito, competerebbe con la matrice
-   che è il contenuto principale della pagina (rimosso comunque al primo
-   clic o focus, gestito in JS). Guardato da no-preference: chi ha chiesto
-   meno movimento vede solo la differenza cromatica statica sopra. La
-   larghezza del nudge in regime push è simmetrica (cresce e basta) e non
-   ha bisogno di una variante per lato, a differenza dello scorrimento in
-   overlay che deve muoversi verso il lato giusto. */
 @media (prefers-reduced-motion: no-preference) {
     .matrix-drawer--left .matrix-drawer__handle.matrix-drawer--calling ~ .matrix-drawer__panel {
         animation: matrix-drawer-nudge-overlay-left 1s ease-in-out 2;
@@ -2562,12 +2353,6 @@ tbody tr:last-child td { border-bottom: none; }
     }
 }
 
-/* .matrix-screen__viz è già display:flex;flex-direction:column;min-height:0;
-   flex:1 1 auto (regola condivisa con .matrix-screen, vedi sopra): qui solo
-   ciò che non condivide con quella - la min-width difensiva e (STEP1.4)
-   NESSUN max-width. Il fit non passa più da un cap di larghezza calcolato
-   in JS: .matrix-screen__viz-chart riceve una scatola vera in altezza
-   (catena flex fin qui) e la larghezza segue da sola via CSS puro. */
 .matrix-screen__viz {
     min-width: 0;
 }
@@ -2580,13 +2365,6 @@ tbody tr:last-child td { border-bottom: none; }
     min-height: 0;
 }
 
-/* STEP1: preserveAspectRatio="xMidYMid meet" (renderMatrix,
-   constraint_matrix.js) fa il lavoro che prima faceva aspect-ratio in CSS,
-   ma senza poter MAI tagliare - width/height:100% dà all'SVG una scatola
-   reale in entrambe le dimensioni (vedi la catena flex sopra), "meet" sceglie
-   da solo quale dimensione è quella vincolante e adatta l'altro lato,
-   lasciando letterboxing invece di sforare. Il caso peggiore è un margine
-   vuoto su un lato, mai un pezzo di matrice fuori dalla scatola. */
 .explain-page svg.viz {
     display: block;
     width: 100%;
@@ -2595,11 +2373,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 .matrix-screen__viz-results {
     flex: none;
-    /* rem, non em: la riga sotto fissa qui font-size per l'intestazione e
-       l'elenco (che lo ereditano), e non deve intaccare queste soglie.
-       Altezza fissa (non min/max): applyLayout (constraint_matrix.js) la
-       legge via offsetHeight per riservare lo spazio sotto il grafico -
-       un'altezza elastica renderebbe quella riserva instabile. */
     height: 5.5rem;
     overflow-y: auto;
     margin-top: 8px;
@@ -2608,29 +2381,11 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 15px;
 }
 
-/* Altezza fissa per lo stesso motivo di .matrix-screen__viz-results sopra:
-   renderResults (constraint_matrix.js) la popola solo condizionalmente
-   (if (hintText)), quindi senza un'altezza fissa la sua altezza reale
-   oscillerebbe fra 0 e ~2 righe a ogni hover sulle celle - ed entrando in
-   availableHeight (RESERVE, in applyLayout) questo innescherebbe un anello
-   di retroazione col ResizeObserver che osserva il grafico. */
 .matrix-screen__viz-hint {
     height: 1.5rem;
     overflow: hidden;
 }
 
-/* La griglia della matrice comincia a x = ROW_LABEL_W nel viewBox: lo
-   stesso rapporto sposta l'elenco sotto la prima colonna della griglia,
-   non sotto le etichette di riga. Il rapporto DIPENDE dal preset (110/1078
-   in comodo, ma 92/824 = 11,17% in compatto, non 10,204%): un valore fisso
-   disallineava l'elenco nel preset compatto. --vb-label-ratio è impostata
-   in JS da renderMatrix (constraint_matrix.js) a ogni render, sul preset
-   realmente in uso. Con preserveAspectRatio="meet" l'SVG può anche avere
-   letterboxing ORIZZONTALE dentro la propria scatola (STEP1): --vb-pad-x
-   (impostata in JS, renderMatrix e syncLetterboxPad) è quel margine reale
-   in px, da sommare al rapporto percentuale perché la percentuale da sola
-   è relativa alla larghezza del CONTENITORE, non a quella (più stretta,
-   quando c'è letterboxing) dell'SVG renderizzato. */
 .matrix-screen__viz-results > *,
 .matrix-screen__viz-hint > * {
     padding-left: calc(var(--vb-pad-x, 0px) + var(--vb-label-ratio, 10.204%));
@@ -2780,11 +2535,6 @@ tbody tr:last-child td { border-bottom: none; }
     font-size: 0.9rem;
 }
 
-/* Intestazione del gruppo, sopra l'elenco: stesso font/dimensione
-   dell'elenco (letti per eredità da .matrix-screen__viz-results, non
-   ripetuti qui). Peso normale: il grassetto è già usato nell'elenco per la
-   costrizione della scheda corrente, e riusarlo qui con un altro significato
-   confonderebbe. */
 .matrix-results-heading {
     font-family: inherit;
     font-size: inherit;
@@ -2825,10 +2575,6 @@ tbody tr:last-child td { border-bottom: none; }
     gap: 32px;
 }
 
-/* .explain-page svg.viz già impone width/aspect-ratio dal viewBox: qui solo
-   la centratura, che quella regola non tocca. Senza margin-inline: auto, un
-   grafo più stretto del proprio contenitore (es. il pavimento a 680 unità)
-   resta ancorato a sinistra invece di cadere a metà pagina. */
 .explain-page__network svg {
     max-width: 60rem;
     margin-inline: auto;
@@ -2847,9 +2593,6 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .concept-graph-reset:hover { opacity: 0.75; }
-
-/* Tratto identico per tutti gli archi: la distinzione fra i tipi di
-   relazione è affidata all'etichetta, non allo stile del segno. */
 .concept-graph-edge {
     fill: none;
     stroke: var(--color-text);
@@ -2865,9 +2608,6 @@ tbody tr:last-child td { border-bottom: none; }
 
 .concept-graph-node--focus .matrix-mark {
     stroke: var(--color-text);
-    /* Stessa costante usata in concept_graph.js (FOCUS_STROKE_WIDTH) per
-       calcolare lo stacco delle frecce che arrivano al fuoco - non un
-       secondo 1.6 tenuto a mano in sincronia col JS. */
     stroke-width: var(--focus-stroke-width, 1.6);
     opacity: 1;
 }
@@ -2926,3 +2666,4 @@ tbody tr:last-child td { border-bottom: none; }
 .lipo-src-tok[data-targets]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 .lipo-active { background-color: rgba(231, 76, 60, 0.18); color: #c0392b; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .lipo-src-tok, .lipo-tgt-tok { transition: none; } }
+.lipo-stanza-gap { display: block; height: 0.75em; }
