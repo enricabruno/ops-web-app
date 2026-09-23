@@ -2918,3 +2918,11 @@ tbody tr:last-child td { border-bottom: none; }
 @media (max-width: 991.98px) {
     .matrix-results-header { position: static; }
 }
+
+/* ── Lipogramma (secondo esempio di /anagrafia) ─────────────── */
+.lipo-letter { color: #c0392b; font-weight: 700; }
+.lipo-src-tok, .lipo-tgt-tok { border-radius: 2px; padding: 0 1px; transition: all 0.2s ease; font-size: 0.95rem; }
+.lipo-src-tok[data-targets] { cursor: pointer; }
+.lipo-src-tok[data-targets]:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+.lipo-active { background-color: rgba(231, 76, 60, 0.18); color: #c0392b; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .lipo-src-tok, .lipo-tgt-tok { transition: none; } }

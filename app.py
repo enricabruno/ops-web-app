@@ -1131,6 +1131,143 @@ def expression():
     }
     return render_template('expression.html', expr=expr, error=None)
 
+# ── Lipogramma: secondo esempio della pagina /anagrafia ──────────────────────
+# Plaquette 48, "Il divino intreccio" (Tonietto): riscrittura in lipogramma in A
+# di Inf. I, 1-3. I testi vengono da intro:R44_hasWording; l'allineamento
+# parola→parola è interpretativo e non è nel grafo: lo si corregge qui.
+LIPO_EXPR_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'
+LIPO_HYPOTEXT_PREFIX = 'https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_48'
+LIPO_LETTERS = set('aàáâ')
+
+# chiave: parola dell'ipotesto (normalizzata) → parole dell'ipertesto (normalizzate)
+LIPO_ALIGNMENT_48 = {
+    'cammin':   ["dell'esister"],
+    'nostra':   ['nostro'],
+    'vita':     ["dell'esister"],
+    'ritrovai': ['colsi'],
+    'una':      ["dentr'un"],
+    'selva':    ['bosco'],
+    'oscura':   ['oscuro'],
+    'la':       ['il'],
+    'diritta':  ['diritto'],
+    'via':      ['sentier'],
+    'era':      ['fu'],
+    'smarrita': ['più', 'non', 'mostro'],
+}
+
+
+def _lipo_norm(tok):
+    """Minuscole, apostrofi tipografici → dritti, punteggiatura ai bordi rimossa."""
+    return _STRIP_PUNCT.sub('', _APOSTROPHE.sub("'", tok)).lower()
+
+
+def _lipo_lines(text):
+    """Divide il wording in versi (separatore ' / ') e token con indice globale."""
+    lines, idx = [], 0
+    for line in text.split(' / '):
+        toks = []
+        for raw in line.split():
+            toks.append({'idx': idx, 'text': raw, 'key': _lipo_norm(raw)})
+            idx += 1
+        lines.append(toks)
+    return lines
+
+
+def _lipo_parts(raw):
+    """Spezza un token in segmenti, marcando le lettere escluse dal lipogramma."""
+    parts = []
+    for ch in raw:
+        hit = ch.lower() in LIPO_LETTERS
+        if parts and parts[-1]['hit'] == hit:
+            parts[-1]['t'] += ch
+        else:
+            parts.append({'t': ch, 'hit': hit})
+    return parts
+
+
+def _build_lipo_example():
+    """Restituisce i dati del lipogramma, oppure None: la pagina non si rompe mai."""
+    query = f"""
+    PREFIX lrmoo: <http://iflastandards.info/ns/lrm/lrmoo/>
+    PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+    PREFIX intro: <https://w3id.org/lso/intro/beta202506#>
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+    SELECT ?exprTitle ?targetText ?sourceTitle ?sourceText ?authorName ?srcAuthorName
+    WHERE {{
+        BIND(<{LIPO_EXPR_URI}> AS ?expr)
+        ?expr dct:title ?exprTitle .
+        ?tp a intro:INT21_TextPassage ;
+            intro:R30i_isTextPassageOf ?expr ;
+            intro:R44_hasWording ?targetText .
+        ?rel a intro:INT31_IntertextualRelation ;
+             intro:R13_hasReferringEntity ?expr ;
+             intro:R12_hasReferredToEntity ?src .
+        ?src dct:title ?sourceTitle .
+        ?sp a intro:INT21_TextPassage ;
+            intro:R30i_isTextPassageOf ?src ;
+            intro:R44_hasWording ?sourceText .
+        FILTER(STRSTARTS(STR(?sp), "{LIPO_HYPOTEXT_PREFIX}"))
+        OPTIONAL {{
+            ?c lrmoo:R17_created ?expr ; crm:P14_carried_out_by ?a .
+            ?a rdfs:label ?authorName .
+        }}
+        OPTIONAL {{
+            ?sc lrmoo:R17_created ?src ; crm:P14_carried_out_by ?sa .
+            ?sa rdfs:label ?srcAuthorName .
+        }}
+    }}
+    LIMIT 1
+    """
+    try:
+        result = execute_sparql_query(query)
+        if not result['success']:
+            return None
+        bindings = result['data']['results']['bindings']
+        if not bindings:
+            return None
+        b = bindings[0]
+        source_text = b['sourceText']['value']
+        target_text = b['targetText']['value']
+        if 'Placeholder' in (source_text, target_text):
+            return None
+
+        tgt_lines = _lipo_lines(target_text)
+        tgt_index = defaultdict(list)
+        for line in tgt_lines:
+            for t in line:
+                tgt_index[t['key']].append(t['idx'])
+
+        src_lines = _lipo_lines(source_text)
+        n_letters, n_words = 0, 0
+        for line in src_lines:
+            for t in line:
+                t['parts'] = _lipo_parts(t['text'])
+                hits = sum(len(p['t']) for p in t['parts'] if p['hit'])
+                t['has_letter'] = hits > 0
+                n_letters += hits
+                n_words += 1 if hits else 0
+                targets = []
+                if t['has_letter']:
+                    for k in LIPO_ALIGNMENT_48.get(t['key'], []):
+                        targets.extend(tgt_index.get(k, []))
+                t['targets'] = ' '.join(str(i) for i in targets)
+
+        return {
+            'expr_title': b['exprTitle']['value'],
+            'source_title': b['sourceTitle']['value'],
+            'author': b.get('authorName', {}).get('value', ''),
+            'src_author': b.get('srcAuthorName', {}).get('value', ''),
+            'source_lines': src_lines,
+            'target_lines': tgt_lines,
+            'n_letters': n_letters,
+            'n_words': n_words,
+        }
+    except Exception as e:
+        print(f"✗ Lipogramma non disponibile: {e}")
+        return None
+
 @app.route('/anagrafia')
 def anagrafia():
     raw_uri = request.args.get('uri', '').strip()
@@ -1267,7 +1404,8 @@ def anagrafia():
         }
     }
 
-    return render_template('anagrafia.html', data=viz_data, error=None)
+    return render_template('anagrafia.html', data=viz_data, error=None,
+                           lipo=_build_lipo_example())
 
 
 DEFAULT_HIERARCHY_SCHEME = 'https://w3id.org/desmos/FormalConstraintScheme'

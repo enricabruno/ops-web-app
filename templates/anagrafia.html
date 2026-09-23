@@ -54,12 +54,46 @@
   </div>
 
 
+  {% if lipo %}
   <div class="mb-4">
     <h2 class="fw-bold expression-title mb-1 anag-page-title anag-entry-title">
       <i class="fa-solid fa-puzzle-piece anag-bullet-icon"></i>
-      Riscrittura de <em>La vie mode d'emploi</em> di Georges Perec
+      <span>Riscrittura de l'<em>{{ lipo.source_title }}</em> di {{ lipo.src_author }}</span>
     </h2>
   </div>
+
+  <div class="row pt-4 g-4 mb-3" id="lipo-texts">
+    <div class="col-md-6">
+      <p class="mb-2 anag-section-header" style="color: var(--color-accent);">{{ lipo.source_title }}</p>
+      <div class="anag-text-block">
+        {% for line in lipo.source_lines %}
+          {% for tok in line %}
+          <span class="lipo-src-tok"{% if tok.targets %} data-targets="{{ tok.targets }}" tabindex="0"{% endif %}>{% for p in tok.parts %}{% if p.hit %}<span class="lipo-letter">{{ p.t }}</span>{% else %}{{ p.t }}{% endif %}{% endfor %}</span>{% if not loop.last %} {% endif %}
+          {% endfor %}
+          {% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="mb-2 anag-section-header" style="color: var(--color-accent);">{{ lipo.expr_title }}</p>
+      <div class="anag-text-block">
+        {% for line in lipo.target_lines %}
+          {% for tok in line %}
+          <span class="lipo-tgt-tok" data-idx="{{ tok.idx }}">{{ tok.text }}</span>{% if not loop.last %} {% endif %}
+          {% endfor %}
+          {% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 mb-5">
+    <span class="text-muted legend-hint">
+      In rosso le {{ lipo.n_letters }} occorrenze della lettera A nei versi di {{ lipo.src_author }}
+      ({{ lipo.n_words }} parole). Passa il cursore su una di queste parole per vedere come è stata riscritta.
+    </span>
+  </div>
+  {% endif %}
 
   {% endif %}
 </div>
@@ -76,5 +110,8 @@
   }
   </script>
   <script src="{{ url_for('static', filename='js/anagrafia.js') }}"></script>
+  {% if lipo %}
+  <script src="{{ url_for('static', filename='js/lipogramma.js') }}"></script>
+  {% endif %}
 {% endif %}
 {% endblock %}
