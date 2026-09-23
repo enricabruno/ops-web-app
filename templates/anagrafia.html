@@ -70,7 +70,7 @@
           {% for tok in line %}
           <span class="lipo-src-tok"{% if tok.targets %} data-targets="{{ tok.targets }}" tabindex="0"{% endif %}>{% for p in tok.parts %}{% if p.hit %}<span class="lipo-letter">{{ p.t }}</span>{% else %}{{ p.t }}{% endif %}{% endfor %}</span>{% if not loop.last %} {% endif %}
           {% endfor %}
-          {% if not loop.last %}<br>{% endif %}
+          {% if not loop.last %}<br>{% if loop.index is divisibleby 3 %}<span class="lipo-stanza-gap"></span>{% endif %}{% endif %}
         {% endfor %}
       </div>
     </div>
@@ -81,7 +81,7 @@
           {% for tok in line %}
           <span class="lipo-tgt-tok" data-idx="{{ tok.idx }}">{{ tok.text }}</span>{% if not loop.last %} {% endif %}
           {% endfor %}
-          {% if not loop.last %}<br>{% endif %}
+          {% if not loop.last %}<br>{% if loop.index is divisibleby 3 %}<span class="lipo-stanza-gap"></span>{% endif %}{% endif %}
         {% endfor %}
       </div>
     </div>
