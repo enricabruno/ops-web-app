@@ -2085,7 +2085,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_18> a lrmoo:F2_Expression ;
 	dcterms:title "Il centunesimo canto"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_18> ;
-	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
+	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p23> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_18> .
@@ -2775,10 +2775,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Canzoniere"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_canzoniere> .
 
-<https://w3id.org/desmos/oplepiana/expression/e_text_inferno> a lrmoo:F2_Expression ;
-	dcterms:title "Inferno"^^xsd:string ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_inferno> .
-
 <https://w3id.org/desmos/oplepiana/expression/e_text_isola> a lrmoo:F2_Expression ;
 	dcterms:title "L'isola del giorno prima"^^xsd:string ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_isola> .
@@ -3228,11 +3224,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> ;
 	owl:sameAs <http://id.sbn.it/bid/CFI0039815> .
 
-<https://w3id.org/desmos/oplepiana/manifestation/m_text_inferno> a lrmoo:F3_Manifestation ;
-	dcterms:title "Inferno"^^xsd:string ;
-	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
-	owl:sameAs <http://id.sbn.it/bid/UBO2333486> .
-
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_isola> a lrmoo:F3_Manifestation ;
 	dcterms:title "L'isola del giorno prima"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
@@ -3304,11 +3295,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/petrarca> ;
 	dcterms:created "1336"^^xsd:gYear .
-
-<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_inferno> a lrmoo:F28_Expression_Creation ;
-	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/alighieri> ;
-	dcterms:created "1304"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_isola> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_isola> ;
@@ -4654,10 +4640,6 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/work/w_text_canzoniere> a lrmoo:F1_Work ;
 	dcterms:title "Canzoniere"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> .
-
-<https://w3id.org/desmos/oplepiana/work/w_text_inferno> a lrmoo:F1_Work ;
-	dcterms:title "Inferno"^^xsd:string ;
-	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_isola> a lrmoo:F1_Work ;
 	dcterms:title "L'isola del giorno prima"^^xsd:string ;
