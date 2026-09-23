@@ -1139,7 +1139,8 @@ LIPO_EXPR_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'
 LIPO_HYPOTEXT_PREFIX = 'https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_48'
 LIPO_LETTERS = set('aàáâ')
 
-# chiave: parola dell'ipotesto (normalizzata) → parole dell'ipertesto (normalizzate)
+# chiave: parola dell'ipotesto (normalizzata) → parole dell'ipertesto (normalizzate),
+# cercate SOLO nel verso con lo stesso numero (le terzine sono allineate verso per verso)
 LIPO_ALIGNMENT_48 = {
     'cammin':   ["dell'esister"],
     'nostra':   ['nostro'],
@@ -1148,11 +1149,23 @@ LIPO_ALIGNMENT_48 = {
     'una':      ["dentr'un"],
     'selva':    ['bosco'],
     'oscura':   ['oscuro'],
-    'la':       ['il'],
+    'la':       ['il', 'mi'],          # v. 3 → il; v. 6 → mi
     'diritta':  ['diritto'],
     'via':      ['sentier'],
-    'era':      ['fu'],
+    'era':      ['fu', "l'esser"],     # v. 3 → fu; v. 4 → l'esser
     'smarrita': ['più', 'non', 'mostro'],
+    # vv. 4-6
+    'ahi':       ['ohi'],
+    'quanto':    ['come'],
+    'a':         ['dire'],
+    'qual':      ['desso'],
+    'cosa':      ['duro'],
+    'dura':      ['duro'],
+    'esta':      ["d'esto"],
+    'selvaggia': ['fitto'],
+    'aspra':     ['folto'],
+    'rinova':    ["tutt'oggi"],
+    'paura':     ['torturo'],
 }
 
 
@@ -1235,13 +1248,13 @@ def _build_lipo_example():
 
         tgt_lines = _lipo_lines(target_text)
         tgt_index = defaultdict(list)
-        for line in tgt_lines:
+        for n, line in enumerate(tgt_lines):
             for t in line:
-                tgt_index[t['key']].append(t['idx'])
+                tgt_index[(n, t['key'])].append(t['idx'])
 
         src_lines = _lipo_lines(source_text)
         n_letters, n_words = 0, 0
-        for line in src_lines:
+        for n, line in enumerate(src_lines):
             for t in line:
                 t['parts'] = _lipo_parts(t['text'])
                 hits = sum(len(p['t']) for p in t['parts'] if p['hit'])
@@ -1251,7 +1264,7 @@ def _build_lipo_example():
                 targets = []
                 if t['has_letter']:
                     for k in LIPO_ALIGNMENT_48.get(t['key'], []):
-                        targets.extend(tgt_index.get(k, []))
+                        targets.extend(tgt_index.get((n, k), []))
                 t['targets'] = ' '.join(str(i) for i in targets)
 
         return {

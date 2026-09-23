@@ -3360,7 +3360,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_48_01> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> ;
-	intro:R44_hasWording "Nel mezzo giusto dell’esister nostro / Mi colsi perso dentr’un bosco oscuro, / ché il diritto sentier più non fu mostro."^^xsd:string .
+	intro:R44_hasWording "Nel mezzo giusto dell’esister nostro / Mi colsi perso dentr’un bosco oscuro, / ché il diritto sentier più non fu mostro. / Ohi come l’esser desso è dire duro, / d’esto bosco sì fitto e folto e forte / che nel pensier tutt’oggi mi torturo."^^xsd:string .
 
 
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_50_sebregondi_v01> a intro:INT21_TextPassage ;
@@ -3406,7 +3406,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_48_text_inferno_01> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
-	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / mi ritrovai per una selva oscura, / ché la diritta via era smarrita."^^xsd:string .
+	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / mi ritrovai per una selva oscura, / ché la diritta via era smarrita. / Ahi quanto a dir qual era è cosa dura / esta selva selvaggia e aspra e forte / che nel pensier rinova la paura!"^^xsd:string .
 
 
 <https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_50_text_correspondances_v01> a intro:INT21_TextPassage ;
