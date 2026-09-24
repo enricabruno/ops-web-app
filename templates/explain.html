@@ -2,6 +2,11 @@
 
 {% block title %}{{ info.label if info else "Costrizione" }}{% endblock %}
 
+{% block torna_a %}
+{% from "_percorso.html" import percorso %}
+{% if crumbs %}<div class="container-fluid px-5 torna-a-bar">{{ percorso(crumbs, 'bar') }}</div>{% endif %}
+{% endblock %}
+
 {% block content %}
 {% if error %}
 <div class="container mt-5 px-3">
