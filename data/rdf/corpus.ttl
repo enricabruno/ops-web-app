@@ -3271,8 +3271,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 ### Hypertextuality ###
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_02> a intro:INT31_IntertextualRelation ;
-	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_02> ;
-	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_02_r97-99> ;
+    intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/passage/hypotext_text_istruzioni_p099_r26-27> ,
+        <https://w3id.org/desmos/oplepiana/passage/hypotext_text_istruzioni_p502_r5> ;
 	intro:R19_hasType desmos:hypertextuality .
 
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_05> a intro:INT31_IntertextualRelation ;
@@ -3307,8 +3308,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	intro:R19_hasType desmos:hypertextuality .
 
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_29> a intro:INT31_IntertextualRelation ;
-	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
-	intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> ;
+	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_29_sanguineti_01> ;
+    intro:R12_hasReferredToEntity <https://w3id.org/desmos/oplepiana/passage/hypotext_text_artusi_ricetta_317> ,
+        <https://w3id.org/desmos/oplepiana/passage/hypotext_text_artusi_ricetta_360> ;
 	intro:R19_hasType desmos:hypertextuality .
 
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_48> a intro:INT31_IntertextualRelation ;
