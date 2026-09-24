@@ -1136,7 +1136,7 @@ def expression():
 # di Inf. I, 1-3. I testi vengono da intro:R44_hasWording; l'allineamento
 # parola→parola è interpretativo e non è nel grafo: lo si corregge qui.
 LIPO_EXPR_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'
-LIPO_HYPOTEXT_PREFIX = 'https://w3id.org/desmos/oplepiana/passage/hypotext_plaquette_48'
+LIPO_HYPOTEXT_PREFIX = 'https://w3id.org/desmos/oplepiana/passage/hypotext_text_inferno'
 LIPO_LETTERS = set('aàáâ')
 
 # chiave: parola dell'ipotesto (normalizzata) → parole dell'ipertesto (normalizzate),
