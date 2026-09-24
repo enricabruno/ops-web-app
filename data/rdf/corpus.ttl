@@ -3322,9 +3322,9 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	intro:R19_hasType desmos:hypertextuality .
 
 ### Hypertext ###
-<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_02_r97-98> a intro:INT21_TextPassage ;
+<https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_02_r97-99> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_02> ;
-	intro:R44_hasWording "provenienti da un nascondiglio scavato in una delle muraglie di Santa / Sofia. La lista degli oggetti in questione ci è nota per via di una lettera"^^xsd:string .
+	intro:R44_hasWording "provenienti da un nascondiglio scavato in una delle muraglie di Santa / Sofia. La lista degli oggetti in questione ci è nota per via di una lettera / nella sua stessa ironia, di una W."^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_05_comp_I> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_05> ;
@@ -3368,6 +3368,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
 	intro:R44_hasWording "provenienti da un nascondiglio scavato in una delle muraglie di Santa / Sofia. La lista degli oggetti in questione ci è nota per via di una lettera"^^xsd:string .
 
+<https://w3id.org/desmos/oplepiana/passage/hypotext_text_istruzioni_p502_r5> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> ;
+	intro:R44_hasWording "nella sua stessa ironia, di una W."^^xsd:string .
+
 <https://w3id.org/desmos/oplepiana/passage/hypotext_text_commedia_inf_01_001-003> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
 	intro:R44_hasWording "Nel mezzo del cammin di nostra vita / mi ritrovai per una selva oscura, / ché la diritta via era smarrita."^^xsd:string .
@@ -3396,9 +3400,13 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> ;
 	intro:R44_hasWording "I have heard the mermaids singing, each to each. / I do not think that they will sing to me."^^xsd:string .
 
-<https://w3id.org/desmos/oplepiana/passage/hypotext_text_artusi_01> a intro:INT21_TextPassage ;
+<https://w3id.org/desmos/oplepiana/passage/hypotext_text_artusi_ricetta_317> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> ;
-	intro:R44_hasWording "Placeholder"^^xsd:string .
+	intro:R44_hasWording "Allora con la mestola forata levatele asciutte e servitele sguazzanti nella salsa di pomodoro N.125 [...]."^^xsd:string .
+
+<https://w3id.org/desmos/oplepiana/passage/hypotext_text_artusi_ricetta_360> a intro:INT21_TextPassage ;
+	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> ;
+	intro:R44_hasWording "Alla scarlatta perché prende un bel color rosso; ed è, per aspetto e gusto, un piatto ben indovinato."^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/passage/hypotext_text_inferno_01_001-006> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> ;
