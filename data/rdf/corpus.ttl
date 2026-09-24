@@ -3352,7 +3352,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_29_sanguineti_01> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_sanguineti> ;
-	intro:R44_hasWording "Placeholder"^^xsd:string .
+	intro:R44_hasWording "allora, con la mestola forata, / alla scarlatta prende un bel colore"^^xsd:string .
 
 <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_48_001-006> a intro:INT21_TextPassage ;
 	intro:R30i_isTextPassageOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> ;
