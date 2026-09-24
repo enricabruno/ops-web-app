@@ -842,8 +842,8 @@
     <owl:ObjectProperty rdf:about="https://w3id.org/lso/intro/beta202506#R12_hasReferredToEntity">
         <owl:inverseOf rdf:resource="https://w3id.org/lso/intro/beta202506#R12i_isReferredToEntityOf"/>
         <rdfs:domain rdf:resource="https://w3id.org/lso/intro/beta202506#INT3_Interrelation"/>
-        <rdfs:comment xml:lang="it">In DeSMòS, R12 has referred to entity è utilizzata per collegare una relazione intertestuale all'entità alla quale il testo referente rimanda, ad esempio l'ipotesto in una relazione ipertestuale.</rdfs:comment>
-        <rdfs:comment xml:lang="en">In DeSMòS, R12 has referred to entity is used to relate an intertextual relation to the entity referred to by the referring text, for example the hypotext in a hypertextual relation.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, questa proprietà identifica l'entità ipotestuale coinvolta in una relazione intertestuale. Può fare riferimento a un lrmoo:F2_Expression quando la relazione è stabilita a livello dell'intero testo, o a un intro:INT21_TextPassage quando la relazione può essere localizzata in una porzione specifica dell'ipotesto.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, this property identifies the hypotextual entity involved in an intertextual relation. It may refer to an lrmoo:F2_Expression when the relation is established at the level of the text as a whole, or to an intro:INT21_TextPassage when the relation can be localized to a specific portion of the hypotext.</rdfs:comment>
         <rdfs:label xml:lang="it">R12 ha entità a cui si riferisce</rdfs:label>
         <rdfs:label xml:lang="en">R12 has referred to entity</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
@@ -853,8 +853,8 @@
 
     <owl:ObjectProperty rdf:about="https://w3id.org/lso/intro/beta202506#R12i_isReferredToEntityOf">
         <rdfs:range rdf:resource="https://w3id.org/lso/intro/beta202506#INT3_Interrelation"/>
-        <rdfs:comment xml:lang="en">In DeSMòS, R12i is referred to entity of relates the referred-to entity, for example a hypotext, to the intertextual relation in which it has that role; it is the inverse of R12 has referred to entity.</rdfs:comment>
-        <rdfs:comment xml:lang="it">In DeSMòS, R12i is referred to entity of collega l'entità a cui si fa riferimento, ad esempio un ipotesto, alla relazione intertestuale nella quale assume tale ruolo; è l'inversa di R12 has referred to entity.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, this property links a hypotextual entity to the intertextual relation in which it acts as the entity to which the reference is made. The hypotextual entity may be an lrmoo:F2_Expression when the relation is established at the level of the text as a whole, or an intro:INT21_TextPassage when the relation can be localized to a specific portion of the hypotext.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, questa proprietà collega un'entità ipotestuale alla relazione intertestuale nella quale costituisce l'entità a cui si fa riferimento. L'entità ipotestuale può essere un lrmoo:F2_Expression quando la relazione è stabilita a livello dell'intero testo, o un intro:INT21_TextPassage quando la relazione può essere localizzata in una porzione specifica dell'ipotesto.</rdfs:comment>
         <rdfs:label xml:lang="en">R12i is referred to entity of</rdfs:label>
         <rdfs:label xml:lang="it">R12i è entità a cui si riferisce di</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
@@ -865,8 +865,8 @@
     <owl:ObjectProperty rdf:about="https://w3id.org/lso/intro/beta202506#R13_hasReferringEntity">
         <owl:inverseOf rdf:resource="https://w3id.org/lso/intro/beta202506#R13i_isReferringEntityOf"/>
         <rdfs:domain rdf:resource="https://w3id.org/lso/intro/beta202506#INT3_Interrelation"/>
-        <rdfs:comment xml:lang="it">In DeSMòS, R13 has referring entity è utilizzata per collegare una relazione intertestuale all'entità che instaura il riferimento, ad esempio l'ipertesto in una relazione ipertestuale.</rdfs:comment>
-        <rdfs:comment xml:lang="en">In DeSMòS, R13 has referring entity is used to relate an intertextual relation to the entity establishing the reference, for example the hypertext in a hypertextual relation.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, questa proprietà identifica l'entità ipertestuale coinvolta in una relazione intertestuale. Può fare riferimento a un lrmoo:F2_Expression quando la relazione è stabilita a livello dell'intero testo, o a un intro:INT21_TextPassage quando la relazione può essere localizzata in una porzione specifica dell'ipertesto.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, this property identifies the hypertextual entity involved in an intertextual relation. It may refer to an lrmoo:F2_Expression when the relation is established at the level of the text as a whole, or to an intro:INT21_TextPassage when the relation can be localized to a specific portion of the hypertext.</rdfs:comment>
         <rdfs:label xml:lang="it">R13 ha entità referente</rdfs:label>
         <rdfs:label xml:lang="en">R13 has referring entity</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
@@ -876,8 +876,8 @@
 
     <owl:ObjectProperty rdf:about="https://w3id.org/lso/intro/beta202506#R13i_isReferringEntityOf">
         <rdfs:range rdf:resource="https://w3id.org/lso/intro/beta202506#INT3_Interrelation"/>
-        <rdfs:comment xml:lang="en">In DeSMòS, R13i is referring entity of relates the referring entity, for example a hypertext, to the intertextual relation in which it has that role; it is the inverse of R13 has referring entity.</rdfs:comment>
-        <rdfs:comment xml:lang="it">In DeSMòS, R13i is referring entity of collega l'entità referente, ad esempio un ipertesto, alla relazione intertestuale nella quale assume tale ruolo; è l'inversa di R13 has referring entity.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In DeSMòS, this property links a hypertextual entity to the intertextual relation in which it acts as the referring entity. The hypertextual entity may be an lrmoo:F2_Expression when the relation is established at the level of the text as a whole, or an intro:INT21_TextPassage when the relation can be localized to a specific portion of the hypertext.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, questa proprietà collega un'entità ipertestuale alla relazione intertestuale nella quale costituisce l'entità referente. L'entità ipertestuale può essere un lrmoo:F2_Expression quando la relazione è stabilita a livello dell'intero testo, o un intro:INT21_TextPassage quando la relazione può essere localizzata in una porzione specifica dell'ipertesto.</rdfs:comment>
         <rdfs:label xml:lang="en">R13i is referring entity of</rdfs:label>
         <rdfs:label xml:lang="it">R13i è entità referente di</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
