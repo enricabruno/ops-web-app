@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
 from SPARQLWrapper import SPARQLWrapper, JSON, POST
 from dotenv import load_dotenv
+from markupsafe import Markup
 from urllib.parse import quote, unquote
 from collections import defaultdict
 from functools import lru_cache
@@ -101,6 +102,48 @@ def execute_sparql_query(query):
     except Exception as e:
         print(f"✗ SPARQL ERROR: {str(e)}")
         return {'success': False, 'error': str(e)}
+
+_EXPR_URI_RE = re.compile(r'^https://w3id\.org/desmos/oplepiana/expression/[A-Za-z0-9_\-]+$')
+
+def _valid_expr_uri(uri):
+    """Accetta solo URI del namespace delle espressioni: niente testo libero nelle query."""
+    uri = unquote((uri or '').strip())
+    return uri if _EXPR_URI_RE.match(uri) else None
+
+def _expr_crumbs(uri, include_self=True, include_parent=True):
+    """Voci del percorso fino all'espressione (madre inclusa, se componente
+    e se include_parent).
+    [] se l'URI non è valido o l'espressione non esiste."""
+    uri = _valid_expr_uri(uri)
+    if not uri:
+        return []
+    # Stessa proprietà usata da expression() per la madre
+    query = f"""
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+    SELECT ?title ?parent ?parentTitle WHERE {{
+        <{uri}> dct:title ?title .
+        OPTIONAL {{ <{uri}> crm:P148i_is_component_of|^crm:P148_has_component ?parent . ?parent dct:title ?parentTitle . }}
+    }} LIMIT 1
+    """
+    try:
+        res = execute_sparql_query(query)
+        rows = res['data']['results']['bindings'] if res.get('success') else []
+        if not rows:
+            return []
+        b = rows[0]
+        items = []
+        if include_parent and 'parent' in b:
+            items.append({'label': Markup('<em>{}</em>').format(b['parentTitle']['value']),
+                          'url': url_for('expression', uri=b['parent']['value'])})
+        if include_self:
+            items.append({'label': Markup('<em>{}</em>').format(b['title']['value']),
+                          'url': url_for('expression', uri=uri)})
+        return items
+    except Exception:
+        return []
+
+CORPUS_CRUMB = {'label': 'Corpus', 'url': '/corpus'}
 
 @app.route('/')
 def index():
@@ -768,7 +811,8 @@ def explain():
             })
     info['occurrences'] = occurrences
 
-    return render_template('explain.html', info=info, error=None)
+    crumbs = [CORPUS_CRUMB] + _expr_crumbs(request.args.get('from'), include_parent=False)
+    return render_template('explain.html', info=info, error=None, crumbs=crumbs)
 
 @app.route('/expression')
 def expression():
@@ -1130,7 +1174,16 @@ def expression():
         'has_alignment': uri in ('https://w3id.org/desmos/oplepiana/expression/e_plaquette_11',
                                  'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'),
     }
-    return render_template('expression.html', expr=expr, error=None)
+
+    from_uri = _valid_expr_uri(request.args.get('from'))
+    if from_uri and from_uri != uri:
+        crumbs = [CORPUS_CRUMB] + _expr_crumbs(from_uri)
+    else:
+        crumbs = [CORPUS_CRUMB]
+        if parent:
+            crumbs.append({'label': Markup('<em>{}</em>').format(parent['title']),
+                           'url': url_for('expression', uri=parent['uri'])})
+    return render_template('expression.html', expr=expr, error=None, crumbs=crumbs)
 
 # ── Lipogramma: secondo esempio della pagina /riscritture ──────────────────────
 # Plaquette 48, "Il divino intreccio" (Tonietto): riscrittura in lipogramma in A
@@ -1289,6 +1342,7 @@ def anagrafia_redirect():
 @app.route('/riscritture')
 def riscritture():
     ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
+    origin_uri = request.args.get('uri', '')
     uri = request.args.get('uri', '').strip()
     if not uri or uri == LIPO_EXPR_URI:
         uri = ANAG_DEFAULT_URI
@@ -1421,8 +1475,9 @@ def riscritture():
         }
     }
 
+    crumbs = [CORPUS_CRUMB] + _expr_crumbs(origin_uri)
     return render_template('riscritture.html', data=viz_data, error=None,
-                           lipo=_build_lipo_example())
+                           lipo=_build_lipo_example(), crumbs=crumbs)
 
 
 DEFAULT_HIERARCHY_SCHEME = 'https://w3id.org/desmos/FormalConstraintScheme'

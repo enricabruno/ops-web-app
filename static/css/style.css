@@ -2674,3 +2674,12 @@ tbody tr:last-child td { border-bottom: none; }
 .lipo-stanza-gap { display: block; height: 0.75em; }
 
 #riscrittura-isola, #riscrittura-inferno { scroll-margin-top: 90px; }
+
+/* ── Link di ritorno "Torna a" ─────────────────────────────── */
+.torna-a { font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 0.85rem; color: var(--color-text); }
+.torna-a a { color: var(--color-accent); text-decoration: none; transition: opacity 0.2s ease; }
+.torna-a a:hover, .torna-a a:focus-visible { color: var(--color-accent); opacity: 0.75; text-decoration: none; }
+.torna-a a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.torna-a__sep { margin: 0 0.35rem; }
+.torna-a-bar { padding-top: 0.75rem; }
+.torna-a--bar { display: block; }

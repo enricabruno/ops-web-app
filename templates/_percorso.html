@@ -1,0 +1,11 @@
+{% macro percorso(items, variant='top') %}
+<nav class="torna-a torna-a--{{ variant }}" aria-label="Torna a"
+     title="Torna a {{ items | map(attribute='label') | map('striptags') | join(' › ') }}">
+  <span>&larr; Torna a
+  {%- for it in items %}
+    {% if not loop.first %}<span class="torna-a__sep" aria-hidden="true">&rsaquo;</span>{% endif %}
+    <a href="{{ it.url }}">{{ it.label }}</a>
+  {%- endfor %}
+  </span>
+</nav>
+{% endmacro %}

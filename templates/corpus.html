@@ -13,7 +13,7 @@
 <p class="expr-detail-text x-small mb-3">
     <span class="fw-bold">Costrizioni usate:</span>
     {% for c in labeled %}
-    <a href="/explain?uri={{ c.uri | urlencode }}"
+    <a href="/explain?uri={{ c.uri | urlencode }}&from={{ expr.uri | urlencode }}"
     class="constraint-badge"
     title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
     {{ c.label }}
@@ -64,7 +64,7 @@
     <p class="expr-detail-text x-small mb-2">
         <span class="fw-bold">Consegna comune:</span>
         {% for c in labeled %}
-        <a href="/explain?uri={{ c.uri | urlencode }}"
+        <a href="/explain?uri={{ c.uri | urlencode }}&from={{ container.uri | urlencode }}"
            class="constraint-badge"
            title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
             {{ c.label }}
