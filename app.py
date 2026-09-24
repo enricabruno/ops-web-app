@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
 from SPARQLWrapper import SPARQLWrapper, JSON, POST
 from dotenv import load_dotenv
 from urllib.parse import quote, unquote
@@ -1127,11 +1127,12 @@ def expression():
         'resources': resources,
         'manif_title': manif_title,
         'manif_label': manif_label,
-        'has_alignment': b.get('alignment', {}).get('value', '') == 'true',
+        'has_alignment': uri in ('https://w3id.org/desmos/oplepiana/expression/e_plaquette_11',
+                                 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'),
     }
     return render_template('expression.html', expr=expr, error=None)
 
-# ── Lipogramma: secondo esempio della pagina /anagrafia ──────────────────────
+# ── Lipogramma: secondo esempio della pagina /riscritture ──────────────────────
 # Plaquette 48, "Il divino intreccio" (Tonietto): riscrittura in lipogramma in A
 # di Inf. I, 1-3. I testi vengono da intro:R44_hasWording; l'allineamento
 # parola→parola è interpretativo e non è nel grafo: lo si corregge qui.
@@ -1282,12 +1283,15 @@ def _build_lipo_example():
         return None
 
 @app.route('/anagrafia')
-def anagrafia():
-    raw_uri = request.args.get('uri', '').strip()
-    if not raw_uri:
-        return render_template('anagrafia.html', data=None, error="URI mancante.")
-    
-    uri = unquote(raw_uri) 
+def anagrafia_redirect():
+    return redirect(url_for('riscritture', **request.args), code=301)
+
+@app.route('/riscritture')
+def riscritture():
+    ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
+    uri = request.args.get('uri', '').strip()
+    if not uri or uri == LIPO_EXPR_URI:
+        uri = ANAG_DEFAULT_URI
 
     query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
@@ -1338,12 +1342,12 @@ def anagrafia():
     result = execute_sparql_query(query)
 
     if not result['success']:
-        return render_template('anagrafia.html', data=None,
+        return render_template('riscritture.html', data=None,
                                error=f"Errore di connessione a GraphDB: {result.get('error')}")
 
     bindings = result['data']['results']['bindings']
     if not bindings:
-        return render_template('anagrafia.html', data=None,
+        return render_template('riscritture.html', data=None,
                                error="Nessun dato di allineamento trovato per questa espressione.")
 
     b = bindings[0]
@@ -1417,7 +1421,7 @@ def anagrafia():
         }
     }
 
-    return render_template('anagrafia.html', data=viz_data, error=None,
+    return render_template('riscritture.html', data=viz_data, error=None,
                            lipo=_build_lipo_example())
 
 
