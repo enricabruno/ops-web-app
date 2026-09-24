@@ -4720,9 +4720,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_43> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_44> a lrmoo:F1_Work ;
+	dcterms:title "Domenico D'Oria. On se souvient de toi"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_44> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_45> a lrmoo:F1_Work ;
+	dcterms:title "perdurante"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_46> a lrmoo:F1_Work ;
@@ -4822,7 +4824,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	rdfs:seeAlso <http://id.sbn.it/bid/BVE0034328> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_preludi> a lrmoo:F1_Work ;
-	dcterms:title "24 Préludes op. 28"^^xsd:string ;
+	dcterms:title "Preludi op. 28"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
 	rdfs:seeAlso <http://id.sbn.it/bid/DDS0181550>.
 
