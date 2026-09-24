@@ -1020,7 +1020,12 @@ tbody tr:last-child td { border-bottom: none; }
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    font-style: normal;
 }
+
+.anag-constraint-link { color: var(--color-accent); text-decoration: none; }
+.anag-constraint-link:hover,
+.anag-constraint-link:focus-visible { color: var(--color-accent); opacity: 0.8; }
 
 .anag-bullet-icon {
     color: var(--color-accent);
@@ -2667,3 +2672,5 @@ tbody tr:last-child td { border-bottom: none; }
 .lipo-active { background-color: rgba(231, 76, 60, 0.18); color: #c0392b; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .lipo-src-tok, .lipo-tgt-tok { transition: none; } }
 .lipo-stanza-gap { display: block; height: 0.75em; }
+
+#riscrittura-isola, #riscrittura-inferno { scroll-margin-top: 90px; }
