@@ -370,6 +370,12 @@ desmos:combinatorial_lottery a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:extraction ,
 		desmos:subtraction .
 
+desmos:combinatorial_poem a desmos:FormalConstraint ;
+	rdfs:label "Poesia combinatoria"@it , "Combinatorial poem"@en ;
+	desmos:constraintOrigin desmos:original ;
+	desmos:constrainsFormalUnit desmos:line ;
+	desmos:involvesOperation desmos:substitution .
+
 desmos:compound_noun_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico di nomi composti"@it , "Compound-noun lexicon"@en ;
 	desmos:constraintOrigin desmos:original ;
@@ -1441,6 +1447,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_anna-vicari> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
+<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_27> a crm:E33_Linguistic_Object ;
+	crm:P3_has_note "I dieci sonetti Centomila miliardi di chimere sono dedicati alla traduzione dei Cent mille milliards de poèmes di Raymond Queneau e celebrano fasti e nefasti dell'avventura traduttoria di M.S. nel confrontarsi con la celebre opera queniana e nell'interpretarla chimericamente. Il tema è dunque la traduzione [...] una contrainte non nuova, ripetendo il gioco combinatorio ideato da Queneau: dieci sonetti, un taglio sotto ciascun verso e la possibilità – grazie a un’opportuna struttura morfologica e sintattica – che ciascun verso sia intercambiabile con ogni altro verso situato nella stessa posizione; per ciascun verso esistono dieci possibili scelte indipendenti e, poiché i versi sono 14, si avranno in totale 10¹⁴ sonetti, cioè centomila miliardi di poesie. Ovvero – come dice lo stesso Queneau nell'introduzione ai suoi Cent mille milliards de poèmes (Gallimard, Paris, 1961) – «Volendo essere più espliciti per gli scettici: a ogni primo verso – in numero di dieci – si può far corrispondere dieci secondi versi differenti; ci sono dunque cento combinazioni diverse per i primi due versi; aggiungendo il terzo ce ne saranno mille e, per i dieci sonetti completi, di quattordici versi, si ottiene proprio il risultato suddetto»."@it ;
+	crm:P129_is_about desmos:combinatorial_poem ;
+	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> ;
+	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/sebregondi> .
+
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_28> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in forma collettanea sul tema delle Sirene, intese come 'fascinazioni' letterarie: il mito partenopeo e le figure sirenesche del Golfo di Napoli sono il pretesto compositivo per tredici testi à contrainte. Ciascun autore sviluppa una propria contrainte in dialogo con il tema."@it ;
 	crm:P129_is_about desmos:mandatory_theme ;
@@ -2207,6 +2219,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "La Chimera Incapricciata"^^xsd:string ;
 	crm:P2_has_type desmos:prose , desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_26> .
+
+<https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> a lrmoo:F2_Expression ;
+	dcterms:title "Centomila miliardi di chimere"^^xsd:string ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_27> ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_27> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> a lrmoo:F2_Expression ;
 	dcterms:title "Sirene. Fascinazioni"^^xsd:string ;
@@ -3030,6 +3048,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> ;
 	schema:pagination "55-84"^^xsd:string .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_27> a lrmoo:F3_Manifestation ;
+	dcterms:title "Plaquette N. 27"@it ;
+	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_2> ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> ;
+	schema:pagination "85-105"^^xsd:string .
+
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 28"@it ;
 	crm:P148i_is_component_of <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_2> ;
@@ -3781,6 +3805,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/anna-vicari> ;
 	dcterms:created "2006"^^xsd:gYear .
 
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_27> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/sebregondi> ;
+	desmos:usedConstraint desmos:combinatorial_poem ;
+	dcterms:created "2007"^^xsd:gYear .
+
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_28> a lrmoo:F28_Expression_Creation ;
     lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28> ;
 	desmos:usedConstraint desmos:mandatory_theme ;
@@ -4488,6 +4518,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P3_has_note "Il testo presenta una doppia marcatura che ne rende visibile la struttura a innesto: i versi di Sanguineti, su cui sono innestati i frammenti, sono distinti tipograficamente in corsivo, mentre accanto a ciascuna parte testuale un richiamo numerico rinvia all'apparato finale dei riferimenti, che attribuisce ogni frammento alla rispettiva fonte (Albani, Cavazzoni, Odifreddi, Sanguineti). Il corsivo segnala la matrice sanguinetiana, la numerazione la provenienza dei frammenti."^^xsd:string ;
  	desmos:revealsConstraint desmos:cento .
 
+<https://w3id.org/desmos/oplepiana/textual_feat/text_feature_27> a desmos:TextualFeature ;
+	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> ;
+	crm:P3_has_note "Tutti i versi sono disposti in una tabella con sole righe orizzontali, che separano ciascun verso dal successivo: le linee richiamano il taglio in bande della pagina nell'opera originale di Queneau, dove ogni verso può essere sollevato e sostituito con quello corrispondente degli altri sonetti."^^xsd:string ;
+	desmos:revealsConstraint desmos:combinatorial_poem .
+
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_28_fabrizi> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_fabrizi> ;
     crm:P3_has_note "In ciascuna riga le lettere che compongono il nome 'Ios' sono evidenziate in grassetto — una sola 'i' nella prima parola, una sola 'o' nella seconda, una sola 's' nella terza: la marcatura tipografica rende visibile la lettura poliacrostica trasversale, che ricorre identica in ogni verso."^^xsd:string ;
@@ -4654,6 +4689,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_26> a lrmoo:F1_Work ;
 	dcterms:title "Chimere"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26> .
+
+<https://w3id.org/desmos/oplepiana/work/w_plaquette_27> a lrmoo:F1_Work ;
+	dcterms:title "Centomila miliardi di chimere"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_28> a lrmoo:F1_Work ;
 	dcterms:title "Sirene. Fascinazioni"^^xsd:string ;
