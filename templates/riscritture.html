@@ -4,7 +4,9 @@
 
 {% block torna_a %}
 {% from "_percorso.html" import percorso %}
+{% if request.args.get('uri') %}
 {% if crumbs %}<div class="container-fluid px-5 torna-a-bar">{{ percorso(crumbs, 'bar') }}</div>{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -95,7 +97,7 @@
   <div class="d-flex align-items-center gap-3 mb-5">
     <span class="text-muted legend-hint">
       In rosso le {{ lipo.n_letters }} occorrenze della lettera A nei versi di {{ lipo.src_author }}
-      ({{ lipo.n_words }} parole). Passa il cursore su una di queste parole per vedere come è stata riscritta.
+      ({{ lipo.n_words }} parole). Passa il cursore su una di queste lettere per vedere come la parola è stata riscritta senza la A.
     </span>
   </div>
   {% endif %}
