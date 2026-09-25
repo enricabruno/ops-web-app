@@ -2109,7 +2109,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_19> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_20> a lrmoo:F2_Expression ;
-    dcterms:title "Art caveau. L'invisibile pittura"^^xsd:string ;
+    dcterms:title "Art caveau"^^xsd:string ;
     dcterms:creator <https://w3id.org/desmos/oplepiana/author/bizzarri> ;
     crm:P2_has_type desmos:prose,
 		desmos:visual_art ;        
@@ -2158,7 +2158,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_23> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_24> a lrmoo:F2_Expression ;
-	dcterms:title "Preludi. Tempo obbligato"^^xsd:string ;
+	dcterms:title "Preludi"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_24> ;
 	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p25> ;
@@ -2241,7 +2241,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_28_text_aragona> a lrmoo:F2_Expression ;
-	dcterms:title "Canzone ansiosa: scorcio amoroso con sirene"^^xsd:string ;
+	dcterms:title "canzone ansiosa: scorcio amoroso con sirene"^^xsd:string ;
 	lrmoo:R76_is_derivative_of <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_28> .
@@ -2278,7 +2278,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_enriques> a lrmoo:F2_Expression ;
-	dcterms:title "Il chilometro libero"^^xsd:string ;
+	dcterms:title "Il 'chilometro libero'"^^xsd:string ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
 
@@ -2289,7 +2289,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_29> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> a lrmoo:F2_Expression ;
-	dcterms:title "Capriccio oplepiano. Pretesti"^^xsd:string ;
+	dcterms:title "Capriccio oplepiano"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_a> ,
 		<https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_30_sanguineti_b> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p34-1> ;
@@ -2447,20 +2447,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_36> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37> a lrmoo:F2_Expression ;
-	dcterms:title "Eclisse. Recensioni preventive"^^xsd:string ;
+	dcterms:title "Eclisse"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_37> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p41> ;
-	crm:P2_has_type desmos:poetry , desmos:prose ;
-	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37_text_varaldo_ciasullo> ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_37> .
-
-<https://w3id.org/desmos/oplepiana/expression/e_plaquette_37_text_varaldo_ciasullo> a lrmoo:F2_Expression ;
-	dcterms:title "Eclisse. Recensioni preventive"^^xsd:string ;
 	crm:P2_has_type desmos:poetry , desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> a lrmoo:F2_Expression ;
-	dcterms:title "Aurelio lo scrivano, Tentativo di esaurimento."^^xsd:string ;
+	dcterms:title "Aurelio lo scrivano."^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_38> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p42> ;
 	crm:P2_has_type desmos:prose ;
@@ -2585,7 +2579,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_45_text_addomine> a lrmoo:F2_Expression ;
-	dcterms:title "Ora non c'è Francesco"^^xsd:string ;
+	dcterms:title "Ecco, Francesco c'è!"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_45> .
 
@@ -2685,7 +2679,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51_text_aragona> a lrmoo:F2_Expression ;
-	dcterms:title "Une boule de neige pour Gustave Alexandre Eiffel"^^xsd:string ;
+	dcterms:title "Une boule de neige pour Eiffel"^^xsd:string ;
 	crm:P2_has_type desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
 
@@ -2751,7 +2745,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_varaldo> a lrmoo:F2_Expression ;
-	dcterms:title "'Le metamorfosi' della Metamorfosi. Una famiglia onorabile"^^xsd:string ;
+	dcterms:title "Le metamorfosi della Metamorfosi"^^xsd:string ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
 
@@ -4663,7 +4657,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_19> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_20> a lrmoo:F1_Work ;
-    dcterms:title "Art caveau. L'invisibile pittura"^^xsd:string ;
+    dcterms:title "Art caveau"^^xsd:string ;
     lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_20> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_21> a lrmoo:F1_Work ;
@@ -4679,7 +4673,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_23> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_24> a lrmoo:F1_Work ;
-	dcterms:title "Preludi. Tempo obbligato"^^xsd:string ;
+	dcterms:title "Preludi"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_24> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_25> a lrmoo:F1_Work ;
@@ -4703,7 +4697,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_30> a lrmoo:F1_Work ;
-	dcterms:title "Capriccio oplepiano. Pretesti"^^xsd:string ;
+	dcterms:title "Capriccio oplepiano"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_31> a lrmoo:F1_Work ;
@@ -4731,11 +4725,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_37> a lrmoo:F1_Work ;
-	dcterms:title "Eclisse. Recensioni preventive"^^xsd:string ;
+	dcterms:title "Eclisse"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_38> a lrmoo:F1_Work ;
-	dcterms:title "Aurelio lo scrivano, Tentativo di esaurimento."^^xsd:string ;
+	dcterms:title "Aurelio lo scrivano."^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_39> a lrmoo:F1_Work ;
