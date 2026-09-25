@@ -1555,7 +1555,7 @@ desmos:tautogram a skos:Concept ;
 desmos:temporal_constraint a skos:Concept ;
     skos:prefLabel "Temporal constraint"@en , "Tempo obbligato"@it ;
     skos:related desmos:fixed_text_length ;
-    skos:definition "Formal constraint requiring the text to be calibrated so that its declamation or reading duration matches the execution time of a predefined external reference (typically a musical piece): the text length is implicitly determined by the temporal envelope of the reference performance."@en , "Costrizione formale che impone al testo di essere calibrato in modo che la sua declamazione o lettura abbia una durata pari al tempo di esecuzione di un riferimento esterno prestabilito (tipicamente un brano musicale): la lunghezza del testo è implicitamente determinata dall'inviluppo temporale dell'esecuzione di riferimento."@it ;
+    skos:definition "Formal constraint requiring the text to be calibrated so that its declamation or reading duration matches the execution time of a predefined external reference (typically a musical piece)."@en , "Costrizione formale che impone al testo di essere calibrato in modo che la sua declamazione o lettura abbia una durata pari al tempo di esecuzione di un riferimento esterno prestabilito (tipicamente un brano musicale)"@it ;
     skos:example "Placeholder example"@en , "Placeholder example"@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
