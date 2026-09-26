@@ -604,7 +604,6 @@ desmos:compound_noun_lexicon a skos:Concept ;
 desmos:crown_of_sonnets a skos:Concept ;
     skos:prefLabel "Crown of sonnets"@en , "Corona di sonetti"@it ;
     skos:definition "Formal constraint requiring a fixed cycle of fifteen sonnets on a single subject, in which the last line of each sonnet is repeated as the first line of the following one, and the fifteenth sonnet (the master sonnet) is composed, in order, of the final lines of the preceding fourteen."@en , "Costrizione formale che impone un ciclo fisso di quindici sonetti su un unico argomento, in cui l'ultimo verso di ciascun sonetto è ripreso come primo verso del successivo, e il quindicesimo sonetto (sonetto magistrale) è formato, nell'ordine, dagli ultimi versi dei quattordici precedenti."@it ;
-    skos:historyNote "La corona di sonetti è stata inventata da Elena Addòmine in 'Corona di sonetti gastronomici' (2009), 'La Biblioteca Oplepiana', n. 29."@it , "The crown of sonnets was invented by Elena Addòmine in 'Corona di sonetti gastronomici' (2009), 'La Biblioteca Oplepiana', n. 29."@en ;
     skos:example "Primo dei quindici sonetti della corona, in endecasillabi con schema ABBA ABBA CDE EDC; l'ultimo verso di ciascun sonetto apre il successivo, e il quindicesimo, detto magistrale, è formato nell'ordine dagli ultimi versi dei quattordici precedenti."@it , "The first of the fifteen sonnets in the crown, in hendecasyllables rhyming ABBA ABBA CDE EDC; the last line of each sonnet opens the next, and the fifteenth, called the master sonnet, is made up in order of the final lines of the preceding fourteen."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -1325,6 +1324,7 @@ desmos:postal_code_acrostic a skos:Concept ;
     skos:broader desmos:acrostic ;
     skos:related desmos:mnemonic_encoding ;
     skos:definition "Formal constraint in which the initial letters of the lines, read vertically and converted into digits through a fixed letter-to-number cipher (A=0/1, B=2, C=3 … I=9), spell the postal codes delimiting a city's street-directory range; the poem synthesises salient features of that city."@en , "Costrizione formale in cui le lettere iniziali dei versi, lette verticalmente e convertite in cifre tramite una tabella fissa lettera-numero (A=0/1, B=2, C=3 … I=9), compongono i codici postali che delimitano lo stradario di una città; il testo ne sintetizza i caratteri salienti."@it ;
+    skos:historyNote "The constraint was invented by Marco Pelliti (2021), plaquette n. 47."@en , "La costrizione è stata inventata da Marco Pelliti (2021), plaquette n. 47."@it ;
     skos:example """Placeholder example."""@en , """Esempio segnaposto."""@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
