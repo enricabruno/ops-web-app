@@ -40,6 +40,7 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:chained_rhyme ,
         desmos:classical_sonnet ,
         desmos:combinatorial_lottery ,
+        desmos:combinatorial_poem ,
         desmos:crown_of_sonnets ,
         desmos:date_indexed_word_length ,
         desmos:distich ,
@@ -519,7 +520,7 @@ desmos:bisenso a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:bisyllabic_text a skos:Concept ;
-    skos:prefLabel "Bisyllabic text"@en , "Bisillabi"@it ;
+    skos:prefLabel "Bisyllabic text"@en , "Testo bisillabico"@it ;
     skos:broader desmos:isosyllabic_words ;
     skos:definition "Formal constraint requiring every word of the text to be bisyllabic."@en , "Costrizione formale che impone a ogni parola del testo di essere bisillabica."@it ;
     skos:example "La sequenza 'casa bella' è composta esclusivamente da parole bisillabiche."@it , "The sequence 'casa bella' consists exclusively of two-syllable words."@en ;
@@ -711,7 +712,7 @@ desmos:divergent_captions a skos:Concept ;
 desmos:embedded_numeral_calculus a skos:Concept ;
     skos:prefLabel "Embedded numeral calculus"@en , "Calcolo dei numeri incorporati"@it ;
     skos:definition "Formal constraint requiring the insertion of lexemes selected because they embed a cardinal numeral at their initial or final boundary (e.g. NOVE-llino, OTTO-mana, mu-SEI); word-initial numerals are added and word-final numerals are subtracted in a running computation bound to reach a predefined target value."@en , "Costrizione formale che impone l'inserimento di lessemi scelti perché contengono un numerale cardinale incorporato in posizione iniziale o finale di parola (es. NOVE-llino, OTTO-mana, mu-SEI); i numerali in posizione iniziale vengono addizionati e quelli in posizione finale sottratti, secondo un computo progressivo vincolato a raggiungere un valore prefissato."@it ;
-    skos:historyNote "The constraint was invented by Laura Brignoli in 'Che magìa l'anniversario' (2015), 'La Biblioteca Oplepiana', n. 40 "@en ,
+    skos:historyNote "The constraint was invented by Laura Brignoli in 'Che magìa l'anniversario' (2015), 'La Biblioteca Oplepiana', n. 40"@en ,
         "La costrizione è stata inventata da Laura Brignoli in 'Che magìa l'anniversario' (2015), 'La Biblioteca Oplepiana', n. 40"@it ;  
     skos:example "'NOVEllino, muSEI, OTTOmana' incorpora NOVE in posizione iniziale (+9), SEI in posizione finale (−6) e OTTO in posizione iniziale (+8), ottenendo il valore 11."@it , "In the Italian sequence 'NOVEllino, muSEI, OTTOmana', NOVE (nine) occurs initially (+9), SEI (six) finally (−6), and OTTO (eight) initially (+8), yielding the target value 11."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -816,7 +817,7 @@ desmos:figure_bounded_text a skos:Concept ;
     skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:figure_derived_count a skos:Concept ;
-    skos:prefLabel "Figure-derived count"@en , "Numero ricavato dalla figura"@it ;
+    skos:prefLabel "Figure-derived count"@en , "Numero di didascalie ricavato dalla figura"@it ;
     skos:related desmos:divergent_captions ;
     skos:definition "Formal constraint in which the number of captions is not chosen freely but computed from the depicted figure itself, as the product of two of its structural features."@en ,"Costrizione formale in cui il numero di didascalie non è scelto liberamente ma calcolato dalla figura raffigurata stessa, come prodotto di due sue caratteristiche strutturali."@it ;
     skos:example "Una figura organizzata in 3 righe e 4 colonne determina 12 didascalie: 3 × 4 = 12."@it , "A figure organized in 3 rows and 4 columns determines 12 captions: 3 × 4 = 12."@en ;
@@ -856,7 +857,7 @@ desmos:grammatical_category_lexicon a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:grammatical_exception_lexicon a skos:Concept ;
-    skos:prefLabel "Grammatical/orthographic-exception lexicon"@en , "Lessico di eccezioni"@it ;
+    skos:prefLabel "Grammatical/orthographic-exception lexicon"@en , "Lessico per eccezioni grammaticali"@it ;
     skos:broader desmos:grammatical_category_lexicon ;
     skos:definition "Formal constraint requiring every noun of the text to constitute an orthographic or grammatical exception that contradicts, to some degree, a general rule of the language (e.g. anomalous spellings, overabundant or defective nouns, irregular plurals/feminines)."@en , "Costrizione formale che impone a ogni sostantivo del testo di costituire un'eccezione ortografica o grammaticale che contraddice, in qualche misura, una regola generale della lingua (grafie anomale, nomi sovrabbondanti o difettivi, plurali/femminili irregolari)."@it ;
     skos:example "Varaldo: 'soqquadro [...] forestiere [...] familiare [...] mani [...] cuoia [...] Cielò."@it ;
@@ -877,7 +878,7 @@ desmos:hendecasyllable a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:heterogeneous_register_lexicon a skos:Concept ;
-    skos:prefLabel "Heterogeneous-register lexicon"@en , "Lessico ibrido espressivo"@it ;
+    skos:prefLabel "Heterogeneous-register lexicon"@en , "Lessico eterogeneo"@it ;
     skos:broader desmos:register_lexicon ;
     skos:definition "Formal constraint requiring all content words of a given line to share one expressive label, while each line adopts a different label, with no prescribed order among lines."@en , "Costrizione formale che impone a tutte le parole piene di un dato verso di condividere una qualifica espressiva, mentre ciascun verso ne adotta una diversa, senza ordine prestabilito fra i versi."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -941,7 +942,6 @@ desmos:homophony a skos:Concept ;
 desmos:homosyntaxism a skos:Concept ;
     skos:prefLabel "Homosyntaxism"@en , "Omosintattismo"@it , "Homosyntaxisme"@fr ;
     skos:narrower desmos:numeric_based_homosyntaxism ;
-    skos:related desmos:numeric_based_homosyntaxism ;
     skos:definition "Formal constraint consisting in taking a starting sentence, performing a grammatical analysis of each of its words, and writing a completely new sentence whose sequence exactly respects the same grammatical categories, word by word."@en , "Costrizione formale che consiste nel prendere una frase di partenza, fare l'analisi grammaticale di ogni sua parola e scrivere una frase del tutto nuova la cui sequenza rispetti esattamente le medesime categorie grammaticali, parola per parola."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/homomorphisme> ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -989,7 +989,7 @@ desmos:isovocalism a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:jocular_register_lexicon a skos:Concept ;
-    skos:prefLabel "Jocular-register lexicon"@en , "Lessico scherzoso"@it ;
+    skos:prefLabel "Jocular-register lexicon"@en , "Lessico giocoso"@it ;
     skos:broader desmos:register_lexicon ;
     skos:definition "Formal constraint requiring every content word to bear the label 'scherz.' (jocular) in the reference dictionary, at least in the sense used."@en , "Costrizione formale che impone a ogni parola piena di recare l'etichetta 'scherz.' (scherzoso) nel dizionario di riferimento, almeno nell'accezione impiegata."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -1003,7 +1003,7 @@ desmos:latin_locution_lexicon a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:latin_noun_lexicon a skos:Concept ;
-    skos:prefLabel "Latin-noun lexicon"@en , "Lessico di sostantivi latini"@it ;
+    skos:prefLabel "Latin-noun lexicon"@en , "Lessico di nomi latini"@it ;
     skos:broader desmos:loanword_lexicon ;
     skos:definition "Formal constraint requiring every noun of the text to be a Latin loanword regularly recorded as 'lat.' in the reference dictionary."@en , "Costrizione formale che impone a ogni sostantivo del testo di essere un prestito latino regolarmente registrato come 'lat.' nel dizionario di riferimento."@it ;
     skos:example "Varaldo: 'summa [...] incipit [...] explicit [...] continuum [...] excursus [...] unicum [...] excerpta [...] exitus [...] pietas'."@it ;
@@ -1112,7 +1112,7 @@ desmos:loanword_lexicon a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:lombard_lexicon a skos:Concept ;
-    skos:prefLabel "Lombard/Milanese lexicon"@en , "Lessico lombardo/milanese"@it ;
+    skos:prefLabel "Lombard/Milanese lexicon"@en , "Lessico lombardo"@it ;
     skos:broader desmos:diatopic_lexicon ;
     skos:definition "Formal constraint requiring every content word, or at least the sense used, to bear the area label 'lomb.' (Lombard) or, more specifically, 'milan.' (Milanese) in the reference dictionary."@en , "Costrizione formale che impone a ogni parola piena, o almeno all'accezione impiegata, di recare la marca d'area 'lomb.' (lombardo) o, più specificamente, 'milan.' (milanese) nel dizionario di riferimento."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -1209,7 +1209,7 @@ desmos:monorhyme a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:monosyllabic_text a skos:Concept ;
-    skos:prefLabel "Monosyllabic text"@en , "Monosillabi"@it ;
+    skos:prefLabel "Monosyllabic text"@en , "Testo monosillabico"@it ;
     skos:broader desmos:isosyllabic_words ;
     skos:definition "Formal constraint requiring every word of the text to be monosyllabic."@en , "Costrizione formale che impone a ogni parola del testo di essere monosillabica."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -1277,11 +1277,10 @@ desmos:non_repeating_rhyme a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:numeric_based_homosyntaxism a skos:Concept ;
-    skos:prefLabel "Numeric-based homosyntaxism"@en , "Omosintattismi su base numerica"@it ;
+    skos:prefLabel "Numeric-based homosyntaxism"@en , "Omosintattismo su base numerica"@it ;
     skos:broader desmos:homosyntaxism ;
     skos:definition "Formal constraint that derives the syntactic sequence of a rewritten text from the metrical structure of a source poem through numeric encoding: the syllable count of each line is converted into a number in a given base (binary in the attested case) and each digit is mapped to a syntactic category (e.g. 0 = verb, 1 = noun/adjective); the source text is then rewritten so that, line by line, its sequence of parts of speech follows the digit sequence."@en , "Costrizione formale che ricava la sequenza sintattica del testo riscritto dalla struttura metrica di un testo di partenza tramite codifica numerica: il numero di sillabe di ogni verso è convertito in un numero in una data base (binaria nel caso attestato) e a ciascuna cifra è assegnata una categoria sintattica (es. 0 = verbo, 1 = sostantivo/aggettivo); il testo è quindi riscritto in modo che, verso per verso, la successione delle parti del discorso segua la sequenza delle cifre."@it ;
-    skos:historyNote "The constraint was invented by Sandro Montalto in Binari (2025), Plaquette 57."@en , "La costrizione è stata inventata da Sandro Montalto in Binari (2025), Plaquette 57."@it ;
-    skos:related desmos:homosyntaxism ;
+    skos:historyNote "The constraint was invented by Sandro Montalto in Binari (2025), Plaquette 57."@en , "La costrizione è stata inventata da Sandro Montalto in Binari (2025), Plaquette 57."@it ;    
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
@@ -1293,7 +1292,7 @@ desmos:octave a skos:Concept ;
 
 desmos:page_format a skos:Concept ;
     skos:prefLabel "Page format constraint"@en , "Costrizione quantitativa di supporto"@it ;
-    skos:definition "Formal constraint requiring the text to be written within a predefined spatial structure."@en , "Costrizione formale che impone la scrittura in uno spazio prestabilito a priori, dettato dalla contingenza del supporto."@it ;
+    skos:definition "Visual constraint requiring the text to be written within a predefined spatial structure."@en , "Costrizione visiva che impone la scrittura in uno spazio prestabilito a priori, dettato dalla contingenza del supporto."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:VisualConstraintScheme .
 
@@ -1319,7 +1318,7 @@ desmos:paronomasia a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:pentomino_segmentation a skos:Concept ;
-    skos:prefLabel "Pentomino segmentation"@en , "Pentamini"@it ;
+    skos:prefLabel "Pentomino segmentation"@en , "Segmentazione pentomino"@it ;
     skos:related desmos:fixed_text_length ;
     skos:definition "Formal constraint in which word boundaries (effective separations, not mere apostrophes) fall at least every five letters, so that each line is segmentable into five-letter blocks; consequently the letter count of each line, and of the whole text, is a multiple of five."@en , "Costrizione formale in cui le cesure fra parola e parola (separazioni effettive, non meri apostrofi) intervengono almeno ogni cinque lettere, sicchè ogni verso è segmentabile in blocchi di cinque lettere; di conseguenza il numero di lettere di ogni verso, e dell'intero testo, è multiplo di cinque."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -1601,7 +1600,8 @@ desmos:terminal_word_series a skos:Concept ;
 
 desmos:tercet a skos:Concept ;
     skos:prefLabel "Tercet"@en , "Terzina"@it ;
-    skos:related desmos:classical_sonnet ;
+    skos:related desmos:classical_sonnet , 
+        desmos:chained_rhyme ;
     skos:definition "Formal constraint requiring the text to be organized into three-line stanzas, optionally following a predefined metrical/rhyme scheme."@en , "Costrizione strofica che impone l’organizzazione del testo in strofe di tre versi, eventualmente secondo uno schema metrico-rimico determinato."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
@@ -1614,7 +1614,7 @@ desmos:triple_letter_cluster a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:trisyllabic_text a skos:Concept ;
-    skos:prefLabel "Trisyllabic text"@en , "Trisillabi"@it ;
+    skos:prefLabel "Trisyllabic text"@en , "Testo trisillabico"@it ;
     skos:broader desmos:isosyllabic_words ;
     skos:definition "Formal constraint requiring every word of the text to be trisyllabic."@en , "Costrizione formale che impone a ogni parola del testo di essere trisillabica."@it ;
     skos:example "Placeholder example"@en , "Esempio segnaposto"@it ;
@@ -1703,7 +1703,7 @@ desmos:vowel_slide_retrograde a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:word_length_oscillation a skos:Concept ;
-    skos:prefLabel "Word length oscillation"@en , "Oscillazione della lunghezza delle parole"@it ;
+    skos:prefLabel "Word length oscillation (N±1)"@en , "Oscillazione della lunghezza delle parole(N±1)"@it ;
     skos:definition "Constraint that requires each word to be exactly one letter longer or shorter than the immediately preceding word."@en , "Costrizione formale che vincola la lunghezza di ogni parola a essere esattamente di una lettera più lunga o più corta rispetto alla parola immediatamente precedente."@it ;
     skos:historyNote "The constraint was invented by Paolo Pergola in 'Lessico famigliare' (2012), 'La Biblioteca Oplepiana' n. 33."@en , "La costrizione è stata inventata da Paolo Pergola in 'Lessico famigliare' (2012), 'La Biblioteca Oplepiana' n. 33."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
