@@ -138,10 +138,6 @@
     rdfs:label "Domenico D'Oria" ;
 	owl:sameAs <https://viaf.org/viaf/164902329> .
 
-<https://w3id.org/desmos/oplepiana/author/berardi> a crm:E39_Actor , prov:Agent ;
-    rdfs:label "Alessandra Berardi" ;
-	owl:sameAs <https://viaf.org/viaf/160882946> .
-
 <https://w3id.org/desmos/oplepiana/author/bizzarri> a crm:E39_Actor , prov:Agent ;
     rdfs:label "Giulio Bizzarri" ;
 	owl:sameAs <https://viaf.org/viaf/53225477> .
@@ -2825,19 +2821,16 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> a lrmoo:F2_Expression ;
 	dcterms:title "Preludi op. 28"^^xsd:string ;
-	dcterms:creator <https://w3id.org/desmos/oplepiana/author/chopin> ;
 	crm:P2_has_type desmos:music ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_chopin_preludi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> a lrmoo:F2_Expression ;
 	dcterms:title "Correspondances"^^xsd:string ;
-	dcterms:creator <https://w3id.org/desmos/oplepiana/author/baudelaire> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_correspondances> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> a lrmoo:F2_Expression ;
 	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
-	dcterms:creator <https://w3id.org/desmos/oplepiana/author/queneau> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_cent_mille> .
 
@@ -3302,6 +3295,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_cent_mille> a lrmoo:F3_Manifestation ;
 	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
+	owl:sameAs <https://data.bnf.fr/ark:/12148/cb12457215f> ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> .
 
 ### Hypertextuality ###
@@ -3488,7 +3482,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_infinito> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/leopardi> ;
-	dcterms:created "1891"^^xsd:gYear .
+	dcterms:created "1818"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_promessi_sposi> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
@@ -4890,5 +4884,4 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/work/w_text_cent_mille> a lrmoo:F1_Work ;
 	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
-	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> ;
-	rdfs:seeAlso <https://data.bnf.fr/ark:/12148/cb12457215f> .
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> .
