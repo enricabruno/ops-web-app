@@ -232,7 +232,7 @@ desmos:music         a crm:E55_Type .
 
 ### Constraint ###
 desmos:acrobistic a desmos:FormalConstraint ;
-	rdfs:label "Eco di rima"^^xsd:string ;
+	rdfs:label "Acrobistico"^^xsd:string ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line ;
@@ -347,7 +347,7 @@ desmos:cento a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:chained_rhyme a desmos:FormalConstraint ;
-	rdfs:label "Rima concatenata"@it , "Chained rhyme"@en ;
+	rdfs:label "Rima incatenata"@it , "Chained rhyme"@en ;
     desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
 		desmos:line .
@@ -493,7 +493,7 @@ desmos:figure_derived_count a desmos:FormalConstraint ;
     desmos:involvesOperation desmos:multiplication .
 
 desmos:fixed_fictional_character a desmos:SemanticConstraint ;
-	rdfs:label "personaggio finzionale fisso"^^xsd:string ;
+	rdfs:label "Personaggio finzionale fisso"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsSemanticUnit desmos:fictional_character .
 
@@ -1054,7 +1054,7 @@ desmos:sestina a desmos:FormalConstraint ;
 	desmos:constrainsFormalUnit desmos:stanza .
 
 desmos:syllabic_set_constraint a desmos:FormalConstraint ;
-	rdfs:label "Costrizionesul set sillabico"^^xsd:string ;
+	rdfs:label "Costrizione sul set sillabico"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ;
 	desmos:involvesOperation desmos:multiplication .
@@ -1133,7 +1133,7 @@ desmos:terminal_word_series a desmos:FormalConstraint ;
 	desmos:involvesOperation desmos:extraction .
 
 desmos:triple_letter_cluster a desmos:FormalConstraint ;
-	rdfs:label "Gruppo laterale triripetuto"^^xsd:string ;
+	rdfs:label "Gruppo letterale triripetuto"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:multiplication .
@@ -1173,7 +1173,7 @@ desmos:visual_anaphora a desmos:VisualConstraint ;
 	desmos:involvesOperation desmos:multiplication .
 
 desmos:word_length_oscillation a desmos:FormalConstraint ;
-	rdfs:label "Oscillazione di lunghezza della lunghezza delle parole(N±1)"^^xsd:string ;
+	rdfs:label "Oscillazione della lunghezza delle parole (N±1)"^^xsd:string ;
     desmos:constraintOrigin desmos:original ;
     desmos:constrainsFormalUnit desmos:letter ,
     desmos:word ;
@@ -3178,7 +3178,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_46> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 46"^^xsd:string ;
-	dcterms:issued "2020"^^xsd:gYear ;
+	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> .
 
