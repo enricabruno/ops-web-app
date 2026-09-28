@@ -301,7 +301,7 @@ desmos:apocryphal_pentimento a desmos:SemanticConstraint ;
 
 desmos:beau_present a desmos:FormalConstraint ;
 	rdfs:label "Beau présent"@it , "Beau présent"@en ;
-	desmos:constraintOrigin desmos:historical ;
+	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
@@ -317,7 +317,7 @@ desmos:bisyllabic_text a desmos:FormalConstraint ;
 
 desmos:boule_de_neige a desmos:VisualConstraint ;
     rdfs:label "Boule de neige"@it , "Snowball"@en ;
-    desmos:constraintOrigin desmos:historical ;
+    desmos:constraintOrigin desmos:original ;
     desmos:constrainsFormalUnit desmos:letter ,
         desmos:word ,
         desmos:line .
@@ -477,7 +477,7 @@ desmos:enigmatic_transformation_chain a desmos:FormalConstraint ;
 
 desmos:enumerating_text a desmos:FormalConstraint ;
 	rdfs:label "Testo autodescrittivo numerico"@it , "Self-enumerating text"@en ;
-	desmos:constraintOrigin desmos:historical ;
+	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter .
 
 desmos:familiar_register_lexicon a desmos:FormalConstraint ;
@@ -881,7 +881,7 @@ desmos:octave a desmos:FormalConstraint ;
     desmos:constraintOrigin desmos:historical ;
     desmos:constrainsFormalUnit desmos:stanza .
 
-desmos:page_format a desmos:FormalConstraint ;
+desmos:page_format a desmos:VisualConstraint ;
 	rdfs:label "Vincolo quantitativo di supporto"^^xsd:string ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:page .
@@ -960,7 +960,7 @@ desmos:preventive_review a desmos:FormalConstraint ;
 
 desmos:prisoner_constraint a desmos:FormalConstraint ;
 	rdfs:label "Contrainte du prisonnier"@it , "Contrainte du prisonnier"@en ;
-	desmos:constraintOrigin desmos:historical ;
+	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ;
 	desmos:involvesOperation desmos:subtraction .
 
@@ -4025,7 +4025,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_35> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_35> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
-	desmos:usedConstraint desmos:mandatory_dedication ;
+	desmos:usedConstraint desmos:mandatory_dedication ,
+		desmos:mandatory_genre ;
 	dcterms:created "2012"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_35_text_brignoli> a lrmoo:F28_Expression_Creation ;
@@ -4114,8 +4115,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_39> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_39> ;
 	desmos:usedConstraint desmos:fixed_text_length ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ,
-		<https://w3id.org/desmos/oplepiana/author/fabrizi> ,
+	crm:P14_carried_out_by  <https://w3id.org/desmos/oplepiana/author/fabrizi> ,
 		<https://w3id.org/desmos/oplepiana/author/brignoli> ,
 		<https://w3id.org/desmos/oplepiana/author/eliana-vicari> ,
 		<https://w3id.org/desmos/oplepiana/author/odifreddi> ,
@@ -4531,7 +4531,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_sanguineti> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_26_text_sanguineti> ;
 	crm:P3_has_note "Il testo presenta un allineamento spaziale rigoroso dove la lettera iniziale di ogni vocabolo si ripete identica lungo l'intero verso (asse orizzontale) e segue una sequenza alfabetica predefinita lungo le colonne (asse verticale), rendendo leggibile il 'poliacrostico' basato sulla parola 'chimera', a cui è dedicata l'intera plaquette."^^xsd:string ;
- 	desmos:revealsConstraint desmos:acrostic ,
+ 	desmos:revealsConstraint desmos:poliacrostic ,
 		desmos:tautogram .
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_26_anna-vicari> a desmos:TextualFeature ;
@@ -4597,7 +4597,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_47> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
 	crm:P3_has_note "Il testo presenta, alla fine, le glosse in cui è riportato l'elenco delle poesie. Tra parentesi è riportato il CAP della città in questione e le prime lettere di ogni verso sono in grassetto, richiamando così le lettere del CAP."^^xsd:string ;
- 	desmos:revealsConstraint desmos:metric_liposyllabism .
+ 	desmos:revealsConstraint desmos:acronym ,
+		desmos:postal_code_acrostic ;
 
 <https://w3id.org/desmos/oplepiana/textual_feat/text_feature_54> a desmos:TextualFeature ;
 	desmos:isFeatureOf <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> ;
