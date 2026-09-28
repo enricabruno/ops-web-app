@@ -1252,6 +1252,8 @@
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E28_Conceptual_Object">
         <rdfs:label xml:lang="en">E28 Conceptual Object</rdfs:label>
         <rdfs:label xml:lang="it">E28 Oggetto Concettuale</rdfs:label>
+        <rdfs:comment xml:lang="en">In DeSMòS, E28 Conceptual Object provides the conceptual category under which intro:INT3_Interrelation is positioned.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, E28 Conceptual Object fornisce la categoria concettuale entro cui è ricondotta intro:INT3_Interrelation.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
         </owl:Class>
     
@@ -1259,6 +1261,8 @@
     <owl:Class rdf:about="https://w3id.org/lso/intro/beta202506#INT1_Passage">
         <rdfs:label xml:lang="en">INT1 Passage</rdfs:label>
         <rdfs:label xml:lang="it">INT1 Passaggio</rdfs:label>
+        <rdfs:comment xml:lang="en">In DeSMòS, INT1 Passage provides the general category for intro:INT21_TextPassage, used to represent textual passages involved in intertextual relations.</rdfs:comment>
+        <rdfs:comment xml:lang="it">In DeSMòS, INT1 Passage fornisce la categoria generale per intro:INT21_TextPassage, utilizzata per rappresentare i passaggi testuali coinvolti nelle relazioni intertestuali.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/lso/intro/beta202506#"/>
     </owl:Class>
 
