@@ -4890,5 +4890,5 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/work/w_text_cent_mille> a lrmoo:F1_Work ;
 	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
-	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> .
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> ;
 	rdfs:seeAlso <https://data.bnf.fr/ark:/12148/cb12457215f> .
