@@ -2776,47 +2776,58 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_istruzioni> a lrmoo:F2_Expression ;
 	dcterms:title "La vita istruzioni per l'uso"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_miti> a lrmoo:F2_Expression ;
 	dcterms:title "Enciclopedia dei miti"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_miti> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> a lrmoo:F2_Expression ;
 	dcterms:title "Commedia"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_commedia> ;
 	crm:P148_has_component <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_inferno> a lrmoo:F2_Expression ;
 	dcterms:title "Inferno"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_inferno> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_canzoniere> a lrmoo:F2_Expression ;
 	dcterms:title "Canzoniere"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_canzoniere> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_isola> a lrmoo:F2_Expression ;
 	dcterms:title "L'isola del giorno prima"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_isola> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_infinito> a lrmoo:F2_Expression ;
 	dcterms:title "Infinito"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_infinito> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> a lrmoo:F2_Expression ;
 	dcterms:title "I promessi sposi"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_promessi_sposi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_lovesong> a lrmoo:F2_Expression ;
 	dcterms:title "The Love Song of J. Alfred Prufrock"^^xsd:string ;
+	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_lovesong> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_artusi> a lrmoo:F2_Expression ;
 	dcterms:title "La scienza in cucina"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_artusi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_diz_modi> a lrmoo:F2_Expression ;
 	dcterms:title "Dizionario dei modi di dire"^^xsd:string ;
+	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_diz_modi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> a lrmoo:F2_Expression ;
