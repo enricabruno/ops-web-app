@@ -1657,6 +1657,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_36> a crm:E33_Linguistic_Object ;
 	crm:P3_has_note "Come si evince da titolo e sottotitolo, la 'plaquette' si articola in cinquanta ottave tutte liberamente ispirate al capolavoro manzoniano, ma composte usando ogni volta una regola, ovvero una 'contrainte', differente. [...] Una eventuale sfida per il lettore, da intendersi come gioco nel gioco, sarà quella di cercare d'indovinare, prima di scoprirla nelle GLOSSE, la regola che caratterizza ogni singola ottava: in alcuni casi l'individuazione è facilissima, in altri abbastanza difficile, in alcuni ancora praticamente impossibile."@it ;
+	crm:P129_is_about desmos:octave ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/varaldo> .
 
@@ -1714,6 +1715,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41> a crm:E33_Linguistic_Object ;
     crm:P3_has_note "Plaquette in memoriam Umberto Eco (1932-2016), pubblicata nell'anno della sua scomparsa. Dalla prefazione: «È parso significativo intitolare questo librino con il primo dei tre versi con i quali Umberto Eco trasformò lipogrammaticamente (in 'o') quelli di Salvatore Quasimodo.» Il riferimento è a Umberto Eco, Vocali, Alfredo Guida Editore, Napoli, 1991, p. 28; rielaborazione di Salvatore Quasimodo, Ed è subito sera (1942)."@it ; 
     crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41> ;
+	crm:P129_is_about desmos:mandatory_dedication ;
     prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_41_jouet> a crm:E33_Linguistic_Object ;
