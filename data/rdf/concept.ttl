@@ -233,9 +233,9 @@ desmos:visual_art a skos:Concept ;
     skos:inScheme desmos:ArtisticFormScheme .
 
 desmos:music a skos:Concept ;
-    skos:inScheme desmos:ArtisticFormScheme ;
     skos:prefLabel "Music"@en , "Musica"@it ;
-    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores)."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni non linguistiche (es. partiture musicali)."@it .
+    skos:definition "Form of artistic composition based on sound; in DeSMòS, used to type non-linguistic source expressions (e.g. musical scores)."@en , "Forma di composizione artistica basata sul suono; in DeSMòS, usata per tipizzare espressioni non linguistiche (es. partiture musicali)."@it ;
+    skos:inScheme desmos:ArtisticFormScheme .
 
 ### Formal Unit
 desmos:letter a skos:Concept ;
