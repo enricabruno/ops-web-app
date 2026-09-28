@@ -223,6 +223,10 @@
     rdfs:label "Sandro Montalto" ;
     rdfs:seeAlso <http://id.sbn.it/bid/BIAV086030> .
 
+<https://w3id.org/desmos/oplepiana/author/queneau> a crm:E39_Actor , prov:Agent ;
+	rdfs:label "Raymond Queneau" ;
+	owl:sameAs <https://viaf.org/viaf/95204781> .
+
 ### Literary and Artistic Forms ####
 desmos:poetry        a crm:E55_Type .
 desmos:prose         a crm:E55_Type .
@@ -2223,6 +2227,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_27> a lrmoo:F2_Expression ;
 	dcterms:title "Centomila miliardi di chimere"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_27> ;
+	rdfs:seeAlso <https://www.oplepo.com/copia-di-p32> ;
+	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_27> .
 
@@ -2829,6 +2835,12 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_correspondances> .
 
+<https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> a lrmoo:F2_Expression ;
+	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
+	dcterms:creator <https://w3id.org/desmos/oplepiana/author/queneau> ;
+	crm:P2_has_type desmos:poetry ;
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_cent_mille> .
+
 ### Manifestation ###
 <https://w3id.org/desmos/oplepiana/manifestation/m_oplepiana_1> a lrmoo:F3_Manifestation ;
     dcterms:title "La Biblioteca Oplepiana, I volume"@it ;
@@ -3288,6 +3300,10 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Correspondances"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> .
 
+<https://w3id.org/desmos/oplepiana/manifestation/m_text_cent_mille> a lrmoo:F3_Manifestation ;
+	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
+	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> .
+
 ### Hypertextuality ###
 <https://w3id.org/desmos/oplepiana/hypertextuality/hypertextuality_02> a intro:INT31_IntertextualRelation ;
 	intro:R13_hasReferringEntity <https://w3id.org/desmos/oplepiana/passage/hypertext_plaquette_02_r97-99> ;
@@ -3503,6 +3519,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/baudelaire> ;
 	dcterms:created "1857"^^xsd:gYear .
+
+<https://w3id.org/desmos/oplepiana/express_cr/expr_creat_text_cent_mille> a lrmoo:F28_Expression_Creation ;
+	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/queneau> ;
+	dcterms:created "1961"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_01> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_01> ;
@@ -4866,3 +4887,8 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Correspondances"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> ;
 	rdfs:seeAlso <http://id.sbn.it/bid/MO10011696>.
+
+<https://w3id.org/desmos/oplepiana/work/w_text_cent_mille> a lrmoo:F1_Work ;
+	dcterms:title "Cent mille milliards de poèmes"^^xsd:string ;
+	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_cent_mille> .
+	rdfs:seeAlso <https://data.bnf.fr/ark:/12148/cb12457215f> .
