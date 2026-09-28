@@ -2530,7 +2530,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_41> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_42> a lrmoo:F2_Expression ;
-	dcterms:title "Il barbiere notturno. Lottomatica combinatoria"^^xsd:string ;
+	dcterms:title "Il barbiere notturno"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_42> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p46> ;
 	crm:P2_has_type desmos:prose ;
@@ -2689,14 +2689,14 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> a lrmoo:F2_Expression ;
-	dcterms:title "Il cuboide. Racconto in novantasei didascalie"^^xsd:string ;
+	dcterms:title "Il cuboide"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_52> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p56> ;
 	crm:P2_has_type desmos:prose ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_52> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> a lrmoo:F2_Expression ;
-	dcterms:title "In diebus illis. Poesie datate"^^xsd:string ;
+	dcterms:title "In diebus illis"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_53> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p57> ;
 	crm:P2_has_type desmos:poetry ;
@@ -4745,7 +4745,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_41> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_42> a lrmoo:F1_Work ;
-	dcterms:title "Il barbiere notturno. Lottomatica combinatoria"^^xsd:string ;
+	dcterms:title "Il barbiere notturno"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_42> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_43> a lrmoo:F1_Work ;
@@ -4785,11 +4785,11 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_52> a lrmoo:F1_Work ;
-	dcterms:title "Il cuboide. Racconto in novantasei didascalie"^^xsd:string ;
+	dcterms:title "Il cuboide"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_53> a lrmoo:F1_Work ;
-	dcterms:title "In diebus illis. Poesie datate"^^xsd:string ;
+	dcterms:title "In diebus illis"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_54> a lrmoo:F1_Work ;
