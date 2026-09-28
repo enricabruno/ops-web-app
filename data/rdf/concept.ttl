@@ -1,5 +1,4 @@
 @prefix desmos:  <https://w3id.org/desmos/> .
-@prefix oplepiana: <https://w3id.org/desmos/oplepiana/> .
 @prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: 	 <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -78,7 +77,6 @@ desmos:FormalConstraintScheme a skos:ConceptScheme ;
         desmos:mythographic_units ,
         desmos:non_repeating_rhyme ,
         desmos:octave ,
-        desmos:page_format ,
         desmos:palindrome ,
         desmos:panvocalism ,
         desmos:paronomasia ,
@@ -1297,7 +1295,7 @@ desmos:page_format a skos:Concept ;
     skos:prefLabel "Page format constraint"@en , "Costrizione quantitativa di supporto"@it ;
     skos:definition "Formal constraint requiring the text to be written within a predefined spatial structure."@en , "Costrizione formale che impone la scrittura in uno spazio prestabilito a priori, dettato dalla contingenza del supporto."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
-    skos:inScheme desmos:FormalConstraintScheme .
+    skos:inScheme desmos:VisualConstraintScheme .
 
 desmos:palindrome a skos:Concept ;
     skos:prefLabel "Palindrome"@en , "Palindromo"@it ;
