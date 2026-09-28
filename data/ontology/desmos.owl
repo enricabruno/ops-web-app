@@ -812,14 +812,8 @@
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P33_used_specific_technique"/>
         <rdfs:domain rdf:resource="http://iflastandards.info/ns/lrm/lrmoo/F28_Expression_Creation"/>
         <rdfs:range rdf:resource="https://w3id.org/desmos/LiteraryConstraint"/>
-        <rdfs:comment xml:lang="en">
-            Relates a literary creation event to a literary constraint used as a generative device in the production of an expression.
-            Declared as a subproperty of CIDOC CRM P33 (used specific technique) for interoperability.
-        </rdfs:comment>
-        <rdfs:comment xml:lang="it">
-            Relaziona un evento di creazione letteraria alla costrizione impiegata come dispositivo generativo nella produzione di un'espressione.
-            È dichiarata come sottoproprietà di CIDOC CRM P33 (used specific technique) per interoperabilità.
-        </rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a literary creation event to a literary constraint used as a generative device in the production of an expression. Declared as a subproperty of CIDOC CRM P33 (used specific technique) for interoperability.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Relaziona un evento di creazione letteraria alla costrizione impiegata come dispositivo generativo nella produzione di un'espressione. È dichiarata come sottoproprietà di CIDOC CRM P33 (used specific technique) per interoperabilità.</rdfs:comment>
         <rdfs:label xml:lang="it">Usa costrizione</rdfs:label>
         <rdfs:label xml:lang="en">Uses constraint</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
@@ -1292,7 +1286,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che distingue le costrizioni ereditate dalla tradizione da quelle introdotte come invenzioni oulipiane o oplepiane. Atteso come valore del range di desmos:constraintOrigin.</rdfs:comment>
         <rdfs:label xml:lang="en">Constraint Origin Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema dell'origine della costrizione</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/FormalConstraintScheme -->
@@ -1303,7 +1297,7 @@
         <rdfs:comment xml:lang="en">Concept scheme collecting formal constraints, which intervene primarily on the signifier of the text.</rdfs:comment>
         <rdfs:label xml:lang="en">Formal Constraint Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle costrizioni formali</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/VisualConstraintScheme -->
@@ -1313,7 +1307,7 @@
         <rdfs:comment xml:lang="en">Concept scheme collecting visual constraints, which intervene on the spatial, graphic or typographic arrangement of the text on the page.</rdfs:comment>
         <rdfs:label xml:lang="en">Visual Constraint Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle costrizioni visive</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/SemanticConstraintScheme -->
@@ -1324,7 +1318,7 @@
         <rdfs:comment xml:lang="en">Concept scheme collecting semantic constraints, which intervene primarily on the signified of the text.</rdfs:comment>
         <rdfs:label xml:lang="en">Semantic Constraint Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle costrizioni semantiche</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/LiteraryFormScheme -->
@@ -1335,7 +1329,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che definisce la forma testuale dell'opera (prosa, poesia, forma visuale). Utilizzato per qualificare istanze di lrmoo:F2_Expression tramite crm:P2_has_type.</rdfs:comment>
         <rdfs:label xml:lang="en">Literary Form Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle forme letterarie</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
         <!-- https://w3id.org/desmos/ArtisticFormScheme -->
@@ -1346,7 +1340,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che definisce la forma artistica di espressioni non linguistiche (arte visuale, musica). Utilizzato per qualificare istanze di lrmoo:F2_Expression tramite crm:P2_has_type, in complemento a desmos:LiteraryFormScheme nei casi in cui l'espressione non sia un testo.</rdfs:comment>
         <rdfs:label xml:lang="en">Artistic Form Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle forme artistiche</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/FormalUnitScheme -->
@@ -1357,7 +1351,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che definisce le unità discrete del sistema di scrittura (ad esempio lettera, sillaba, parola) su cui opera una costrizione di tipo formale. Atteso come valore del range di desmos:constrainsFormalUnit.</rdfs:comment>
         <rdfs:label xml:lang="en">Formal Unit Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle unità formali</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/SemanticUnitScheme -->
@@ -1368,7 +1362,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che definisce le unità discrete del piano del contenuto (personaggio, spazio, tempo) determinate da una costrizione di tipo semantico. Atteso come valore del range di desmos:constrainsSemanticUnit.</rdfs:comment>
         <rdfs:label xml:lang="en">Semantic Unit Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle unità semantiche</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 
     <!-- https://w3id.org/desmos/ProceduralOperationScheme -->
@@ -1379,7 +1373,7 @@
         <rdfs:comment xml:lang="it">Schema concettuale che descrive le operazioni procedurali applicate per generare il testo vincolato. Atteso come valore del range di desmos:involvesOperation.</rdfs:comment>
         <rdfs:label xml:lang="en">Procedural Operation Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema delle operazioni procedurali</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/concept"/>
+        <rdfs:isDefinedBy rdf:resource="https://w3id.org/desmos/"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 
