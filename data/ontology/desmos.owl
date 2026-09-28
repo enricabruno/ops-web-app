@@ -125,6 +125,30 @@
         <rdfs:label xml:lang="en">Source</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
     </owl:AnnotationProperty>
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/bibliographicCitation">
+        <rdfs:comment xml:lang="en">A bibliographic reference for the resource.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Il riferimento bibliografico con cui citare la risorsa.</rdfs:comment>
+        <rdfs:label xml:lang="en">Bibliographic citation</rdfs:label>
+        <rdfs:label xml:lang="it">Citazione bibliografica</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
+    </owl:AnnotationProperty>
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix">
+        <rdfs:comment xml:lang="en">The preferred namespace prefix to use when using terms from the vocabulary in an XML document.</rdfs:comment>
+        <rdfs:comment xml:lang="it">Il prefisso preferito da usare per i termini del vocabolario.</rdfs:comment>
+        <rdfs:label xml:lang="en">Preferred namespace prefix</rdfs:label>
+        <rdfs:label xml:lang="it">Prefisso preferito del namespace</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/vocab/vann/"/>
+    </owl:AnnotationProperty>
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri">
+        <rdfs:comment xml:lang="en">The preferred namespace URI to use when using terms from the vocabulary in an XML document.</rdfs:comment>
+        <rdfs:comment xml:lang="it">L'URI di namespace preferito da usare per i termini del vocabolario.</rdfs:comment>
+        <rdfs:label xml:lang="en">Preferred namespace URI</rdfs:label>
+        <rdfs:label xml:lang="it">URI preferito del namespace</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/vocab/vann/"/>
+    </owl:AnnotationProperty>
     
     <!-- http://www.w3.org/2000/01/rdf-schema#comment -->
 
@@ -1112,7 +1136,7 @@
     <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme">
         <rdfs:comment xml:lang="en">In DeSMòS, skos:ConceptScheme is used to organise literary constraints and the analytical categories used to describe them into controlled vocabularies.</rdfs:comment>
         <rdfs:comment xml:lang="it">In DeSMòS, skos:ConceptScheme è utilizzata per organizzare in vocabolari controllati le costrizioni letterarie e le categorie analitiche impiegate per descriverle.</rdfs:comment>
-        <rdfs:label xml:lang="en">ConceptScheme</rdfs:label>
+        <rdfs:label xml:lang="en">Concept Scheme</rdfs:label>
         <rdfs:label xml:lang="it">Schema di concetti</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
     </owl:Class>
