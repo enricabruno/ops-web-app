@@ -2455,7 +2455,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> a lrmoo:F2_Expression ;
-	dcterms:title "Aurelio e lo scrivano."^^xsd:string ;
+	dcterms:title "Aurelio e lo scrivano"^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_38> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p42> ;
 	crm:P2_has_type desmos:prose ;
@@ -4730,7 +4730,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_38> a lrmoo:F1_Work ;
-	dcterms:title "Aurelio e lo scrivano."^^xsd:string ;
+	dcterms:title "Aurelio e lo scrivano"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_39> a lrmoo:F1_Work ;
