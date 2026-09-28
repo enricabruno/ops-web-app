@@ -2454,7 +2454,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> a lrmoo:F2_Expression ;
-	dcterms:title "Aurelio lo scrivano."^^xsd:string ;
+	dcterms:title "Aurelio e lo scrivano."^^xsd:string ;
 	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_38> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p42> ;
 	crm:P2_has_type desmos:prose ;
@@ -4214,13 +4214,13 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/varaldo> ;
 	desmos:usedConstraint desmos:rebus ;
-	dcterms:created "2020"^^xsd:gYear .
+	dcterms:created "2021"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_46_text_giuliani> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46_text_giuliani> ;
 	desmos:usedConstraint desmos:rebus ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/giuliani> ;
-	dcterms:created "2020"^^xsd:gYear .
+	dcterms:created "2021"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_47> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> ;
@@ -4729,7 +4729,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_37> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_38> a lrmoo:F1_Work ;
-	dcterms:title "Aurelio lo scrivano."^^xsd:string ;
+	dcterms:title "Aurelio e lo scrivano."^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_38> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_39> a lrmoo:F1_Work ;
