@@ -2110,7 +2110,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_20> a lrmoo:F2_Expression ;
     dcterms:title "Art caveau"^^xsd:string ;
-    dcterms:creator <https://w3id.org/desmos/oplepiana/author/bizzarri> ;
+    rdfs:seeAlso <https://www.oplepo.com/copia-di-p25> ;
     crm:P2_has_type desmos:prose,
 		desmos:visual_art ;        
     lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_20> .
@@ -2442,6 +2442,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_36> a lrmoo:F2_Expression ;
 	dcterms:title "I costretti sposi"^^xsd:string ;
 	crm:P130_shows_features_of <https://w3id.org/desmos/oplepiana/expression/e_text_promessi_sposi> ;
+	lrmoo:R15_has_fragment <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_36> ;
 	rdfs:seeAlso <https://www.oplepo.com/copia-di-p40> ;
 	crm:P2_has_type desmos:poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_36> .
@@ -2735,7 +2736,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55_text_albani> a lrmoo:F2_Expression ;
-	dcterms:title "Da Kafka a Moska"^^xsd:string ;
+	dcterms:title "DA KAFKA A MOSKA"^^xsd:string ;
 	crm:P2_has_type desmos:visual_poetry ;
 	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> .
 
