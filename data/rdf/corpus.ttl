@@ -4666,7 +4666,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_21> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_22> a lrmoo:F1_Work ;
-	dcterms:title "Il doppio. Due per uno"^^xsd:string ;
+	dcterms:title "Il doppio"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_22> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_23> a lrmoo:F1_Work ;
