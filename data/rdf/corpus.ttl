@@ -4713,7 +4713,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_33> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_34> a lrmoo:F1_Work ;
-	dcterms:title "A George Perec"^^xsd:string ;
+	dcterms:title "A Georges Perec"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_plaquette_34> .
 
 <https://w3id.org/desmos/oplepiana/work/w_plaquette_35> a lrmoo:F1_Work ;
