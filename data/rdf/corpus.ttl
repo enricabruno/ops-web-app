@@ -1304,7 +1304,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/albani> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_14> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note ""@it ;
+	crm:P3_has_note "In 'Turandot spuria' propongo una costrizione basata sulla traslitterazione musicale di un brano spurio dell'ultima opera di Puccini. [...] Il 'Solfeix' è basato sulla traslitterazione sillabica di una melodia prestabilita; ma, invece di attribuire un significato chiuso ad ogni serie di note [...] o di mettere ogni nota in relazione ad una sillaba [...] si tratta di aggiungere un fascio di nuove sillabe tra i nomi delle note della melodia, avendo ben presente la durata di ogni nota."@it ;
 	crm:P129_is_about desmos:solfeix ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_14> ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/serra> .
@@ -1494,7 +1494,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_29_addomine_b> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "La struttura metrica selezionata segue lo schema classico di due quartine e due terzine di versi endecasillabi giambici a rima ABBA -ABBA | CDE - EDC. Le rime dei versi che non appaiono nel quindicesimo sonetto non sono mai ripetute."@it ;
+	crm:P3_has_note "La struttura metrica selezionata segue lo schema classico di due quartine e due terzine di versi endecasillabi giambici a rima ABBA -ABBA / CDE - EDC. Le rime dei versi che non appaiono nel quindicesimo sonetto non sono mai ripetute."@it ;
 	crm:P129_is_about desmos:classical_sonnet ,
 		desmos:iambic_hendecasyllable ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_29_text_addomine> ;
@@ -1759,7 +1759,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/tonietto> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_44_aragona> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "Alla struttura del 'poliacristico' (un 'acrostico', anche tautogrammatico verso per verso, che rimanda al titolo 'a Domenico D'Oria) è unita quella del 'beau présent', che impone l'uso delle sole lettere costituenti il nome della persona cui il testo è dedicato."@it ;
+	crm:P3_has_note "Alla struttura del 'poliacrostico' (un 'acrostico', anche tautogrammatico verso per verso, che rimanda al titolo 'a Domenico D'Oria) è unita quella del 'beau présent', che impone l'uso delle sole lettere costituenti il nome della persona cui il testo è dedicato."@it ;
 	crm:P129_is_about desmos:poliacrostic ,
 		desmos:beau_present ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_44_text_aragona> ;
@@ -1908,7 +1908,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/oplepo> .
 
 <https://w3id.org/desmos/oplepiana/ling_obj/ling_obj_56> a crm:E33_Linguistic_Object ;
-	crm:P3_has_note "In questa plaquette, ricca di esperimenti giocosi e acrobazie di ludolinguistica, l'Oplpepo ha voluto omaggiare le Olimpiadi di Parigi 2024, ormai già conclusesi."@it ;
+	crm:P3_has_note "In questa plaquette, ricca di esperimenti giocosi e acrobazie di ludolinguistica, l'Oplepo ha voluto omaggiare le Olimpiadi di Parigi 2024, ormai già conclusesi."@it ;
 	crm:P67_refers_to <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> ;
 	crm:P129_is_about desmos:mandatory_theme ;
 	prov:wasAttributedTo <https://w3id.org/desmos/oplepiana/author/babic> .
@@ -3719,7 +3719,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_19> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_19> ;
 	desmos:usedConstraint desmos:lexical_gap ;
-	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/chiti> ;
+	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/albani> ;
 	dcterms:created "2001"^^xsd:gYear .
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_20> a lrmoo:F28_Expression_Creation ;
@@ -3896,6 +3896,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 
 <https://w3id.org/desmos/oplepiana/express_cr/expr_creat_30> a lrmoo:F28_Expression_Creation ;
 	lrmoo:R17_created <https://w3id.org/desmos/oplepiana/expression/e_plaquette_30> ;
+	desmos:usedConstraint desmos:mandatory_dedication ;
 	crm:P14_carried_out_by <https://w3id.org/desmos/oplepiana/author/oplepo> ;
 	dcterms:created "2010"^^xsd:gYear .
 
