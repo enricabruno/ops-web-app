@@ -1703,7 +1703,7 @@ desmos:vowel_slide_retrograde a skos:Concept ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:word_length_oscillation a skos:Concept ;
-    skos:prefLabel "Word length oscillation (N±1)"@en , "Oscillazione della lunghezza delle parole(N±1)"@it ;
+    skos:prefLabel "Word length oscillation (N±1)"@en , "Oscillazione della lunghezza delle parole (N±1)"@it ;
     skos:definition "Constraint that requires each word to be exactly one letter longer or shorter than the immediately preceding word."@en , "Costrizione formale che vincola la lunghezza di ogni parola a essere esattamente di una lettera più lunga o più corta rispetto alla parola immediatamente precedente."@it ;
     skos:historyNote "The constraint was invented by Paolo Pergola in 'Lessico famigliare' (2012), 'La Biblioteca Oplepiana' n. 33."@en , "La costrizione è stata inventata da Paolo Pergola in 'Lessico famigliare' (2012), 'La Biblioteca Oplepiana' n. 33."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
