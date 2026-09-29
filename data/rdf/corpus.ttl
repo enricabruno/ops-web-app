@@ -3180,72 +3180,84 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Plaquette N. 46"^^xsd:string ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_46> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_47> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 47"^^xsd:string ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_47> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_48> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 48"^^xsd:string ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_48> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_49> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 49"^^xsd:string ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_49> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_50> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 50"^^xsd:string ;
 	dcterms:issued "2021"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_50> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_51> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 51"^^xsd:string ;
 	dcterms:issued "2023"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_51> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_52> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 52"^^xsd:string ;
 	dcterms:issued "2023"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_52> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_53> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 53"^^xsd:string ;
 	dcterms:issued "2024"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_53> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_54> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 54"^^xsd:string ;
 	dcterms:issued "2024"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_54> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_55> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 55"^^xsd:string ;
 	dcterms:issued "2024"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_55> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_56> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 56"^^xsd:string ;
 	dcterms:issued "2024"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_56> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_plaquette_57> a lrmoo:F3_Manifestation ;
 	dcterms:title "Plaquette N. 57"^^xsd:string ;
 	dcterms:issued "2025"^^xsd:gYear ;
 	dcterms:description "Plaquette autonoma, non ancora raccolta in un volume della Biblioteca Oplepiana."@it ;
+	dcterms:description "Standalone plaquette, not yet collected in a volume of the Biblioteca Oplepiana."@en ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_plaquette_57> .
 
 <https://w3id.org/desmos/oplepiana/manifestation/m_text_istruzioni> a lrmoo:F3_Manifestation ;
