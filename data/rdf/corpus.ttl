@@ -857,8 +857,7 @@ desmos:morale_elementaire a desmos:FormalConstraint ;
 	rdfs:label "Morale elementare"@it , "Elementary morality"@en ;
 	desmos:constraintOrigin desmos:historical ;         
 	desmos:constrainsFormalUnit desmos:word ,       
-		desmos:stanza ;
-	desmos:involvesOperation desmos:multiplication .
+		desmos:stanza .
 
 desmos:mythographic_units a desmos:FormalConstraint ;
 	rdfs:label "Mitografemi"@it , "Mythographic units"@en ;
