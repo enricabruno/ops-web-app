@@ -240,14 +240,14 @@ desmos:music a skos:Concept ;
 desmos:letter a skos:Concept ;
     skos:prefLabel "Letter"@en , "Lettera"@it ;
     skos:definition "A formal unit that constitutes the smallest unit of writing."@en , "Unità formale che costituisce l'unità minima della scrittura."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q9788> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q9788> ;
     desmos:finerThan desmos:syllable ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:syllable a skos:Concept ;
     skos:prefLabel "Syllable"@en , "Sillaba"@it ;
     skos:definition "A formal unit consisting of a core sound, usually a vowel, pronounced with a single breath."@en , "Unità formale di tipo fonetico che si raggruppa attorno a un nucleo di sonorità, solitamente una vocale, pronunciata con un'unica emissione di fiato."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q8188> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q8188> ;
     desmos:finerThan desmos:word ;
     desmos:coarserThan desmos:letter ;
     skos:inScheme desmos:FormalUnitScheme .
@@ -255,7 +255,7 @@ desmos:syllable a skos:Concept ;
 desmos:word a skos:Concept ;
     skos:prefLabel "Word"@en , "Parola"@it ;
     skos:definition "A formal unit endowed with morphosemantic cohesion, understood as a sequence of characters delimited by spaces or punctuation within the textual string."@en , "Unità formale dotata di coesione morfosemantica, intesa come sequenza di caratteri delimitata da spazi o punteggiatura nella catena testuale."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q8171> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q8171> ;
     desmos:finerThan desmos:line ;
     desmos:coarserThan desmos:syllable ;
     skos:inScheme desmos:FormalUnitScheme .
@@ -263,7 +263,7 @@ desmos:word a skos:Concept ;
 desmos:line a skos:Concept ;
     skos:prefLabel "Line"@en , "Riga"@it ;
     skos:definition "A formal unit organizing the succession of words into a sequence bounded by two points."@en , "Unità formale che organizza la successione delle parole in una sequenza delimitata da due punti."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q166154> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q166154> ;
     desmos:finerThan desmos:paragraph ,
         desmos:stanza ;
     desmos:coarserThan desmos:word ;
@@ -278,27 +278,27 @@ desmos:paragraph a skos:Concept ;
 desmos:stanza a skos:Concept ;
     skos:prefLabel "Stanza"@en , "Strofa"@it ;
     skos:definition "A formal unit consisting of a set of verses organized according to a shared metrical or rhyming pattern."@en , "Unità formale costituita da un insieme di versi organizzati secondo uno schema metrico o rimico condiviso."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q1756348> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q1756348> ;
     desmos:coarserThan desmos:line ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:page a skos:Concept ;
     skos:prefLabel "Page"@en , "Pagina"@it ;
     skos:definition "A formal unit that delimits a fixed portion of written space, used in DeSMòS as a quantitative measure constraining the extent of a text."@en , "Unità formale che delimita una porzione fissa di spazio scritto, utilizzata in DeSMòS come misura quantitativa per vincolare l'estensione di un testo."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q1069725> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q1069725> ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:image a skos:Concept ;
     skos:prefLabel "Image"@en , "Immagine"@it ;
     skos:definition "A formal unit consisting of a discrete visual element that constitutes an object of constraint in works combining text and image."@en , "Unità formale costituita da un elemento visivo discreto che costituisce oggetto di costrizione in opere che combinano testo e immagine."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q478798> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q478798> ;
     skos:inScheme desmos:FormalUnitScheme .
 
 desmos:typography a skos:Concept ;
     skos:prefLabel "Typography"@en , "Tipografia"@it ;
     skos:definition "A formal unit consisting of a set of processes and techniques for the design and visual arrangement of characters."@en , "Unità formale costituita da un insieme di processi e tecniche per la progettazione e disposizione visiva dei caratteri."@it ;
      skos:scopeNote "Adopted in the broad (contemporary) sense, which subsumes handwriting and calligraphy."@en , "Adottato nel senso ampio (contemporaneo), che include la scrittura a mano e la calligrafia."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q159964> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q159964> ;
     skos:inScheme desmos:FormalUnitScheme .
 
 ### Semantic Unit
@@ -310,44 +310,44 @@ desmos:addressee a skos:Concept ;
 desmos:fictional_character a skos:Concept ;
     skos:prefLabel "Character"@en , "Personaggio"@it ;
     skos:definition "A semantic unit acting as an agent within the fictional world described within a work, endowed with attributes and narrative functions."@en , "Unità semantica che agisce come agente all'interno del mondo finzionale descritto in un'opera, dotata di attributi e funzioni narrative."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q95074> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q95074> ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 desmos:fictional_setting a skos:Concept ;
     skos:prefLabel "Fictional setting"@en , "Ambientazione finzionale"@it ;
     skos:definition "A semantic unit that defines the fictional setting in which the characters and the action take place."@en , "Unità semantica che definisce l'ambiente finzionale dove si collocano i personaggi e l'azione."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q559618> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q559618> ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 desmos:fictional_time a skos:Concept ;
     skos:prefLabel "Fictional time"@en , "Tempo finzionale"@it ;
     skos:definition "A semantic unit that defines the temporal organization of events within a text and can alter the order, duration, and frequency of the narrative."@en , "Unità semantica che definisce l'organizzazione temporale degli eventi all'interno del testo e può alterare l'ordine, la durata e la frequenza della storia."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q18340294> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q18340294> ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 desmos:literary_genre a skos:Concept ;
     skos:prefLabel "Genre"@en , "Genere"@it ;
     skos:definition "A semantic unit that groups literary texts based on shared thematic, stylistic, and structural conventions."@en , "Unità semantica che raggruppa i testi letterari in base a convenzioni tematiche, stilistiche e strutturali condivise."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q223393> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q223393> ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 desmos:theme a skos:Concept ;
     skos:prefLabel "Theme"@en , "Tema"@it ;
     skos:definition "A semantic unit representing a recurring topic or a conceptual core that organizes a literary text's content."@en , "Unità semantica che rappresenta un argomento ricorrente o un nucleo concettuale che organizza il contenuto di un testo letterario."@it ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q1053916> ;
+    skos:exactMatch <https://www.wikidata.org/entity/Q1053916> ;
     skos:inScheme desmos:SemanticUnitScheme .
 
 ### Procedural Operation
 desmos:addition a skos:Concept ;
     skos:prefLabel "Addition"@en , "Addizione"@it ;
     skos:definition "Procedure consisting of inserting new units into a pre-existing system."@en , "Procedura che consiste nell'inserimento di nuove unità all'interno di un sistema preesistente."@it ;
-    skos:closeMatch <https://www.wikidata.org/wiki/Q32043> ;
+    skos:closeMatch <https://www.wikidata.org/entity/Q32043> ;
     skos:inScheme desmos:ProceduralOperationScheme .
 
 desmos:contraction a skos:Concept ;
     skos:prefLabel "Contraction"@en , "Contrazione"@it ;
     skos:definition "Procedure that reduces the extent of a unit through the fusion of internal elements."@en , "Procedura che riduce l'estensione di un'unità attraverso la fusione di elementi interni."@it ;
-    skos:closeMatch <https://www.wikidata.org/wiki/Q126473> ;
+    skos:closeMatch <https://www.wikidata.org/entity/Q126473> ;
     skos:inScheme desmos:ProceduralOperationScheme .
 
 desmos:displacement a skos:Concept ;
@@ -359,7 +359,7 @@ desmos:displacement a skos:Concept ;
 desmos:division a skos:Concept ;
     skos:prefLabel "Division"@en , "Divisione"@it ;
     skos:definition "Procedure consisting of breaking down a unit within an existing system."@en , "Procedura che consiste nella scomposizione di un'unità all'interno di un sistema preesistente."@it ;
-    skos:closeMatch <https://www.wikidata.org/wiki/Q1226939> ;
+    skos:closeMatch <https://www.wikidata.org/entity/Q1226939> ;
     skos:inScheme desmos:ProceduralOperationScheme .
 
 desmos:extraction a skos:Concept ;
@@ -371,7 +371,7 @@ desmos:extraction a skos:Concept ;
 desmos:multiplication a skos:Concept ;
     skos:prefLabel "Multiplication"@en , "Moltiplicazione"@it ;
     skos:definition "Procedure involving the repetition of one or more units according to a fixed logical or mathematical pattern."@en , "Procedura che prevede la ripetizione di una o più unità secondo uno schema logico o matematico prefissato."@it ; 
-    skos:closeMatch <https://www.wikidata.org/wiki/Q40276> ;
+    skos:closeMatch <https://www.wikidata.org/entity/Q40276> ;
     skos:inScheme desmos:ProceduralOperationScheme .
 
 desmos:substitution a skos:Concept ;
@@ -383,7 +383,7 @@ desmos:substitution a skos:Concept ;
 desmos:subtraction a skos:Concept ;
     skos:prefLabel "Subtraction"@en , "Sottrazione"@it ;
     skos:definition "Procedure involving the deliberate removal of certain units from the textual system."@en , "Procedura che prevede l'eliminazione deliberata di determinate unità dal sistema testuale."@it ;
-    skos:closeMatch <https://www.wikidata.org/wiki/Q40754> ;
+    skos:closeMatch <https://www.wikidata.org/entity/Q40754> ;
     skos:inScheme desmos:ProceduralOperationScheme .
 
 ### Literary Constraints
