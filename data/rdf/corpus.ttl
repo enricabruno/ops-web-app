@@ -2836,7 +2836,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> a lrmoo:F2_Expression ;
 	dcterms:title "Preludi op. 28"^^xsd:string ;
 	crm:P2_has_type desmos:music ;
-	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_chopin_preludi> .
+	lrmoo:R4i_is_embodied_in <https://w3id.org/desmos/oplepiana/manifestation/m_text_preludi> .
 
 <https://w3id.org/desmos/oplepiana/expression/e_text_correspondances> a lrmoo:F2_Expression ;
 	dcterms:title "Correspondances"^^xsd:string ;
@@ -3311,7 +3311,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 	dcterms:title "Dizionario dei modi di dire"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_diz_modi> .
 
-<https://w3id.org/desmos/oplepiana/manifestation/m_text_chopin_preludi> a lrmoo:F3_Manifestation ;
+<https://w3id.org/desmos/oplepiana/manifestation/m_text_preludi> a lrmoo:F3_Manifestation ;
 	dcterms:title "24 Preludi op. 28"^^xsd:string ;
 	lrmoo:R4_embodies <https://w3id.org/desmos/oplepiana/expression/e_text_preludi> .
 
