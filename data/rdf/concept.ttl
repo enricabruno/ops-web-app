@@ -1037,7 +1037,6 @@ desmos:lipogram a skos:Concept ;
         desmos:lipogram_E ,
         desmos:lipogram_I ,
         desmos:lipogram_O ,
-        desmos:lipogram_U ,
         desmos:lipogram_S ,
         desmos:lipogram_B ,
         desmos:progressive_alphabetical_lipogram ,
@@ -1080,13 +1079,6 @@ desmos:lipogram_O a skos:Concept ;
     skos:prefLabel "Lipogram in O"@en , "Lipogramma in O"@it ;
     skos:broader desmos:lipogram ;
     skos:definition "Formal constraint consisting in composing a text while deliberately omitting the letter O."@en , "Costrizione formale che consiste nel comporre un testo omettendo deliberatamente la lettera O."@it ;
-    skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
-    skos:inScheme desmos:FormalConstraintScheme .
-
-desmos:lipogram_U a skos:Concept ;
-    skos:prefLabel "Lipogram in U"@en , "Lipogramma in U"@it ;
-    skos:broader desmos:lipogram ;
-    skos:definition "Formal constraint consisting in composing a text while deliberately omitting the letter U."@en , "Costrizione formale che consiste nel comporre un testo omettendo deliberatamente la lettera U."@it ;
     skos:example "Placeholder example."@en , "Esempio placeholder."@it ;
     skos:inScheme desmos:FormalConstraintScheme .
 
