@@ -254,7 +254,8 @@ desmos:alliteration a desmos:FormalConstraint ;
 	rdfs:label "Allitterazione"@it , "Alliteration"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ,
-	desmos:syllable .
+	desmos:syllable ;
+	desmos:involvesOperation desmos:multiplication .	
 
 desmos:alphabetic_set_constraint a desmos:FormalConstraint ;
 	rdfs:label "Costrizione sul set alfabetico"^^xsd:string ;
