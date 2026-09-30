@@ -4863,7 +4863,7 @@ desmos:vowel_slide_retrograde a desmos:FormalConstraint ;
 <https://w3id.org/desmos/oplepiana/work/w_text_commedia> a lrmoo:F1_Work ;
 	dcterms:title "Commedia"^^xsd:string ;
 	lrmoo:R3_is_realised_in <https://w3id.org/desmos/oplepiana/expression/e_text_commedia> ;
-	rdfs:seeAlso <https://www.wikidata.org/wiki/Q40185> .
+	rdfs:seeAlso <https://www.wikidata.org/entity/Q40185> .
 
 <https://w3id.org/desmos/oplepiana/work/w_text_inferno> a lrmoo:F1_Work ;
 	dcterms:title "Inferno"^^xsd:string ;
