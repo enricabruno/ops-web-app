@@ -255,7 +255,7 @@ desmos:alliteration a desmos:FormalConstraint ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:letter ,
 	desmos:syllable ;
-	desmos:involvesOperation desmos:multiplication .	
+	desmos:involvesOperation desmos:ok, alloralication .	
 
 desmos:alphabetic_set_constraint a desmos:FormalConstraint ;
 	rdfs:label "Costrizione sul set alfabetico"^^xsd:string ;
@@ -273,7 +273,8 @@ desmos:alternating_rhyme a desmos:FormalConstraint ;
 	rdfs:label "Rima alternata"@it , "Alternating rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
+		desmos:line ;
+	desmos:involvesOperation desmos:multiplication .
 
 desmos:anagram a desmos:FormalConstraint ;
 	rdfs:label "Anagramma"@it , "Anagram"@en ;
@@ -309,7 +310,8 @@ desmos:beau_present a desmos:FormalConstraint ;
 desmos:bisenso a desmos:FormalConstraint ;
 	rdfs:label "Bisenso"@it , "Double meaning"@en ;
 	desmos:constraintOrigin desmos:historical ;
-	desmos:constrainsFormalUnit desmos:word .
+	desmos:constrainsFormalUnit desmos:word ;
+	desmos:involvesOperation desmos:division .
 
 desmos:bisyllabic_text a desmos:FormalConstraint ;
 	rdfs:label "Testo bisillabico"^^xsd:string ;
@@ -351,7 +353,8 @@ desmos:chained_rhyme a desmos:FormalConstraint ;
 	rdfs:label "Rima incatenata"@it , "Chained rhyme"@en ;
     desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
+		desmos:line ;
+	desmos:involvesOperation desmos:multiplication .
 
 desmos:classical_sonnet a desmos:FormalConstraint ;
     rdfs:label "Sonetto classico"@it , "Classical sonnet"@en ;
@@ -387,7 +390,9 @@ desmos:compound_noun_lexicon a desmos:FormalConstraint ;
 desmos:crown_of_sonnets a desmos:FormalConstraint ;
 	rdfs:label "Corona di sonetti"@it , "Crown of sonnets"@en ;
 	desmos:constraintOrigin desmos:original ;
-	desmos:constrainsFormalUnit desmos:stanza .
+	desmos:constrainsFormalUnit desmos:stanza ;
+	desmos:involvesOperation desmos:multiplication ,
+		desmos:extraction .
 
 desmos:datation_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico per datazione"@it , "Datation-restricted lexicon"@en ;
@@ -461,7 +466,8 @@ desmos:enclosed_rhyme a desmos:FormalConstraint ;
 	rdfs:label "Rima incrociata"@it , "Enclosed rhyme"@en ;
 	desmos:constraintOrigin desmos:historical ;
 	desmos:constrainsFormalUnit desmos:syllable ,
-		desmos:line .
+		desmos:line ;
+	desmos:involvesOperation desmos:multiplication .
 
 desmos:english_loanword_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico di prestiti inglesi"@it , "English-loanword lexicon"@en ;
@@ -656,7 +662,8 @@ desmos:isovocalism a desmos:FormalConstraint ;
 	rdfs:label "Isovocalismo"@it , "Isovocalism"@en ;
 	desmos:constraintOrigin desmos:original ;
 	desmos:constrainsFormalUnit desmos:letter ,
-		desmos:word .
+		desmos:word ;
+	desmos:involvesOperation desmos:multiplication .
 
 desmos:jocular_register_lexicon a desmos:FormalConstraint ;
 	rdfs:label "Lessico giocoso"^^xsd:string ;
@@ -850,7 +857,8 @@ desmos:morale_elementaire a desmos:FormalConstraint ;
 	rdfs:label "Morale elementare"@it , "Elementary morality"@en ;
 	desmos:constraintOrigin desmos:historical ;         
 	desmos:constrainsFormalUnit desmos:word ,       
-		desmos:stanza .
+		desmos:stanza ;
+	desmos:involvesOperation desmos:multiplication .
 
 desmos:mythographic_units a desmos:FormalConstraint ;
 	rdfs:label "Mitografemi"@it , "Mythographic units"@en ;
