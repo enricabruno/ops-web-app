@@ -51,6 +51,7 @@ app.register_blueprint(
     create_blueprint(QrakenConfig.from_env(
         title="Chatbot",
         subtitle="Poni le tue domande in linguaggio naturale.",
+        theme="light",
         accent_color="#0397B2",
         display="inline",
         show_sparql=True,
