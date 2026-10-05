@@ -997,7 +997,7 @@ def expression():
 
     work_types = b.get('workTypeLabels', {}).get('value', '')
 
-    constraints_formali, constraints_semantiche = [], []
+    constraints_formali, constraints_visive, constraints_semantiche = [], [], []
     seen_uris = set()
     raw_constraints = b.get('constraintData', {}).get('value', '')
     if raw_constraints:
@@ -1006,8 +1006,12 @@ def expression():
             if len(parts) >= 3 and parts[0] not in seen_uris:
                 seen_uris.add(parts[0])
                 obj = {'uri': parts[0], 'label': parts[1]}
-                if 'FormalConstraintScheme' in parts[2]: constraints_formali.append(obj)
-                elif 'SemanticConstraintScheme' in parts[2]: constraints_semantiche.append(obj)
+                if 'FormalConstraintScheme' in parts[2]:
+                    constraints_formali.append(obj)
+                elif 'VisualConstraintScheme' in parts[2]:
+                    constraints_visive.append(obj)
+                elif 'SemanticConstraintScheme' in parts[2]:
+                    constraints_semantiche.append(obj)
 
     # Costrizioni dichiarate dal paratesto (P129_is_about), raggruppate per E33 di origine
     declared_by_obj = {}
@@ -1106,7 +1110,7 @@ def expression():
             feat_anchor_by_constraint.setdefault(c['uri'], feat['anchor'])
 
     evidence = []
-    for c in constraints_formali + constraints_semantiche:
+    for c in constraints_formali + constraints_visive + constraints_semantiche:
         declared = c['uri'] in decl_anchor_by_constraint
         manifest = c['uri'] in feat_anchor_by_constraint
         if declared and manifest:
@@ -1159,6 +1163,7 @@ def expression():
         'work_types': work_types,
         'total_constraints': len(seen_uris),
         'constraints_formali': constraints_formali,
+        'constraints_visive': constraints_visive,
         'constraints_semantiche': constraints_semantiche,
         'fragments': fragments,
         'features': features,
@@ -1668,7 +1673,8 @@ def _fetch_constraint_matrix():
       ?constraint a skos:Concept ;
                   skos:inScheme ?scheme ;
                   skos:prefLabel ?label .
-      FILTER(?scheme IN (desmos:FormalConstraintScheme, desmos:SemanticConstraintScheme))
+      FILTER(?scheme IN (desmos:FormalConstraintScheme, desmos:VisualConstraintScheme,
+                         desmos:SemanticConstraintScheme))
       FILTER(lang(?label) = "it")
 
       # desmos:VisualConstraint è rdfs:subClassOf desmos:FormalConstraint: con
