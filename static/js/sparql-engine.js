@@ -1,3 +1,6 @@
+// Prefisso dell'app (vuoto in locale, es. "/ops" in sottocartella), da base.html.
+const OPS_BASE = document.querySelector('meta[name="ops-base"]')?.content ?? '';
+
 // ── Namespace → prefix map ──────────────────────────────────────────────────
 const NS_MAP = [
   ['https://w3id.org/desmos/', 'desmos:'],
@@ -167,7 +170,7 @@ async function executeQuery() {
   hideDownloadButton();
 
   try {
-    const response = await fetch('/query', {
+    const response = await fetch(`${OPS_BASE}/query`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query }),

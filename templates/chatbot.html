@@ -22,5 +22,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="/qraken/widget.js" data-base="/qraken" data-display="inline" defer></script>
+<script src="{{ request.script_root }}/qraken/widget.js" data-base="{{ request.script_root }}/qraken" data-display="inline" defer></script>
 {% endblock %}

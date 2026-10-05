@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix
 from SPARQLWrapper import SPARQLWrapper, JSON, POST
 from dotenv import load_dotenv
 from markupsafe import Markup
@@ -46,6 +47,9 @@ def _get_tokens(text):
     return normalized
 
 app = Flask(__name__)
+# In produzione l'app è servita in sottocartella dietro reverse proxy: il prefisso
+# arriva in X-Forwarded-Prefix e diventa request.script_root, usato da url_for.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.register_blueprint(
     create_blueprint(QrakenConfig.from_env(
@@ -144,7 +148,9 @@ def _expr_crumbs(uri, include_self=True, include_parent=True):
     except Exception:
         return []
 
-CORPUS_CRUMB = {'label': 'Corpus', 'url': '/corpus'}
+def _corpus_crumb():
+    # url_for richiede un contesto di richiesta: niente costante a livello di modulo.
+    return {'label': 'Corpus', 'url': url_for('corpus')}
 
 @app.route('/')
 def index():
@@ -200,7 +206,7 @@ def corpus():
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
     SELECT ?expression ?title
-           (SAMPLE(?workType) AS ?workType)
+           (GROUP_CONCAT(DISTINCT STR(?workType); separator="||") AS ?workTypes)
            (SAMPLE(?_parentTitle) AS ?parentTitle)
            (SAMPLE(?_parentPlaquetteTitle) AS ?parentPlaquetteTitle)
            (SAMPLE(?_directMfTitle) AS ?directMfTitle)
@@ -274,6 +280,8 @@ def corpus():
                      dct:title ?_parentTitle .
         OPTIONAL {
           ?_parentExpr lrmoo:R4i_is_embodied_in ?_parentF3 .
+          # Anche il padre è incarnato sia nella plaquette sia nel volume: solo la foglia.
+          FILTER NOT EXISTS { ?_parentF3Part crm:P148i_is_component_of|^crm:P148_has_component ?_parentF3 }
           ?_parentF3 dct:title ?_parentPlaquetteTitle .
         }
       }
@@ -281,6 +289,9 @@ def corpus():
         # Stop at the immediate F3_Manifestation — do NOT traverse crm:P148i_is_component_of.
         # L'inverso ^lrmoo:R4_embodies copre le espressioni che asseriscono solo quel verso.
         ?expression lrmoo:R4i_is_embodied_in|^lrmoo:R4_embodies ?_directMf .
+        # 90 espressioni sono incarnate sia nella plaquette sia nel volume che la contiene:
+        # si tiene solo la manifestazione "foglia" (senza parti), cioè la plaquette.
+        FILTER NOT EXISTS { ?_part crm:P148i_is_component_of|^crm:P148_has_component ?_directMf }
         ?_directMf dct:title ?_directMfTitle .
 
         # Risalita al volume principale (es. "La Biblioteca Oplepiana, I volume")
@@ -329,8 +340,9 @@ def corpus():
     if result['success']:
         for b in result['data']['results']['bindings']:
 
-            raw_type = b.get('workType', {}).get('value', '')
-            w_type = raw_type.split('/')[-1].split('#')[-1] if raw_type else ''
+            # Un'espressione può avere più crm:P2_has_type (26 nei dati attuali).
+            w_types = sorted({t.split('/')[-1].split('#')[-1]
+                              for t in b.get('workTypes', {}).get('value', '').split('||') if t})
 
             constraints = []
             seen_constraint_uris = set()
@@ -396,7 +408,7 @@ def corpus():
                 'uri': b['expression']['value'],
                 'title': b['title']['value'],
                 'author': b['authors']['value'],
-                'type': w_type,
+                'types': w_types,
                 'constraints': constraints,
                 'constraint_types': list(set(c['constraint_type'] for c in constraints if c['constraint_type'])),
                 'origins': list(set(c['origin'] for c in constraints if c['origin'])),
@@ -414,8 +426,7 @@ def corpus():
             }
             expressions.append(exp_data)
             facets['authors'].add(b['authors']['value'])
-            if w_type:
-                facets['work_types'].add(w_type)
+            facets['work_types'].update(w_types)
 
     # Merge formal and semantic units into a single dropdown facet
     facets['units'] = sorted(list(facets.pop('formal_units') | facets.pop('semantic_units')))
@@ -471,37 +482,6 @@ def corpus():
     error_message = None if result['success'] else result.get('error', 'Unknown error connecting to GraphDB')
 
     return render_template('corpus.html', expressions=expressions, volumes=volumes, facets=facets, error=error_message)
-
-@app.route('/test-connection')
-def test_connection():
-    """
-    Simple endpoint to test basic GraphDB connectivity.
-    Returns JSON with connection status and sample data.
-    """
-    print("\n=== CONNECTION TEST ===")
-
-    simple_query = "SELECT * WHERE { ?s ?p ?o } LIMIT 1"
-    result = execute_sparql_query(simple_query)
-
-    response = {
-        'endpoint': SPARQL_ENDPOINT,
-        'repository_id': REPOSITORY_ID,
-        'connection_test': {
-            'success': result['success'],
-            'error': result.get('error'),
-            'has_data': False
-        }
-    }
-
-    if result['success']:
-        bindings = result['data'].get('results', {}).get('bindings', [])
-        response['connection_test']['has_data'] = len(bindings) > 0
-        response['connection_test']['sample_count'] = len(bindings)
-        if bindings:
-            response['connection_test']['sample_triple'] = bindings[0]
-
-    print(f"Connection test result: {response}")
-    return jsonify(response)
 
 def _parse_lod_items(raw):
     items = []
@@ -812,7 +792,7 @@ def explain():
             })
     info['occurrences'] = occurrences
 
-    crumbs = [CORPUS_CRUMB] + _expr_crumbs(request.args.get('from'), include_parent=False)
+    crumbs = [_corpus_crumb()] + _expr_crumbs(request.args.get('from'), include_parent=False)
     return render_template('explain.html', info=info, error=None, crumbs=crumbs)
 
 @app.route('/expression')
@@ -881,6 +861,8 @@ def expression():
         # 1. Recupero Manifestazione: property path cattura R4i_is_embodied_in e ^R4_embodies
         OPTIONAL {
             ?uri (lrmoo:R4i_is_embodied_in | ^lrmoo:R4_embodies) ?_manifNode .
+            # Plaquette, non il volume che la contiene (vedi la stessa scelta in /corpus).
+            FILTER NOT EXISTS { ?_manifPart crm:P148i_is_component_of|^crm:P148_has_component ?_manifNode }
             ?_manifNode dct:title ?_manifTitleRaw .
             BIND(STR(?_manifTitleRaw) AS ?_manifTitle)
 
@@ -942,6 +924,7 @@ def expression():
             BIND("direct" AS ?fSource)
             OPTIONAL {
                 ?uri lrmoo:R4i_is_embodied_in ?plaquette .
+                FILTER NOT EXISTS { ?plaqPart crm:P148i_is_component_of|^crm:P148_has_component ?plaquette }
                 ?plaquette dct:title ?fragManTitle .
                 OPTIONAL { ?plaquette schema:pagination ?pageVal }
                 OPTIONAL { ?plaquette dct:issued ?directYear }
@@ -1183,9 +1166,9 @@ def expression():
 
     from_uri = _valid_expr_uri(request.args.get('from'))
     if from_uri and from_uri != uri:
-        crumbs = [CORPUS_CRUMB] + _expr_crumbs(from_uri)
+        crumbs = [_corpus_crumb()] + _expr_crumbs(from_uri)
     else:
-        crumbs = [CORPUS_CRUMB]
+        crumbs = [_corpus_crumb()]
         if parent:
             crumbs.append({'label': Markup('<em>{}</em>').format(parent['title']),
                            'url': url_for('expression', uri=parent['uri'])})
@@ -1487,115 +1470,9 @@ def riscritture():
         }
     }
 
-    crumbs = [CORPUS_CRUMB] + _expr_crumbs(origin_uri)
+    crumbs = [_corpus_crumb()] + _expr_crumbs(origin_uri)
     return render_template('riscritture.html', data=viz_data, error=None,
                            lipo=_build_lipo_example(), crumbs=crumbs)
-
-
-DEFAULT_HIERARCHY_SCHEME = 'https://w3id.org/desmos/FormalConstraintScheme'
-
-
-@app.route('/api/hierarchy')
-def api_hierarchy():
-    """Albero SKOS (skos:broader, con skos:related annessi) di uno ConceptScheme.
-    Query string: ?scheme=<URI> (default FormalConstraintScheme). Il FILTER NOT EXISTS nella query
-    sopprime a runtime eventuali skos:broader ridondanti residui: è una rete
-    di sicurezza, non un sostituto della pulizia dei dati (v. Task 1 su
-    concept.ttl)."""
-    raw_scheme = request.args.get('scheme', DEFAULT_HIERARCHY_SCHEME).strip()
-    scheme_uri = unquote(raw_scheme) or DEFAULT_HIERARCHY_SCHEME
-
-    label_query = f"""
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    SELECT ?label WHERE {{
-        <{scheme_uri}> skos:prefLabel ?label .
-        FILTER(lang(?label) = "it")
-    }}
-    """
-    label_result = execute_sparql_query(label_query)
-    scheme_label = scheme_uri
-    if label_result['success'] and label_result['data']['results']['bindings']:
-        scheme_label = label_result['data']['results']['bindings'][0].get('label', {}).get('value', scheme_uri)
-
-    tree_query = f"""
-    PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
-    PREFIX desmos: <https://w3id.org/desmos/>
-
-    SELECT ?concept ?labelIt ?labelEn ?broader
-           (GROUP_CONCAT(DISTINCT STR(?rel); separator="||") AS ?relatedData)
-    WHERE {{
-      BIND(<{scheme_uri}> AS ?scheme)
-      ?concept a skos:Concept ;
-               skos:inScheme ?scheme ;
-               skos:prefLabel ?labelIt , ?labelEn .
-      FILTER(lang(?labelIt) = "it")
-      FILTER(lang(?labelEn) = "en")
-      OPTIONAL {{
-        ?concept skos:broader ?broader .
-        FILTER NOT EXISTS {{
-          ?concept skos:broader ?mid .
-          ?mid skos:broader+ ?broader .
-          FILTER(?mid != ?broader)
-        }}
-      }}
-      OPTIONAL {{ ?concept skos:related ?rel . ?rel skos:inScheme ?scheme . }}
-    }}
-    GROUP BY ?concept ?labelIt ?labelEn ?broader
-    """
-    result = execute_sparql_query(tree_query)
-    if not result['success']:
-        return jsonify({'error': result.get('error', 'Query SPARQL fallita.')}), 502
-
-    nodes = {}
-    for b in result['data']['results']['bindings']:
-        uri = b['concept']['value']
-        entry = nodes.setdefault(uri, {
-            'name': b.get('labelIt', {}).get('value', ''),
-            'en': b.get('labelEn', {}).get('value', ''),
-            'related': set(),
-            'broader_candidates': set(),
-        })
-        broader_val = b.get('broader', {}).get('value')
-        if broader_val:
-            entry['broader_candidates'].add(broader_val)
-        for rel in b.get('relatedData', {}).get('value', '').split('||'):
-            rel = rel.strip()
-            if rel:
-                entry['related'].add(rel)
-
-    # Un concetto con più di un candidato skos:broader e' un'anomalia residua
-    # (non dovrebbe accadere dopo il Task 1 su concept.ttl): scelta
-    # deterministica, il primo in ordine alfabetico di URI, con un warning
-    # esplicito — l'anomalia viene loggata, non silenziata.
-    parent_of = {}
-    for uri, entry in nodes.items():
-        candidates = sorted(entry['broader_candidates'])
-        if len(candidates) > 1:
-            print(f"WARNING /api/hierarchy: {uri} ha {len(candidates)} genitori skos:broader "
-                  f"{candidates}; uso il primo in ordine alfabetico: {candidates[0]}")
-        parent_of[uri] = candidates[0] if candidates else None
-
-    children_of = defaultdict(list)
-    for uri, parent in parent_of.items():
-        if parent:
-            children_of[parent].append(uri)
-
-    def build(uri):
-        node = nodes[uri]
-        return {
-            'uri': uri,
-            'name': node['name'],
-            'en': node['en'],
-            'related': sorted(node['related']),
-            'children': [build(child) for child in sorted(children_of.get(uri, ()))],
-        }
-
-    roots = sorted(uri for uri, parent in parent_of.items() if parent is None)
-    return jsonify({
-        'scheme': scheme_uri,
-        'label': scheme_label,
-        'children': [build(uri) for uri in roots],
-    })
 
 
 # Colonne (unità): granularità linguistica crescente, poi unità semantiche.

@@ -12,7 +12,7 @@
 <div class="container mt-5 px-3">
     <div class="alert alert-danger explain-column">
         <strong>Errore:</strong> {{ error }}
-        <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
+        <a href="{{ url_for('corpus') }}" class="alert-link ms-2">&larr; Torna al Corpus</a>
     </div>
 </div>
 
@@ -38,7 +38,7 @@
                         <ul class="explain-occurrences-list list-unstyled">
                             {% for occ in info.occurrences %}
                             <li class="explain-occurrence-item">
-                                <a href="/expression?uri={{ occ.uri | urlencode }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                                <a href="{{ url_for('expression', uri=occ.uri) }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
                             </li>
                             {% endfor %}
                         </ul>

@@ -2,6 +2,9 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+// Prefisso dell'app (vuoto in locale, es. "/ops" in sottocartella), da base.html.
+export const OPS_BASE = document.querySelector('meta[name="ops-base"]')?.content ?? '';
+
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
@@ -109,7 +112,7 @@ export function el(tag, attrs, ns) {
 }
 
 async function loadData() {
-    const res = await fetch('/api/constraint-matrix');
+    const res = await fetch(`${OPS_BASE}/api/constraint-matrix`);
     if (!res.ok) throw new Error('Richiesta fallita: ' + res.status);
     return res.json();
 }
@@ -502,7 +505,7 @@ function renderMatrix(containers, data, focusUri, layout) {
 
             if (mark.n === 1) {
                 const uri = mark.constraints[0].uri;
-                const link = el('a', { href: '/explain?uri=' + encodeURIComponent(uri), role: 'link', tabindex: '0' });
+                const link = el('a', { href: `${OPS_BASE}/explain?uri=` + encodeURIComponent(uri), role: 'link', tabindex: '0' });
                 link.setAttribute('aria-label', markAriaLabel(mark));
                 link.appendChild(node);
                 markLayer.appendChild(link);
@@ -591,7 +594,7 @@ function renderMatrix(containers, data, focusUri, layout) {
                 flow.appendChild(span);
             } else {
                 const a = document.createElement('a');
-                a.href = '/explain?uri=' + encodeURIComponent(c.uri);
+                a.href = `${OPS_BASE}/explain?uri=` + encodeURIComponent(c.uri);
                 a.className = 'internal-link';
                 a.textContent = c.label;
                 flow.appendChild(a);

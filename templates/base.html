@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ops-base" content="{{ request.script_root }}">
     <title>OPS - {% block title %}Opificio Potenziale Semantico{% endblock %}</title>
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16.png') }}">
@@ -25,9 +26,9 @@
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container-fluid px-5">
             {% if request.path == '/' %}
-            <a class="navbar-brand home-brand-heading" href="/"><span class="text-danger">O</span>pificio <span class="text-danger">P</span>otenziale <span class="text-danger">S</span>emantico</a>
+            <a class="navbar-brand home-brand-heading" href="{{ url_for('index') }}"><span class="text-danger">O</span>pificio <span class="text-danger">P</span>otenziale <span class="text-danger">S</span>emantico</a>
             {% else %}
-            <a class="navbar-brand ops-brand" href="/">OPS</a>
+            <a class="navbar-brand ops-brand" href="{{ url_for('index') }}">OPS</a>
             {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -35,19 +36,19 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{{ url_for('index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/project' %}active{% endif %}" href="/project">Progetto</a>
+                        <a class="nav-link {% if request.path == '/project' %}active{% endif %}" href="{{ url_for('project') }}">Progetto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="/corpus">Corpus</a>
+                        <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="{{ url_for('corpus') }}">Corpus</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/riscritture' %}active{% endif %}" href="/riscritture">Riscritture</a>
+                        <a class="nav-link {% if request.path == '/riscritture' %}active{% endif %}" href="{{ url_for('riscritture') }}">Riscritture</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path in ['/query_hub', '/sparql', '/chatbot'] %}active{% endif %}" href="/query_hub">Interrogazione Dati
+                        <a class="nav-link {% if request.path in ['/query_hub', '/sparql', '/chatbot'] %}active{% endif %}" href="{{ url_for('query_hub') }}">Interrogazione Dati
 
                         </a>                    
                     </li>

@@ -13,7 +13,7 @@
 <p class="expr-detail-text x-small mb-3">
     <span class="fw-bold">Costrizioni usate:</span>
     {% for c in labeled %}
-    <a href="/explain?uri={{ c.uri | urlencode }}&from={{ expr.uri | urlencode }}"
+    <a href="{{ url_for('explain', uri=c.uri, **{'from': expr.uri}) }}"
     class="constraint-badge"
     title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
     {{ c.label }}
@@ -29,7 +29,7 @@
     <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
     {% endif %}
 
-    <a href="/expression?uri={{ expr.uri | urlencode }}"
+    <a href="{{ url_for('expression', uri=expr.uri) }}"
        class="btn-approfondisci">
         Approfondisci &rarr;
     </a>
@@ -64,14 +64,14 @@
     <p class="expr-detail-text x-small mb-2">
         <span class="fw-bold">Consegna comune:</span>
         {% for c in labeled %}
-        <a href="/explain?uri={{ c.uri | urlencode }}&from={{ container.uri | urlencode }}"
+        <a href="{{ url_for('explain', uri=c.uri, **{'from': container.uri}) }}"
            class="constraint-badge"
            title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
             {{ c.label }}
         </a>{% if not loop.last %};{% endif %}
         {% endfor %}
     </p>
-    <a href="/expression?uri={{ container.uri | urlencode }}" class="btn-approfondisci">
+    <a href="{{ url_for('expression', uri=container.uri) }}" class="btn-approfondisci">
         Approfondisci &rarr;
     </a>
 </div>
@@ -175,7 +175,7 @@
                     row_class='text-row',
                     data_attrs={
                         'author': expr.author,
-                        'type': expr.type,
+                        'type': expr.types | join(','),
                         'constraint-type': expr.constraint_types | join(','),
                         'origins': expr.origins | join(','),
                         'operations': expr.operations | join(','),
@@ -193,7 +193,7 @@
                     row_class='plaquette-row',
                     data_attrs={
                         'author': plaq.container.author,
-                        'type': plaq.container.type,
+                        'type': plaq.container.types | join(','),
                         'constraint-type': plaq.container.constraint_types | join(','),
                         'origins': plaq.container.origins | join(','),
                         'operations': plaq.container.operations | join(','),

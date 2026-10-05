@@ -15,7 +15,7 @@
   {% if error %}
   <div class="alert alert-danger">
     <strong>Errore:</strong> {{ error }}
-    <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
+    <a href="{{ url_for('corpus') }}" class="alert-link ms-2">&larr; Torna al Corpus</a>
   </div>
 
   {% elif data %}

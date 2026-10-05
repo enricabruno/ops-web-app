@@ -11,7 +11,7 @@
 {% macro constraint_badges(items, collapse_id, soglia, from_uri) %}
 <div class="d-flex flex-wrap gap-2">
     {% for c in items[:soglia] %}
-    <a href="/explain?uri={{ c.uri | urlencode }}&from={{ from_uri | urlencode }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
+    <a href="{{ url_for('explain', uri=c.uri, **{'from': from_uri}) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
     {% endfor %}
     {% if items | length > soglia %}
     <a class="badge-vincolo cviz-more-badge" data-bs-toggle="collapse" href="#{{ collapse_id }}"
@@ -24,7 +24,7 @@
 <div class="collapse" id="{{ collapse_id }}">
     <div class="d-flex flex-wrap gap-2 mt-2">
         {% for c in items[soglia:] %}
-        <a href="/explain?uri={{ c.uri | urlencode }}&from={{ from_uri | urlencode }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
+        <a href="{{ url_for('explain', uri=c.uri, **{'from': from_uri}) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
         {% endfor %}
     </div>
 </div>
@@ -36,7 +36,7 @@
     {% if error %}
     <div class="alert alert-danger">
         <strong>Errore:</strong> {{ error }}
-        <a href="/corpus" class="alert-link ms-2">&larr; Torna al Corpus</a>
+        <a href="{{ url_for('corpus') }}" class="alert-link ms-2">&larr; Torna al Corpus</a>
     </div>
 
     {% elif expr %}
@@ -63,7 +63,7 @@
                     <dt class="metadata-section-label">Collocazione:</dt>
                     <dd class="small text-muted">
                         {% if expr.parent %}
-                        In <a href="/expression?uri={{ expr.parent.uri | urlencode }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
+                        In <a href="{{ url_for('expression', uri=expr.parent.uri) }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
                         {% else %}
                         <i>{{ expr.manif_title }}</i>
                         {% endif %}
@@ -93,7 +93,7 @@
                         {% if expr.sources %}
                             {% for source in expr.sources %}
                             <div class="mb-1">
-                                <a href="/expression?uri={{ source.uri | urlencode }}&from={{ expr.uri | urlencode }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small"><a href="{% if expr.uri == 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48' %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_48', _anchor='riscrittura-inferno') }}{% else %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_11') }}{% endif %}" class="link-intra" title="Vedi i testi a confronto">(confronta &#8644;)</a></span>{% endif %}
+                                <a href="{{ url_for('expression', uri=source.uri, **{'from': expr.uri}) }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small"><a href="{% if expr.uri == 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48' %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_48', _anchor='riscrittura-inferno') }}{% else %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_11') }}{% endif %}" class="link-intra" title="Vedi i testi a confronto">(confronta &#8644;)</a></span>{% endif %}
                             </div>
                             {% endfor %}
                         {% else %}
@@ -227,7 +227,7 @@
                 </div>
 
                 <div class="evidence-node">
-                    <a href="/explain?uri={{ item.uri | urlencode }}&from={{ expr.uri | urlencode }}" class="evidence-constraint constraint-link">{{ item.label }}</a>
+                    <a href="{{ url_for('explain', uri=item.uri, **{'from': expr.uri}) }}" class="evidence-constraint constraint-link">{{ item.label }}</a>
                 </div>
 
                 <div class="evidence-arm evidence-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
@@ -282,7 +282,7 @@
             <div class="col-lg-8">
                 {% for child in expr.children %}
                 <div class="child-item">
-                    <a href="/expression?uri={{ child.uri | urlencode }}" class="internal-link">{{ child.title }}</a>{% if child.author %} di {{ child.author }}{% endif %}{% if child.year %} <span class="text-muted small">({{ child.year }})</span>{% endif %}
+                    <a href="{{ url_for('expression', uri=child.uri) }}" class="internal-link">{{ child.title }}</a>{% if child.author %} di {{ child.author }}{% endif %}{% if child.year %} <span class="text-muted small">({{ child.year }})</span>{% endif %}
                 </div>
                 {% endfor %}
             </div>

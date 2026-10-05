@@ -1,6 +1,6 @@
 /* Rete concettuale (skos:broader / skos:narrower / skos:related) delle costrizioni */
 
-import { el, measureText, wrapRowLabel, markElement, originShape } from './constraint_matrix.js';
+import { el, measureText, wrapRowLabel, markElement, originShape, OPS_BASE } from './constraint_matrix.js';
 
 const SQRT_PI = Math.sqrt(Math.PI);
 const sideFor = (r) => r * SQRT_PI;
@@ -358,7 +358,7 @@ function renderConceptGraph(container, data) {
         const shape = markElement({ cls: node.cls, origin: node.origin }, cx, cy, side);
         const link = el('a', {
             class: `concept-graph-node ${extraClass}`.trim(),
-            href: '/explain?uri=' + encodeURIComponent(node.uri),
+            href: `${OPS_BASE}/explain?uri=` + encodeURIComponent(node.uri),
             tabindex: '0',
             'aria-label': nodeAriaLabel(node, roleLabel),
         });
