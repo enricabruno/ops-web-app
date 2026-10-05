@@ -1427,6 +1427,14 @@ tbody tr:last-child td { border-bottom: none; }
     color: inherit;
 }
 
+.turtle-pre {
+    max-height: 480px;
+    overflow: auto;
+    white-space: pre;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+
 .query-template-menu { min-width: 280px; }
 
 /* CodeMirror 5 */

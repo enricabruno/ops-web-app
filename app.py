@@ -1,6 +1,12 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, Response
 from werkzeug.middleware.proxy_fix import ProxyFix
 from SPARQLWrapper import SPARQLWrapper, JSON, POST
+from rdflib.plugins.sparql.parser import parseQuery
+from rdflib.plugins.sparql.parserutils import CompValue
+from pyparsing import ParseResults
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+import requests
 from dotenv import load_dotenv
 from markupsafe import Markup
 from urllib.parse import quote, unquote
@@ -65,6 +71,20 @@ app.register_blueprint(
     url_prefix="/qraken",
 )
 
+# Rate limit sugli endpoint che interrogano GraphDB o il modello. 
+RATE_LIMIT = "30/minute"
+limiter = Limiter(get_remote_address, app=app, storage_uri="memory://")
+app.view_functions['qraken.send_message'] = limiter.limit(RATE_LIMIT)(app.view_functions['qraken.send_message'])
+
+@app.errorhandler(429)
+def rate_limit_exceeded(e):
+    msg = "Troppe richieste: il limite è di 30 al minuto. Riprova tra qualche istante."
+    if request.endpoint == 'sparql':
+        return Response(msg + "\n", status=429, mimetype='text/plain',
+                        headers={'Access-Control-Allow-Origin': '*'})
+    # {success, error} va bene sia per sparql-engine.js sia per il widget Qraken.
+    return jsonify({'success': False, 'error': msg}), 429
+
 @app.template_filter('urlencode')
 def urlencode_filter(s):
     return quote(str(s), safe='')
@@ -96,8 +116,6 @@ def execute_sparql_query(query):
         sparql = SPARQLWrapper(SPARQL_ENDPOINT)
         sparql.setQuery(query)
         sparql.setReturnFormat(JSON)
-        # POST: in GET la query viaggia nell'URL e le query lunghe sfondano il
-        # limite di header di Tomcat ("Request header is too large").
         sparql.setMethod(POST)
         results = sparql.query().convert()
 
@@ -107,6 +125,46 @@ def execute_sparql_query(query):
     except Exception as e:
         print(f"✗ SPARQL ERROR: {str(e)}")
         return {'success': False, 'error': str(e)}
+
+MAX_QUERY_CHARS = 20000
+_QUERY_FORMS = {'SelectQuery': 'SELECT', 'ConstructQuery': 'CONSTRUCT'}
+
+def _has_service(node):
+    """True se l'albero di parsing contiene un SERVICE, a qualunque profondità."""
+    if isinstance(node, CompValue):
+        return node.name == 'ServiceGraphPattern' or any(_has_service(v) for v in node.values())
+    if isinstance(node, (ParseResults, list, tuple)):
+        return any(_has_service(v) for v in node)
+    return False
+
+def check_readonly_query(q):
+    """Ammette solo SELECT e CONSTRUCT, verificandolo per parsing (non per parole
+    chiave): ciò che rdflib non riconosce come query, update compresi, è rifiutato.
+    Restituisce (True, 'SELECT'|'CONSTRUCT') oppure (False, messaggio)."""
+    if not isinstance(q, str) or not q.strip():
+        return False, "La query è vuota."
+    if len(q) > MAX_QUERY_CHARS:
+        return False, f"La query supera il limite di {MAX_QUERY_CHARS:,} caratteri.".replace(',', '.')
+    try:
+        parsed = parseQuery(q)
+    except Exception as e:
+        return False, ("Query non valida o non consentita: l'endpoint è in sola lettura e "
+                       f"ammette solo query SELECT e CONSTRUCT.\n\nDettaglio: {e}")
+    body = parsed[1]
+    form = _QUERY_FORMS.get(getattr(body, 'name', None))
+    if not form:
+        kind = getattr(body, 'name', '').replace('Query', '').upper() or 'sconosciuto'
+        return False, f"Tipo di query non consentito ({kind}): sono ammesse solo query SELECT e CONSTRUCT."
+    if _has_service(parsed):
+        return False, "Le query federate (SERVICE) non sono consentite."
+    return True, form
+
+GRAPHDB_TIMEOUT = 60
+
+def _graphdb_post(query, accept):
+    """Inoltra una query già validata a GraphDB con l'Accept richiesto."""
+    return requests.post(SPARQL_ENDPOINT, data={'query': query},
+                         headers={'Accept': accept}, timeout=GRAPHDB_TIMEOUT)
 
 _EXPR_URI_RE = re.compile(r'^https://w3id\.org/desmos/oplepiana/expression/[A-Za-z0-9_\-]+$')
 
@@ -149,7 +207,6 @@ def _expr_crumbs(uri, include_self=True, include_parent=True):
         return []
 
 def _corpus_crumb():
-    # url_for richiede un contesto di richiesta: niente costante a livello di modulo.
     return {'label': 'Corpus', 'url': url_for('corpus')}
 
 @app.route('/')
@@ -158,11 +215,6 @@ def index():
 
 @app.route('/favicon.ico')
 def favicon():
-    # I browser richiedono /favicon.ico automaticamente al primo
-    # caricamento, prima ancora di leggere il <link rel="icon"> in <head>.
-    # Servito con mimetype esplicito: senza, Flask dedurrebbe image/png
-    # dall'estensione del file su disco, e WebKit (a differenza di Blink)
-    # non fa MIME sniffing e ignora l'icona.
     return send_from_directory(
         os.path.join(app.root_path, 'static', 'img'),
         'favicon.ico',
@@ -173,9 +225,49 @@ def favicon():
 def project():
     return render_template('project.html')
 
-@app.route('/sparql')
+_ACCEPT = {
+    'SELECT': ['application/sparql-results+json', 'application/sparql-results+xml',
+               'text/csv', 'text/tab-separated-values'],
+    'CONSTRUCT': ['text/turtle', 'application/ld+json', 'application/rdf+xml',
+                  'application/n-triples', 'application/trig', 'text/n3'],
+}
+
+def _sparql_protocol_query():
+    """La query passata secondo SPARQL 1.1 Protocol (GET, POST form o POST
+    application/sparql-query), oppure None se la richiesta non ne contiene."""
+    if request.method == 'GET':
+        return request.args.get('query')
+    if request.mimetype == 'application/sparql-query':
+        return request.get_data(as_text=True)
+    return request.form.get('query')
+
+@app.route('/sparql', methods=['GET', 'POST'])
+@limiter.limit(RATE_LIMIT, exempt_when=lambda: _sparql_protocol_query() is None)
 def sparql():
-    return render_template('sparql.html')
+    q = _sparql_protocol_query()
+    if q is None:
+        return render_template('sparql.html')
+    cors = {'Access-Control-Allow-Origin': '*'}
+    ok, form = check_readonly_query(q)
+    if not ok:
+        return Response(form + "\n", status=400, mimetype='text/plain', headers=cors)
+    accept = request.accept_mimetypes.best_match(_ACCEPT[form]) or _ACCEPT[form][0]
+    try:
+        r = _graphdb_post(q, accept)
+    except requests.RequestException as e:
+        print(f"✗ SPARQL ERROR: {e}")
+        return Response("GraphDB non raggiungibile.\n", status=502, mimetype='text/plain', headers=cors)
+    return Response(r.content, status=r.status_code, headers=cors,
+                    content_type=r.headers.get('Content-Type', accept))
+
+@app.after_request
+def _sparql_cors_preflight(resp):
+    # Le POST application/sparql-query da altri domini richiedono un preflight.
+    if request.endpoint == 'sparql' and request.method == 'OPTIONS':
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+    return resp
 
 @app.route('/query_hub')
 def query_hub():
@@ -186,13 +278,25 @@ def chatbot():
     return render_template('chatbot.html')
 
 @app.route('/query', methods=['POST'])
+@limiter.limit(RATE_LIMIT)
 def query():
-    """Riceve una query SPARQL dal frontend e la inoltra a GraphDB."""
-    data = request.get_json()
+    """Riceve una query SPARQL dal frontend e, se in sola lettura, la inoltra a GraphDB."""
+    data = request.get_json(silent=True)
     if not data or 'query' not in data:
         return jsonify({'success': False, 'error': 'Nessuna query SPARQL fornita nel body della richiesta.'}), 400
-    result = execute_sparql_query(data['query'])
-    return jsonify(result)
+    ok, form = check_readonly_query(data['query'])
+    if not ok:
+        return jsonify({'success': False, 'error': form}), 400
+    if form == 'SELECT':
+        return jsonify(execute_sparql_query(data['query']))
+    try:
+        r = _graphdb_post(data['query'], 'text/turtle')
+    except requests.RequestException as e:
+        print(f"✗ SPARQL ERROR: {e}")
+        return jsonify({'success': False, 'error': str(e)})
+    if not r.ok:
+        return jsonify({'success': False, 'error': f"HTTP {r.status_code}: {r.text}"})
+    return jsonify({'success': True, 'format': 'turtle', 'data': r.text})
 
 @app.route('/corpus')
 def corpus():

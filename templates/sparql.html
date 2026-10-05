@@ -40,9 +40,18 @@
                     <i class="fa fa-code-branch me-2 text-muted"></i>Opere derivate e fonti intertestuali
                   </button>
                 </li>
+                <li>
+                  <button class="dropdown-item small" onclick="loadTemplate('lipogram')">
+                    <i class="fa fa-project-diagram me-2 text-muted"></i>Grafo del lipogramma (CONSTRUCT)
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
+
+          <p class="small text-muted mb-2">
+            Sono ammesse query SELECT e CONSTRUCT.
+          </p>
 
           <!-- CodeMirror Editor -->
           <div id="sparql-editor-host"></div>
@@ -78,6 +87,9 @@
       <div class="card-footer bg-white d-flex justify-content-end py-2">
         <button type="button" id="download-csv-btn" class="btn btn-sm btn-outline-neutral d-none" onclick="downloadResultsCSV()">
           <i class="fa fa-download me-1"></i>Scarica CSV
+        </button>
+        <button type="button" id="download-ttl-btn" class="btn btn-sm btn-outline-neutral d-none" onclick="downloadTurtle()">
+          <i class="fa fa-download me-1"></i>Scarica Turtle
         </button>
       </div>
     </div>

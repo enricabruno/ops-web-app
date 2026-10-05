@@ -106,6 +106,33 @@ WHERE {
   }
 }
 ORDER BY ?derivedTitle`,
+
+  lipogram:
+`PREFIX desmos: <https://w3id.org/desmos/>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+  desmos:lipogram skos:prefLabel ?label ;
+                  skos:narrower ?narrower ;
+                  desmos:constrainsFormalUnit ?unit ;
+                  desmos:involvesOperation ?operation .
+  ?narrower skos:prefLabel ?narrowerLabel .
+}
+WHERE {
+  OPTIONAL {
+    desmos:lipogram skos:prefLabel ?label .
+    FILTER(lang(?label) = "it")
+  }
+  OPTIONAL {
+    desmos:lipogram skos:narrower ?narrower .
+    OPTIONAL {
+      ?narrower skos:prefLabel ?narrowerLabel .
+      FILTER(lang(?narrowerLabel) = "it")
+    }
+  }
+  OPTIONAL { desmos:lipogram desmos:constrainsFormalUnit ?unit . }
+  OPTIONAL { desmos:lipogram desmos:involvesOperation ?operation . }
+}`,
 };
 
 // ── CodeMirror editor init ───────────────────────────────────────────────────
@@ -176,10 +203,18 @@ async function executeQuery() {
       body: JSON.stringify({ query }),
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      displayError(`Risposta non valida dal server (HTTP ${response.status})`);
+      return;
+    }
 
     if (!response.ok || !data.success) {
       displayError(data.error || `Errore HTTP ${response.status}`);
+    } else if (data.format === 'turtle') {
+      displayTurtle(data.data);
     } else {
       displayResults(data.data);
     }
@@ -205,27 +240,18 @@ function setBadge(text, cls = 'bg-secondary') {
 // ── Result rendering ────────────────────────────────────────────────────────
 let lastResultsVariables = null;
 let lastResultsBindings  = null;
+let lastTurtle           = null;
 
 function hideDownloadButton() {
   document.getElementById('download-csv-btn').classList.add('d-none');
+  document.getElementById('download-ttl-btn').classList.add('d-none');
   lastResultsVariables = null;
   lastResultsBindings  = null;
+  lastTurtle           = null;
 }
 
 function displayResults(data) {
   const resultsDiv = document.getElementById('query-results');
-
-  // ASK query response
-  if (data.boolean !== undefined) {
-    const val = data.boolean;
-    setBadge('ASK', val ? 'bg-success' : 'bg-warning text-dark');
-    resultsDiv.innerHTML = `
-      <div class="alert ${val ? 'alert-success' : 'alert-warning'} mb-0">
-        Risultato ASK: <strong>${val ? 'TRUE' : 'FALSE'}</strong>
-      </div>`;
-    hideDownloadButton();
-    return;
-  }
 
   const bindings  = data.results?.bindings ?? [];
   const variables = data.head?.vars ?? [];
@@ -259,6 +285,32 @@ function displayResults(data) {
   document.getElementById('download-csv-btn').classList.remove('d-none');
 }
 
+// Risultato di una CONSTRUCT: grafo serializzato in Turtle da GraphDB.
+function displayTurtle(turtle) {
+  const resultsDiv = document.getElementById('query-results');
+  setBadge('Turtle', 'bg-success');
+  resultsDiv.innerHTML = `<pre class="turtle-pre mb-0">${escapeHtml(turtle)}</pre>`;
+  lastTurtle = turtle;
+  document.getElementById('download-ttl-btn').classList.remove('d-none');
+}
+
+function downloadTurtle() {
+  if (lastTurtle === null) return;
+  downloadBlob(new Blob([lastTurtle], { type: 'text/turtle;charset=utf-8;' }),
+               `risultati-sparql-${Date.now()}.ttl`);
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function downloadResultsCSV() {
   if (!lastResultsVariables || !lastResultsBindings) return;
 
@@ -270,14 +322,7 @@ function downloadResultsCSV() {
   }
 
   const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url;
-  a.download = `risultati-sparql-${Date.now()}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, `risultati-sparql-${Date.now()}.csv`);
 }
 
 function renderCell(item) {
