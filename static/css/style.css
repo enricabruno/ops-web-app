@@ -1295,24 +1295,8 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 /* ============================================
-   PAGE: VISUAL QUERY
+   PAGE: QRAKEN CHAT
    ============================================ */
-
-.visual-query-sentence { font-size: 1.25rem; }
-
-.visual-query-select {
-    display: inline-block;
-    width: auto;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    background-color: transparent;
-    font-weight: 700;
-    color: var(--color-accent);
-    padding: 0 0.5rem;
-    cursor: pointer;
-}
-
-.visual-query-select:focus { box-shadow: none; border-bottom: 2px solid var(--color-accent); outline: none; }
 
 .qraken-chat-card {
     border: 2px solid var(--color-border);
