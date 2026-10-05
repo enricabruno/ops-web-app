@@ -94,10 +94,7 @@ con i tuoi.
 
 > **Test in locale senza costi.** Per provare il chatbot sul proprio computer si può usare
 > una chiave Gemini del piano gratuito ([Google AI Studio](https://aistudio.google.com/apikey))
-> con `QRAKEN_LLM_PROVIDER=gemini` e un modello incluso nel piano gratuito. I termini di
-> Gemini non consentono il piano gratuito per servizi resi disponibili a utenti dello
-> Spazio economico europeo, della Svizzera o del Regno Unito: in un'installazione pubblica
-> serve una chiave a pagamento.
+> con `QRAKEN_LLM_PROVIDER=gemini` e un modello incluso nel piano gratuito.
 
 ### 5. Avvia GraphDB e carica i dati RDF
 
