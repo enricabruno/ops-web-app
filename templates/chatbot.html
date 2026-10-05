@@ -23,9 +23,4 @@
 
 {% block extra_scripts %}
 <script src="/qraken/widget.js" data-base="/qraken" data-display="inline" defer></script>
-<script defer>
-    // Il widget qraken vive in uno shadow DOM isolato e adotta i colori scuri
-    // quando il sistema/browser dell'utente è in dark mode. Forziamo qui lo
-    // sfondo chiaro, perché il CSS della pagina non può raggiungere lo shadow root.
-</script>
 {% endblock %}
