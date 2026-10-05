@@ -1,54 +1,74 @@
 # ops-web-app
 
-## OPS - Opificio Potenziale Semantico
+## OPS – Opificio Potenziale Semantico
 
 **ops-web-app** è un'interfaccia web (Flask) per esplorare **[DeSMòS](https://github.com/enricabruno/desmos)**
-(*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 che
-descrive le costrizioni nella tradizione dell'Oulipo (*Ouvroir de Littérature Potentielle*) e dell'Oplepo (Opificio Potenziale Semantico). Le costrizioni sono intese come procedure generative delle opere letterarie.
+(*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 che descrive le
+costrizioni letterarie nella tradizione dell'Oulipo (*Ouvroir de Littérature Potentielle*)
+e dell'Oplepo (*Opificio di Letteratura Potenziale*). Le costrizioni sono intese come
+procedure generative delle opere letterarie.
 
-L'app si collega direttamente ad un triplestore
-**GraphDB** e recupera tutti i dati tramite query SPARQL. 
+L'app si collega a un triplestore **GraphDB** e recupera tutti i dati tramite query SPARQL.
 Espone:
 
-- **Corpus browser**: navigazione a faccette delle espressioni vincolate
-  (autore, tipo di costrizione, tradizione, operazioni, unità formali/semantiche)
-- **Scheda espressione**: dettaglio di una singola opera con costrizioni, 
-  frammenti sorgente e provenienza bibliografica;
-- **Spiegazione delle costrizioni**: definizione, esempio e annotazioni LOD per ogni concetto SKOS;
-- **Anagrafia**: visualizzazione a livello di token dell'allineamento
-  intertestuale tra un'espressione vincolata e il suo testo sorgente;
-- **Accesso SPARQL**: editor libero, hub di query predefinite e query builder
-  visuale;
-- **Chatbot (QRAKEN)**: assistente in linguaggio naturale per interrogare il
-  knowledge graph.
+- **Corpus**: navigazione a faccette delle espressioni vincolate (autore, genere, tipo di
+  costrizione, tradizione, operazioni, unità formali e semantiche);
+- **Scheda espressione**: dettaglio di una singola opera, con costrizioni formali, visive e
+  semantiche, frammenti paratestuali e collocazione bibliografica;
+- **Spiegazione delle costrizioni**: definizione, esempio, gerarchia SKOS e collegamenti LOD
+  per ogni concetto;
+- **Matrice delle costrizioni**: incrocio tra operazioni e unità vincolate;
+- **Riscritture**: allineamento a livello di token tra un'espressione vincolata e il suo
+  testo sorgente;
+- **Endpoint SPARQL** in sola lettura (query `SELECT` e `CONSTRUCT`), con editor, query di
+  esempio e hub di query predefinite;
+- **Chatbot**: interrogazione del knowledge graph in linguaggio naturale, basata su
+  [QRAKEN](https://pypi.org/project/qraken-remote-chatbot/) di Remo Grillo.
 
 ---
 
 ## Prerequisiti
 
 - Python 3.9 o superiore
-- Un'istanza di [GraphDB](https://www.ontotext.com/products/graphdb/) attiva
-  su `localhost:7200`, con un repository chiamato `desmos`
-- Un tenant token QRAKEN e il nome del grafo TTQL (necessari: senza questi
-  l'app non si avvia — vedi step 4)
+- Un'istanza di [GraphDB](https://graphdb.ontotext.com/) attiva su `localhost:7200`, con un
+  repository chiamato `desmos` e ruleset **RDFS-Plus (Optimized)**
+- Un tenant token QRAKEN e il nome del grafo TTQL, forniti dall'operatore QRAKEN
+  (necessari: senza, l'app non si avvia; vedi passo 4)
+
+> **Perché RDFS-Plus.** Alcune funzioni dell'app presuppongono l'inferenza RDFS: per esempio,
+> una `desmos:VisualConstraint` è anche una `desmos:FormalConstraint`
+> (`rdfs:subClassOf` in `desmos.owl`). Con un ruleset senza inferenza alcuni conteggi e
+> filtri risultano incompleti.
 
 ---
 
 ## Avvio in locale
 
+### 1. Clona il repository
+
 ```bash
-# 1. Clona il repository
 git clone https://github.com/enricabruno/ops-web-app.git
 cd ops-web-app
+```
 
-# 2. Crea e attiva il virtual environment
+### 2. Crea e attiva il virtual environment
+
+```bash
 python3 -m venv venv
 source venv/bin/activate        # macOS / Linux
 # venv\Scripts\activate         # Windows
-
-# 3. Installa le dipendenze
-pip install -r requirements.txt
 ```
+
+### 3. Installa le dipendenze
+
+```bash
+pip install -r requirements.lock.txt
+```
+
+`requirements.lock.txt` fissa le versioni esatte di tutte le librerie (generato con
+Python 3.9.6). `requirements.txt` elenca solo le dipendenze dirette ed è il file da
+modificare quando si aggiunge o si toglie una libreria; dopo ogni modifica il lock va
+rigenerato in un ambiente pulito.
 
 ### 4. Configura le variabili d'ambiente
 
@@ -56,25 +76,34 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Modifica `.env` con i tuoi valori:
+Modifica `.env` con i tuoi valori. Scrivi i commenti su righe proprie, non sulla stessa
+riga del valore.
 
 | Variabile | Obbligatoria | Descrizione |
 |---|---|---|
 | `GRAPHDB_URL` | no (default `http://localhost:7200/repositories`) | URL base di GraphDB |
 | `REPOSITORY_ID` | no (default `desmos`) | Nome del repository GraphDB |
-| `QRAKEN_TENANT_TOKEN` | **sì** | Client key del server QRAKEN — l'app fallisce all'avvio se manca |
-| `QRAKEN_TTQL` | **sì** | Nome del grafo di conoscenza da interrogare (`desmos.ttql`) — l'app fallisce all'avvio se manca |
-| `QRAKEN_LLM_API_KEY` | consigliata | Chiave Anthropic ([console.anthropic.com](https://console.anthropic.com)), usata dal chatbot per rispondere |
-| `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | Provider LLM usato dal chatbot |
+| `QRAKEN_TENANT_TOKEN` | **sì** | Client key fornita dall'operatore QRAKEN. Segreto |
+| `QRAKEN_TTQL` | **sì** | Nome del grafo da interrogare sul server QRAKEN |
+| `QRAKEN_LLM_API_KEY` | consigliata | Chiave del provider LLM usata dal chatbot. Segreto |
+| `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | `anthropic`, `openai`, `gemini`, `harvard_bedrock` o `lmstudio` |
+| `QRAKEN_LLM_MODEL` | consigliata | Modello del provider (es. `claude-sonnet-5`); se vuota, sceglie il server QRAKEN |
+
+> **Test in locale senza costi.** Per provare il chatbot sul proprio computer si può usare
+> una chiave Gemini del piano gratuito ([Google AI Studio](https://aistudio.google.com/apikey))
+> con `QRAKEN_LLM_PROVIDER=gemini` e un modello incluso nel piano gratuito. I termini di
+> Gemini non consentono il piano gratuito per servizi resi disponibili a utenti dello
+> Spazio economico europeo, della Svizzera o del Regno Unito: in un'installazione pubblica
+> serve una chiave a pagamento.
 
 ### 5. Avvia GraphDB e carica i dati RDF
 
-Avvia GraphDB (desktop app, standalone server o Docker) e assicurati che
-esista un repository `desmos`. Poi carica i tre file RDF:
+Avvia GraphDB (desktop app, server standalone o Docker) e crea il repository `desmos` con
+ruleset **RDFS-Plus (Optimized)**. Poi carica i tre file RDF nel default graph:
 
 ```bash
-# Opzione A: GraphDB Workbench: Import → RDF → carica ciascun file
-# Opzione B: script bulk_load.py:
+# Opzione A: GraphDB Workbench → Import → RDF → carica ciascun file
+# Opzione B: script bulk_load.py
 python scripts/bulk_load.py --file data/ontology/desmos.owl --format rdfxml
 python scripts/bulk_load.py --file data/rdf/corpus.ttl --format turtle
 python scripts/bulk_load.py --file data/rdf/concept.ttl --format turtle
@@ -86,6 +115,9 @@ python scripts/bulk_load.py --file data/rdf/concept.ttl --format turtle
 python app.py
 ```
 
+Questo comando avvia il server di **sviluppo** di Flask, con debugger attivo: va usato solo
+in locale. In un'installazione pubblica l'app va servita da un server WSGI (`app:app`).
+
 ### 7. Apri il browser
 
 ```
@@ -94,19 +126,38 @@ http://localhost:5001
 
 ---
 
+## Endpoint SPARQL
+
+L'endpoint accetta solo query `SELECT` e `CONSTRUCT`. È previsto un limite di 30 richieste al minuto per IP.
+
+- **Dal browser:** `http://localhost:5001/sparql`, con editor e query di esempio.
+- **Da programma** (SPARQL 1.1 Protocol): `GET` o `POST` su `/sparql` con il parametro
+  `query`. Il formato della risposta segue l'header `Accept` (default: JSON per `SELECT`,
+  Turtle per `CONSTRUCT`).
+
+```bash
+curl -G "http://localhost:5001/sparql" \
+     -H "Accept: application/sparql-results+json" \
+     --data-urlencode "query=PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?c ?label WHERE { ?c skos:prefLabel ?label . FILTER(lang(?label) = 'it') } LIMIT 10"
+```
+
+---
+
 ## Struttura del progetto
 
 ```
 ops-web-app/
-├── app.py                # applicazione Flask (route + query SPARQL)
-├── requirements.txt       # flask, sparqlwrapper, rdflib, python-dotenv, requests, qraken-remote-chatbot
-├── setup.sh               # script di setup locale (venv + dipendenze)
-├── .env.example            # template di configurazione
+├── app.py                    # applicazione Flask (route, query SPARQL, controllo di sola lettura)
+├── requirements.txt          # dipendenze dirette
+├── requirements.lock.txt     # versioni esatte di tutte le dipendenze
+├── setup.sh                  # setup locale (venv + dipendenze)
+├── .env.example              # modello di configurazione (senza segreti)
 ├── data/
-│   ├── ontology/desmos.owl  # ontologia DeSMòS
-│   └── rdf/                 # corpus.ttl, concept.ttl (dati da caricare in GraphDB)
-├── scripts/bulk_load.py     # caricamento bulk dei file RDF in GraphDB
-├── static/                  # CSS e JS (filtri corpus, SPARQL engine, anagrafia, ecc.)
+│   ├── ontology/desmos.owl   # ontologia DeSMòS (TBox)
+│   └── rdf/                  # corpus.ttl (ABox) e concept.ttl (schemi SKOS)
+├── scripts/                  # caricamento in GraphDB (bulk_load.py) e utilità
+├── static/                   # CSS, JS (corpus, matrice, grafo dei concetti, SPARQL, riscritture), immagini
 └── templates/                # template Jinja2
 ```
 
@@ -116,10 +167,22 @@ ops-web-app/
 
 | Prefisso | Namespace | Standard |
 |---|---|---|
-| `desmos:` | `https://w3id.org/desmos/` | DeSMòS ontology |
+| `desmos:` | `https://w3id.org/desmos/` | DeSMòS |
 | `crm:` | `http://www.cidoc-crm.org/cidoc-crm/` | CIDOC CRM |
 | `lrmoo:` | `http://iflastandards.info/ns/lrm/lrmoo/` | LRMoo (IFLA LRM) |
-| `prov:` | `http://www.w3.org/ns/prov#` | PROV-O |
-| `skos:` | `http://www.w3.org/2004/02/skos/core#` | SKOS |
 | `intro:` | `https://w3id.org/lso/intro/beta202506#` | INTRO |
-| `dct:` | `http://purl.org/dc/terms/` | Dublin Core Terms |
+| `skos:` | `http://www.w3.org/2004/02/skos/core#` | SKOS |
+| `prov:` | `http://www.w3.org/ns/prov#` | PROV-O |
+| `dcterms:` | `http://purl.org/dc/terms/` | Dublin Core Terms |
+| `schema:` | `http://schema.org/` | Schema.org |
+
+---
+
+## Crediti
+
+- **DeSMòS, corpus e applicazione web:** Enrica Bruno.
+- **Chatbot:** basato su QRAKEN (`qraken-remote-chatbot`), sviluppato da Remo Grillo (remo.grillo@unibo.it).
+
+## Licenza
+
+CC BY 4.0.
