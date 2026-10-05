@@ -122,25 +122,33 @@
 
                 {% set tot = expr.total_constraints %}
                 {% set nf = expr.constraints_formali | length %}
+                {% set nv = expr.constraints_visive | length %}
                 {% set ns = expr.constraints_semantiche | length %}
+                {% set ncat = (1 if nf else 0) + (1 if nv else 0) + (1 if ns else 0) %}
 
                 {% if tot %}
                 {# Circonferenza per r=52: 2 * 3.1416 * 52. L'arco semantiche è il complemento
-                   esatto di quello formali, così la somma chiude il cerchio senza gap né
+                   esatto di formali + visive, così la somma chiude il cerchio senza gap né
                    sovrapposizioni alle giunzioni. #}
                 {% set c = 326.73 %}
                 {% set lf = (c * nf / tot) | round(2) %}
-                {% set ls = (c - lf) | round(2) %}
-                {% set soglia = 10 if (nf and ns) else 20 %}
+                {% set lv = (c * nv / tot) | round(2) %}
+                {% set ls = (c - lf - lv) | round(2) %}
+                {% set soglia = 10 if ncat > 1 else 20 %}
                 <div class="cviz">
                     <svg class="cviz-ring" width="160" height="160" viewBox="0 0 120 120"
                          role="img" aria-labelledby="cviz-title">
-                        <title id="cviz-title">{{ tot }} {{ 'costrizione' if tot == 1 else 'costrizioni' }}: {{ nf }} {{ 'formale' if nf == 1 else 'formali' }}, {{ ns }} {{ 'semantica' if ns == 1 else 'semantiche' }}</title>
+                        <title id="cviz-title">{{ tot }} {{ 'costrizione' if tot == 1 else 'costrizioni' }}: {{ nf }} {{ 'formale' if nf == 1 else 'formali' }}, {{ nv }} {{ 'visiva' if nv == 1 else 'visive' }}, {{ ns }} {{ 'semantica' if ns == 1 else 'semantiche' }}</title>
                         <g transform="rotate(-90 60 60)" fill="none" stroke-width="8">
                             <circle cx="60" cy="60" r="52" stroke="var(--color-border)"/>
                             {% if ns %}
                             <circle cx="60" cy="60" r="52" stroke="var(--color-semantiche)"
                                     stroke-dasharray="{{ ls }} {{ (c - ls) | round(2) }}"
+                                    stroke-dashoffset="-{{ (lf + lv) | round(2) }}"/>
+                            {% endif %}
+                            {% if nv %}
+                            <circle cx="60" cy="60" r="52" stroke="var(--matrix-visual)"
+                                    stroke-dasharray="{{ lv }} {{ (c - lv) | round(2) }}"
                                     stroke-dashoffset="-{{ lf }}"/>
                             {% endif %}
                             {% if nf %}
@@ -152,11 +160,17 @@
                         {# Solo il numero: la parola resta nel <title> per gli screen reader. #}
                         <text class="cviz-total" x="60" y="60" text-anchor="middle" dominant-baseline="central">{{ tot }}</text>
                     </svg>
-                    <div class="cviz-columns{{ '' if (nf and ns) else ' cviz-columns-single' }}">
+                    <div class="cviz-columns{{ {1: ' cviz-columns-single', 3: ' cviz-columns-triple'}.get(ncat, '') }}">
                         {% if nf %}
                         <div class="cviz-column">
                             <h6 class="cviz-category-heading"><span class="cviz-dot"></span>Formali</h6>
                             <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali', soglia, expr.uri) }}</div>
+                        </div>
+                        {% endif %}
+                        {% if nv %}
+                        <div class="cviz-column">
+                            <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-visive"></span>Visive</h6>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_visive, 'more-visive', soglia, expr.uri) }}</div>
                         </div>
                         {% endif %}
                         {% if ns %}

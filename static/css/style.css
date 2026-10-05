@@ -1708,6 +1708,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 .cviz-columns-single { grid-template-columns: 1fr; }
+.cviz-columns-triple { grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
 
 @media (max-width: 768px) {
     .cviz-columns { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1734,6 +1735,7 @@ tbody tr:last-child td { border-bottom: none; }
     background-color: var(--color-formali);
 }
 
+.cviz-dot-visive     { background-color: var(--matrix-visual); }
 .cviz-dot-semantiche { background-color: var(--color-semantiche); }
 
 .cviz-badges {
