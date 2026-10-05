@@ -180,7 +180,7 @@ ops-web-app/
 
 ## Crediti
 
-- **DeSMòS, corpus e applicazione web:** Enrica Bruno.
+- **DeSMòS, corpus e applicazione web:** Enrica Bruno (enrica.bruno2@unibo.it).
 - **Chatbot:** basato su QRAKEN (`qraken-remote-chatbot`), sviluppato da Remo Grillo (remo.grillo@unibo.it).
 
 ## Licenza
