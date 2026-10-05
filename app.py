@@ -1268,13 +1268,16 @@ def _build_lipo_example():
         ?tp a intro:INT21_TextPassage ;
             intro:R30i_isTextPassageOf ?expr ;
             intro:R44_hasWording ?targetText .
+        # R13/R12 possono puntare all'espressione o al suo passaggio testuale
         ?rel a intro:INT31_IntertextualRelation ;
-             intro:R13_hasReferringEntity ?expr ;
-             intro:R12_hasReferredToEntity ?src .
-        ?src dct:title ?sourceTitle .
+             intro:R13_hasReferringEntity ?referring ;
+             intro:R12_hasReferredToEntity ?referred .
+        FILTER(?referring IN (?expr, ?tp))
         ?sp a intro:INT21_TextPassage ;
             intro:R30i_isTextPassageOf ?src ;
             intro:R44_hasWording ?sourceText .
+        FILTER(?referred IN (?src, ?sp))
+        ?src dct:title ?sourceTitle .
         FILTER(STRSTARTS(STR(?sp), "{LIPO_HYPOTEXT_PREFIX}"))
         OPTIONAL {{
             ?c lrmoo:R17_created ?expr ; crm:P14_carried_out_by ?a .
@@ -1368,15 +1371,18 @@ def riscritture():
                        intro:R44_hasWording ?targetText .
 
         # 3. Relazione intertestuale: ipertesto → ipotesto
+        #    (R13/R12 possono puntare all'espressione o al passaggio testuale)
         ?rel a intro:INT31_IntertextualRelation ;
-             intro:R13_hasReferringEntity ?expr ;
-             intro:R12_hasReferredToEntity ?srcExpr .
+             intro:R13_hasReferringEntity ?referring ;
+             intro:R12_hasReferredToEntity ?referred .
+        FILTER(?referring IN (?expr, ?targetPassage))
 
         # 4. Titolo e testo dell'ipotesto via passaggio testuale INTRO
-        ?srcExpr dct:title ?sourceTitle .
         ?srcPassage a intro:INT21_TextPassage ;
                     intro:R30i_isTextPassageOf ?srcExpr ;
                     intro:R44_hasWording ?sourceText .
+        FILTER(?referred IN (?srcExpr, ?srcPassage))
+        ?srcExpr dct:title ?sourceTitle .
 
         # 5. Autori
         OPTIONAL {{
