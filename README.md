@@ -76,18 +76,21 @@ rigenerato in un ambiente pulito.
 cp .env.example .env
 ```
 
-Modifica `.env` con i tuoi valori. Scrivi i commenti su righe proprie, non sulla stessa
-riga del valore.
+Modifica `.env` con i tuoi valori: sostituisci i valori d'esempio (`qrk_...`, `sk-ant-...`)
+con i tuoi.
 
 | Variabile | Obbligatoria | Descrizione |
 |---|---|---|
 | `GRAPHDB_URL` | no (default `http://localhost:7200/repositories`) | URL base di GraphDB |
 | `REPOSITORY_ID` | no (default `desmos`) | Nome del repository GraphDB |
-| `QRAKEN_TENANT_TOKEN` | **sì** | Client key fornita dall'operatore QRAKEN. Segreto |
-| `QRAKEN_TTQL` | **sì** | Nome del grafo da interrogare sul server QRAKEN |
-| `QRAKEN_LLM_API_KEY` | consigliata | Chiave del provider LLM usata dal chatbot. Segreto |
+| `QRAKEN_TENANT_TOKEN` | **sì** | Client key fornita da chi gestisce il server QRAKEN. Segreto |
+| `QRAKEN_TTQL` | **sì** | Nome del grafo di conoscenza da interrogare (es. `desmos.ttql`) |
+| `QRAKEN_LLM_API_KEY` | consigliata | La tua chiave del provider LLM (con `anthropic`: chiave da [console.anthropic.com](https://console.anthropic.com)). Segreto |
 | `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | `anthropic`, `openai`, `gemini`, `harvard_bedrock` o `lmstudio` |
-| `QRAKEN_LLM_MODEL` | consigliata | Modello del provider (es. `claude-sonnet-5`); se vuota, sceglie il server QRAKEN |
+
+> **Variabile facoltativa aggiuntiva.** `QRAKEN_LLM_MODEL` non è in `.env.example`: si può
+> aggiungere a `.env` per scegliere il modello del provider; se omessa, il modello lo sceglie
+> il server QRAKEN.
 
 > **Test in locale senza costi.** Per provare il chatbot sul proprio computer si può usare
 > una chiave Gemini del piano gratuito ([Google AI Studio](https://aistudio.google.com/apikey))
@@ -151,7 +154,6 @@ ops-web-app/
 ├── app.py                    # applicazione Flask (route, query SPARQL, controllo di sola lettura)
 ├── requirements.txt          # dipendenze dirette
 ├── requirements.lock.txt     # versioni esatte di tutte le dipendenze
-├── setup.sh                  # setup locale (venv + dipendenze)
 ├── .env.example              # modello di configurazione (senza segreti)
 ├── data/
 │   ├── ontology/desmos.owl   # ontologia DeSMòS (TBox)
