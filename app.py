@@ -166,12 +166,25 @@ def _graphdb_post(query, accept):
     return requests.post(SPARQL_ENDPOINT, data={'query': query},
                          headers={'Accept': accept}, timeout=GRAPHDB_TIMEOUT)
 
+# Regex ricavate da corpus.ttl e concept.ttl: i local name delle espressioni usano
+# minuscole, cifre, "_" e "-"; quelli delle costrizioni (Formal, Semantic, Visual
+# ConstraintScheme) lettere, cifre e "_", direttamente sotto desmos:. Nessuna delle due
+# ammette caratteri che chiudano l'IRI o riscrivano la query (< > " { } | \ ^ ` spazi).
 _EXPR_URI_RE = re.compile(r'^https://w3id\.org/desmos/oplepiana/expression/[A-Za-z0-9_\-]+$')
+_CONSTRAINT_URI_RE = re.compile(r'^https://w3id\.org/desmos/[A-Za-z0-9_]+$')
+
+def _valid_uri(uri, pattern):
+    """L'URI decodificato se corrisponde a pattern, altrimenti None: niente testo libero nelle query."""
+    uri = unquote((uri or '').strip())
+    return uri if pattern.match(uri) else None
 
 def _valid_expr_uri(uri):
-    """Accetta solo URI del namespace delle espressioni: niente testo libero nelle query."""
-    uri = unquote((uri or '').strip())
-    return uri if _EXPR_URI_RE.match(uri) else None
+    return _valid_uri(uri, _EXPR_URI_RE)
+
+def _valid_constraint_uri(uri):
+    return _valid_uri(uri, _CONSTRAINT_URI_RE)
+
+INVALID_URI_MSG = "Indirizzo non valido."
 
 def _expr_crumbs(uri, include_self=True, include_parent=True):
     """Voci del percorso fino all'espressione (madre inclusa, se componente
@@ -665,11 +678,9 @@ def _external_match_label(link):
 
 @app.route('/explain')
 def explain():
-    raw_uri = request.args.get('uri', '').strip()
-    if not raw_uri:
-        return render_template('explain.html', info=None, error="URI della costrizione mancante.")
-
-    uri = unquote(raw_uri)
+    uri = _valid_constraint_uri(request.args.get('uri'))
+    if not uri:
+        return render_template('explain.html', info=None, error=INVALID_URI_MSG), 404
 
     query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
@@ -901,12 +912,9 @@ def explain():
 
 @app.route('/expression')
 def expression():
-    raw_uri = request.args.get('uri', '').strip()
-    if not raw_uri:
-        return render_template('expression.html', expr=None,
-                               error="URI dell'espressione mancante.")
-
-    uri = unquote(raw_uri)
+    uri = _valid_expr_uri(request.args.get('uri'))
+    if not uri:
+        return render_template('expression.html', expr=None, error=INVALID_URI_MSG), 404
 
     query = """
     PREFIX desmos: <https://w3id.org/desmos/>
@@ -1439,8 +1447,13 @@ def anagrafia_redirect():
 def riscritture():
     ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
     origin_uri = request.args.get('uri', '')
-    uri = request.args.get('uri', '').strip()
-    if not uri or uri == LIPO_EXPR_URI:
+    if 'uri' in request.args:
+        uri = _valid_expr_uri(origin_uri)
+        if not uri:
+            return render_template('riscritture.html', data=None, error=INVALID_URI_MSG), 404
+    else:
+        uri = ANAG_DEFAULT_URI
+    if uri == LIPO_EXPR_URI:
         uri = ANAG_DEFAULT_URI
 
     query = f"""
