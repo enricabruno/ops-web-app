@@ -2,11 +2,7 @@
 
 ## OPS – Opificio Potenziale Semantico
 
-**ops-web-app** è un'interfaccia web (Flask) per esplorare **[DeSMòS](https://github.com/enricabruno/desmos)**
-(*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 che descrive le
-costrizioni letterarie nella tradizione dell'Oulipo (*Ouvroir de Littérature Potentielle*)
-e dell'Oplepo (*Opificio di Letteratura Potenziale*). Le costrizioni sono intese come
-procedure generative delle opere letterarie.
+**ops-web-app** è un'interfaccia web sviluppata in Flask per l'esplorazione semantica del corpus delle plaquette dell'Oplepo (*Opificio di Letteratura Potenziale*). I dati sono modellati attraversoper **[DeSMòS](https://github.com/enricabruno/desmos)** (*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 per la rappresentazione formale delle costrizioni letterarie, intese come dispositivi generativi del testo. Il corpus documenta l'impiego delle costrizioni nella produzione dell'Oplepo, nel quadro della tradizione della letteratura potenziale inaugurata dall'Oulipo (*Ouvroir de Littérature Potentielle*).
 
 L'app si collega a un triplestore **GraphDB** e recupera tutti i dati tramite query SPARQL.
 Espone:
