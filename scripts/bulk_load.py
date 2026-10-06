@@ -3,8 +3,8 @@
 Script per il caricamento massivo di file RDF in GraphDB.
 
 Uso:
-    python bulk_load.py --file path/to/file.rdf --format turtle
-    python bulk_load.py --directory data/rdf/ --format rdfxml
+    python scripts/bulk_load.py --file path/to/file.rdf --format turtle
+    python scripts/bulk_load.py --directory data/rdf/ --format rdfxml
 """
 
 import os
@@ -19,8 +19,7 @@ import requests
 load_dotenv()
 
 GRAPHDB_URL = os.getenv('GRAPHDB_URL', 'http://localhost:7200/repositories')
-REPOSITORY_ID = os.getenv('REPOSITORY_ID', 'your_repository_name')
-
+REPOSITORY_ID = os.getenv('REPOSITORY_ID', 'desmos')
 
 def upload_rdf_file(file_path, rdf_format='turtle'):
     """

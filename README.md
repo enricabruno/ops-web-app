@@ -87,6 +87,7 @@ con i tuoi.
 | `QRAKEN_TTQL` | **sì** | Nome del grafo di conoscenza da interrogare (es. `desmos.ttql`) |
 | `QRAKEN_LLM_API_KEY` | consigliata | La tua chiave del provider LLM (con `anthropic`: chiave da [console.anthropic.com](https://console.anthropic.com)). Segreto |
 | `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | `anthropic`, `openai`, `gemini`, `harvard_bedrock` o `lmstudio` |
+| `OPS_DEBUG` | no | Con `OPS_DEBUG=1` il log passa a livello DEBUG e mostra query SPARQL complete e risultati; altrimenti livello INFO |
 
 > **Variabile facoltativa aggiuntiva.** `QRAKEN_LLM_MODEL` non è in `.env.example`: si può
 > aggiungere a `.env` per scegliere il modello del provider; se omessa, il modello lo sceglie
@@ -128,18 +129,17 @@ http://localhost:5001
 
 ## Endpoint SPARQL
 
-L'endpoint accetta solo query `SELECT` e `CONSTRUCT`. È previsto un limite di 30 richieste al minuto per IP.
+L'endpoint è in sola lettura: accetta solo query `SELECT` e `CONSTRUCT`
+(massimo 30 richieste al minuto per IP).
 
 - **Dal browser:** `http://localhost:5001/sparql`, con editor e query di esempio.
-- **Da programma** (SPARQL 1.1 Protocol): `GET` o `POST` su `/sparql` con il parametro
-  `query`. Il formato della risposta segue l'header `Accept` (default: JSON per `SELECT`,
-  Turtle per `CONSTRUCT`).
+- **Da programma:** inviare la query a `/sparql` con il parametro `query` (GET o POST),
+  secondo il SPARQL 1.1 Protocol. I risultati sono in JSON per `SELECT` e in Turtle
+  per `CONSTRUCT`.
 
 ```bash
 curl -G "http://localhost:5001/sparql" \
-     -H "Accept: application/sparql-results+json" \
-     --data-urlencode "query=PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?c ?label WHERE { ?c skos:prefLabel ?label . FILTER(lang(?label) = 'it') } LIMIT 10"
+     --data-urlencode "query=SELECT * WHERE { ?s ?p ?o } LIMIT 10"
 ```
 
 ---

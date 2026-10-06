@@ -15,6 +15,7 @@ from functools import lru_cache
 from qraken_remote_chatbot import QrakenConfig, create_blueprint
 import os
 import re
+import threading
 
 load_dotenv()
 
@@ -82,7 +83,6 @@ def rate_limit_exceeded(e):
     if request.endpoint == 'sparql':
         return Response(msg + "\n", status=429, mimetype='text/plain',
                         headers={'Access-Control-Allow-Origin': '*'})
-    # {success, error} va bene sia per sparql-engine.js sia per il widget Qraken.
     return jsonify({'success': False, 'error': msg}), 429
 
 @app.template_filter('urlencode')
@@ -128,6 +128,7 @@ def execute_sparql_query(query):
 
 MAX_QUERY_CHARS = 20000
 _QUERY_FORMS = {'SelectQuery': 'SELECT', 'ConstructQuery': 'CONSTRUCT'}
+_PARSE_LOCK = threading.Lock()
 
 def _has_service(node):
     """True se l'albero di parsing contiene un SERVICE, a qualunque profondità."""
@@ -146,7 +147,8 @@ def check_readonly_query(q):
     if len(q) > MAX_QUERY_CHARS:
         return False, f"La query supera il limite di {MAX_QUERY_CHARS:,} caratteri.".replace(',', '.')
     try:
-        parsed = parseQuery(q)
+        with _PARSE_LOCK:
+            parsed = parseQuery(q)
     except Exception as e:
         return False, ("Query non valida o non consentita: l'endpoint è in sola lettura e "
                        f"ammette solo query SELECT e CONSTRUCT.\n\nDettaglio: {e}")
@@ -166,10 +168,6 @@ def _graphdb_post(query, accept):
     return requests.post(SPARQL_ENDPOINT, data={'query': query},
                          headers={'Accept': accept}, timeout=GRAPHDB_TIMEOUT)
 
-# Regex ricavate da corpus.ttl e concept.ttl: i local name delle espressioni usano
-# minuscole, cifre, "_" e "-"; quelli delle costrizioni (Formal, Semantic, Visual
-# ConstraintScheme) lettere, cifre e "_", direttamente sotto desmos:. Nessuna delle due
-# ammette caratteri che chiudano l'IRI o riscrivano la query (< > " { } | \ ^ ` spazi).
 _EXPR_URI_RE = re.compile(r'^https://w3id\.org/desmos/oplepiana/expression/[A-Za-z0-9_\-]+$')
 _CONSTRAINT_URI_RE = re.compile(r'^https://w3id\.org/desmos/[A-Za-z0-9_]+$')
 
@@ -193,7 +191,6 @@ def _expr_crumbs(uri, include_self=True, include_parent=True):
     uri = _valid_expr_uri(uri)
     if not uri:
         return []
-    # Stessa proprietà usata da expression() per la madre
     query = f"""
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
