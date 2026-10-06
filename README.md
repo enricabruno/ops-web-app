@@ -80,7 +80,6 @@ con i tuoi.
 | `QRAKEN_TTQL` | **sì** | Nome del grafo di conoscenza da interrogare (es. `desmos.ttql`) |
 | `QRAKEN_LLM_API_KEY` | consigliata | La tua chiave del provider LLM (con `anthropic`: chiave da [console.anthropic.com](https://console.anthropic.com)). Segreto |
 | `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | `anthropic`, `openai`, `gemini`, `harvard_bedrock` o `lmstudio` |
-| `OPS_DEBUG` | no | Con `OPS_DEBUG=1` il log passa a livello DEBUG e mostra query SPARQL complete e risultati; altrimenti livello INFO |
 
 > **Variabile facoltativa aggiuntiva.** `QRAKEN_LLM_MODEL` non è in `.env.example`: si può
 > aggiungere a `.env` per scegliere il modello del provider; se omessa, il modello lo sceglie
