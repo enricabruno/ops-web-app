@@ -23,7 +23,7 @@ Espone:
 - **Endpoint SPARQL** in sola lettura (query `SELECT` e `CONSTRUCT`), con editor, query di
   esempio e hub di query predefinite;
 - **Chatbot**: interrogazione del knowledge graph in linguaggio naturale, basata su
-  [QRAKEN](https://pypi.org/project/qraken-remote-chatbot/) di Remo Grillo.
+  [QRAKEN](https://pypi.org/project/qraken-remote-chatbot/).
 
 ---
 
@@ -34,11 +34,6 @@ Espone:
   repository chiamato `desmos` e ruleset **RDFS-Plus (Optimized)**
 - Un tenant token QRAKEN e il nome del grafo TTQL, forniti dall'operatore QRAKEN
   (necessari: senza, l'app non si avvia; vedi passo 4)
-
-> **Perché RDFS-Plus.** Alcune funzioni dell'app presuppongono l'inferenza RDFS: per esempio,
-> una `desmos:VisualConstraint` è anche una `desmos:FormalConstraint`
-> (`rdfs:subClassOf` in `desmos.owl`). Con un ruleset senza inferenza alcuni conteggi e
-> filtri risultano incompleti.
 
 ---
 
@@ -66,9 +61,7 @@ pip install -r requirements.lock.txt
 ```
 
 `requirements.lock.txt` fissa le versioni esatte di tutte le librerie (generato con
-Python 3.9.6). `requirements.txt` elenca solo le dipendenze dirette ed è il file da
-modificare quando si aggiunge o si toglie una libreria; dopo ogni modifica il lock va
-rigenerato in un ambiente pulito.
+Python 3.9.6). `requirements.txt` elenca solo le dipendenze dirette.
 
 ### 4. Configura le variabili d'ambiente
 
