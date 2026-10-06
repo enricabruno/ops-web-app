@@ -2,6 +2,11 @@
 
 {% block title %}SPARQL Endpoint{% endblock %}
 
+{% block torna_a %}
+{% from "_percorso.html" import percorso %}
+{% if crumbs %}<div class="container-fluid px-5 torna-a-bar">{{ percorso(crumbs, 'bar') }}</div>{% endif %}
+{% endblock %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neo.min.css">

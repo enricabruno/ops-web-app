@@ -256,7 +256,8 @@ def _sparql_protocol_query():
 def sparql():
     q = _sparql_protocol_query()
     if q is None:
-        return render_template('sparql.html')
+        return render_template('sparql.html',
+                               crumbs=[{'label': 'Query hub', 'url': url_for('query_hub')}])
     cors = {'Access-Control-Allow-Origin': '*'}
     ok, form = check_readonly_query(q)
     if not ok:
@@ -285,7 +286,8 @@ def query_hub():
 
 @app.route('/chatbot')
 def chatbot():
-    return render_template('chatbot.html')
+    return render_template('chatbot.html',
+                           crumbs=[{'label': 'Query hub', 'url': url_for('query_hub')}])
 
 @app.route('/query', methods=['POST'])
 @limiter.limit(RATE_LIMIT)
