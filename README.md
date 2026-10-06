@@ -124,10 +124,8 @@ http://localhost:5001
 L'endpoint è in sola lettura: accetta solo query `SELECT` e `CONSTRUCT`
 (massimo 30 richieste al minuto per IP).
 
-- **Dal browser:** `http://localhost:5001/sparql`, con editor e query di esempio.
-- **Da programma:** inviare la query a `/sparql` con il parametro `query` (GET o POST),
-  secondo il SPARQL 1.1 Protocol. I risultati sono in JSON per `SELECT` e in Turtle
-  per `CONSTRUCT`.
+- **Dal browser:** `http://localhost:5001/sparql`, con editor, query di esempio e download dei risultati (CSV per SELECT, Turtle per CONSTRUCT)
+- **Da programma:** inviare la query a `/sparql` con il parametro `query` (GET o POST), secondo il SPARQL 1.1 Protocol. Il formato della risposta si sceglie con l'header `Accept`; se non è indicato, è JSON per `SELECT` e Turtle per `CONSTRUCT`.
 
 ```bash
 curl -G "http://localhost:5001/sparql" \
