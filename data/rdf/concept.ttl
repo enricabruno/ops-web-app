@@ -16,7 +16,7 @@
 
 desmos:ConstraintOriginScheme a skos:ConceptScheme ;
     skos:prefLabel "Constraint origin scheme"@en , "Schema dell'origine della costrizione"@it ;
-    skos:definition "A scheme defining the origin of the constraint, distinguishing between forms inherited from tradition and Oulipian or Oplepian inventions."@en , "Schema che definisce la provenienza della costrizione, distinguendo tra forme ereditate dalla tradizione e invenzioni oulipiane o oplepiane."@it ;
+    skos:definition "A scheme defining the origin of the constraint, distinguishing between constraints inherited from a pre-existing tradition and constraints introduced ex novo in a specific compositional context."@en , "Schema che definisce l'origine della costrizione, distinguendo tra costrizioni riprese da una tradizione preesistente e costrizioni introdotte ex novo in uno specifico contesto compositivo."@it ;
     skos:hasTopConcept
         desmos:historical ,
         desmos:original .
@@ -197,13 +197,13 @@ desmos:ProceduralOperationScheme a skos:ConceptScheme ;
 ### Constraint Origins
 desmos:historical a skos:Concept ;
     skos:prefLabel "Historical"@en , "Storica"@it ;
-    skos:definition "Constraint transmitted within the literary tradition."@en , "Costrizione ripresa dalla tradizione letteraria."@it ;
+    skos:definition "Constraint derived from a pre-existing literary tradition."@en , "Costrizione ripresa da una tradizione letteraria preesistente."@it ;
     skos:inScheme desmos:ConstraintOriginScheme .
 
 desmos:original a skos:Concept ;
     skos:prefLabel "Original"@en , "Originale"@it ;
-    skos:definition "Constraint invented within the Oulipo or the Oplepo, either by the author of the text or by another member, as opposed to constraints transmitted by the earlier literary tradition."@en ,
-        "Costrizione inventata in ambito oulipiano o oplepiano, dall'autore del testo o da un altro membro, in contrapposizione alle costrizioni trasmesse dalla tradizione letteraria precedente."@it ;    skos:inScheme desmos:ConstraintOriginScheme .
+    skos:definition "Constraint invented ex novo in a compositional context."@en , "Costrizione inventata ex novo in un contesto compositivo."@it ;    
+    skos:inScheme desmos:ConstraintOriginScheme .
 
 ### Literary Forms
 desmos:poetry a skos:Concept ;
@@ -1152,7 +1152,7 @@ desmos:martellian_verse a skos:Concept ;
     skos:prefLabel "Martellian verse"@en , "Verso martelliano"@it ;
     skos:broader desmos:septenary_double ;
     skos:definition "Formal constraint requiring the use of lines composed of fourteen syllables, typically organized into stanzas or sections."@en , "Costrizione formale che impone l'uso di versi composti da quattordici sillabe, solitamente organizzati in strofe o sezioni."@it ;
-    skos:example "Un verso composto da due settenari, per esempio 'La nebbia sale lenta | la sera scende piano', realizza una struttura di 7+7 sillabe."@it , "A line composed of two seven-syllable units, for example 'La nebbia sale lenta | la sera scende piano', realizes a 7+7 syllabic structure."@en ;
+    skos:example "Un verso composto da due settenari, per esempio 'La nebbia sale lenta || la sera scende piano', realizza una struttura di 7+7 sillabe."@it , "A line composed of two seven-syllable units, for example 'La nebbia sale lenta || la sera scende piano', realizes a 7+7 syllabic structure."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:mathematical_lexicon a skos:Concept ;
@@ -1495,7 +1495,7 @@ desmos:septenary_double a skos:Concept ;
     skos:narrower desmos:martellian_verse ;
     skos:related desmos:septenary ;
     skos:definition "Formal constraint requiring the use of lines composed of fourteen syllables, typically organized into stanzas or sections."@en , "Costrizione formale che impone l'uso di versi composti da quattordici sillabe, solitamente organizzati in strofe o sezioni."@it ;
-    skos:example "'La nebbia sale lenta | la sera scende piano' combina due unità di sette sillabe in un verso di quattordici sillabe."@it , "'La nebbia sale lenta | la sera scende piano' combines two seven-syllable units into a fourteen-syllable line."@en ;
+    skos:example "'La nebbia sale lenta || la sera scende piano' combina due unità di sette sillabe in un verso di quattordici sillabe."@it , "'La nebbia sale lenta || la sera scende piano' combines two seven-syllable units into a fourteen-syllable line."@en ;
     skos:inScheme desmos:FormalConstraintScheme .
 
 desmos:sestina a skos:Concept ;
