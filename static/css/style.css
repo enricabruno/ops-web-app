@@ -2677,3 +2677,51 @@ tbody tr:last-child td { border-bottom: none; }
 .torna-a__sep { margin: 0 0.35rem; }
 .torna-a-bar { padding-top: 0.75rem; }
 .torna-a--bar { display: block; }
+
+/* ============================================
+   PAGE: PROGETTO
+   ============================================ */
+
+/* Colonna editoriale: stessa misura di riga del testo introduttivo in home */
+.progetto-page { max-width: 46rem; margin-inline: auto; }
+.progetto-page p {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: pretty;
+}
+.progetto-section { margin-bottom: 2.5rem; }
+.progetto-section:last-child { margin-bottom: 0; }
+
+/* Link esterni nel testo: stesso comportamento di .torna-a a */
+.progetto-link { color: var(--color-accent); text-decoration: none; transition: opacity 0.2s ease; }
+.progetto-link:hover, .progetto-link:focus-visible { color: var(--color-accent); opacity: 0.75; text-decoration: none; }
+.progetto-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* Due figure affiancate: altezza comune dell'immagine, così i due file
+   (rapporti 2:1 e 1.45:1) risultano equilibrati e le didascalie allineate. */
+.progetto-figures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    margin: 2.5rem 0 3rem;
+}
+.progetto-figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.progetto-figure__img {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: contain;
+}
+.progetto-figure__caption {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--color-text-soft);
+}
+
+@media (max-width: 576px) {
+    .progetto-figures { grid-template-columns: 1fr; gap: 1.75rem; }
+    .progetto-figure__img { height: auto; max-height: 220px; }
+}
