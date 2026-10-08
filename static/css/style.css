@@ -591,6 +591,9 @@ tbody tr:last-child td { border-bottom: none; }
     .facet-sidebar      { position: static; max-height: none; margin-bottom: 1.5rem; }
     .corpus-stats       { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .expression-grid    { grid-template-columns: 1fr; }
+
+    /* Risultati SPARQL: le celle lunghe non allargano la pagina, scorrono nel riquadro */
+    #query-results { overflow-x: auto; }
 }
 
 /* ============================================
@@ -703,6 +706,11 @@ tbody tr:last-child td { border-bottom: none; }
 
 @media (max-width: 768px) {
     .puzzle-container { transform: scale(0.6); transform-origin: center center; margin: 30px auto 50px auto; }
+    /* Col puzzle ridotto la tessera "!" cade sopra il testo introduttivo: svanisce mentre cade */
+    .puzzle-container.converged .puzzle-piece-wrapper.piece-drop {
+        opacity: 0;
+        transition: transform 0.9s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.6s ease;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1704,6 +1712,11 @@ tbody tr:last-child td { border-bottom: none; }
 
 @media (max-width: 768px) {
     .cviz-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+
+    /* Evidenze: le due intestazioni vanno una sotto l'altra a piena larghezza */
+    .evidence-header      { flex-direction: column; gap: 0.75rem; }
+    .evidence-header-col  { max-width: none; width: 100%; }
+    .evidence-header-feat { text-align: left; }
 }
 
 .cviz-column { text-align: center; }
@@ -2724,4 +2737,29 @@ tbody tr:last-child td { border-bottom: none; }
 @media (max-width: 576px) {
     .progetto-figures { grid-template-columns: 1fr; gap: 1.75rem; }
     .progetto-figure__img { height: auto; max-height: 220px; }
+}
+
+/* ============================================
+   RESPONSIVE — SCHERMI STRETTI (in fondo al file per
+   prevalere sulle regole base delle singole pagine)
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Su colonne strette il giustificato apre buchi fra le parole e la
+       sillabazione spezza troppe parole: allineamento a sinistra, niente a capo sillabato */
+    .hero-intro-text,
+    .text_explain,
+    .evidence-header-def,
+    .matrix-head__definition-text,
+    .progetto-page p {
+        text-align: left;
+        text-align-last: auto;
+        hyphens: manual;
+        -webkit-hyphens: manual;
+    }
+    .matrix-head__definition-text--split { columns: 1; }
+
+    /* Riscritture: grafico dell'allineamento a larghezza leggibile, scorre nel riquadro */
+    .anag-wrapper { overflow-x: auto; overscroll-behavior-x: contain; }
+    .tgt-tok      { padding: 0 1px; }
 }

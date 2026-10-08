@@ -6,7 +6,9 @@
   const targetTokens = _d.targetTokens;
   const edges        = _d.edges;
 
-  const containerWidth = document.getElementById('anag-wrapper').clientWidth;
+  // Su schermi stretti i token si sovrapporrebbero: larghezza minima, il riquadro scorre (vedi style.css)
+  const wrapperWidth   = document.getElementById('anag-wrapper').clientWidth;
+  const containerWidth = window.matchMedia('(max-width: 768px)').matches ? Math.max(wrapperWidth, 760) : wrapperWidth;
 
   /* ── Layout constants (Compatti e Fluidi) ──────────────────── */
   const SRC_Y  = 100;         // Asse superiore (Ipotesto)

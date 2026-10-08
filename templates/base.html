@@ -26,7 +26,8 @@
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container-fluid px-5">
             {% if request.path == '/' %}
-            <a class="navbar-brand home-brand-heading" href="{{ url_for('index') }}"><span class="text-danger">O</span>pificio <span class="text-danger">P</span>otenziale <span class="text-danger">S</span>emantico</a>
+            <a class="navbar-brand home-brand-heading d-none d-lg-inline" href="{{ url_for('index') }}"><span class="text-danger">O</span>pificio <span class="text-danger">P</span>otenziale <span class="text-danger">S</span>emantico</a>
+            <a class="navbar-brand ops-brand d-lg-none" href="{{ url_for('index') }}">OPS</a>
             {% else %}
             <a class="navbar-brand ops-brand" href="{{ url_for('index') }}">OPS</a>
             {% endif %}
