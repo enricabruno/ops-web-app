@@ -1,0 +1,20 @@
+services:
+  graphdb:
+    image: ontotext/graphdb:10.8.5
+    container_name: ops-graphdb
+    # Ad ogni avvio ricrea il repository "desmos" a partire dai file in ./data
+    entrypoint: ["/opt/graphdb/import/entrypoint.sh"]
+    ports:
+      - "127.0.0.1:7200:7200"
+    environment:
+      GDB_HEAP_SIZE: 2g
+    volumes:
+      - ./data:/data:ro
+      - ./docker/graphdb:/opt/graphdb/import:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:7200/rest/repositories/desmos/size || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    restart: unless-stopped
