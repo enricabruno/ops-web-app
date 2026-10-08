@@ -54,8 +54,6 @@ def _get_tokens(text):
     return normalized
 
 app = Flask(__name__)
-# In produzione l'app è servita in sottocartella dietro reverse proxy: il prefisso
-# arriva in X-Forwarded-Prefix e diventa request.script_root, usato da url_for.
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.register_blueprint(
