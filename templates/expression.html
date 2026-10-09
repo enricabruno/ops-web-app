@@ -46,8 +46,6 @@
         <h1 class="fw-bold expression-title">{{ expr.title }}</h1>
     </div>
 
-    {# Le due colonne si allineano in alto: stesso stacco dal titolo per
-       scheda e visualizzazione, bordo superiore a contatto. #}
     <div class="row gx-5 gy-4 align-items-start">
 
     {# SCHEDA BIBL + COSTRIZIONI #}
@@ -72,9 +70,6 @@
 
                     <dt class="metadata-section-label">Autore:</dt>
                     <dd class="small text-muted">
-                        {# Solo l'icona è ipertestuale: il nome resta testo statico, non
-                           reagisce al hover. Aria-label sull'anchor perché non contiene
-                           più testo leggibile dagli screen reader. #}
                         <span class="ext-label">{{ expr.author }}</span>{% for l in expr.author_links %}<a href="{{ l.url }}" target="_blank" rel="noopener noreferrer" class="ext-icon-link" title="{{ l.abbr }}" aria-label="Apri la scheda {{ l.abbr }} di {{ expr.author }}"><sup class="external-arrow">&#8599;</sup></a>{% endfor %}
                     </dd>
 
@@ -199,7 +194,7 @@
                 </div>
                 <div class="evidence-header-col evidence-header-feat">
                     <span class="evidence-header-label">Caratteristica testuale</span>
-                    <p class="evidence-header-def">(Evidenza intratestuale del testo che rende visibile una o più costrizioni. Viene intesa come evidenza intratestuale)</p>
+                    <p class="evidence-header-def">Riguarda le evidenze intratestuali del testo che rendono visibile una o più costrizioni.</p>
                 </div>
             </div>
             {% for item in expr.evidence %}
