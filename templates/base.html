@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="ops-base" content="{{ request.script_root }}">
+    <meta name="referrer" content="same-origin">
     <title>OPS - {% block title %}Opificio Potenziale Semantico{% endblock %}</title>
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16.png') }}">
@@ -46,7 +47,7 @@
                         <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="{{ url_for('corpus') }}">Corpus</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/riscritture' %}active{% endif %}" href="{{ url_for('riscritture') }}">Riscritture</a>
+                        <a class="nav-link {% if request.path.startswith('/riscritture') %}active{% endif %}" href="{{ url_for('riscritture') }}">Riscritture</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path in ['/query_hub', '/sparql', '/chatbot'] %}active{% endif %}" href="{{ url_for('query_hub') }}">Interrogazione Dati

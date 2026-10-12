@@ -13,7 +13,7 @@
 <p class="expr-detail-text x-small mb-3">
     <span class="fw-bold">Costrizioni usate:</span>
     {% for c in labeled %}
-    <a href="{{ url_for('explain', uri=c.uri, **{'from': expr.uri}) }}"
+    <a href="{{ constraint_url(c.uri) }}"
     class="constraint-badge"
     title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
     {{ c.label }}
@@ -29,7 +29,7 @@
     <span class="fw-bold label-xs">Vincoli:</span>Nessun vincolo registrato.</p>
     {% endif %}
 
-    <a href="{{ url_for('expression', uri=expr.uri) }}"
+    <a href="{{ expr_url(expr.uri) }}"
        class="btn-approfondisci">
         Approfondisci &rarr;
     </a>
@@ -64,14 +64,14 @@
     <p class="expr-detail-text x-small mb-2">
         <span class="fw-bold">Consegna comune:</span>
         {% for c in labeled %}
-        <a href="{{ url_for('explain', uri=c.uri, **{'from': container.uri}) }}"
+        <a href="{{ constraint_url(c.uri) }}"
            class="constraint-badge"
            title="Tipo: {{ 'Formale' if c.constraint_type == 'FormalConstraint' else 'Semantico' if c.constraint_type == 'SemanticConstraint' else c.constraint_type }} | Origine: {{ c.origin|capitalize }}">
             {{ c.label }}
         </a>{% if not loop.last %};{% endif %}
         {% endfor %}
     </p>
-    <a href="{{ url_for('expression', uri=container.uri) }}" class="btn-approfondisci">
+    <a href="{{ expr_url(container.uri) }}" class="btn-approfondisci">
         Approfondisci &rarr;
     </a>
 </div>

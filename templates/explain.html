@@ -38,7 +38,7 @@
                         <ul class="explain-occurrences-list list-unstyled">
                             {% for occ in info.occurrences %}
                             <li class="explain-occurrence-item">
-                                <a href="{{ url_for('expression', uri=occ.uri) }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                                <a href="{{ expr_url(occ.uri) }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
                             </li>
                             {% endfor %}
                         </ul>

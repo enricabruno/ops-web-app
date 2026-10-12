@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block content %}
-{% macro constraint_badges(items, collapse_id, soglia, from_uri) %}
+{% macro constraint_badges(items, collapse_id, soglia) %}
 <div class="d-flex flex-wrap gap-2">
     {% for c in items[:soglia] %}
-    <a href="{{ url_for('explain', uri=c.uri, **{'from': from_uri}) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
+    <a href="{{ constraint_url(c.uri) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
     {% endfor %}
     {% if items | length > soglia %}
     <a class="badge-vincolo cviz-more-badge" data-bs-toggle="collapse" href="#{{ collapse_id }}"
@@ -24,7 +24,7 @@
 <div class="collapse" id="{{ collapse_id }}">
     <div class="d-flex flex-wrap gap-2 mt-2">
         {% for c in items[soglia:] %}
-        <a href="{{ url_for('explain', uri=c.uri, **{'from': from_uri}) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
+        <a href="{{ constraint_url(c.uri) }}" class="badge-vincolo constraint-link">{{ c.label }}</a>
         {% endfor %}
     </div>
 </div>
@@ -61,7 +61,7 @@
                     <dt class="metadata-section-label">Collocazione:</dt>
                     <dd class="small text-muted">
                         {% if expr.parent %}
-                        In <a href="{{ url_for('expression', uri=expr.parent.uri) }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
+                        In <a href="{{ expr_url(expr.parent.uri) }}" class="link-intra"><i>{{ expr.parent.title }}</i></a>{% if expr.manif_title %}, <i>{{ expr.manif_title }}</i>{% endif %}
                         {% else %}
                         <i>{{ expr.manif_title }}</i>
                         {% endif %}
@@ -88,7 +88,7 @@
                         {% if expr.sources %}
                             {% for source in expr.sources %}
                             <div class="mb-1">
-                                <a href="{{ url_for('expression', uri=source.uri, **{'from': expr.uri}) }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small"><a href="{% if expr.uri == 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48' %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_48', _anchor='riscrittura-inferno') }}{% else %}{{ url_for('riscritture', uri='https://w3id.org/desmos/oplepiana/expression/e_plaquette_11') }}{% endif %}" class="link-intra" title="Vedi i testi a confronto">(confronta &#8644;)</a></span>{% endif %}
+                                <a href="{{ expr_url(source.uri) }}" class="link-source-sm link-intra">{{ source.title }}</a>{% if expr.has_alignment and loop.last %} <span class="small"><a href="{% if expr.uri == 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48' %}{{ riscritture_url('https://w3id.org/desmos/oplepiana/expression/e_plaquette_48') }}{% else %}{{ riscritture_url('https://w3id.org/desmos/oplepiana/expression/e_plaquette_11') }}{% endif %}" class="link-intra" title="Vedi i testi a confronto">(confronta &#8644;)</a></span>{% endif %}
                             </div>
                             {% endfor %}
                         {% else %}
@@ -159,19 +159,19 @@
                         {% if nf %}
                         <div class="cviz-column">
                             <h6 class="cviz-category-heading"><span class="cviz-dot"></span>Formali</h6>
-                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali', soglia, expr.uri) }}</div>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_formali, 'more-formali', soglia) }}</div>
                         </div>
                         {% endif %}
                         {% if nv %}
                         <div class="cviz-column">
                             <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-visive"></span>Visive</h6>
-                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_visive, 'more-visive', soglia, expr.uri) }}</div>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_visive, 'more-visive', soglia) }}</div>
                         </div>
                         {% endif %}
                         {% if ns %}
                         <div class="cviz-column">
                             <h6 class="cviz-category-heading"><span class="cviz-dot cviz-dot-semantiche"></span>Semantiche</h6>
-                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche', soglia, expr.uri) }}</div>
+                            <div class="cviz-badges">{{ constraint_badges(expr.constraints_semantiche, 'more-semantiche', soglia) }}</div>
                         </div>
                         {% endif %}
                     </div>
@@ -222,7 +222,7 @@
                 </div>
 
                 <div class="evidence-node">
-                    <a href="{{ url_for('explain', uri=item.uri, **{'from': expr.uri}) }}" class="evidence-constraint constraint-link">{{ item.label }}</a>
+                    <a href="{{ constraint_url(item.uri) }}" class="evidence-constraint constraint-link">{{ item.label }}</a>
                 </div>
 
                 <div class="evidence-arm evidence-arm-feat {{ 'is-solid' if item.manifest else 'is-dashed' }}">
@@ -277,7 +277,7 @@
             <div class="col-lg-8">
                 {% for child in expr.children %}
                 <div class="child-item">
-                    <a href="{{ url_for('expression', uri=child.uri) }}" class="internal-link">{{ child.title }}</a>{% if child.author %} di {{ child.author }}{% endif %}{% if child.year %} <span class="text-muted small">({{ child.year }})</span>{% endif %}
+                    <a href="{{ expr_url(child.uri) }}" class="internal-link">{{ child.title }}</a>{% if child.author %} di {{ child.author }}{% endif %}{% if child.year %} <span class="text-muted small">({{ child.year }})</span>{% endif %}
                 </div>
                 {% endfor %}
             </div>

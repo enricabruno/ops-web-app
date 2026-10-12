@@ -5,6 +5,11 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 // Prefisso dell'app (vuoto in locale, es. "/ops" in sottocartella), da base.html.
 export const OPS_BASE = document.querySelector('meta[name="ops-base"]')?.content ?? '';
 
+// /explain/<local name> a partire dall'IRI completo della costrizione.
+export function explainHref(uri) {
+    return `${OPS_BASE}/explain/` + encodeURIComponent(uri.slice(uri.lastIndexOf('/') + 1));
+}
+
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
@@ -505,7 +510,7 @@ function renderMatrix(containers, data, focusUri, layout) {
 
             if (mark.n === 1) {
                 const uri = mark.constraints[0].uri;
-                const link = el('a', { href: `${OPS_BASE}/explain?uri=` + encodeURIComponent(uri), role: 'link', tabindex: '0' });
+                const link = el('a', { href: explainHref(uri), role: 'link', tabindex: '0' });
                 link.setAttribute('aria-label', markAriaLabel(mark));
                 link.appendChild(node);
                 markLayer.appendChild(link);
@@ -594,7 +599,7 @@ function renderMatrix(containers, data, focusUri, layout) {
                 flow.appendChild(span);
             } else {
                 const a = document.createElement('a');
-                a.href = `${OPS_BASE}/explain?uri=` + encodeURIComponent(c.uri);
+                a.href = explainHref(c.uri);
                 a.className = 'internal-link';
                 a.textContent = c.label;
                 flow.appendChild(a);
