@@ -1,172 +1,81 @@
-# ops-web-app
+# OPS – Opificio Potenziale Semantico
 
-## OPS – Opificio Potenziale Semantico
+Interfaccia web in Flask per l'esplorazione semantica del corpus delle plaquette dell'Oplepo (*Opificio di Letteratura Potenziale*). I dati sono modellati con **[DeSMòS](https://github.com/enricabruno/desmos)** (*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 per la rappresentazione formale delle costrizioni letterarie, e sono interrogati via SPARQL su un triplestore GraphDB.
 
-**ops-web-app** è un'interfaccia web sviluppata in Flask per l'esplorazione semantica del corpus delle plaquette dell'Oplepo (*Opificio di Letteratura Potenziale*). I dati sono modellati attraverso **[DeSMòS](https://github.com/enricabruno/desmos)** (*Descriptive Semantic Model for Structured Texts*), un'ontologia OWL 2 per la rappresentazione formale delle costrizioni letterarie, intese come dispositivi generativi del testo. Il corpus documenta l'impiego delle costrizioni nella produzione dell'Oplepo, nel quadro della tradizione della letteratura potenziale inaugurata dall'Oulipo (*Ouvroir de Littérature Potentielle*).
+## Funzionalità
 
-L'app si collega a un triplestore **GraphDB** e recupera tutti i dati tramite query SPARQL.
-Espone:
+- **Corpus**: navigazione a faccette delle espressioni vincolate.
+- **Schede delle opere**: costrizioni, frammenti paratestuali e collocazione bibliografica di ogni opera.
+- **Costrizioni**: definizioni e gerarchia SKOS, con matrice operazioni/unità e grafo dei concetti.
+- **Riscritture**: allineamento a livello di token tra testo vincolato e testo sorgente.
+- **Endpoint SPARQL** in sola lettura (`SELECT` e `CONSTRUCT`), su `/sparql`.
+- **Chatbot**: interrogazione in linguaggio naturale basata su [QRAKEN](https://pypi.org/project/qraken-remote-chatbot/).
 
-- **Corpus**: navigazione a faccette delle espressioni vincolate (autore, genere, tipo di
-  costrizione, tradizione, operazioni, unità formali e semantiche);
-- **Scheda espressione**: dettaglio di una singola opera, con costrizioni formali, visive e
-  semantiche, frammenti paratestuali e collocazione bibliografica;
-- **Spiegazione delle costrizioni**: definizione, esempio, gerarchia SKOS e collegamenti LOD
-  per ogni concetto;
-- **Matrice delle costrizioni**: incrocio tra operazioni e unità vincolate;
-- **Riscritture**: allineamento a livello di token tra un'espressione vincolata e il suo
-  testo sorgente;
-- **Endpoint SPARQL** in sola lettura (query `SELECT` e `CONSTRUCT`), con editor, query di
-  esempio e hub di query predefinite;
-- **Chatbot**: interrogazione del knowledge graph in linguaggio naturale, basata su
-  [QRAKEN](https://pypi.org/project/qraken-remote-chatbot/).
+## Requisiti
 
----
+- Python 3.9+
+- Docker con Docker Compose
+- Token QRAKEN e nome del grafo TTQL
 
-## Prerequisiti
-
-- Python 3.9 o superiore
-- Un'istanza di [GraphDB](https://graphdb.ontotext.com/) attiva su `localhost:7200`, con un
-  repository chiamato `desmos` e ruleset **RDFS-Plus (Optimized)**
-- Un tenant token QRAKEN e il nome del grafo TTQL, forniti dall'operatore QRAKEN
-  (necessari: senza, l'app non si avvia; vedi passo 4)
-
----
-
-## Avvio in locale
-
-### 1. Clona il repository
+## Avvio
 
 ```bash
+# 1. Clonare il repository
 git clone https://github.com/enricabruno/ops-web-app.git
 cd ops-web-app
-```
 
-### 2. Crea e attiva il virtual environment
-
-```bash
+# 2. Creare e attivare l'ambiente virtuale
 python3 -m venv venv
-source venv/bin/activate        # macOS / Linux
-# venv\Scripts\activate         # Windows
-```
+source venv/bin/activate
 
-### 3. Installa le dipendenze
-
-```bash
+# 3. Installare le dipendenze
 pip install -r requirements.lock.txt
-```
 
-`requirements.lock.txt` fissa le versioni esatte di tutte le librerie (generato con
-Python 3.9.6). `requirements.txt` elenca solo le dipendenze dirette.
-
-### 4. Configura le variabili d'ambiente
-
-```bash
+# 4. Configurare l'ambiente: inserire i propri valori in .env
 cp .env.example .env
+
+# 5. Avviare GraphDB: crea il repository e carica i dati di data/
+docker compose up -d
+
+# 6. Avviare l'applicazione
+gunicorn --workers 1 --threads 8 --timeout 200 --bind 0.0.0.0:5001 app:app
+
+# 7. Aprire http://localhost:5001
 ```
 
-Modifica `.env` con i tuoi valori: sostituisci i valori d'esempio (`qrk_...`, `sk-ant-...`)
-con i tuoi.
+## Fermare
 
-| Variabile | Obbligatoria | Descrizione |
-|---|---|---|
-| `GRAPHDB_URL` | no (default `http://localhost:7200/repositories`) | URL base di GraphDB |
-| `REPOSITORY_ID` | no (default `desmos`) | Nome del repository GraphDB |
-| `QRAKEN_TENANT_TOKEN` | **sì** | Client key fornita da chi gestisce il server QRAKEN. Segreto |
-| `QRAKEN_TTQL` | **sì** | Nome del grafo di conoscenza da interrogare (es. `desmos.ttql`) |
-| `QRAKEN_LLM_API_KEY` | consigliata | La tua chiave del provider LLM (con `anthropic`: chiave da [console.anthropic.com](https://console.anthropic.com)). Segreto |
-| `QRAKEN_LLM_PROVIDER` | no (default `anthropic`) | `anthropic`, `openai`, `gemini`, `harvard_bedrock` o `lmstudio` |
+- Applicazione: `Ctrl+C` nel terminale di gunicorn.
+- GraphDB: `docker compose down`.
 
-> **Variabile facoltativa aggiuntiva.** `QRAKEN_LLM_MODEL` non è in `.env.example`: si può
-> aggiungere a `.env` per scegliere il modello del provider; se omessa, il modello lo sceglie
-> il server QRAKEN.
+## Aggiornare i dati
 
-> **Test in locale senza costi.** Per provare il chatbot sul proprio computer si può usare
-> una chiave Gemini del piano gratuito ([Google AI Studio](https://aistudio.google.com/apikey))
-> con `QRAKEN_LLM_PROVIDER=gemini` e un modello incluso nel piano gratuito.
-
-### 5. Avvia GraphDB e carica i dati RDF
-
-Avvia GraphDB (desktop app, server standalone o Docker) e crea il repository `desmos` con
-ruleset **RDFS-Plus (Optimized)**. Poi carica i tre file RDF nel default graph:
-
-```bash
-# Opzione A: GraphDB Workbench → Import → RDF → carica ciascun file
-# Opzione B: script bulk_load.py
-python scripts/bulk_load.py --file data/ontology/desmos.owl --format rdfxml
-python scripts/bulk_load.py --file data/rdf/corpus.ttl --format turtle
-python scripts/bulk_load.py --file data/rdf/concept.ttl --format turtle
-```
-
-### 6. Avvia l'applicazione
-
-```bash
-python app.py
-```
-
-Questo comando avvia il server di **sviluppo** di Flask, con debugger attivo: va usato solo
-in locale. In un'installazione pubblica l'app va servita da un server WSGI (`app:app`).
-
-### 7. Apri il browser
-
-```
-http://localhost:5001
-```
-
----
-
-## Endpoint SPARQL
-
-L'endpoint è in sola lettura: accetta solo query `SELECT` e `CONSTRUCT`
-(massimo 30 richieste al minuto per IP).
-
-- **Dal browser:** `http://localhost:5001/sparql`, con editor, query di esempio e download dei risultati (CSV per SELECT, Turtle per CONSTRUCT)
-- **Da programma:** inviare la query a `/sparql` con il parametro `query` (GET o POST), secondo il SPARQL 1.1 Protocol. Il formato della risposta si sceglie con l'header `Accept`; se non è indicato, è JSON per `SELECT` e Turtle per `CONSTRUCT`.
-
-```bash
-curl -G "http://localhost:5001/sparql" \
-     --data-urlencode "query=SELECT * WHERE { ?s ?p ?o } LIMIT 10"
-```
-
----
+1. Modificare i file in `data/`.
+2. Ricaricarli in GraphDB con `docker compose restart graphdb`.
+3. Riavviare l'applicazione.
 
 ## Struttura del progetto
 
 ```
 ops-web-app/
-├── app.py                    # applicazione Flask (route, query SPARQL, controllo di sola lettura)
-├── requirements.txt          # dipendenze dirette
-├── requirements.lock.txt     # versioni esatte di tutte le dipendenze
-├── .env.example              # modello di configurazione (senza segreti)
+├── app.py                  # applicazione Flask: route e query SPARQL
+├── requirements.txt        # dipendenze dirette
+├── requirements.lock.txt   # versioni esatte di tutte le dipendenze
+├── .env.example            # modello di configurazione
+├── docker-compose.yml      # servizio GraphDB
+├── docker/graphdb/         # configurazione del repository e script di caricamento
 ├── data/
-│   ├── ontology/desmos.owl   # ontologia DeSMòS (TBox)
-│   └── rdf/                  # corpus.ttl (ABox) e concept.ttl (schemi SKOS)
-├── scripts/                  # caricamento in GraphDB (bulk_load.py) e utilità
-├── static/                   # CSS, JS (corpus, matrice, grafo dei concetti, SPARQL, riscritture), immagini
-└── templates/                # template Jinja2
+│   ├── ontology/           # ontologia DeSMòS (desmos.owl)
+│   └── rdf/                # corpus (corpus.ttl) e schemi SKOS (concept.ttl)
+├── scripts/                # script di utilità
+├── static/                 # CSS, JavaScript e immagini
+└── templates/              # template Jinja2
 ```
-
----
-
-## Namespace e standard
-
-| Prefisso | Namespace | Standard |
-|---|---|---|
-| `desmos:` | `https://w3id.org/desmos/` | DeSMòS |
-| `crm:` | `http://www.cidoc-crm.org/cidoc-crm/` | CIDOC CRM |
-| `lrmoo:` | `http://iflastandards.info/ns/lrm/lrmoo/` | LRMoo (IFLA LRM) |
-| `intro:` | `https://w3id.org/lso/intro/beta202506#` | INTRO |
-| `skos:` | `http://www.w3.org/2004/02/skos/core#` | SKOS |
-| `prov:` | `http://www.w3.org/ns/prov#` | PROV-O |
-| `dcterms:` | `http://purl.org/dc/terms/` | Dublin Core Terms |
-| `schema:` | `http://schema.org/` | Schema.org |
-
----
 
 ## Crediti
 
 - **DeSMòS, corpus e applicazione web:** Enrica Bruno (enrica.bruno2@unibo.it).
-- **Chatbot:** basato su QRAKEN (`qraken-remote-chatbot`), sviluppato da Remo Grillo (remo.grillo@unibo.it).
+- **Chatbot:** basato su QRAKEN (`qraken-remote-chatbot`): Remo Grillo (remo.grillo@unibo.it).
 
 ## Licenza
 
