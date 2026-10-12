@@ -9,7 +9,7 @@ from flask_limiter.util import get_remote_address
 import requests
 from dotenv import load_dotenv
 from markupsafe import Markup
-from urllib.parse import quote, unquote, urlsplit
+from urllib.parse import quote, unquote
 from collections import defaultdict
 from functools import lru_cache
 from qraken_remote_chatbot import QrakenConfig, create_blueprint
@@ -182,50 +182,6 @@ def _valid_constraint_uri(uri):
 
 INVALID_URI_MSG = "Indirizzo non valido."
 
-_EXPR_BASE = 'https://w3id.org/desmos/oplepiana/expression/'
-_CONSTRAINT_BASE = 'https://w3id.org/desmos/'
-
-def _iri_from_name(base, name, pattern):
-    """L'IRI ricostruito dal local name se corrisponde a pattern, altrimenti None."""
-    iri = base + (name or '')
-    return iri if pattern.fullmatch(iri) else None
-
-@app.template_global()
-def expr_url(iri):
-    return url_for('expression', name=_local_name(iri))
-
-@app.template_global()
-def constraint_url(iri):
-    return url_for('explain', name=_local_name(iri))
-
-@app.template_global()
-def riscritture_url(iri=None):
-    if not iri:
-        return url_for('riscritture')
-    return url_for('riscritture', name=_local_name(iri))
-
-_REFERRER_PATH_RE = re.compile(r'/(expression|riscritture)/([^/]+)')
-
-def _referrer_expr_uri():
-    """L'IRI dell'espressione da cui si arriva, se il Referer è una pagina
-    /expression/<x> o /riscritture/<x> di questo stesso sito; altrimenti None."""
-    ref = request.referrer
-    if not ref:
-        return None
-    parts = urlsplit(ref)
-    root = request.script_root
-    if not parts.path.startswith(root + '/'):
-        return None
-    m = _REFERRER_PATH_RE.fullmatch(unquote(parts.path[len(root):]))
-    return _iri_from_name(_EXPR_BASE, m.group(2), _EXPR_URI_RE) if m else None
-
-def _legacy_uri_redirect(validator, url_fn, template, **ctx):
-    """301 dalla vecchia forma ?uri=… alla nuova URL; 404 se l'URI non è valido."""
-    uri = validator(request.args.get('uri'))
-    if not uri:
-        return render_template(template, error=INVALID_URI_MSG, **ctx), 404
-    return redirect(url_fn(uri), code=301)
-
 def _expr_crumbs(uri, include_self=True, include_parent=True):
     """Voci del percorso fino all'espressione (madre inclusa, se componente
     e se include_parent).
@@ -250,10 +206,10 @@ def _expr_crumbs(uri, include_self=True, include_parent=True):
         items = []
         if include_parent and 'parent' in b:
             items.append({'label': Markup('<em>{}</em>').format(b['parentTitle']['value']),
-                          'url': expr_url(b['parent']['value'])})
+                          'url': url_for('expression', uri=b['parent']['value'])})
         if include_self:
             items.append({'label': Markup('<em>{}</em>').format(b['title']['value']),
-                          'url': expr_url(uri)})
+                          'url': url_for('expression', uri=uri)})
         return items
     except Exception:
         return []
@@ -312,13 +268,6 @@ def sparql():
         return Response("GraphDB non raggiungibile.\n", status=502, mimetype='text/plain', headers=cors)
     return Response(r.content, status=r.status_code, headers=cors,
                     content_type=r.headers.get('Content-Type', accept))
-
-@app.after_request
-def _vary_referer(resp):
-    # Il percorso "Torna a" di explain ed expression dipende dal Referer.
-    if request.endpoint in ('explain', 'expression'):
-        resp.vary.add('Referer')
-    return resp
 
 @app.after_request
 def _sparql_cors_preflight(resp):
@@ -724,16 +673,11 @@ def _external_match_label(link):
     return 'Voce corrispondente in fonte esterna'
 
 
-@app.route('/explain', defaults={'name': None})
-@app.route('/explain/<name>')
-def explain(name):
-    if name is None:
-        return _legacy_uri_redirect(_valid_constraint_uri, constraint_url, 'explain.html', info=None)
-    uri = _iri_from_name(_CONSTRAINT_BASE, name, _CONSTRAINT_URI_RE)
+@app.route('/explain')
+def explain():
+    uri = _valid_constraint_uri(request.args.get('uri'))
     if not uri:
         return render_template('explain.html', info=None, error=INVALID_URI_MSG), 404
-    if 'from' in request.args:
-        return redirect(constraint_url(uri), code=301)
 
     query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
@@ -960,19 +904,14 @@ def explain(name):
             })
     info['occurrences'] = occurrences
 
-    crumbs = [_corpus_crumb()] + _expr_crumbs(_referrer_expr_uri(), include_parent=False)
+    crumbs = [_corpus_crumb()] + _expr_crumbs(request.args.get('from'), include_parent=False)
     return render_template('explain.html', info=info, error=None, crumbs=crumbs)
 
-@app.route('/expression', defaults={'name': None})
-@app.route('/expression/<name>')
-def expression(name):
-    if name is None:
-        return _legacy_uri_redirect(_valid_expr_uri, expr_url, 'expression.html', expr=None)
-    uri = _iri_from_name(_EXPR_BASE, name, _EXPR_URI_RE)
+@app.route('/expression')
+def expression():
+    uri = _valid_expr_uri(request.args.get('uri'))
     if not uri:
         return render_template('expression.html', expr=None, error=INVALID_URI_MSG), 404
-    if 'from' in request.args:
-        return redirect(expr_url(uri), code=301)
 
     query = """
     PREFIX desmos: <https://w3id.org/desmos/>
@@ -1334,15 +1273,14 @@ def expression(name):
                                  'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'),
     }
 
-    # Il Referer conta solo se non è la pagina stessa né un suo testo contenuto.
-    from_uri = _referrer_expr_uri()
-    if from_uri and from_uri != uri and from_uri not in {c['uri'] for c in children}:
+    from_uri = _valid_expr_uri(request.args.get('from'))
+    if from_uri and from_uri != uri:
         crumbs = [_corpus_crumb()] + _expr_crumbs(from_uri)
     else:
         crumbs = [_corpus_crumb()]
         if parent:
             crumbs.append({'label': Markup('<em>{}</em>').format(parent['title']),
-                           'url': expr_url(parent['uri'])})
+                           'url': url_for('expression', uri=parent['uri'])})
     return render_template('expression.html', expr=expr, error=None, crumbs=crumbs)
 
 # ── Lipogramma: secondo esempio della pagina /riscritture ──────────────────────
@@ -1500,24 +1438,18 @@ def _build_lipo_example():
 
 @app.route('/anagrafia')
 def anagrafia_redirect():
-    if 'uri' not in request.args:
-        return redirect(riscritture_url(), code=301)
-    return _legacy_uri_redirect(_valid_expr_uri, riscritture_url, 'riscritture.html', data=None)
+    return redirect(url_for('riscritture', **request.args), code=301)
 
-@app.route('/riscritture', defaults={'name': None})
-@app.route('/riscritture/<name>')
-def riscritture(name):
+@app.route('/riscritture')
+def riscritture():
     ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
-    if name is None and 'uri' in request.args:
-        return _legacy_uri_redirect(_valid_expr_uri, riscritture_url, 'riscritture.html', data=None)
-    origin_uri = None
-    if name is not None:
-        origin_uri = _iri_from_name(_EXPR_BASE, name, _EXPR_URI_RE)
-        if not origin_uri:
+    origin_uri = request.args.get('uri', '')
+    if 'uri' in request.args:
+        uri = _valid_expr_uri(origin_uri)
+        if not uri:
             return render_template('riscritture.html', data=None, error=INVALID_URI_MSG), 404
-    if 'from' in request.args:
-        return redirect(riscritture_url(origin_uri), code=301)
-    uri = origin_uri or ANAG_DEFAULT_URI
+    else:
+        uri = ANAG_DEFAULT_URI
     if uri == LIPO_EXPR_URI:
         uri = ANAG_DEFAULT_URI
 
@@ -1652,10 +1584,9 @@ def riscritture(name):
         }
     }
 
-    crumbs = [_corpus_crumb()] + _expr_crumbs(origin_uri) if origin_uri else []
-    scroll_to = 'riscrittura-inferno' if origin_uri == LIPO_EXPR_URI else None
+    crumbs = [_corpus_crumb()] + _expr_crumbs(origin_uri)
     return render_template('riscritture.html', data=viz_data, error=None,
-                           lipo=_build_lipo_example(), crumbs=crumbs, scroll_to=scroll_to)
+                           lipo=_build_lipo_example(), crumbs=crumbs)
 
 
 # Colonne (unità): granularità linguistica crescente, poi unità semantiche.

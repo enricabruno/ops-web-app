@@ -4,7 +4,9 @@
 
 {% block torna_a %}
 {% from "_percorso.html" import percorso %}
+{% if request.args.get('uri') %}
 {% if crumbs %}<div class="container-fluid px-5 torna-a-bar">{{ percorso(crumbs, 'bar') }}</div>{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -22,7 +24,7 @@
     <h1 class="fw-bold anag-main-title">Riscritture <em>à contrainte</em></h1>
     <h2 class="fw-normal expression-title mb-1 anag-page-title anag-entry-title">
       <i class="fa-solid fa-puzzle-piece anag-bullet-icon"></i>
-      <span>Riscrittura con <a href="{{ constraint_url('https://w3id.org/desmos/anagraphy') }}" class="anag-constraint-link">anagrafia</a> de <em>{{ data.source_title }}</em> di Umberto Eco</span>
+      <span>Riscrittura con <a href="{{ url_for('explain', uri='https://w3id.org/desmos/anagraphy', **{'from': 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'}) }}" class="anag-constraint-link">anagrafia</a> de <em>{{ data.source_title }}</em> di Umberto Eco</span>
     </h2>
   </div>
 
@@ -63,7 +65,7 @@
   <div class="mb-4" id="riscrittura-inferno">
     <h2 class="fw-normal expression-title mb-1 anag-page-title anag-entry-title">
       <i class="fa-solid fa-puzzle-piece anag-bullet-icon"></i>
-      <span>Riscrittura <a href="{{ constraint_url('https://w3id.org/desmos/lipogram') }}" class="anag-constraint-link">lipogrammatica</a> de l'<em>{{ lipo.source_title }}</em> di {{ lipo.src_author }}</span>
+      <span>Riscrittura <a href="{{ url_for('explain', uri='https://w3id.org/desmos/lipogram', **{'from': 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'}) }}" class="anag-constraint-link">lipogrammatica</a> de l'<em>{{ lipo.source_title }}</em> di {{ lipo.src_author }}</span>
     </h2>
   </div>
 
@@ -117,9 +119,6 @@
   <script src="{{ url_for('static', filename='js/anagrafia.js') }}"></script>
   {% if lipo %}
   <script src="{{ url_for('static', filename='js/lipogramma.js') }}"></script>
-  {% endif %}
-  {% if scroll_to %}
-  <script>document.getElementById({{ scroll_to | tojson }})?.scrollIntoView();</script>
   {% endif %}
 {% endif %}
 {% endblock %}
