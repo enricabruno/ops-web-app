@@ -667,10 +667,9 @@ def _parse_relation_items(raw):
     return items
 
 
-# Abbreviazione della fonte esterna, in ordine di verifica. I primi quattro sono
-# vocabolari di autorità; id.loc.gov e il Nuovo Soggettario BNCF sono anch'essi dati
-# collegati e restano 'LOD'. Tutto il resto (siti d'autore, oplepo.com) è 'WEB':
-# risorse di approfondimento, non dati collegati.
+# Abbreviazione della fonte esterna, in ordine di verifica: VIAF, SBN e Wikidata
+# (vocabolari d'autorità), oulipo.net, id.loc.gov e Nuovo Soggettario BNCF ('LOD'),
+# oplepo.com ('Scheda Oplepo'). Tutto il resto (es. siti d'autore) è 'WEB'.
 _EXTERNAL_SOURCES = (
     ('viaf.org', 'VIAF'),
     ('id.sbn.it', 'SBN'),
@@ -689,13 +688,10 @@ def _external_source_abbr(link):
     return 'WEB'
 
 
-# Nome leggibile della fonte e formula del collegamento (skos:exactMatch /
-# skos:closeMatch) per il blocco "Corrispondenza esterna" sotto la definizione
-# di una costrizione: derivati dal dominio della URI, non dal testo libero
-# della fonte. 'scheda' per i siti che catalogano le costrizioni con una
-# pagina dedicata (Oulipo, Oplepo); 'voce' per i vocabolari di autorità e i
-# thesaurus, dove il collegamento è una corrispondenza, non una scheda scritta
-# per questa costrizione.
+# Etichetta del link "Fonte esterna" sotto la definizione di una costrizione, per i
+# soli skos:closeMatch (gli exactMatch usano _external_source_abbr). Derivata dal
+# dominio della URI: 'scheda' per i siti che dedicano una pagina alla costrizione
+# (Oulipo, Oplepo), 'voce' per vocabolari d'autorità e thesaurus.
 _EXTERNAL_MATCH_SOURCES = (
     ('oulipo.net', 'Oulipo', 'scheda'),
     ('oplepo.com', 'Oplepo', 'scheda'),
@@ -933,9 +929,8 @@ def _render_costrizione(uri, from_uri=None, canonical_url=None):
             for m in rel_row.get('closeMatches', {}).get('value', '').split('||') if m
         ]
 
-    # Grafo della rete concettuale: nessuna relazione su nessuno dei tre assi
-    # per 37 costrizioni su 164 (vedi sezione 7 della spec) -> None, la
-    # riga esplicativa la rende il template.
+    # Rete concettuale: se la costrizione non ha né skos:broader né skos:narrower
+    # né skos:related -> None, ed explain.html omette la sezione.
     if info['broader'] or info['narrower'] or info['related']:
         info['concept_graph'] = {
             'focus': {'uri': info['uri'], 'label': info['label'],
@@ -1064,7 +1059,7 @@ def _render_opera(uri, from_uri=None):
             ?_manifNode dct:title ?_manifTitleRaw .
             BIND(STR(?_manifTitleRaw) AS ?_manifTitle)
 
-            # Risalita al volume, per il breadcrumb
+            # Risalita al volume che contiene la plaquette
             OPTIONAL {
                 ?_manifNode crm:P148i_is_component_of ?_vol .
                 ?_vol dct:title ?_volTitle .
@@ -1373,7 +1368,7 @@ def _render_opera(uri, from_uri=None):
 
 # ── Lipogramma: secondo esempio della pagina /riscritture ──────────────────────
 # Plaquette 48, "Il divino intreccio" (Tonietto): riscrittura in lipogramma in A
-# di Inf. I, 1-3. I testi vengono da intro:R44_hasWording; l'allineamento
+# di Inf. I, 1-6. I testi vengono da intro:R44_hasWording; l'allineamento
 # parola→parola è interpretativo e non è nel grafo: lo si corregge qui.
 LIPO_EXPR_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'
 LIPO_HYPOTEXT_PREFIX = 'https://w3id.org/desmos/oplepiana/passage/hypotext_text_inferno'
@@ -1692,9 +1687,9 @@ def _render_riscritture(origin_uri):
 
 
 # Colonne (unità): granularità linguistica crescente, poi unità semantiche.
-# letter < syllable < word < line < {stanza, paragraph} è asserito nell'ontologia
-# da desmos:isHigherOrderUnitThan (owl:TransitiveProperty); il resto della catena
-# non è nel modello ed è una scelta editoriale di questa vista.
+# letter < syllable < word < line < {stanza, paragraph} è asserito in concept.ttl
+# con desmos:finerThan (owl:TransitiveProperty, inversa di desmos:coarserThan);
+# il resto della catena non è nel modello ed è una scelta editoriale di questa vista.
 MATRIX_UNIT_ORDER = [
     'letter', 'syllable', 'word', 'line', 'stanza', 'paragraph', 'page', 'typography', 'image',
     'theme', 'fictional_character', 'fictional_setting', 'fictional_time', 'literary_genre', 'addressee',

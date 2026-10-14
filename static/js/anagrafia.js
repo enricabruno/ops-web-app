@@ -12,7 +12,7 @@
 
   /* ── Layout constants (Compatti e Fluidi) ──────────────────── */
   const SRC_Y  = 100;         // Asse superiore (Ipotesto)
-  const TGT_Y  = 250;         // Asse inferiore (Rigrafia)
+  const TGT_Y  = 250;         // Asse inferiore (Ipertesto)
   const SVG_H  = 350;         // Altezza totale ridotta
   const ML     = 95;         // Margine per etichette
   const MR     = 50;          // Margine destro
@@ -22,7 +22,7 @@
   const nTgt = targetTokens.length;
   const nMax = Math.max(nSrc, nTgt);
 
-  const SVG_W  = containerWidth; // Larghezza fluida basata sulla finestra
+  const SVG_W  = containerWidth; // Larghezza di #anag-wrapper (min. 760px su schermi stretti)
   const innerW = SVG_W - ML - MR;
 
   // Funzioni X: ora distribuiscono i token su tutta la larghezza

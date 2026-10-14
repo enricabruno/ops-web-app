@@ -689,37 +689,20 @@ function initDrawer() {
     }
 }
 
-/* Barra della legenda: overlay verso l'ALTO (vedi il commento sopra
-   .matrix-legend-bar in style.css - mai verso il basso, coprirebbe la
-   matrice). Aprirla/chiuderla non sposta più .matrix-screen (il pannello è
-   fuori dal flusso), quindi a differenza del vecchio pannello in flusso
-   non serve più avvertire il layout della matrice di un cambiamento. */
+/* Barra della legenda: il pannello si apre in overlay verso l'alto, mai verso
+   il basso (coprirebbe la matrice). È fuori dal flusso, quindi aprirlo non
+   cambia il layout della matrice. */
 function initLegendBar() {
     const bar = document.getElementById('matrix-legend-bar');
     const toggle = document.getElementById('matrix-legend-toggle');
     const panel = document.getElementById('matrix-legend-panel');
     if (!bar || !toggle || !panel) return;
 
-    // Tetto d'altezza CALCOLATO, non stimato: il pannello aperto misura
-    // circa quanto il testo che contiene, lo spazio libero sopra dipende
-    // dalla navbar (sticky, il pannello le scorre sotto se troppo alto) e
-    // dalla posizione del toggle nella pagina - entrambi variabili, non
-    // un valore fisso da indovinare. Sottrae anche il margin-bottom del
-    // pannello stesso (style.css): con bottom:100%, quel margine sposta
-    // ULTERIORMENTE il bordo superiore lontano dal toggle, quindi consuma
-    // dello stesso budget verticale di --legend-max-h - ometterlo fa
-    // risultare più spazio di quanto ce ne sia davvero.
-    //
-    // NON Math.max(120, room): con un header basso (titolo/definizione
-    // corti) room resta sotto i 120px A QUALUNQUE altezza di finestra,
-    // dato che non dipende dall'altezza del viewport ma solo da quanta
-    // pagina c'è sopra il toggle - un floor che IGNORA room forzerebbe il
-    // pannello oltre lo spazio realmente disponibile, facendolo scivolare
-    // sotto la navbar esattamente nel caso che doveva evitare (criterio di
-    // accettazione: "il pannello non finisce mai sotto la navbar"). Il
-    // pannello può quindi rendere più basso di 120px e scrollare di più:
-    // è il fallback voluto, non un difetto - ma il tetto reale è room,
-    // mai un valore che lo superi.
+    // Altezza massima = spazio fra la navbar sticky e il toggle, meno il
+    // margin-bottom del pannello (con bottom:100% il margine consuma lo stesso
+    // spazio). Nessun minimo ampio: meglio un pannello basso che scorre che uno
+    // che finisce sotto la navbar. Il minimo tecnico di 40px può comunque
+    // superare room quando lo spazio sopra il toggle è inferiore.
     function syncMaxHeight() {
         const nav = document.querySelector('.navbar');
         if (!nav) return;
@@ -741,10 +724,9 @@ function initLegendBar() {
         setOpen(opening);
     });
 
-    // Overlay consultivo, non modale: si chiude con Escape (il focus torna
-    // al toggle, come per il drawer - vedi initDrawer) o con un click fuori
-    // dal pannello e dal toggle. Niente backdrop: coprirebbe l'intera
-    // pagina per un contenuto che non blocca nulla sotto di sé.
+    // Overlay consultivo, non modale: si chiude con Escape (il focus torna al
+    // toggle) o con un click fuori da pannello e toggle. Niente backdrop: il
+    // pannello non blocca nulla di ciò che sta sotto.
     document.addEventListener('keydown', (ev) => {
         if (ev.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
     });

@@ -151,7 +151,7 @@ section { margin-bottom: 3rem; }
     opacity: 0.8;
 }
 
-/* Brand nelle pagine interne: "OPS!" con ! in color-text */
+/* Brand nelle pagine interne: "OPS" in color-accent */
 .ops-brand { color: var(--color-accent) !important; }
 .ops-brand:hover { color: var(--color-accent) !important; opacity: 0.8; }
 .ops-excl  { color: var(--color-text); }
@@ -2468,7 +2468,7 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-axis-label:hover,
 .matrix-axis-label:focus { fill: var(--color-accent); outline: none; }
 
-/* Riga di scarto: etichetta breve e discreta, non compete con le operazioni dichiarate */
+/* Riga "Senza operazione": classe predisposta per uno stile attenuato, oggi identica alla regola base */
 .matrix-axis-label--muted { fill: var(--color-text); }
 .matrix-axis-label--muted:hover,
 .matrix-axis-label--muted:focus { fill: var(--color-accent); }
@@ -2671,7 +2671,7 @@ tbody tr:last-child td { border-bottom: none; }
     .matrix-results-header { position: static; }
 }
 
-/* ── Lipogramma (secondo esempio di /anagrafia) ─────────────── */
+/* ── Lipogramma (secondo esempio di /riscritture) ───────────── */
 .lipo-letter { color: #c0392b; font-weight: 700; }
 .lipo-src-tok, .lipo-tgt-tok { border-radius: 2px; padding: 0 1px; transition: all 0.2s ease; font-size: 0.95rem; }
 .lipo-src-tok[data-targets] { cursor: pointer; }
