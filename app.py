@@ -70,7 +70,7 @@ app.register_blueprint(
     url_prefix="/qraken",
 )
 
-# Rate limit sugli endpoint che interrogano GraphDB o il modello. 
+# Rate limit sugli endpoint che interrogano GraphDB o il modello.
 RATE_LIMIT = "30/minute"
 limiter = Limiter(get_remote_address, app=app, storage_uri="memory://")
 app.view_functions['qraken.send_message'] = limiter.limit(RATE_LIMIT)(app.view_functions['qraken.send_message'])
@@ -398,7 +398,7 @@ def corpus():
           FILTER(lang(?constraintLabel) = "it")
         }
 
-        # Tipo di costrizione via gerarchia di classi (FormalConstraint / SemanticConstraint)
+        # Tipo di costrizione (FormalConstraint / SemanticConstraint; con reasoning RDFS le visuali ricadono in FormalConstraint)
         OPTIONAL {
           ?constraint rdf:type ?constraintClass .
           FILTER(?constraintClass IN (desmos:FormalConstraint, desmos:SemanticConstraint))
@@ -431,7 +431,7 @@ def corpus():
       }
 
       # 4. Relazione con la Plaquette fisica: "In" vs "Plaquette"
-      # SAMPLE() keeps these out of GROUP BY, preventing row multiplication.
+      # SAMPLE(): fuori dalla GROUP BY, evita la moltiplicazione delle righe.
       OPTIONAL {
         ?_parentExpr crm:P148_has_component ?expression ;
                      dct:title ?_parentTitle .
@@ -1207,7 +1207,7 @@ def _render_opera(uri, from_uri=None):
             entry = entry.strip()
             if not entry:
                 continue
-            # 9-part concat: obj_uri ## text ## man_title ## year ## page ## source ## content ## lo_author ## vol_title
+            # Concatenazione a 9 campi: obj_uri ## text ## man_title ## year ## page ## source ## content ## lo_author ## vol_title
             parts = entry.split('##', 8)
             obj_uri = parts[0].strip()
             frag_text = parts[1].strip() if len(parts) > 1 else ''

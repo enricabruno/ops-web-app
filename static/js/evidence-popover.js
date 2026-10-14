@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function initEvidencePopover(btn, triggerValue, extraOptions) {
         var options = Object.assign({
             html: true,
+            // Contenuto letto da nodi del template, già escapati da Jinja.
             sanitize: false,
             trigger: triggerValue,
             placement: btn.dataset.bsPlacement || 'top',

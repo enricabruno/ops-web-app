@@ -8,6 +8,7 @@
     --color-surface: #faf9f7;
     --color-text:    #011c21;
     --color-border:  #dee2e6;
+    /* --color-text-soft: valore fisso come fallback, sovrascritto da color-mix() dove supportato */
     --color-text-soft: #3c4f54;
     --color-text-soft: color-mix(in srgb, var(--color-text) 74%, var(--color-bg));
     --color-formali:    #0089b6;
@@ -788,10 +789,10 @@ tbody tr:last-child td { border-bottom: none; }
 
 .expression-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
 
-.disclosure-heading { margin: 0; }             
+.disclosure-heading { margin: 0; }
 
 .disclosure-toggle {
-    all: unset;                                
+    all: unset;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -845,7 +846,7 @@ tbody tr:last-child td { border-bottom: none; }
 .evidence-box label { font-size: 0.7rem; letter-spacing: 1px; display: block; margin-bottom: 4px; }
 
 /* ============================================
-   PAGE: EXPRESSION
+   PAGE: OPERA (/opere)
    ============================================ */
 
 .content-container  { max-width: 1100px; }
@@ -855,8 +856,8 @@ tbody tr:last-child td { border-bottom: none; }
 .link-source-sm     { font-family: "Baskerville", "Libre Baskerville", Georgia, serif; font-size: 0.85rem; color: var(--color-text) !important; }
 .link-source-sm:hover { color: var(--color-accent) !important; }
 
-.expression-title { color: var(--color-text); 
-    font-style: italic; 
+.expression-title { color: var(--color-text);
+    font-style: italic;
     font-family: "Futura", "Century Gothic", "Trebuchet MS", serif;} 
 
 .metadata-section-label {
@@ -982,12 +983,12 @@ tbody tr:last-child td { border-bottom: none; }
 .external-arrow {
     display: inline-block;
     position: relative;
-    top: -1.5rem;            
+    top: -1.5rem;
     width: 0.72rem;
     height: 0.72rem;
-    margin-left: 0.25rem;     
+    margin-left: 0.25rem;
     line-height: 1;
-    font-size: 0;             
+    font-size: 0;
     background-color: currentColor;
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
@@ -1017,7 +1018,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 /* ============================================
-   PAGE: ANAGRAFIA
+   PAGE: RISCRITTURE (/riscritture)
    ============================================ */
 
 .anag-main-title { font-size: 2.2rem; margin-bottom: 0.5rem; }
@@ -1108,7 +1109,7 @@ tbody tr:last-child td { border-bottom: none; }
 .legend-hint  { font-size: 0.75rem; font-style: italic; }
 
 /* ============================================
-   PAGE: EXPLAIN
+   PAGE: COSTRIZIONE (/costrizioni)
    ============================================ */
 
 .metadata-grid {
@@ -1486,7 +1487,7 @@ tbody tr:last-child td { border-bottom: none; }
 .CodeMirror .cm-def          { color: var(--color-text)   !important; }
 
 /* ============================================
-   /expression — LAYOUT
+   /opere — LAYOUT
    ============================================ */
 
 .expr-breadcrumb {
@@ -1678,7 +1679,7 @@ tbody tr:last-child td { border-bottom: none; }
 .evidence-popover code { font-size: 0.7rem; word-break: break-all; }
 
 /* ============================================
-   /expression — ANELLO DELLE COSTRIZIONI
+   /opere — ANELLO DELLE COSTRIZIONI
    ============================================ */
 
 .cviz {
@@ -1788,7 +1789,7 @@ tbody tr:last-child td { border-bottom: none; }
 .expr-card > .expr-meta-dl { margin-bottom: 0; }
 .expr-card > .expr-meta-dl > dd:last-of-type { margin-bottom: 0; }
 
-/* ===== Matrice operazione x unità (explain.html) ===== */
+/* ── Matrice operazione x unità (explain.html) ── */
 /* Landing page: dai 761px in su grafico e costrizioni devono stare sopra
    la piega (vedi l'invariante applicato in applyLayout, constraint_matrix.js);
    solo la colonna dei risultati (altezza fissa) scorre al proprio interno.
@@ -1914,7 +1915,7 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--color-text-soft);
 }
 
-/* ===== Barra della legenda, in overlay verso l'ALTO ===== */
+/* ── Barra della legenda, in overlay verso l'alto ── */
 .matrix-legend-bar {
     display: flex;
     flex-wrap: wrap;
@@ -2084,7 +2085,7 @@ tbody tr:last-child td { border-bottom: none; }
     line-height: 1.55;
     color: var(--color-text);
     text-decoration: none;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
 .matrix-external-link:hover { color: var(--color-text) !important; }
@@ -2140,7 +2141,7 @@ tbody tr:last-child td { border-bottom: none; }
     padding-top: 18px;
 }
 
-/* ===== Drawer di approfondimento (nota storica / ambito di applicazione) ===== */
+/* ── Drawer di approfondimento (nota storica / ambito di applicazione) ── */
 .matrix-drawer {
     grid-column: 1;
 }
@@ -2168,7 +2169,7 @@ tbody tr:last-child td { border-bottom: none; }
     border-block: 1px solid var(--color-accent);
     color: var(--color-accent);
     box-shadow: 2px 2px 8px rgba(1, 28, 33, 0.12);
-  
+
     transition: inset-inline-start 0.3s ease, inset-inline-end 0.3s ease;
     z-index: 951;
 }
@@ -2577,7 +2578,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .matrix-results-current { font-weight: 700; }
 
-/* ===== Rete concettuale: grafo a tre livelli (explain.html) ===== */
+/* ── Rete concettuale: grafo a tre livelli (explain.html) ── */
 .explain-page__network {
     padding: 20px 0 32px;
     border-top: .5px solid var(--color-border);
@@ -2695,7 +2696,7 @@ tbody tr:last-child td { border-bottom: none; }
    PAGE: PROGETTO
    ============================================ */
 
-/* Colonna editoriale: stessa misura di riga del testo introduttivo in home */
+/* Colonna editoriale (46rem) */
 .progetto-page { max-width: 46rem; margin-inline: auto; }
 .progetto-page p {
     text-align: justify;

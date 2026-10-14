@@ -1,4 +1,4 @@
-/* puzzle.js — Genera la fila di tessere SVG con incastri a forma di puzzle.*/
+/* Tessere SVG a incastro della home (parola da #puzzle-config). */
 
 (function () {
   var cfgEl = document.getElementById('puzzle-config');
@@ -10,7 +10,7 @@
 
   var SVGNS = 'http://www.w3.org/2000/svg';
 
-  /* Pattern dei lati. Invariante: tiles[N].right e tiles[N+1].left
+  /* Pattern dei lati. Invariante: tilePatterns[N].right e tilePatterns[N+1].left
      sono sempre opposti (bump↔concave) → le tessere combaciano.
      Prima tessera: left=flat. Ultima tessera: right=flat. */
   var tilePatterns = [
@@ -21,7 +21,7 @@
   ];
 
   /* Curva canonica del lato TOP (0,0)→(100,0).
-     dir = -1 → bump (esce, y negativi); dir = +1 → concave. */
+     d = -1 → bump (esce, y negativi); d = +1 → concave. */
   function edgeCommands(kind) {
     if (kind === 'flat') {
       return [{ c: 'L', p: [[100, 0]] }];

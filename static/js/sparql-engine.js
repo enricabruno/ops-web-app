@@ -1,7 +1,7 @@
 // Prefisso dell'app (vuoto in locale, es. "/ops" in sottocartella), da base.html.
 const OPS_BASE = document.querySelector('meta[name="ops-base"]')?.content ?? '';
 
-// ── Namespace → prefix map ──────────────────────────────────────────────────
+// ── Mappa namespace → prefisso ──────────────────────────────────────────────
 const NS_MAP = [
   ['https://w3id.org/desmos/', 'desmos:'],
   ['https://w3id.org/desmos/oplepiana/',     'base:'],
@@ -49,7 +49,7 @@ WHERE {
   }
 }`;
 
-// ── Template Queries ────────────────────────────────────────────────────────
+// ── Query di esempio ────────────────────────────────────────────────────────
 const TEMPLATES = {
   expressions:
 `PREFIX lrmoo:  <http://iflastandards.info/ns/lrm/lrmoo/>
@@ -135,7 +135,7 @@ WHERE {
 }`,
 };
 
-// ── CodeMirror editor init ───────────────────────────────────────────────────
+// ── Inizializzazione editor CodeMirror ───────────────────────────────────────
 const editor = CodeMirror(document.getElementById('sparql-editor-host'), {
   mode: 'application/sparql-query',
   theme: 'neo',
@@ -151,7 +151,7 @@ const editor = CodeMirror(document.getElementById('sparql-editor-host'), {
   },
 });
 
-// ── UI helpers ───────────────────────────────────────────────────────────────
+// ── Funzioni di interfaccia ──────────────────────────────────────────────────
 function resetEditor() {
   editor.setValue(DEFAULT_CONTENT);
   editor.focus();
@@ -175,7 +175,7 @@ function clearEditor() {
   resetEditor();
 }
 
-// ── Query execution ─────────────────────────────────────────────────────────
+// ── Esecuzione della query ──────────────────────────────────────────────────
 async function executeQuery() {
   const query = editor.getValue().trim();
   const resultsSection = document.getElementById('results-section');
@@ -237,7 +237,7 @@ function setBadge(text, cls = 'bg-secondary') {
   b.className = `badge ${cls}`;
 }
 
-// ── Result rendering ────────────────────────────────────────────────────────
+// ── Visualizzazione dei risultati ───────────────────────────────────────────
 let lastResultsVariables = null;
 let lastResultsBindings  = null;
 let lastTurtle           = null;
@@ -374,7 +374,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// ── Error rendering ─────────────────────────────────────────────────────────
+// ── Visualizzazione degli errori ────────────────────────────────────────────
 function displayError(msg) {
   const resultsDiv = document.getElementById('query-results');
 
@@ -396,5 +396,5 @@ function displayError(msg) {
   hideDownloadButton();
 }
 
-// ── Init ─────────────────────────────────────────────────────────────────────
+// ── Avvio ────────────────────────────────────────────────────────────────────
 resetEditor();

@@ -1,7 +1,7 @@
 (function () {
   // 1. Questa riga è FONDAMENTALE: recupera i dati passati dal server
   const _d = JSON.parse(document.getElementById('anag-data').textContent);
-  
+
   const sourceTokens = _d.sourceTokens;
   const targetTokens = _d.targetTokens;
   const edges        = _d.edges;
@@ -10,7 +10,7 @@
   const wrapperWidth   = document.getElementById('anag-wrapper').clientWidth;
   const containerWidth = window.matchMedia('(max-width: 768px)').matches ? Math.max(wrapperWidth, 760) : wrapperWidth;
 
-  /* ── Layout constants (Compatti e Fluidi) ──────────────────── */
+  /* ── Costanti di layout ────────────────────────────────────── */
   const SRC_Y  = 100;         // Asse superiore (Ipotesto)
   const TGT_Y  = 250;         // Asse inferiore (Ipertesto)
   const SVG_H  = 350;         // Altezza totale ridotta
@@ -29,7 +29,6 @@
   function srcX(i) { return ML + (nSrc > 1 ? (i / (nSrc - 1)) * innerW : innerW / 2); }
   function tgtX(j) { return ML + (nTgt > 1 ? (j / (nTgt - 1)) * innerW : innerW / 2); }
 
-  /* ── SVG setup ─────────────────────────────────────────────── */
   const svg = d3.select('#anag-svg')
     .attr('width',  SVG_W)
     .attr('height', SVG_H);
@@ -38,7 +37,7 @@
     .attr('width', SVG_W).attr('height', SVG_H)
     .attr('fill', '#fafafa');
 
-  /* ── Axis lines ────────────────────────────────────────────── */
+  /* ── Assi ──────────────────────────────────────────────────── */
   [SRC_Y, TGT_Y].forEach(y => {
     svg.append('line')
       .attr('x1', ML - 10).attr('x2', SVG_W - MR + 10)
@@ -46,7 +45,6 @@
       .attr('stroke', '#dde1e7').attr('stroke-width', 1);
   });
 
-  /* ── Axis labels (left side) ───────────────────────────────── */
   const axisLabelAttrs = {
     'text-anchor': 'end', 'dominant-baseline': 'middle',
     'font-size': '9px', 'font-weight': '700',
@@ -59,7 +57,7 @@
     Object.entries(axisLabelAttrs).forEach(([k, v]) => el.attr(k, v));
   });
 
-  /* ── Color scale (by normalised displacement) ──────────────── */
+  /* ── Scala colori (spostamento normalizzato) ───────────────── */
   function dispNorm(e) {
     const sn = nSrc > 1 ? e.src / (nSrc - 1) : 0;
     const tn = nTgt > 1 ? e.tgt / (nTgt - 1) : 0;
@@ -70,14 +68,13 @@
     .domain([0, maxDisp])
     .interpolator(d3.interpolateRgb('#c8d6e5', '#0097B2'));
 
-  /* ── Bezier path ───────────────────────────────────────────── */
   function mkPath(e) {
     const sx = srcX(e.src), tx = tgtX(e.tgt);
     const cy = (SRC_Y + TGT_Y) / 2;
     return `M ${sx} ${SRC_Y} C ${sx} ${cy}, ${tx} ${cy}, ${tx} ${TGT_Y}`;
   }
 
-  /* ── Draw edges ────────────────────────────────────────────── */
+  /* ── Archi ─────────────────────────────────────────────────── */
   const eGroup = svg.append('g').attr('class', 'edges');
   const ePaths = eGroup.selectAll('path')
     .data(edges).join('path')
@@ -88,7 +85,7 @@
     .attr('opacity', 0.65)
     .style('cursor', 'pointer');
 
-  /* ── Draw source nodes ─────────────────────────────────────── */
+  /* ── Nodi dell'ipotesto ────────────────────────────────────── */
   const srcG = svg.append('g');
   const srcNodes = srcG.selectAll('g').data(sourceTokens).join('g')
     .attr('transform', (d, i) => `translate(${srcX(i)},${SRC_Y})`);
@@ -107,7 +104,7 @@
     .attr('font-family', 'Inter, sans-serif')
     .text(d => d);
 
-  /* ── Draw target nodes ─────────────────────────────────────── */
+  /* ── Nodi dell'ipertesto ───────────────────────────────────── */
   const tgtG = svg.append('g');
   const tgtNodes = tgtG.selectAll('g').data(targetTokens).join('g')
     .attr('transform', (d, j) => `translate(${tgtX(j)},${TGT_Y})`);
@@ -140,7 +137,6 @@
     .style('z-index', '9999')
     .style('line-height', '1.6');
 
-  /* ── Helpers for text-block sync ───────────────────────────── */
   function highlightTextToken(cls, idx, on) {
     const span = document.querySelector(`.${cls}[data-idx="${idx}"]`);
     if (!span) return;
@@ -150,7 +146,7 @@
     span.style.borderRadius     = on ? '2px' : '';
   }
 
-  /* ── Hover interactions ────────────────────────────────────── */
+  /* ── Interazione al passaggio del mouse ────────────────────── */
   function resetAll() {
     ePaths
       .attr('stroke', e => cScale(dispNorm(e)))
@@ -212,7 +208,7 @@
     })
     .on('mouseout', resetAll);
 
-  /* ── Drag-to-scroll on the wrapper ────────────────────────── */
+  /* ── Trascinamento orizzontale ────────────────────────────── */
   const wrapper = document.getElementById('anag-wrapper');
   let isDragging = false, startX = 0, scrollLeft = 0;
   wrapper.addEventListener('mousedown', e => {
@@ -228,6 +224,5 @@
     wrapper.scrollLeft = scrollLeft - (e.pageX - wrapper.offsetLeft - startX);
   });
 
-  /* ── Clean up tooltip on unload ────────────────────────────── */
   window.addEventListener('beforeunload', () => tip.remove());
 })();

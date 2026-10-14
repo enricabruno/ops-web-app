@@ -11,8 +11,8 @@ export const constraintHref = uri => `${OPS_BASE}/costrizioni/` + encodeURICompo
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
-const SIZE_CUTOFFS = [1, 3, 6, 12]; 
-const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22]; 
+const SIZE_CUTOFFS = [1, 3, 6, 12];
+const SQUARE_SIDE = [8, 10.5, 13.5, 18, 22];
 const CIRCLE_RATIO = 1.1284; 
 const MARK_GAP = 4;
 
@@ -679,7 +679,7 @@ function initDrawer() {
     try {
         alreadySeen = sessionStorage.getItem('ops.drawerSeen') === '1';
     } catch (e) {
-
+        /* sessionStorage non disponibile */
     }
     if (!alreadySeen) {
         handle.classList.add('matrix-drawer--calling');

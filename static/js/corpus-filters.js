@@ -46,7 +46,7 @@ function applyFilters() {
 
     document.querySelectorAll('[data-author]').forEach(item => {
         const matchesAuthor = !authorVal || item.dataset.author.toLowerCase().includes(authorVal);
-        // data-type può elencare più tipi (es. "poetry,visual_poetry"): basta che uno coincida.
+        // Ogni data-* può elencare più valori separati da virgola: basta che uno coincida.
         const types = item.dataset.type
             ? item.dataset.type.toLowerCase().split(',').map(s => s.trim())
             : [];
