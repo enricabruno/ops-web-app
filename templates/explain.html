@@ -2,6 +2,10 @@
 
 {% block title %}{{ info.label if info else "Costrizione" }}{% endblock %}
 
+{% block extra_head %}
+{% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
+{% endblock %}
+
 {% block torna_a %}
 {% from "_percorso.html" import percorso %}
 {% if crumbs %}<div class="container-fluid px-5 torna-a-bar">{{ percorso(crumbs, 'bar') }}</div>{% endif %}
@@ -38,7 +42,7 @@
                         <ul class="explain-occurrences-list list-unstyled">
                             {% for occ in info.occurrences %}
                             <li class="explain-occurrence-item">
-                                <a href="{{ url_for('expression', uri=occ.uri) }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
+                                <a href="{{ opera_url(occ.uri) }}" class="internal-link">{{ occ.title if occ.title else occ.uri }}</a>{% if occ.author %} di {{ occ.author }}{% endif %}{% if occ.year %} <span class="text-muted small">({{ occ.year }})</span>{% endif %}
                             </li>
                             {% endfor %}
                         </ul>

@@ -180,6 +180,41 @@ def _valid_expr_uri(uri):
 def _valid_constraint_uri(uri):
     return _valid_uri(uri, _CONSTRAINT_URI_RE)
 
+# Negli URL delle pagine l'identificativo è il nome locale dell'URI (la parte
+# dopo il namespace): lo si valida prima di ricostruire l'URI per le query.
+EXPR_NS = 'https://w3id.org/desmos/oplepiana/expression/'
+CONSTRAINT_NS = 'https://w3id.org/desmos/'
+_EXPR_ID_RE = re.compile(r'^[A-Za-z0-9_\-]+$')
+_CONSTRAINT_ID_RE = re.compile(r'^[A-Za-z0-9_]+$')
+
+def _expr_uri_from_id(id_opera):
+    return EXPR_NS + id_opera if _EXPR_ID_RE.match(id_opera or '') else None
+
+def _constraint_uri_from_id(id_costrizione):
+    return CONSTRAINT_NS + id_costrizione if _CONSTRAINT_ID_RE.match(id_costrizione or '') else None
+
+def _local_name(uri):
+    return uri.rsplit('/', 1)[-1]
+
+@app.template_global()
+def opera_url(uri, from_uri=None, **kwargs):
+    """Scheda dell'opera; from_uri è l'opera da cui si arriva (?from=<id_opera>)."""
+    if from_uri:
+        kwargs['from'] = _local_name(from_uri)
+    return url_for('opera', id_opera=_local_name(uri), **kwargs)
+
+@app.template_global()
+def costrizione_url(uri, opera_uri=None, **kwargs):
+    """Scheda della costrizione; annidata sotto l'opera se aperta da questa."""
+    if opera_uri:
+        return url_for('costrizione_opera', id_opera=_local_name(opera_uri),
+                       id_costrizione=_local_name(uri), **kwargs)
+    return url_for('costrizione', id_costrizione=_local_name(uri), **kwargs)
+
+@app.template_global()
+def riscrittura_url(uri, **kwargs):
+    return url_for('riscrittura', id_opera=_local_name(uri), **kwargs)
+
 INVALID_URI_MSG = "Indirizzo non valido."
 
 def _expr_crumbs(uri, include_self=True, include_parent=True):
@@ -206,10 +241,10 @@ def _expr_crumbs(uri, include_self=True, include_parent=True):
         items = []
         if include_parent and 'parent' in b:
             items.append({'label': Markup('<em>{}</em>').format(b['parentTitle']['value']),
-                          'url': url_for('expression', uri=b['parent']['value'])})
+                          'url': opera_url(b['parent']['value'])})
         if include_self:
             items.append({'label': Markup('<em>{}</em>').format(b['title']['value']),
-                          'url': url_for('expression', uri=uri)})
+                          'url': opera_url(uri)})
         return items
     except Exception:
         return []
@@ -229,9 +264,13 @@ def favicon():
         mimetype='image/vnd.microsoft.icon',
     )
 
-@app.route('/project')
-def project():
+@app.route('/progetto')
+def progetto():
     return render_template('project.html')
+
+@app.route('/project')
+def project_legacy():
+    return redirect(url_for('progetto'), code=301)
 
 _ACCEPT = {
     'SELECT': ['application/sparql-results+json', 'application/sparql-results+xml',
@@ -255,7 +294,7 @@ def sparql():
     q = _sparql_protocol_query()
     if q is None:
         return render_template('sparql.html',
-                               crumbs=[{'label': 'Query hub', 'url': url_for('query_hub')}])
+                               crumbs=[{'label': 'Interrogazione dati', 'url': url_for('interrogazione')}])
     cors = {'Access-Control-Allow-Origin': '*'}
     ok, form = check_readonly_query(q)
     if not ok:
@@ -278,14 +317,18 @@ def _sparql_cors_preflight(resp):
         resp.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
     return resp
 
-@app.route('/query_hub')
-def query_hub():
+@app.route('/interrogazione')
+def interrogazione():
     return render_template('query_hub.html')
+
+@app.route('/query_hub')
+def query_hub_legacy():
+    return redirect(url_for('interrogazione'), code=301)
 
 @app.route('/chatbot')
 def chatbot():
     return render_template('chatbot.html',
-                           crumbs=[{'label': 'Query hub', 'url': url_for('query_hub')}])
+                           crumbs=[{'label': 'Interrogazione dati', 'url': url_for('interrogazione')}])
 
 @app.route('/query', methods=['POST'])
 @limiter.limit(RATE_LIMIT)
@@ -673,9 +716,43 @@ def _external_match_label(link):
     return 'Voce corrispondente in fonte esterna'
 
 
+def _uses_constraint(expr_uri, constraint_uri):
+    """True se nel grafo l'opera è stata creata usando la costrizione."""
+    query = f"""
+    PREFIX desmos: <https://w3id.org/desmos/>
+    PREFIX lrmoo: <http://iflastandards.info/ns/lrm/lrmoo/>
+    SELECT ?creation WHERE {{
+        ?creation lrmoo:R17_created <{expr_uri}> ;
+                  desmos:usedConstraint <{constraint_uri}> .
+    }} LIMIT 1
+    """
+    res = execute_sparql_query(query)
+    return bool(res.get('success') and res['data']['results']['bindings'])
+
+@app.route('/costrizioni/<id_costrizione>')
+def costrizione(id_costrizione):
+    return _render_costrizione(_constraint_uri_from_id(id_costrizione))
+
+@app.route('/opere/<id_opera>/costrizioni/<id_costrizione>')
+def costrizione_opera(id_opera, id_costrizione):
+    uri = _constraint_uri_from_id(id_costrizione)
+    expr_uri = _expr_uri_from_id(id_opera)
+    if not uri or not expr_uri:
+        return render_template('explain.html', info=None, error=INVALID_URI_MSG), 404
+    if not _uses_constraint(expr_uri, uri):
+        return redirect(url_for('costrizione', id_costrizione=id_costrizione), code=302)
+    return _render_costrizione(uri, expr_uri,
+                               canonical_url=url_for('costrizione', id_costrizione=id_costrizione,
+                                                     _external=True))
+
 @app.route('/explain')
-def explain():
+def explain_legacy():
     uri = _valid_constraint_uri(request.args.get('uri'))
+    if not uri:
+        return render_template('explain.html', info=None, error=INVALID_URI_MSG), 404
+    return redirect(costrizione_url(uri, _valid_expr_uri(request.args.get('from'))), code=301)
+
+def _render_costrizione(uri, from_uri=None, canonical_url=None):
     if not uri:
         return render_template('explain.html', info=None, error=INVALID_URI_MSG), 404
 
@@ -746,7 +823,7 @@ def explain():
     result = execute_sparql_query(query)
 
     if not result['success'] or not result['data']['results']['bindings']:
-        return render_template('explain.html', info=None, error="Costrizione non trovata.")
+        return render_template('explain.html', info=None, error="Costrizione non trovata."), 404
 
     row = result['data']['results']['bindings'][0]
 
@@ -904,12 +981,24 @@ def explain():
             })
     info['occurrences'] = occurrences
 
-    crumbs = [_corpus_crumb()] + _expr_crumbs(request.args.get('from'), include_parent=False)
-    return render_template('explain.html', info=info, error=None, crumbs=crumbs)
+    crumbs = [_corpus_crumb()] + _expr_crumbs(from_uri, include_parent=False)
+    return render_template('explain.html', info=info, error=None, crumbs=crumbs,
+                           canonical_url=canonical_url)
+
+@app.route('/opere/<id_opera>')
+def opera(id_opera):
+    # ?from=<id_opera>: opera da cui si arriva (es. l'ipotesto aperto da una riscrittura)
+    return _render_opera(_expr_uri_from_id(id_opera), _expr_uri_from_id(request.args.get('from')))
 
 @app.route('/expression')
-def expression():
+def expression_legacy():
     uri = _valid_expr_uri(request.args.get('uri'))
+    if not uri:
+        return render_template('expression.html', expr=None, error=INVALID_URI_MSG), 404
+    from_uri = _valid_expr_uri(request.args.get('from'))
+    return redirect(opera_url(uri, from_uri if from_uri != uri else None), code=301)
+
+def _render_opera(uri, from_uri=None):
     if not uri:
         return render_template('expression.html', expr=None, error=INVALID_URI_MSG), 404
 
@@ -1083,7 +1172,7 @@ def expression():
 
     result = execute_sparql_query(query)
     if not result['success'] or not result['data']['results']['bindings']:
-        return render_template('expression.html', expr=None, error="Dati non trovati.")
+        return render_template('expression.html', expr=None, error="Dati non trovati."), 404
 
     b = result['data']['results']['bindings'][0]
 
@@ -1273,14 +1362,13 @@ def expression():
                                  'https://w3id.org/desmos/oplepiana/expression/e_plaquette_48'),
     }
 
-    from_uri = _valid_expr_uri(request.args.get('from'))
     if from_uri and from_uri != uri:
         crumbs = [_corpus_crumb()] + _expr_crumbs(from_uri)
     else:
         crumbs = [_corpus_crumb()]
         if parent:
             crumbs.append({'label': Markup('<em>{}</em>').format(parent['title']),
-                           'url': url_for('expression', uri=parent['uri'])})
+                           'url': opera_url(parent['uri'])})
     return render_template('expression.html', expr=expr, error=None, crumbs=crumbs)
 
 # ── Lipogramma: secondo esempio della pagina /riscritture ──────────────────────
@@ -1438,18 +1526,32 @@ def _build_lipo_example():
 
 @app.route('/anagrafia')
 def anagrafia_redirect():
+    uri = _valid_expr_uri(request.args.get('uri'))
+    if uri:
+        return redirect(riscrittura_url(uri), code=301)
     return redirect(url_for('riscritture', **request.args), code=301)
 
 @app.route('/riscritture')
 def riscritture():
-    ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
-    origin_uri = request.args.get('uri', '')
     if 'uri' in request.args:
-        uri = _valid_expr_uri(origin_uri)
+        uri = _valid_expr_uri(request.args.get('uri'))
         if not uri:
             return render_template('riscritture.html', data=None, error=INVALID_URI_MSG), 404
-    else:
-        uri = ANAG_DEFAULT_URI
+        return redirect(riscrittura_url(uri), code=301)
+    return _render_riscritture(None)
+
+@app.route('/riscritture/<id_opera>')
+def riscrittura(id_opera):
+    uri = _expr_uri_from_id(id_opera)
+    if not uri:
+        return render_template('riscritture.html', data=None, error=INVALID_URI_MSG), 404
+    return _render_riscritture(uri)
+
+def _render_riscritture(origin_uri):
+    """Pagina delle riscritture; origin_uri è l'opera da cui si arriva (None per
+    la pagina generale) e ne determina il percorso."""
+    ANAG_DEFAULT_URI = 'https://w3id.org/desmos/oplepiana/expression/e_plaquette_11'
+    uri = origin_uri or ANAG_DEFAULT_URI
     if uri == LIPO_EXPR_URI:
         uri = ANAG_DEFAULT_URI
 
@@ -1511,7 +1613,7 @@ def riscritture():
     bindings = result['data']['results']['bindings']
     if not bindings:
         return render_template('riscritture.html', data=None,
-                               error="Nessun dato di allineamento trovato per questa espressione.")
+                               error="Nessun dato di allineamento trovato per questa espressione."), 404
 
     b = bindings[0]
     source_text = b['sourceText']['value']
@@ -1614,10 +1716,6 @@ MATRIX_UNIT_SHORT = {
     'fictional_time': 'Tempo finz.',
     'addressee': 'Destinat.',
 }
-
-
-def _local_name(uri):
-    return uri.rsplit('/', 1)[-1]
 
 
 @lru_cache(maxsize=1)

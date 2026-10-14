@@ -5,6 +5,9 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 // Prefisso dell'app (vuoto in locale, es. "/ops" in sottocartella), da base.html.
 export const OPS_BASE = document.querySelector('meta[name="ops-base"]')?.content ?? '';
 
+// Scheda di una costrizione: /costrizioni/<nome locale dell'URI>.
+export const constraintHref = uri => `${OPS_BASE}/costrizioni/` + encodeURIComponent(uri.split('/').pop());
+
 const MARGIN = { top: 16, right: 12 };
 
 /* Scala dimensionale GRADUATA (non continua) */
@@ -505,7 +508,7 @@ function renderMatrix(containers, data, focusUri, layout) {
 
             if (mark.n === 1) {
                 const uri = mark.constraints[0].uri;
-                const link = el('a', { href: `${OPS_BASE}/explain?uri=` + encodeURIComponent(uri), role: 'link', tabindex: '0' });
+                const link = el('a', { href: constraintHref(uri), role: 'link', tabindex: '0' });
                 link.setAttribute('aria-label', markAriaLabel(mark));
                 link.appendChild(node);
                 markLayer.appendChild(link);
@@ -594,7 +597,7 @@ function renderMatrix(containers, data, focusUri, layout) {
                 flow.appendChild(span);
             } else {
                 const a = document.createElement('a');
-                a.href = `${OPS_BASE}/explain?uri=` + encodeURIComponent(c.uri);
+                a.href = constraintHref(c.uri);
                 a.className = 'internal-link';
                 a.textContent = c.label;
                 flow.appendChild(a);
@@ -758,7 +761,7 @@ function initLegendBar() {
         resizeTimer = setTimeout(syncMaxHeight, 150);
     });
 
-    // Chiusa di default a ogni caricamento di /explain, per qualunque
+    // Chiusa di default a ogni caricamento di /costrizioni, per qualunque
     // costrizione: nessuna persistenza tra pagine, solo apertura/chiusura
     // manuale finché si resta su questa pagina.
     setOpen(false);

@@ -40,16 +40,16 @@
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{{ url_for('index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/project' %}active{% endif %}" href="{{ url_for('project') }}">Progetto</a>
+                        <a class="nav-link {% if request.endpoint == 'progetto' %}active{% endif %}" href="{{ url_for('progetto') }}">Progetto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/corpus' %}active{% endif %}" href="{{ url_for('corpus') }}">Corpus</a>
+                        <a class="nav-link {% if request.endpoint == 'corpus' %}active{% endif %}" href="{{ url_for('corpus') }}">Corpus</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/riscritture' %}active{% endif %}" href="{{ url_for('riscritture') }}">Riscritture</a>
+                        <a class="nav-link {% if request.endpoint in ['riscritture', 'riscrittura'] %}active{% endif %}" href="{{ url_for('riscritture') }}">Riscritture</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path in ['/query_hub', '/sparql', '/chatbot'] %}active{% endif %}" href="{{ url_for('query_hub') }}">Interrogazione Dati
+                        <a class="nav-link {% if request.endpoint in ['interrogazione', 'sparql', 'chatbot'] %}active{% endif %}" href="{{ url_for('interrogazione') }}">Interrogazione Dati
 
                         </a>                    
                     </li>
