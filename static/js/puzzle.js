@@ -53,7 +53,6 @@
   }
 
   function buildPath(pattern) {
-    // Punto di partenza: angolo (0,0) (= start del lato TOP).
     var d = 'M ' + fmt(0) + ',' + fmt(0);
     var sides = ['top', 'right', 'bottom', 'left'];
     for (var s = 0; s < sides.length; s++) {
@@ -108,11 +107,7 @@
     container.classList.add('converged');
   }, 1500);
 
-  /* Dopo l'incastro completo, l'ultima tessera ("!") cade dalla fila
-     e subito dopo compare il testo introduttivo. La tessera viene
-     sfilata dal flusso flex (posizionata in absolute al suo posto
-     attuale) cosi le tessere restanti ("OPS") si ricentrano rispetto
-     al testo che comparirà sotto. */
+  /* Dopo l'incastro, la tessera "!" esce dal flusso flex (absolute nella posizione attuale) e cade: "OPS" si ricentra e compare il testo introduttivo. */
   setTimeout(function () {
     if (lastPiece) {
       var pieceRect = lastPiece.getBoundingClientRect();

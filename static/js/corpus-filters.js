@@ -95,10 +95,8 @@ function applyFilters() {
                      block.querySelector('.disclosure-toggle'),
                      expanded);
 
-        // Propaga l'apertura verso il basso: se la plaquette è espansa dal
-        // filtro, apri anche tutti i .text-row figli (non solo quello che ha
-        // generato il match), così Autore/Costrizioni/Approfondisci sono
-        // visibili senza ulteriori click, come per una plaquette monografica.
+        // Se il filtro espande la plaquette, apre anche tutti i suoi testi:
+        // i dettagli sono visibili senza altri click, come per una monografica.
         block.querySelectorAll('.text-row').forEach(textRow => {
             setCollapsed(textRow.querySelector('.disclosure-panel'),
                          textRow.querySelector('.disclosure-toggle'),

@@ -858,7 +858,8 @@ tbody tr:last-child td { border-bottom: none; }
 
 .expression-title { color: var(--color-text);
     font-style: italic;
-    font-family: "Futura", "Century Gothic", "Trebuchet MS", serif;} 
+    font-family: "Futura", "Century Gothic", "Trebuchet MS", serif;
+} 
 
 .metadata-section-label {
     font-family: "Baskerville", "Libre Baskerville", Georgia, serif;
@@ -1506,10 +1507,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .expr-breadcrumb-current { color: var(--color-text); }
 
-/* Scheda bibliografica. Classe AUTONOMA, non un'estensione di .filter-card: quella
-   codifica elevazione e interattività del pannello filtri in /corpus, questa è
-   contenuto statico. Niente box-shadow, niente transform — e nessuna dipendenza,
-   così ritocchi al pannello filtri non si propagano qui. */
+/* Scheda bibliografica: volutamente indipendente da .filter-card (contenuto statico, senza ombra né transform). */
 .expr-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-accent);
@@ -1796,12 +1794,9 @@ tbody tr:last-child td { border-bottom: none; }
    Sotto i 760px l'invariante non si applica e la pagina scorre normalmente
    (vedi il blocco @media in fondo a questa sezione). */
 
-/* Unico contenitore che governa larghezza e margini laterali della pagina:
-   nessun figlio ridefinisce max-width, margin-inline o padding-inline.
-   Full-bleed: niente tetto di larghezza, i 48px di padding-inline
-   coincidono col px-5 (3rem) della navbar così "OPS" e il titolo della
-   costrizione condividono la stessa ascissa. --handle-gutter è la gronda
-   riservata all'handle "Approfondisci" nel grid di .matrix-layout sotto. */
+/* Unico contenitore che governa larghezza e margini della pagina. Full-bleed; 48px
+   = px-5 della navbar, così "OPS" e il titolo sono allineati. --handle-gutter: spazio
+   per l'handle "Approfondisci" in .matrix-layout. */
 .explain-page {
     max-width: none;
     margin-inline: 0;
@@ -1811,15 +1806,11 @@ tbody tr:last-child td { border-bottom: none; }
     --drawer-w: 340px;
 }
 
-/* .explain-page__matrix è annidata in .explain-page__fold (vedi sotto),
-   quindi non è più figlia diretta di .explain-page: la seconda parte del
-   selettore la raggiunge lo stesso senza allargare la regola a discendenti
-   più profondi (.explain-page__network resta raggiunta dalla prima). */
+/* Seconda parte del selettore: .explain-page__matrix è annidata in .explain-page__fold. */
 .explain-page > section,
 .explain-page__fold > section { margin-top: 8px; }
 
-/* Intestazione a voce di dizionario: lemma (titolo + occorrenze) a
-   sinistra, definizione a destra - non più centrati e impilati. */
+/* Intestazione a voce di dizionario: lemma (titolo + occorrenze) a sinistra, definizione a destra. */
 .matrix-head {
     display: grid;
     grid-template-columns: minmax(18rem, auto) minmax(0, 1fr);
@@ -1833,10 +1824,7 @@ tbody tr:last-child td { border-bottom: none; }
 .matrix-head__title {
     font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
     font-weight: 700;
-    /* In una voce di dizionario il lemma sta al testo in un rapporto fra
-       1,8 e 2,3: 2,4-3,4rem rendeva 44,1px a 1225px contro i 16,3px della
-       definizione (rapporto 2,7) - il titolo smetteva di essere
-       un'intestazione e diventava un'insegna. */
+    /* Rapporto lemma/definizione ≈ 1,8–2,3, come nelle voci di dizionario. */
     font-size: clamp(1.9rem, 2.6vw, 2.4rem);
     line-height: 1.02;
     letter-spacing: -0.015em;
@@ -1887,16 +1875,14 @@ tbody tr:last-child td { border-bottom: none; }
     line-height: 1.62;
     color: var(--color-text-soft);
     max-width: 62ch; /* misura di riga leggibile: non lasciare che si allunghi su viewport larghe */
-    text-align: justify;
-    /* La giustificazione senza sillabazione produce spaziature irregolari:
-       hyphens richiede lang sull'elemento radice per funzionare (verificato:
-       <html lang="it"> in base.html). */
+    text-align: justify; /* Giustificato con sillabazione, per evitare spaziature irregolari
+    (hyphens richiede <html lang="it">, in base.html). */
     hyphens: auto;
     -webkit-hyphens: auto;
     text-wrap: pretty;
 }
 
-/* Definizioni oltre le ~5 righe (>300 caratteri, p90 del corpus): il
+/* Definizioni oltre le ~5 righe (>300 caratteri, soglia in explain.html): il
    blocco a colonna singola diventa alto e stretto e spinge giù il
    grafico. Due colonne, come nei dizionari cartacei per le voci estese,
    dimezzano l'altezza mantenendo la misura di riga leggibile. */

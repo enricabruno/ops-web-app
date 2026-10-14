@@ -1,5 +1,5 @@
 (function () {
-  // 1. Questa riga è FONDAMENTALE: recupera i dati passati dal server
+  // Dati passati dal server in #anag-data (riscritture.html)
   const _d = JSON.parse(document.getElementById('anag-data').textContent);
 
   const sourceTokens = _d.sourceTokens;
@@ -13,9 +13,9 @@
   /* ── Costanti di layout ────────────────────────────────────── */
   const SRC_Y  = 100;         // Asse superiore (Ipotesto)
   const TGT_Y  = 250;         // Asse inferiore (Ipertesto)
-  const SVG_H  = 350;         // Altezza totale ridotta
+  const SVG_H  = 350;         // Altezza SVG
   const ML     = 95;         // Margine per etichette
-  const MR     = 50;          // Margine destro
+  const MR     = 50;          
   const MT     = 400;         // Margine superiore per evitare sovrapposizioni con il testo
 
   const nSrc = sourceTokens.length;
@@ -25,7 +25,7 @@
   const SVG_W  = containerWidth; // Larghezza di #anag-wrapper (min. 760px su schermi stretti)
   const innerW = SVG_W - ML - MR;
 
-  // Funzioni X: ora distribuiscono i token su tutta la larghezza
+  // Funzioni X: distribuiscono i token su tutta la larghezza
   function srcX(i) { return ML + (nSrc > 1 ? (i / (nSrc - 1)) * innerW : innerW / 2); }
   function tgtX(j) { return ML + (nTgt > 1 ? (j / (nTgt - 1)) * innerW : innerW / 2); }
 
@@ -95,10 +95,10 @@
     .attr('stroke', '#fafafa').attr('stroke-width', 1.5);
 
   srcNodes.append('text')
-    .attr('y', -10)               // Distanza verticale fissa dal cerchio
-    .attr('transform', 'rotate(-45)') // Ruota ESATTAMENTE sul punto di origine
-    .attr('text-anchor', 'start') // Cambia da 'end' a 'start' per aprirsi verso l'alto
-    .attr('dx', '5px')            // Piccolo distanziamento per non toccare il pallino
+    .attr('y', -10)               
+    .attr('transform', 'rotate(-45)') 
+    .attr('text-anchor', 'start') 
+    .attr('dx', '5px')            
     .attr('font-size', '10px')
     .attr('fill', '#2c3e50')
     .attr('font-family', 'Inter, sans-serif')
@@ -156,7 +156,6 @@
     srcNodes.select('text').attr('fill', '#2c3e50').attr('font-weight', 'normal');
     tgtNodes.select('circle').attr('fill', '#2c3e50').attr('r', 4);
     tgtNodes.select('text').attr('fill', '#2c3e50').attr('font-weight', 'normal');
-    // reset text block highlights
     document.querySelectorAll('.src-tok, .tgt-tok').forEach(s => {
       s.style.backgroundColor = '';
       s.style.color = '';
@@ -168,28 +167,24 @@
 
   ePaths
     .on('mouseover', function (event, d) {
-      // dim all, then highlight this one
+      // Attenua tutti gli archi, evidenzia quello corrente
       ePaths.attr('stroke', '#dde1e7').attr('opacity', 0.12).attr('stroke-width', 1.5);
       d3.select(this)
         .attr('stroke', '#e74c3c').attr('opacity', 1).attr('stroke-width', 2.5);
 
-      // source node
       srcNodes.filter((t, i) => i === d.src)
         .select('circle').attr('fill', '#e74c3c').attr('r', 6);
       srcNodes.filter((t, i) => i === d.src)
         .select('text').attr('fill', '#e74c3c').attr('font-weight', '700');
 
-      // target node
       tgtNodes.filter((t, j) => j === d.tgt)
         .select('circle').attr('fill', '#e74c3c').attr('r', 6);
       tgtNodes.filter((t, j) => j === d.tgt)
         .select('text').attr('fill', '#e74c3c').attr('font-weight', '700');
 
-      // text block highlights
       highlightTextToken('src-tok', d.src, true);
       highlightTextToken('tgt-tok', d.tgt, true);
 
-      // tooltip
       const disp = Math.abs(d.src - d.tgt);
       tip.style('opacity', '1')
         .html(

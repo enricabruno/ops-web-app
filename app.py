@@ -105,7 +105,6 @@ REPOSITORY_ID = os.getenv('REPOSITORY_ID', 'desmos')
 SPARQL_ENDPOINT = f"{GRAPHDB_URL}/{REPOSITORY_ID}"
 
 def execute_sparql_query(query):
-    """Esegue una query SPARQL su GraphDB e restituisce i risultati."""
     try:
         print(f"\n=== SPARQL QUERY DEBUG ===")
         print(f"Endpoint: {SPARQL_ENDPOINT}")
@@ -218,9 +217,8 @@ def riscrittura_url(uri, **kwargs):
 INVALID_URI_MSG = "Indirizzo non valido."
 
 def _expr_crumbs(uri, include_self=True, include_parent=True):
-    """Voci del percorso fino all'espressione (madre inclusa, se componente
-    e se include_parent).
-    [] se l'URI non è valido o l'espressione non esiste."""
+    """Voci del percorso fino all'espressione (con la madre, se è un componente
+    e include_parent); [] se l'URI non è valido o l'espressione non esiste."""
     uri = _valid_expr_uri(uri)
     if not uri:
         return []
@@ -377,10 +375,9 @@ def corpus():
            (GROUP_CONCAT(DISTINCT ?formalUnitLabel; separator="||") AS ?formalUnitLabels)
            (GROUP_CONCAT(DISTINCT ?semanticUnitLabel; separator="||") AS ?semanticUnitLabels)
     WHERE {
-      # 1. Identificazione dell'Espressione e del suo Titolo
       ?expression a lrmoo:F2_Expression ;
                   dct:title ?title .
-      # crm:P2_has_type è OPTIONAL: i testi di riferimento (e_text_*) non lo possiedono
+      # 1. crm:P2_has_type è OPTIONAL: i testi di riferimento (e_text_*) non lo possiedono
       OPTIONAL { ?expression crm:P2_has_type ?workType }
 
       # 2. Solo plaquette vincolate: l'evento di creazione deve avere almeno un usedConstraint
@@ -388,8 +385,8 @@ def corpus():
                 crm:P14_carried_out_by ?author .
       ?author rdfs:label ?authorName .
       FILTER EXISTS { ?creation desmos:usedConstraint [] }
-
-      # 3. Recupero dei Vincoli (Costrizioni) usati nella creazione
+      
+      # 3. Costrizioni usate nella creazione
       OPTIONAL {
         ?creation desmos:usedConstraint ?constraint .
 
@@ -443,11 +440,10 @@ def corpus():
         }
       }
       OPTIONAL {
-        # Stop at the immediate F3_Manifestation — do NOT traverse crm:P148i_is_component_of.
-        # L'inverso ^lrmoo:R4_embodies copre le espressioni che asseriscono solo quel verso.
+        # Manifestazione diretta (R4i o l'inverso ^R4_embodies, se è asserito solo quello).
         ?expression lrmoo:R4i_is_embodied_in|^lrmoo:R4_embodies ?_directMf .
-        # 90 espressioni sono incarnate sia nella plaquette sia nel volume che la contiene:
-        # si tiene solo la manifestazione "foglia" (senza parti), cioè la plaquette.
+        # Alcune espressioni sono incarnate sia nella plaquette sia nel volume che la
+        # contiene: si tiene solo la manifestazione "foglia" (senza parti), la plaquette.
         FILTER NOT EXISTS { ?_part crm:P148i_is_component_of|^crm:P148_has_component ?_directMf }
         ?_directMf dct:title ?_directMfTitle .
 
@@ -497,7 +493,7 @@ def corpus():
     if result['success']:
         for b in result['data']['results']['bindings']:
 
-            # Un'espressione può avere più crm:P2_has_type (26 nei dati attuali).
+            # Un'espressione può avere più crm:P2_has_type.
             w_types = sorted({t.split('/')[-1].split('#')[-1]
                               for t in b.get('workTypes', {}).get('value', '').split('||') if t})
 
@@ -585,7 +581,6 @@ def corpus():
             facets['authors'].add(b['authors']['value'])
             facets['work_types'].update(w_types)
 
-    # Merge formal and semantic units into a single dropdown facet
     facets['units'] = sorted(list(facets.pop('formal_units') | facets.pop('semantic_units')))
     facets = {k: sorted(list(v)) if isinstance(v, set) else v for k, v in facets.items()}
 
@@ -594,7 +589,6 @@ def corpus():
     for exp_data in expressions:
         exp_data['is_container'] = exp_data['uri'] in parent_uris
 
-    # Raggruppa le espressioni per volume (es. "Biblioteca Oplepiana, Volume I")
     volumes_map = {}
     for exp_data in expressions:
         volumes_map.setdefault(exp_data['volume'], []).append(exp_data)
@@ -603,7 +597,7 @@ def corpus():
         """Raggruppa le espressioni di un volume per plaquette: <titolo plaquette> → <testi>.
 
         Il gruppo nasce dalla chiave mf_uri (la manifestazione condivisa da contenitore e
-        componenti), mai dalla riga del contenitore: per alcune plaquette (30, 50, 51, 56)
+        componenti), mai dalla riga del contenitore: per alcune plaquette
         l'espressione contenitore non compare tra i risultati della query.
         """
         groups_map = {}
@@ -626,7 +620,7 @@ def corpus():
         # Ordine di plaquette (= ordine fisico nel volume), non alfabetico.
         return sorted(groups_map.values(), key=lambda g: g['num'])
 
-    # Ogni gruppo — i tre volumi e le plaquette autonome — ha lo stesso terzo livello:
+    # Ogni gruppo (volume o plaquette autonome) ha lo stesso terzo livello:
     # <volume> → <titolo plaquette> → <testi contenuti>.
     volumes = [{'title': vol_title,
                 'expressions': vol_expressions,
@@ -771,9 +765,8 @@ def _render_costrizione(uri, from_uri=None, canonical_url=None):
         FILTER(lang(?prefLabel) = "it")
         FILTER(?type IN (desmos:FormalConstraint, desmos:SemanticConstraint, desmos:VisualConstraint))
 
-        # Classe più specifica via EXISTS (non dal solo ?type, che con reasoning
-        # RDFS attivo può produrre righe duplicate non deterministiche: vedi
-        # la stessa risoluzione usata per la matrice).
+        # Classe più specifica via EXISTS, non da ?type: v. nota su
+        # desmos:VisualConstraint nella query di _fetch_constraint_matrix.
         BIND(IF(EXISTS {{ ?constraint a desmos:VisualConstraint }},   "visual",
             IF(EXISTS {{ ?constraint a desmos:SemanticConstraint }}, "semantic",
                                                                       "formal")) AS ?cls)
@@ -851,9 +844,8 @@ def _render_costrizione(uri, from_uri=None, canonical_url=None):
         'semantic_units': _parse_lod_items(row.get('semanticUnits', {}).get('value', '')),
     }
 
-    # cls e origin dei nodi collegati (broader/narrower/related) sono impacchettati
-    # nello stesso GROUP_CONCAT di uri+label: stessa risoluzione EXISTS della
-    # matrice, per non colorare un nodo visuale come formale (rdfs:subClassOf).
+    # cls e origin dei nodi collegati sono nello stesso GROUP_CONCAT di uri+label;
+    # classe risolta come nella matrice (v. nota su desmos:VisualConstraint).
     relations_query = f"""
     PREFIX desmos: <https://w3id.org/desmos/>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -1030,9 +1022,7 @@ def _render_opera(uri, from_uri=None):
         BIND(<%s> AS ?uri)
 
         ?uri dct:title ?title .
-        # Un ipotesto (fonte esterna, es. la Commedia) ha comunque una F3_Manifestation
-        # per completezza del modello LRMoo, ma è un'entità-stub con lo stesso titolo
-        # dell'espressione: non è una collocazione reale da mostrare in scheda.
+        # Ipotesto: espressione da cui un'altra deriva (v. manif_title in Python).
         BIND(EXISTS { ?anyExpr lrmoo:R76_is_derivative_of ?uri } AS ?isHypotextRaw)
         # Forma testuale: etichette italiane dei concetti SKOS. Fuori dalla GROUP BY,
         # altrimenti un'espressione multi-tipo moltiplica le righe e se ne perde parte.
@@ -1046,12 +1036,12 @@ def _render_opera(uri, from_uri=None):
         ?creation lrmoo:R17_created ?uri ;
                   crm:P14_carried_out_by ?author .
         ?author rdfs:label ?authorName .
-        # 10 autori su 51 non hanno owl:sameAs ma solo rdfs:seeAlso: servono entrambe.
+        # Alcuni autori hanno solo rdfs:seeAlso e non owl:sameAs: servono entrambe.
         OPTIONAL { ?author owl:sameAs|rdfs:seeAlso ?authorLinkRaw }
 
         OPTIONAL { ?creation dct:created ?year }
 
-        # 1. Recupero Manifestazione: property path cattura R4i_is_embodied_in e ^R4_embodies
+        # 1. Manifestazione (R4i_is_embodied_in o ^R4_embodies)
         OPTIONAL {
             ?uri (lrmoo:R4i_is_embodied_in | ^lrmoo:R4_embodies) ?_manifNode .
             # Plaquette, non il volume che la contiene (vedi la stessa scelta in /corpus).
@@ -1093,8 +1083,8 @@ def _render_opera(uri, from_uri=None):
 
         # 3. Frammenti (Linguistic Objects) con risalita alla fonte bibliografica
         # Path: ling_obj → P67_refers_to → expression → R4i_is_embodied_in → plaquette
-        #        plaquette → P148i_is_component_of → main_volume → dct:title
-        #        plaquette → schema:pagination
+        # plaquette → P148i_is_component_of → main_volume → dct:title
+        # plaquette → schema:pagination
         OPTIONAL {
             ?lingObj a crm:E33_Linguistic_Object ;
                      crm:P67_refers_to ?uri ;
@@ -1231,8 +1221,7 @@ def _render_opera(uri, from_uri=None):
     for i, frag in enumerate(fragments, start=1):
         frag['anchor'] = f'ev-decl-{i}'
 
-    # Tratti testuali rivelatori: coppie (feature, costrizione) raggruppate per feature,
-    # così una nota con più costrizioni rivelate resta una sola voce.
+    # Tratti testuali: una voce per feature, anche se rivela più costrizioni.
     features_by_uri = {}
     for pair in b.get('featuresData', {}).get('value', '').split('||'):
         bits = pair.split('§')
@@ -1247,7 +1236,6 @@ def _render_opera(uri, from_uri=None):
     for i, feat in enumerate(features, start=1):
         feat['anchor'] = f'ev-feat-{i}'
 
-    # Testi contenuti (se l'espressione è una plaquette contenitore)
     children = []
     for item in b.get('childrenData', {}).get('value', '').split('||'):
         bits = item.split('##')
@@ -1269,12 +1257,8 @@ def _render_opera(uri, from_uri=None):
     else:
         status_key, status_label = 'implicita', 'Costrizione implicita'
 
-    # Asse bipolare: a differenza di status_key/status_label sopra (vero se ALMENO UNA
-    # dichiarazione/tratto esiste in tutta l'espressione), qui lo stato è per costrizione
-    # — un'espressione con tre costrizioni può avere tre stati diversi. I dati vengono
-    # dalle stesse due join già presenti nella query grande (P67_refers_to+P129_is_about
-    # per il paratesto, isFeatureOf+revealsConstraint per il tratto), solo raggruppati
-    # per costrizione invece che per oggetto di evidenza.
+    # Asse bipolare: stato per singola costrizione (non per espressione), dalle stesse
+    # join della query (P129_is_about per il paratesto, revealsConstraint per il tratto).
     decl_anchor_by_constraint = {}
     for frag in fragments:
         for c in frag['declared']:
@@ -1322,8 +1306,8 @@ def _render_opera(uri, from_uri=None):
                            b.get('exactMatches', {}).get('value', ''))
 
     is_hypotext = b.get('isHypotext', {}).get('value', '') == 'true'
-    # Un ipotesto ha comunque una F3_Manifestation per completezza del modello
-    # (v. commento nella query): non è una collocazione dichiarata, va taciuta.
+    # Un ipotesto (es. la Commedia) ha una F3_Manifestation solo per completezza del
+    # modello LRMoo: entità-stub con lo stesso titolo, non una collocazione da mostrare.
     manif_title = '' if is_hypotext else b.get('manifTitle', {}).get('value', '')
     parent_expr_str = b.get('parentExprStr', {}).get('value', '')
     parent_title = b.get('parentTitle', {}).get('value', '')
@@ -1562,29 +1546,28 @@ def _render_riscritture(origin_uri):
     WHERE {{
         BIND(<{uri}> AS ?expr)
 
-        # 1. Titolo dell'ipertesto
         ?expr dct:title ?exprTitle .
 
-        # 2. Testo dell'ipertesto via passaggio testuale INTRO
+        # 1. Testo dell'ipertesto via passaggio testuale INTRO
         ?targetPassage a intro:INT21_TextPassage ;
                        intro:R30i_isTextPassageOf ?expr ;
                        intro:R44_hasWording ?targetText .
 
-        # 3. Relazione intertestuale: ipertesto → ipotesto
+        # 2. Relazione intertestuale: ipertesto → ipotesto
         #    (R13/R12 possono puntare all'espressione o al passaggio testuale)
         ?rel a intro:INT31_IntertextualRelation ;
              intro:R13_hasReferringEntity ?referring ;
              intro:R12_hasReferredToEntity ?referred .
         FILTER(?referring IN (?expr, ?targetPassage))
 
-        # 4. Titolo e testo dell'ipotesto via passaggio testuale INTRO
+        # 3. Titolo e testo dell'ipotesto via passaggio testuale INTRO
         ?srcPassage a intro:INT21_TextPassage ;
                     intro:R30i_isTextPassageOf ?srcExpr ;
                     intro:R44_hasWording ?sourceText .
         FILTER(?referred IN (?srcExpr, ?srcPassage))
         ?srcExpr dct:title ?sourceTitle .
 
-        # 5. Autori
+        # 4. Autori
         OPTIONAL {{
             ?creation lrmoo:R17_created ?expr ;
                       crm:P14_carried_out_by ?auth .

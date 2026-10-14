@@ -20,9 +20,7 @@ const CLASS_LABELS = { formal: 'Formale', semantic: 'Semantica', visual: 'Visual
 
 const LAYOUT_SWITCH_DOWN = 1080;
 
-// marca max 22 + anello 3+3 = 28, più 2 di aria. Coincide col valore fisso
-// che il preset compatto usa oggi: non è una coincidenza, è lo stesso
-// vincolo geometrico.
+// marca max 22 + anello 3+3 = 28, più 2 di aria (= CELL_H del preset compatto).
 const CELL_H_MIN = 30;
 // oltre, le celle si allungano in verticale e la matrice si sfilaccia
 const CELL_H_MAX = 48;
@@ -154,12 +152,8 @@ function buildLegend(container) {
         { key: 'visual', label: 'Visuale' },
     ];
     const { group: classGroup, items: classItems } = legendGroup('Classe');
-    // Icona a pennello (non più quadrato+cerchio affiancati): un tratto
-    // diagonale + testa a goccia, in viewBox 512x512. Un'unica forma per
-    // classe, colorata da --matrix-<key> - la compensazione semantica
-    // (il colore vale a prescindere dalla forma della marca in matrice,
-    // quadrato o cerchio) è nel testo di "Come leggere la visualizzazione"
-    // (explain.html), non più affidata alla forma del campione stesso.
+    // Icona a pennello (viewBox 512x512), colorata da --matrix-<key>: il colore indica
+    // la classe a prescindere dalla forma (v. "Come leggere" in explain.html).
     const BRUSH_D = 'M218.2 289.4L443.2 51.4a30 30 0 0 1 43.6 41.2L261.8 330.6Z'
                   + 'M172 292c-48 0-89 27-108 66-16 33-42 54-64 60 26 43 92 74 172 74'
                   + ' 66 0 120-45 120-100s-54-100-120-100z';
@@ -275,9 +269,8 @@ function renderMatrix(containers, data, focusUri, layout) {
     });
     svg.style.setProperty('--vb-w', width);
     svg.style.setProperty('--vb-h', height);
-    // STEP3: il rapporto ROW_LABEL_W/width varia per preset (110/1078 in
-    // comodo, 92/824 in compatto) - un valore fisso in CSS disallineava
-    // l'elenco costrizioni dalla prima colonna della griglia in compatto.
+    // ROW_LABEL_W/width varia per preset: calcolato qui perché l'elenco costrizioni
+    // resti allineato alla prima colonna della griglia.
     viz.closest('.matrix-screen__viz')
         .style.setProperty('--vb-label-ratio', (ROW_LABEL_W / width * 100) + '%');
     const desc = el('desc');
@@ -528,11 +521,8 @@ function renderMatrix(containers, data, focusUri, layout) {
 
     viz.appendChild(svg);
 
-    // STEP8: con preserveAspectRatio="meet" l'SVG può avere letterboxing
-    // orizzontale dentro la propria scatola (xMidYMid centra il contenuto,
-    // non lo stira): --vb-label-ratio da solo non basta più ad allineare
-    // l'elenco costrizioni alla prima colonna della griglia, serve sommare
-    // anche questo margine reale.
+    // Con preserveAspectRatio="meet" l'SVG può avere margini orizzontali
+    // (letterboxing): per allineare l'elenco costrizioni vanno sommati a --vb-label-ratio.
     const vizBox = viz.getBoundingClientRect();
     const svgBox = svg.getBoundingClientRect();
     const padX = Math.max(0, (vizBox.width - svgBox.width) / 2);
@@ -667,10 +657,7 @@ function initDrawer() {
     if (backdrop) {
         backdrop.addEventListener('click', () => setOpen(false));
     }
-    // Ridondanza di affordance voluta: da aperto l'handle si sposta al
-    // bordo esterno del pannello (vedi CSS) e resta la chiusura primaria,
-    // ma un pulsante dentro il pannello stesso costa poco ed è dove
-    // l'utente guarda per prima cosa dopo aver letto il contenuto.
+    // Secondo comando di chiusura, voluto: dentro il pannello, dove l'utente sta leggendo.
     if (closeBtn) {
         closeBtn.addEventListener('click', () => setOpen(false));
     }
@@ -743,17 +730,12 @@ function initLegendBar() {
         resizeTimer = setTimeout(syncMaxHeight, 150);
     });
 
-    // Chiusa di default a ogni caricamento di /costrizioni, per qualunque
-    // costrizione: nessuna persistenza tra pagine, solo apertura/chiusura
-    // manuale finché si resta su questa pagina.
+    // Chiusa a ogni caricamento: nessuna persistenza tra pagine.
     setOpen(false);
 }
 
-/* Il pannello del drawer (position: fixed) e l'handle (max-height) devono
-   passare esattamente sotto la navbar sticky: 82px era un valore fisso
-   che si sarebbe disallineato a qualunque ritocco della navbar. Misurata
-   a runtime invece di dedotta in CSS, che non ha accesso al DOM di un
-   elemento estraneo (.navbar vive in base.html, sola lettura qui). */
+/* Altezza reale della navbar in --navbar-h: il drawer (position: fixed) e l'handle
+   devono passarle esattamente sotto. Misurata a runtime, non fissata in CSS. */
 function syncNavbarHeight() {
     const navbar = document.querySelector('.navbar');
     if (navbar) {
@@ -771,11 +753,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const legendSlot = document.getElementById('constraint-matrix-legend');
     const resultsEl = document.getElementById('constraint-matrix-results');
     const hintEl = document.getElementById('constraint-matrix-hint');
-    // .matrix-screen (colonna di grid): misura la larghezza reale
-    // disponibile per il grafico, usata per scegliere il preset e il CELL_H
-    // adattivo in layoutFor. Il fit finale è strutturale (CSS flex + SVG
-    // preserveAspectRatio="meet", vedi applyLayout sotto), quindi qui non
-    // c'è più nessun valore auto-riferito da cui guardarsi.
+    // .matrix-screen fornisce la larghezza disponibile per scegliere preset e
+    // CELL_H in layoutFor; il fit finale lo fanno CSS flex e preserveAspectRatio.
     const screenEl = document.querySelector('.matrix-screen');
     const focusUri = viz.dataset.focusUri || '';
 
@@ -807,13 +786,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         return true;
     }
 
-    // STEP8/STEP9: il letterboxing orizzontale (preserveAspectRatio="meet",
-    // xMidYMid) dipende dalla scatola CORRENTE del grafico, non solo
-    // dall'ultimo renderMatrix: un resize che allarga o restringe il
-    // contenitore senza cambiare preset/CELL_H (guardia in applyLayout)
-    // ridimensiona comunque l'SVG già in pagina via CSS (width/height:100%),
-    // quindi va ricalcolato ad ogni chiamata di applyLayout, non solo dopo
-    // un nuovo render.
+    // Il letterboxing dipende dalla dimensione corrente del grafico: un resize senza
+    // cambio di preset/CELL_H ridimensiona comunque l'SVG via CSS, quindi va
+    // ricalcolato a ogni applyLayout, non solo dopo un nuovo render.
     function syncLetterboxPad() {
         const svg = viz.querySelector('svg.viz');
         const wrap = viz.closest('.matrix-screen__viz');
@@ -836,9 +811,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const colCount = data.cols.length;
         const layout = layoutFor(availableWidth, availableHeight, rowCount, colCount);
 
-        // STEP9: va scritta PRIMA della guardia di uscita anticipata sotto -
-        // altrimenti un resize che non cambia preset/CELL_H la lascerebbe
-        // stantia.
+        // Prima della guardia di uscita anticipata: altrimenti un resize che non
+        // cambia preset/CELL_H lascerebbe il margine non aggiornato.
         syncLetterboxPad();
 
         const presetChanged = shouldSwitchPreset(layout.name, availableWidth);
@@ -861,10 +835,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const chartBox = viz.getBoundingClientRect();
         const center = (chartBox.top + chartBox.height / 2) - layoutBox.top;
         layoutEl.style.setProperty('--handle-center', center + 'px');
-        // STEP3: da drawer aperto l'handle passa a position:fixed (ancorato
-        // al bordo esterno del pannello, non più alla colonna del grafico -
-        // vedi CSS), quindi la sua quota verticale va espressa in coordinate
-        // di VIEWPORT, non relative a .matrix-layout come --handle-center.
+        // Da drawer aperto l'handle è position:fixed: la quota va in coordinate
+        // di viewport, non relative a .matrix-layout come --handle-center.
         layoutEl.style.setProperty('--handle-center-vp', (chartBox.top + chartBox.height / 2) + 'px');
     }
 

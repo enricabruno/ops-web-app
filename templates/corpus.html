@@ -35,9 +35,9 @@
     </a>
 {% endmacro %}
 
-{# Riga di disclosure WAI-ARIA: un solo pattern per volumi, plaquette e testi.
-   N = 2 volumi, 3 plaquette, 4 testi. Usata con {% call %}: il contenuto
-   passato diventa il pannello. #}
+{# Riga di disclosure WAI-ARIA, unico pattern per volumi, plaquette e testi. 
+    level: h2 volumi, h3 plaquette, h4 testi. Usata con {% call %}: il contenuto
+    passato diventa il pannello. #}
 {% macro disclosure_row(uid, level, title, count=None, row_class='', data_attrs={}) %}
 <div class="disclosure-row {{ row_class }}"{% for key, value in data_attrs.items() %} data-{{ key }}="{{ value }}"{% endfor %}>
     <h{{ level }} class="disclosure-heading" id="heading-{{ uid }}">
@@ -161,8 +161,7 @@
             {% for volume in volumes %}
             {% set vol_loop = loop %}
             {% call disclosure_row('vol-' ~ vol_loop.index, 2, volume.title, row_class='volume-row') %}
-            {# Terzo livello: <volume> → <titolo plaquette> → <testi contenuti>.
-               .plaquette-list impone un unico passo verticale fra righe omogenee. #}
+            {# Struttura: <volume> → <titolo plaquette> → <testi contenuti>. #}
             <div class="plaquette-list">
             {% for plaq in volume.plaquettes %}
                 {% if plaq.texts %}
