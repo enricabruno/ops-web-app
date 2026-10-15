@@ -75,4 +75,4 @@ ops-web-app/
 ## Crediti
 
 - **DeSMòS, corpus e applicazione web:** Enrica Bruno (enrica.bruno2@unibo.it).
-- **QRAKEN:**: Remo Grillo (remo.grillo@unibo.it).
+- **QRAKEN:** Remo Grillo (remo.grillo@unibo.it).
