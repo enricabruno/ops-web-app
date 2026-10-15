@@ -13,9 +13,10 @@ Interfaccia web in Flask per l'esplorazione semantica del corpus delle plaquette
 
 ## Requisiti
 
-- Python 3.9+
+- Python 3.10+
 - Docker con Docker Compose
 - Token QRAKEN e nome del grafo TTQL
+- Chiave API del fornitore del modello per il chatbot
 
 ## Avvio
 
