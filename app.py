@@ -72,11 +72,16 @@ app.register_blueprint(
 
 # Rate limit sugli endpoint che interrogano GraphDB o il modello.
 RATE_LIMIT = "30/minute"
+# Il chatbot ha un limite proprio: ogni domanda consuma credito Anthropic.
+CHAT_RATE_LIMIT = "30/hour"
 limiter = Limiter(get_remote_address, app=app, storage_uri="memory://")
-app.view_functions['qraken.send_message'] = limiter.limit(RATE_LIMIT)(app.view_functions['qraken.send_message'])
+app.view_functions['qraken.send_message'] = limiter.limit(CHAT_RATE_LIMIT)(app.view_functions['qraken.send_message'])
 
 @app.errorhandler(429)
 def rate_limit_exceeded(e):
+    if request.endpoint == 'qraken.send_message':
+        msg = "Hai raggiunto il limite di 30 domande all'ora. Riprova più tardi."
+        return jsonify({'success': False, 'error': msg}), 429
     msg = "Troppe richieste: il limite è di 30 al minuto. Riprova tra qualche istante."
     if request.endpoint == 'sparql':
         return Response(msg + "\n", status=429, mimetype='text/plain',
