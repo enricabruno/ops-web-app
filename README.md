@@ -68,7 +68,6 @@ ops-web-app/
 ├── data/
 │   ├── ontology/           # ontologia DeSMòS (desmos.owl)
 │   └── rdf/                # corpus (corpus.ttl) e schemi SKOS (concept.ttl)
-├── scripts/                # script di utilità
 ├── static/                 # CSS, JavaScript e immagini
 └── templates/              # template Jinja2
 ```
@@ -76,8 +75,4 @@ ops-web-app/
 ## Crediti
 
 - **DeSMòS, corpus e applicazione web:** Enrica Bruno (enrica.bruno2@unibo.it).
-- **Chatbot:** basato su QRAKEN (`qraken-remote-chatbot`): Remo Grillo (remo.grillo@unibo.it).
-
-## Licenza
-
-CC BY 4.0.
+- **QRAKEN:**: Remo Grillo (remo.grillo@unibo.it).
