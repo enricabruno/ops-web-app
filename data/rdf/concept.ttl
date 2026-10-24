@@ -529,7 +529,7 @@ desmos:bisyllabic_text a skos:Concept ;
 desmos:boule_de_neige a skos:Concept ;
     skos:prefLabel "Snowball"@en , "Boule de neige"@fr , "Boule de neige"@it ;
     skos:definition "Visual constraint in which each successive line consists of a single word one letter longer than the word in the previous line: the first line has a one-letter word, the second a two-letter word, and so on."@en , "Costrizione visiva in cui ogni verso è composto da una singola parola, la cui lunghezza aumenta di una lettera ad ogni verso: il primo verso ha una parola di una lettera, il secondo di due lettere, e così via."@it ;
-    skos:historyNote "The constraint invented by the Oulipians."@en , "La costrizione è stata inventata dagli oulipiani."@it ;
+    skos:historyNote "Constraint invented by the Oulipians."@en , "Costrizione inventata dagli oulipiani."@it ;
     skos:closeMatch <https://oulipo.net/contraintes/boule-de-neige> ;
     skos:example "La successione su quattro versi 'a / re / ora / mare' aumenta regolarmente da una a quattro lettere, creando progressivamente un'immagine che ricorda la palla di neve."@it , "The four-line sequence 'a / re / ora / mare' increases regularly from one to four letters, creating progressively an image that recalls the snowball."@en ;
     skos:inScheme desmos:VisualConstraintScheme .
